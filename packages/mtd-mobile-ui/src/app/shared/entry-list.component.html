@@ -1,0 +1,20 @@
+<div class="browseElements">
+    <ion-list *ngIf="entries.length > 0">
+        <div>
+            <ion-item class="matchContainer" (click)="showModal(entry[1])" *ngFor="let entry of entries" text-wrap>
+                <ion-checkbox color="danger" [checked]="entry[1].checked" *ngIf="edit"></ion-checkbox>
+
+                <ion-label>
+                    <div class="matchLeftContainer">
+                        <!-- <span class="response matchLeftDiv">{{ entry[1].word }}</span> -->
+                        <span class="response matchLeftDiv" [innerHTML]="highlight(entry, 'L1')"></span>
+                    </div>
+                    <div class="matchRightContainer">
+                        <!-- <span class="response matchRightDiv">{{ entry[1].definition }}</span> -->
+                        <span class="response matchRightDiv" [innerHTML]="highlight(entry, 'L2')"></span>
+                    </div>
+                </ion-label>
+            </ion-item>
+        </div>
+    </ion-list>
+</div>

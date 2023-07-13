@@ -1,0 +1,7 @@
+{
+  "name": "mtd-mobile-ui",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
