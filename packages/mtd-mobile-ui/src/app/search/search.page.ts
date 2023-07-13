@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchService, Result } from '../search.service';
-import { ENTRIES } from '../entries';
+import { ENTRIES } from '../../config/entries';
 
 @Component({
   selector: 'mtd-search',

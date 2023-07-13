@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit, ViewEncapsulation } from "@angular/core";
 
-import { Entry } from "../entries";
+import { Entry } from "../../config/entries";
 import { Result } from "../search.service";
 
 
@@ -13,6 +13,7 @@ import { Result } from "../search.service";
 export class EntryListComponent implements OnChanges, OnInit {
   edit = false;
   formattedEntries: Entry[] = [];
+  maxResults = 20; // this can make it super slow if it's unconstrained
   @Input()
     parentEdit!: boolean;
   @Input()

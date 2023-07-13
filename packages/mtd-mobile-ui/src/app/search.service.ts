@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Location, constructTransducer, Index, MTDSearch, englishStemmer } from "@mothertongues/search";
-import { ENTRIES, ENTRIES_HASH, Entry, entryIDKey, L1_keys, L2_keys } from './entries';
+import { ENTRIES, ENTRIES_HASH, Entry, entryIDKey, L1_keys, L2_keys } from '../config/entries';
 
 
 export type Result = [distance: number,  entry: Entry, location: Location[]]
@@ -45,12 +45,12 @@ export class SearchService {
 
   search_l1(query: string): Result[] {
     const results = this.l1_search.search(query).concat(this.l1_compare_search.search(query));
-    return this.convertTermsToSearchResponse(results, this.l1_search)
+    return this.convertTermsToSearchResponse(results.slice(0, 10), this.l1_search)
   }
 
   search_l2(query: string):  Result[] {
     const results = this.l2_search.search(query, 1);
-    return this.convertTermsToSearchResponse(results, this.l2_search)
+    return this.convertTermsToSearchResponse(results.slice(0, 10), this.l2_search)
   }
 
 }
