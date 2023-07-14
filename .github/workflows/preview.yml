@@ -1,0 +1,36 @@
+# .github/workflows/preview.yml
+name: Deploy PR previews
+concurrency: preview-${{ github.ref }}
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+      - name: Install
+        run: |
+          # The default config is for the monorepo, while this is for standalone
+          npm install
+      - name: Test
+        run: |
+          npx nx test search
+      - name: Build
+        run: |
+          npx nx build mtd-mobile-ui --base-href=/mtd/pr-preview/pr-${{github.event.number}}/ --configuration=production
+      - name: Publish Deploy Preview 🛫
+        uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: dist/packages/studio-web
+          preview-branch: gh-pages
+          umbrella-dir: pr-preview
+          action: auto
