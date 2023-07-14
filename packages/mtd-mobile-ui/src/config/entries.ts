@@ -36,7 +36,7 @@ export const L2_keys = [allKeys.definition]
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-const _ENTRIES: Entry[] = _entriesJSON.concat(_entriesJSON).concat(_entriesJSON).concat(_entriesJSON).concat(_entriesJSON).concat(_entriesJSON).concat(_entriesJSON).concat(_entriesJSON).concat(_entriesJSON).concat(_entriesJSON).concat(_entriesJSON).concat(_entriesJSON).concat(_entriesJSON);
+const _ENTRIES: Entry[] = _entriesJSON
 
 export const ENTRIES_HASH: {[id: string]: Entry} = {};
 
