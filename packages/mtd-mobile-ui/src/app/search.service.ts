@@ -17,6 +17,7 @@ export class SearchService {
   constructor() {
     // Build L1 index, transducer, and search objects.
     // TODO: load instead of build if the index was already built.
+    const t0 = Date.now();
     const l1_index = new Index({normalizeFunction: customNormalization});
     l1_index.build({entries: ENTRIES, normalizeFunction: customNormalization, entryIDIndex:entryIDKey, keys:L1_keys});
     const l1_transducer = constructTransducer({"terms":l1_index});
@@ -31,6 +32,8 @@ export class SearchService {
     l2_index.build({entries: ENTRIES, entryIDIndex:entryIDKey, keys:L2_keys, stemmerFunction: englishStemmer })
     const l2_transducer = constructTransducer({"terms": l2_index})
     this.l2_search = new MTDSearch({transducer: l2_transducer, index: l2_index})
+    const t1 = Date.now();
+    console.log(`Building indices and search objects for ${ENTRIES.length} entries took ${(t1-t0)/1000} seconds.`)
   }
 
   search_l1(query: string): Result[] {
