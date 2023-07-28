@@ -23,6 +23,8 @@ jobs:
           npx nx test search
       - name: Build
         run: |
+          npx nx build search
+          npx nx run mtd-mobile-ui:pre-build
           npx nx build mtd-mobile-ui --base-href=/mtd/ --configuration=production
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
