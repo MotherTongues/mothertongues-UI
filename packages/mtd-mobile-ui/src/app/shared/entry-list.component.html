@@ -1,6 +1,6 @@
 <div class="browseElements">
     <ion-list *ngIf="entries.length > 0">
-        <div>
+        <div *ngIf="$entriesHash | async as entriesHash">
             <ion-item class="matchContainer" (click)="showModal(entriesHash[entry[1]])" *ngFor="let entry of entries.slice(0, maxResults)" text-wrap>
                 <ion-checkbox color="danger" [checked]="entriesHash[entry[1]].checked" *ngIf="edit"></ion-checkbox>
 

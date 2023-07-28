@@ -1,4 +1,4 @@
-export interface File {
+interface File {
     filename: string,
     'mime-type': string,
     speaker?: string,
@@ -6,7 +6,7 @@ export interface File {
     title: string
 }
 
-export interface _Entry {
+interface _Entry {
     entryID: string,
     word: string,
     compare_form?: string,
@@ -17,6 +17,6 @@ export interface _Entry {
     theme: {[key:string]: string | null}[]
 }
 
-export interface Entry extends _Entry {checked?: boolean}
+interface Entry extends _Entry {checked?: boolean}
 
 

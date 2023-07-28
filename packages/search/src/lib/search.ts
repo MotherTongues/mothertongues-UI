@@ -119,6 +119,7 @@ interface _IndexConstructionParams {
   entries: object[],
   entryIDIndex: string;
   keys: string[],
+  priorityKeys: string[]
 }
 
 class Counter {
@@ -136,7 +137,7 @@ class Counter {
 
 export interface IndexConstructionParams extends _IndexConstructionParams, BasicIndexParams {calculateScore?: boolean, delta?: number}
 
-function indexBuilderHelper(index: IndexInterface, key: string, entryValue: string, normalizeFunction: CallableFunction, stemmerFunction: CallableFunction | undefined, stopWords: string[], calculateScore: boolean, docFrequencyCounter: Counter, docTermsCounter: {[key: string]: number}, entryIDIndex: string, entry: object) {
+function indexBuilderHelper(index: IndexInterface, key: string, entryValue: string, normalizeFunction: CallableFunction, stemmerFunction: CallableFunction | undefined, stopWords: string[], calculateScore: boolean, docFrequencyCounter: Counter, docTermsCounter: {[key: string]: number}, entryIDIndex: string, entry: object, priorityKeys: string[]) {
   let terms: string[] = normalizeFunction(entryValue)
   // and splitting on whitespace.
   .split(/\s+/)
@@ -153,7 +154,7 @@ function indexBuilderHelper(index: IndexInterface, key: string, entryValue: stri
   // for each term
   terms.forEach((term, i) => {
       const docID = JSONPath({path: entryIDIndex, json: entry})[0]
-      if (calculateScore && ['word', 'definition'].indexOf(key) > -1) {
+      if (calculateScore && priorityKeys.indexOf(key) > -1) {
         if (docID in docTermsCounter) {
           docTermsCounter[docID] += 1;
         } else {
@@ -196,7 +197,7 @@ export class Index {
     this.data = indexData;
   }
 
-  build({entries, entryIDIndex, keys, normalizeFunction = defaultNormalization, stopWords = [""], stemmerFunction, calculateScore = true, delta = 0}: IndexConstructionParams): IndexInterface {
+  build({entries, entryIDIndex, keys, normalizeFunction = defaultNormalization, stopWords = [""], stemmerFunction, calculateScore = true, delta = 0, priorityKeys = ["word", "definition"]}: IndexConstructionParams): IndexInterface {
     // Define the empty inverted index
     const INDEX: IndexInterface = {}
     // if calculating TF-IDF, create a counter to keep track of document frequency
@@ -214,10 +215,10 @@ export class Index {
             const entryValue = JSONPath({path: key, json: entry})[0]
             if (Array.isArray(entryValue)) {
               entryValue.forEach((item, i) => {
-                indexBuilderHelper(INDEX, `${key}[${i}]`, item, normalizeFunction, stemmerFunction, stopWords, calculateScore, docFrequencyCounter, docTermsCounter, entryIDIndex, entry)
+                indexBuilderHelper(INDEX, `${key}[${i}]`, item, normalizeFunction, stemmerFunction, stopWords, calculateScore, docFrequencyCounter, docTermsCounter, entryIDIndex, entry, priorityKeys)
               })
             } else {
-              indexBuilderHelper(INDEX, key, entryValue, normalizeFunction, stemmerFunction, stopWords, calculateScore, docFrequencyCounter, docTermsCounter, entryIDIndex, entry)
+              indexBuilderHelper(INDEX, key, entryValue, normalizeFunction, stemmerFunction, stopWords, calculateScore, docFrequencyCounter, docTermsCounter, entryIDIndex, entry,  priorityKeys)
             }
         })
     })
@@ -242,7 +243,7 @@ export class Index {
           const documentFrequency = docFrequencyCounter.counter[term[0]]
           const nPriorityTermsInDoc = docTermsCounter[docID]
           // Get the frequency of the current term in the current posting across priority keys
-          const priorityTermFrequency = (term[1][docID].location.filter((location) => ['word', 'definition'].indexOf(location[0]) > -1).length)
+          const priorityTermFrequency = (term[1][docID].location.filter((location) => priorityKeys.indexOf(location[0]) > -1).length)
           const IDF = 1+n_documents/1+documentFrequency
           // const TFIDF = Math.log(1  + (termFrequency * IDF))
           // Calculate log TFIDF scaled using a term frequency scaled by the number of priority terms in the document + the frequency of the priority term.

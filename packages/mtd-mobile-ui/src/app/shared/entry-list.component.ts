@@ -1,8 +1,7 @@
 import { Component, Input, OnChanges, OnInit, ViewEncapsulation } from "@angular/core";
-
-import { Entry, ENTRIES_HASH } from "../../config/entries";
+import { SearchService } from "../search.service";
+import { Entry } from "../../config/entries";
 import { Result } from "@mothertongues/search";
-
 
 @Component({
   selector: "mtd-entry-list",
@@ -14,7 +13,7 @@ export class EntryListComponent implements OnChanges, OnInit {
   edit = false;
   formattedEntries: Entry[] = [];
   maxResults = 20; // this can make it super slow if it's unconstrained
-  entriesHash = ENTRIES_HASH;
+  $entriesHash;
   @Input()
     parentEdit!: boolean;
   @Input()
@@ -22,7 +21,8 @@ export class EntryListComponent implements OnChanges, OnInit {
   @Input() 
     searchterm!: string;
   @Input() threshold: number | undefined;
-  constructor() {
+  constructor(public searchService: SearchService) {
+    this.$entriesHash = this.searchService.$entriesHash;
 }
 
 ngOnInit(): void {
@@ -47,8 +47,8 @@ showModal(entry: Entry) {
 highlight(result: Result, lang: 'L1' | 'L2') {
     // highlighting in this interface only happens on either words or definitions
     const key = lang === 'L1' ? 'word' : 'definition';
-    const terms = ENTRIES_HASH[result[1]][key].split(/\s+/)
-    const htmlTerms = terms.map((word) => `<span>${word}</span>`)
+    const terms = this.$entriesHash.value[result[1]][key].split(/\s+/)
+    const htmlTerms = terms.map((word: any) => `<span>${word}</span>`)
     result[2].forEach((match) => {
       if (match[0] === key) {
         htmlTerms[match[1]] = `<span class="langMatched">${terms[match[1]]}</span>`

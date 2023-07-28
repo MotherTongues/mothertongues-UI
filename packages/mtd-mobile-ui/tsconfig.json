@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2022",
+    "declaration": true,
     "useDefineForClassFields": false,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -10,7 +11,8 @@
     "noFallthroughCasesInSwitch": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "strictPropertyInitialization": false
   },
   "files": [],
   "include": [],

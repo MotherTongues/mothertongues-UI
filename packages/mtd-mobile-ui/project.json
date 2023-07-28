@@ -6,6 +6,12 @@
     "sourceRoot": "packages/mtd-mobile-ui/src",
     "tags": [],
     "targets": {
+        "pre-build": {
+            "executor": "nx:run-script",
+            "options": {
+                "script": "pre-build"
+            }
+        },
         "build": {
             "executor": "@angular-devkit/build-angular:browser",
             "outputs": ["{options.outputPath}"],
