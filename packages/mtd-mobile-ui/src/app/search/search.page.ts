@@ -29,6 +29,7 @@ export class SearchPage implements OnInit {
     this.searchQuery = query;
     if (query.length > 1) {
       const t0 = Date.now();
+      // TODO: should be a better way to join results, this could have duplicates
       const results = this.searchService.search_l1(query).concat(this.searchService.search_l2(query)).sort((a, b) => b[0] - a[0])
       const t1 = Date.now();
       console.log(`Performed search of ${ENTRIES.length} entries in ${(t1-t0).toString()} ms`)

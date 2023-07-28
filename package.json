@@ -68,7 +68,6 @@
         "jsonpath-plus": "^7.2.0",
         "liblevenshtein": "^2.0.4",
         "rxjs": "~7.8.0",
-        "slugify": "^1.6.6",
         "tslib": "^2.3.0",
         "zone.js": "~0.13.0"
     }

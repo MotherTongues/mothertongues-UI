@@ -39,6 +39,7 @@ ngOnInit(): void {
 }
 
 showModal(entry: Entry) {
+    console.log(entry)
     console.log('show modal for ' + entry)
 }
 
