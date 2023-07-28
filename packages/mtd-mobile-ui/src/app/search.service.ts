@@ -24,7 +24,7 @@ export class SearchService {
     this.l1_search = new MTDSearch({transducer: l1_transducer, index: l1_index});
     // Build L1 compare index, transducer, and search objects
     const l1_compare_index = new Index({normalizeFunction: customNormalization});
-    l1_compare_index.build({entries: ENTRIES, normalizeFunction: customNormalization, entryIDIndex:entryIDKey, keys:L1_keys})
+    l1_compare_index.build({entries: ENTRIES, normalizeFunction: customNormalization, entryIDIndex:entryIDKey, keys:L1_keys, delta: -1})
     const l1_compare_transducer = constructTransducer({"terms":l1_compare_index});
     this.l1_compare_search = new MTDSearch({transducer: l1_compare_transducer, index: l1_compare_index})
     // Build L2 index, transducer, and search objects
