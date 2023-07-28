@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchService } from '../search.service';
 import { Result } from '@mothertongues/search';
-import { ENTRIES } from '../../config/entries';
 
 @Component({
   selector: 'mtd-search',
@@ -32,7 +31,7 @@ export class SearchPage implements OnInit {
       // TODO: should be a better way to join results, this could have duplicates
       const results = this.searchService.search_l1(query).concat(this.searchService.search_l2(query)).sort((a, b) => b[0] - a[0])
       const t1 = Date.now();
-      console.log(`Performed search of ${ENTRIES.length} entries in ${(t1-t0).toString()} ms`)
+      console.log(`Performed search of ${this.searchService.$entriesLength.value} entries in ${(t1-t0).toString()} ms`)
       this.matches = results.filter((result) => result[0] < this.partialThreshold).sort((a, b) => b[3] - a[3])
       this.partMatches = results.filter((result) => result[0] >= this.partialThreshold && result[0] < this.maybeThreshold ).sort((a, b) => b[3] - a[3])
       this.maybeMatches = results.filter((result) => result[0] >= this.maybeThreshold).sort((a, b) => b[3] - a[3])

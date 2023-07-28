@@ -1,1 +1,3 @@
 /node_modules
+buildIndex.js
+src/assets/*.json
