@@ -8,7 +8,7 @@ export type Location = [
     positionIndex: number
 ]
 
-export interface Posting {[entryID: string]: [location: Location[], score: number]}
+export interface Posting {[entryID: string]: {location: Location[], score: number}}
 
 export interface IndexInterface {
     [term: string]: Posting
@@ -166,17 +166,17 @@ function indexBuilderHelper(index: IndexInterface, key: string, entryValue: stri
       if (term in index) {
           // if posting is in inverted index
           if (docID in index[term]) {
-              index[term][docID][0].push([key, i])
+              index[term][docID].location.push([key, i])
           // else create the posting array
           } else {
               // initialize with 0 score
-              index[term][docID] = [[[key, i]], 0];
+              index[term][docID] = {location: [[key, i]], score: 0};
           }
       // else, add the term to the index
       } else {
           index[term] = {}
           // initialize with 0 score
-          index[term][docID] = [[[key, i]], 0];
+          index[term][docID] = {location: [[key, i]], score: 0};
       }
     
   })
@@ -215,8 +215,7 @@ export class Index {
             const entryValue = JSONPath({path: key, json: entry})[0]
             if (Array.isArray(entryValue)) {
               entryValue.forEach((item, i) => {
-                const itemKey = `${key}[${i}]`
-                indexBuilderHelper(INDEX, itemKey, item, normalizeFunction, stemmerFunction, stopWords, calculateScore, docFrequencyCounter, docTermsCounter, entryIDIndex, entry, priorityKeys)
+                indexBuilderHelper(INDEX, `${key}[${i}]`, item, normalizeFunction, stemmerFunction, stopWords, calculateScore, docFrequencyCounter, docTermsCounter, entryIDIndex, entry, priorityKeys)
               })
             } else {
               indexBuilderHelper(INDEX, key, entryValue, normalizeFunction, stemmerFunction, stopWords, calculateScore, docFrequencyCounter, docTermsCounter, entryIDIndex, entry,  priorityKeys)
@@ -239,18 +238,18 @@ export class Index {
         // For each posting associated with the term
         Object.keys(term[1]).forEach((docID) => {
           // Get the frequency of the current term in the current posting across all keys
-          const termFrequency = term[1][docID][0].length;
+          const termFrequency = term[1][docID].location.length;
           // Get the frequency of the term across all documents
           const documentFrequency = docFrequencyCounter.counter[term[0]]
           const nPriorityTermsInDoc = docTermsCounter[docID]
           // Get the frequency of the current term in the current posting across priority keys
-          const priorityTermFrequency = (term[1][docID][0].filter((location) => priorityKeys.indexOf(location[0]) > -1).length)
+          const priorityTermFrequency = (term[1][docID].location.filter((location) => priorityKeys.indexOf(location[0]) > -1).length)
           const IDF = 1+n_documents/1+documentFrequency
           // const TFIDF = Math.log(1  + (termFrequency * IDF))
           // Calculate log TFIDF scaled using a term frequency scaled by the number of priority terms in the document + the frequency of the priority term.
           // This should prioritize entries with short word/definitions which should align with user intuitions
           // allows for optional delta value to allow for different scaling between indices
-          term[1][docID][1] = parseFloat((Math.log((termFrequency/nPriorityTermsInDoc) * IDF) + priorityTermFrequency + delta).toFixed(2))
+          term[1][docID].score = Math.log((termFrequency/nPriorityTermsInDoc) * IDF) + priorityTermFrequency + delta
         })
       })
     }
@@ -301,10 +300,11 @@ export class MTDSearch {
         // Merge results in a single object
         if (posting in resultsObject) {
           resultsObject[posting][0] += distance
-          resultsObject[posting][1] = resultsObject[posting][1].concat(this.index.data[term][posting][0])
-          resultsObject[posting][2] += this.index.data[term][posting][1]
+          resultsObject[posting][1] = resultsObject[posting][1].concat(this.index.data[term][posting].location)
+          // resultsObject[posting][2] += this.index.data[term][posting].score * docMatchScore
+          resultsObject[posting][2] += this.index.data[term][posting].score
         } else {
-          resultsObject[posting] = [distance, this.index.data[term][posting][0], this.index.data[term][posting][1]]
+          resultsObject[posting] = [distance, this.index.data[term][posting].location, this.index.data[term][posting].score]
         }
     })
     
