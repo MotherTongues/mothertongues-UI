@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const fs = require('fs');
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const pako = require('pako');
+const fflate = require('fflate');
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const mtd = require("../../../dist/packages/search/src/index");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
