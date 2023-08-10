@@ -13,8 +13,18 @@ import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, SearchPageModule, SharedModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, DataService],
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    HttpClientModule,
+    SearchPageModule,
+    SharedModule,
+  ],
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    DataService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

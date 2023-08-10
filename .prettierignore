@@ -2,3 +2,7 @@
 /dist
 /coverage
 .angular
+build
+*index.json
+dictionary_data.json
+en-fr.json
