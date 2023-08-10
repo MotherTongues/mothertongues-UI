@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, ViewEncapsulation } from "@angular/core";
-import { SearchService } from "../search.service";
+import { DataService } from "../data.service";
 import { Entry } from "../../config/entries";
 import { Result } from "@mothertongues/search";
 
@@ -21,8 +21,8 @@ export class EntryListComponent implements OnChanges, OnInit {
   @Input() 
     searchterm!: string;
   @Input() threshold: number | undefined;
-  constructor(public searchService: SearchService) {
-    this.$entriesHash = this.searchService.$entriesHash;
+  constructor(public dataService: DataService) {
+    this.$entriesHash = this.dataService.$entriesHash;
 }
 
 ngOnInit(): void {

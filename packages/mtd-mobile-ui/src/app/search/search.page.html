@@ -8,7 +8,9 @@
 </ion-header>
 
 <ion-content>
-    <ion-searchbar id="searchBar" color="primary" animated="true" placeholder="Type your word here" (ionInput)="search($event)"></ion-searchbar>
+    <ion-searchbar id="searchBar" color="primary" [disabled]="($loaded | async) === false" animated="true" placeholder="Type your word here" (ionInput)="search($event)">
+        <ion-spinner *ngIf="($loaded | async) === false"></ion-spinner>
+    </ion-searchbar>
     <div *ngIf="searchQuery.length > 1">
         <div class="result-container" *ngIf="matches.length > 0">
             <h4>Matches</h4>
