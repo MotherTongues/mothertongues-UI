@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { SearchService } from '../search.service';
+import { DataService } from '../data.service';
 import { Result } from '@mothertongues/search';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'mtd-search',
@@ -14,7 +15,10 @@ export class SearchPage implements OnInit {
   maybeMatches: Result[] = [];
   partialThreshold = 1;
   maybeThreshold = 2;
-  constructor(public searchService: SearchService) {}
+  $loaded: BehaviorSubject<boolean>;
+  constructor(public dataService: DataService) {
+    this.$loaded = this.dataService.$loaded
+  }
 
   ngOnInit(): void {
   }
@@ -27,11 +31,16 @@ export class SearchPage implements OnInit {
     const query = (ev.target as HTMLTextAreaElement).value
     this.searchQuery = query;
     if (query.length > 1) {
-      const t0 = Date.now();
+      let t0 = Date.now();
       // TODO: should be a better way to join results, this could have duplicates
-      const results = this.searchService.search_l1(query).concat(this.searchService.search_l2(query)).sort((a, b) => b[0] - a[0])
-      const t1 = Date.now();
-      console.log(`Performed search of ${this.searchService.$entriesLength.value} entries in ${(t1-t0).toString()} ms`)
+      const l1_results = this.dataService.search_l1(query)
+      let t1 = Date.now();
+      console.log(`Performed L1 search of ${this.dataService.$entriesLength.value} entries in ${(t1-t0).toString()} ms`)
+      t0 = Date.now();
+      const l2_results = this.dataService.search_l2(query)
+      t1 = Date.now();
+      console.log(`Performed L2 search of ${this.dataService.$entriesLength.value} entries in ${(t1-t0).toString()} ms`)
+      const results = (l1_results.concat(l2_results)).sort((a, b) => b[0] - a[0])
       this.matches = results.filter((result) => result[0] < this.partialThreshold).sort((a, b) => b[3] - a[3])
       this.partMatches = results.filter((result) => result[0] >= this.partialThreshold && result[0] < this.maybeThreshold ).sort((a, b) => b[3] - a[3])
       this.maybeMatches = results.filter((result) => result[0] >= this.maybeThreshold).sort((a, b) => b[3] - a[3])
