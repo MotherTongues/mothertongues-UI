@@ -1,20 +1,35 @@
 <div class="browseElements">
-    <ion-list *ngIf="entries.length > 0">
-        <div *ngIf="$entriesHash | async as entriesHash">
-            <ion-item class="matchContainer" (click)="showModal(entriesHash[entry[1]])" *ngFor="let entry of entries.slice(0, maxResults)" text-wrap>
-                <ion-checkbox color="danger" [checked]="entriesHash[entry[1]].checked" *ngIf="edit"></ion-checkbox>
+  <ion-list *ngIf="entries.length > 0">
+    <div *ngIf="$entriesHash | async as entriesHash">
+      <ion-item
+        class="matchContainer"
+        (click)="showModal(entriesHash[entry[1]])"
+        *ngFor="let entry of entries.slice(0, maxResults)"
+        text-wrap
+      >
+        <ion-checkbox
+          color="danger"
+          [checked]="entriesHash[entry[1]].checked"
+          *ngIf="edit"
+        ></ion-checkbox>
 
-                <ion-label>
-                    <div class="matchLeftContainer">
-                        <!-- <span class="response matchLeftDiv">{{ entry[1].word }}</span> -->
-                        <span class="response matchLeftDiv" [innerHTML]="highlight(entry, 'L1')"></span>
-                    </div>
-                    <div class="matchRightContainer">
-                        <!-- <span class="response matchRightDiv">{{ entry[1].definition }}</span> -->
-                        <span class="response matchRightDiv" [innerHTML]="highlight(entry, 'L2')"></span>
-                    </div>
-                </ion-label>
-            </ion-item>
-        </div>
-    </ion-list>
+        <ion-label>
+          <div class="matchLeftContainer">
+            <!-- <span class="response matchLeftDiv">{{ entry[1].word }}</span> -->
+            <span
+              class="response matchLeftDiv"
+              [innerHTML]="highlight(entry, 'L1')"
+            ></span>
+          </div>
+          <div class="matchRightContainer">
+            <!-- <span class="response matchRightDiv">{{ entry[1].definition }}</span> -->
+            <span
+              class="response matchRightDiv"
+              [innerHTML]="highlight(entry, 'L2')"
+            ></span>
+          </div>
+        </ion-label>
+      </ion-item>
+    </div>
+  </ion-list>
 </div>
