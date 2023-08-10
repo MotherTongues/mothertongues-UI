@@ -44,6 +44,7 @@ export function create_normalization_function(
       Object.keys(config.replace_rules).forEach(([k, v]) => {
         text = text.replace(k, v);
       });
+      return text;
     };
     callables.push(replace);
   }
