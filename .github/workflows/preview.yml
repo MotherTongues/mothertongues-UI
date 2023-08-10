@@ -31,7 +31,7 @@ jobs:
       - name: Publish Deploy Preview 🛫
         uses: rossjrw/pr-preview-action@v1
         with:
-          source-dir: dist/packages/studio-web
+          source-dir: dist/packages/mtd-mobile-ui
           preview-branch: gh-pages
           umbrella-dir: pr-preview
           action: auto
