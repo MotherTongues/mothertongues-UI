@@ -44,7 +44,7 @@ export class DataService {
         // Load entries into hash
         this.$entriesHash.next(data.data);
         this.$entriesLength.next(Object.keys(data.data).length);
-        console.log(this.$entriesLength.value);
+        console.log(this.$entriesHash.value);
         // Load L1 index
         const l1_index = new Index({
           normalizeFunctionConfig: config['l1_normalization_transducer'],

@@ -3,6 +3,7 @@
 import { Builder } from 'liblevenshtein';
 import { newStemmer } from 'snowball-stemmers';
 import { DistanceCalculator } from './weighted.levenstein';
+import { Counter } from './utils';
 
 export type Location = [entryIndex: string, positionIndex: number];
 
@@ -153,6 +154,18 @@ export type Result = [
   score: number
 ];
 
+export function sortResults(results: Result[]) {
+  return results.sort((a, b) => {
+    // Sort by Levenstein distance first
+    const n = a[0] - b[0];
+    if (n !== 0) {
+      return n;
+    }
+    // Then by BM25 score
+    return b[3] - a[3]
+  });
+}
+
 export class MTDSearch {
   index: Index;
   indexTerms: string[];
@@ -164,6 +177,38 @@ export class MTDSearch {
     this.indexTerms = Object.keys(this.index.data);
     this.transducer = transducer;
     this.searchType = searchType;
+  }
+
+  combine_results(flatResults: [string, number][]) {
+    // But to calculate the average Lev distance and score we first create an object
+    // This function only sums the Lev distances, so they need to be divided by the 
+    // number of query terms later
+    const combinedResults: { [posting: string]: [number, Location[], number] } = {};
+    const docCounter = new Counter([])
+    for (const result of flatResults) {
+      const term = result[0];
+      const distance = result[1];
+      const postings = Object.keys(this.index.data[term]);
+      docCounter.update(postings)
+      postings.forEach((posting) => {
+        // Merge results in a single object
+        if (posting in combinedResults) {
+          combinedResults[posting][0] += distance;
+          combinedResults[posting][1] = combinedResults[posting][1].concat(
+            this.index.data[term][posting].location
+          );
+          combinedResults[posting][2] +=
+            this.index.data[term][posting].score['total'];
+        } else {
+          combinedResults[posting] = [
+            distance,
+            this.index.data[term][posting].location,
+            this.index.data[term][posting].score['total'],
+          ];
+        }
+      });
+    }
+    return {combinedResults, docCounter}
   }
 
   search(query: string, maximum_edit_distance = 2, sort = false) {
@@ -180,62 +225,39 @@ export class MTDSearch {
         return this.indexTerms
           .map((term) => [term, this.transducer.getEditDistance(word, term)])
           .filter((result) => result[1] < maximum_edit_distance)
-          .sort((a, b) => a[1] - b[1]);
       } else {
         return this.transducer.transduce(word, maximum_edit_distance);
       }
     });
-    console.log(this.indexTerms);
-    console.log(results);
     // create sets of document ids for each query term for multi-word queries
     results.forEach((word, i) => {
       matchSets[splitQueryTerms[i]] = new Set(
         word.map((x) => Object.keys(this.index.data[x[0]])).flat()
       );
     });
-    console.log(results);
+    // Flatten multi-query results
     const flatResults = results.flat();
-    console.log(flatResults);
-    const resultsObject: { [posting: string]: [number, Location[], number] } =
-      {};
-    for (const result of flatResults) {
-      const term = result[0];
-      const distance = result[1];
-      const postings = Object.keys(this.index.data[term]);
-      postings.forEach((posting) => {
-        // multiply score by number of docs that have at least one match / number of words
-        // this prioritizes postings that have matches for multiple query terms
-        // const docMatchScore = Object.values(matchSets).filter((x) => x.has(posting)).length / splitQueryTerms.length
-        // Merge results in a single object
-        if (posting in resultsObject) {
-          resultsObject[posting][0] += distance;
-          resultsObject[posting][1] = resultsObject[posting][1].concat(
-            this.index.data[term][posting].location
-          );
-          // resultsObject[posting][2] += this.index.data[term][posting].score * docMatchScore
-          resultsObject[posting][2] +=
-            this.index.data[term][posting].score['total'];
-        } else {
-          resultsObject[posting] = [
-            distance,
-            this.index.data[term][posting].location,
-            this.index.data[term][posting].score['total'],
-          ];
-        }
-      });
-    }
-    // TODO: this is messy, too many changes to the shapes of things, needs refactoring.
-    const resultsArray: Result[] = Object.keys(resultsObject).map((posting) => [
-      resultsObject[posting][0] / splitQueryTerms.length,
+    // Combine the results by averaging the edit distance and summing the BM25 scores
+    const {combinedResults, docCounter} = this.combine_results(flatResults)
+    // We return a list of Results
+    const resultsArray: Result[] = Object.keys(combinedResults).map((posting) => [
+      // if the doc was not found by any of the query terms, add an upper-bound default of the max edit distance + 1 for the
+      // un-matched query terms and then average the results
+      (combinedResults[posting][0] + ((splitQueryTerms.length - docCounter.counter[posting]) * (maximum_edit_distance + 1))) / splitQueryTerms.length,
       posting,
-      resultsObject[posting][1],
-      resultsObject[posting][2],
+      combinedResults[posting][1],
+      combinedResults[posting][2],
     ]);
-    console.log(
-      resultsArray.filter((x) => x[0] < 0.5).sort((a, b) => b[3] - a[3])
-    );
     if (sort) {
-      return resultsArray.sort((a, b) => b[3] - a[3]);
+      if (maximum_edit_distance === 0) {
+        // if max edit distance is 0
+        // just sort by score
+        return resultsArray.sort((a, b) => b[3] - a[3]);
+      } else {
+        // Sort by Lev Distance first
+        // then by BM25 score
+        return sortResults(resultsArray)
+      }
     } else {
       return resultsArray;
     }
