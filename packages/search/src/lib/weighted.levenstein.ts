@@ -48,7 +48,7 @@ export class DistanceCalculator {
     }
   }
 
-  getEditDistance(a: string, b: string) {
+  getEditDistance(a: string | string[], b: string | string[]) {
     if (a.length === 0) {
       return b.length;
     }
@@ -81,7 +81,7 @@ export class DistanceCalculator {
         currentInsertionCost = matrix[i][j - 1] + this.insertionCost;
         currentSubstitutionCost =
           matrix[i - 1][j - 1] +
-          this.getSubstitutionCost(a.charAt(j - 1), b.charAt(i - 1));
+          this.getSubstitutionCost(a[j - 1], b[i - 1]);
         currentDeletionCost =
           matrix[i - 1][j] +
           (j == a.length ? this.deletionAtEndCost : this.deletionCost);
