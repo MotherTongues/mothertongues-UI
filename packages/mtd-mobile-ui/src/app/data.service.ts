@@ -51,10 +51,16 @@ export class DataService {
           stemmerFunctionChoice: config['l1_stemmer'],
           data: data.l1_index,
         });
+        const l1_transducer = this.returnTransducer(
+          config['l1_search_strategy'],
+          l1_index,
+          config['l1_search_config']
+        );
         this.l1_search = new MTDSearch({
-          transducer: new DistanceCalculator(),
+          transducer: l1_transducer,
           index: l1_index,
-          searchType: SearchTypes.weighted_levenstein,
+          searchType: config['l1_search_strategy'],
+          tokens: config['alphabet'],
         });
         // Load L2 index
         const l2_index = new Index({
@@ -62,14 +68,33 @@ export class DataService {
           stemmerFunctionChoice: config['l2_stemmer'],
           data: data.l2_index,
         });
-        // TODO: move decision between weighted lev search and MAFSA to MTD config
+        const l2_transducer = this.returnTransducer(
+          config['l2_search_strategy'],
+          l2_index,
+          config['l2_search_config']
+        );
         this.l2_search = new MTDSearch({
-          transducer: constructTransducer({ terms: l2_index }),
+          transducer: l2_transducer,
           index: l2_index,
-          searchType: SearchTypes.liblevenstein_automata,
+          searchType: config['l2_search_strategy'],
+          tokens: config['alphabet'],
         });
         this.$loaded.next(true);
       });
+  }
+
+  returnTransducer(searchType: SearchTypes, index: Index, config: any) {
+    let transducer = null;
+    if (searchType === SearchTypes.liblevenstein_automata) {
+      transducer = constructTransducer({ terms: index });
+    } else if (searchType === SearchTypes.weighted_levenstein) {
+      if (config) {
+        transducer = new DistanceCalculator(config);
+      } else {
+        transducer = new DistanceCalculator({});
+      }
+    }
+    return transducer;
   }
 
   search_l1(query: string): Result[] {

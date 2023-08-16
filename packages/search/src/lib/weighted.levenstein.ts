@@ -10,7 +10,16 @@
  */
 
 interface SubstitutionCosts {
-  a_char?: { [b_char: string]: number };
+  [a_char: string]: { [b_char: string]: number };
+}
+
+interface WeightsConfig {
+  insertionCost?: number;
+  deletionCost?: number;
+  insertionAtBeginningCost?: number;
+  deletionAtEndCost?: number;
+  substitutionCosts?: SubstitutionCosts;
+  defaultSubstitutionCost?: number;
 }
 
 export class DistanceCalculator {
@@ -18,22 +27,22 @@ export class DistanceCalculator {
   deletionCost: number;
   insertionAtBeginningCost: number;
   deletionAtEndCost: number;
-  weightedSubstitutionCosts: SubstitutionCosts = {};
+  substitutionCosts: SubstitutionCosts;
   defaultSubstitutionCost: number;
 
-  constructor(
+  constructor({
     insertionCost = 1.0,
     deletionCost = 1.0,
     insertionAtBeginningCost = 0.5,
     deletionAtEndCost = 0.5,
     substitutionCosts = {},
-    defaultSubstitutionCost = 1.0
-  ) {
+    defaultSubstitutionCost = 1.0,
+  }: WeightsConfig) {
     this.insertionCost = insertionCost;
     this.deletionCost = deletionCost;
     this.insertionAtBeginningCost = insertionAtBeginningCost;
     this.deletionAtEndCost = deletionAtEndCost;
-    this.weightedSubstitutionCosts = substitutionCosts;
+    this.substitutionCosts = substitutionCosts;
     this.defaultSubstitutionCost = defaultSubstitutionCost;
   }
 
@@ -42,8 +51,7 @@ export class DistanceCalculator {
       return 0;
     } else {
       return (
-        this.weightedSubstitutionCosts.a_char?.[b_char] ??
-        this.defaultSubstitutionCost
+        this.substitutionCosts[a_char]?.[b_char] ?? this.defaultSubstitutionCost
       );
     }
   }
@@ -80,8 +88,7 @@ export class DistanceCalculator {
       for (j = 1; j <= a.length; j++) {
         currentInsertionCost = matrix[i][j - 1] + this.insertionCost;
         currentSubstitutionCost =
-          matrix[i - 1][j - 1] +
-          this.getSubstitutionCost(a[j - 1], b[i - 1]);
+          matrix[i - 1][j - 1] + this.getSubstitutionCost(a[j - 1], b[i - 1]);
         currentDeletionCost =
           matrix[i - 1][j] +
           (j == a.length ? this.deletionAtEndCost : this.deletionCost);
@@ -96,7 +103,7 @@ export class DistanceCalculator {
   }
 
   // Given a query <a> and a series of targets <bs>, return the least distance to any target
-  getLeastEditDistance(a: string, bs: string[]) {
+  getLeastEditDistance(a: string | string[], bs: string[] | string[][]) {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const that = this;
     return Math.min.apply(

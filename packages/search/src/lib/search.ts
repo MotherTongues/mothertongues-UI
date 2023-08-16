@@ -113,6 +113,7 @@ export interface MTDParams {
   transducer: Builder | object;
   index: Index;
   searchType: SearchTypes;
+  tokens: string[];
 }
 
 interface BasicIndexParams {
@@ -162,7 +163,7 @@ export function sortResults(results: Result[]) {
       return n;
     }
     // Then by BM25 score
-    return b[3] - a[3]
+    return b[3] - a[3];
   });
 }
 
@@ -170,26 +171,33 @@ export class MTDSearch {
   index: Index;
   indexTerms: string[];
   transducer: Builder | DistanceCalculator;
+  tokens: string[] | null;
   searchType: SearchTypes;
+  tokenizer: CallableFunction;
 
-  constructor({ transducer, index, searchType }: MTDParams) {
+  constructor({ transducer, index, searchType, tokens }: MTDParams) {
     this.index = index;
     this.indexTerms = Object.keys(this.index.data);
     this.transducer = transducer;
     this.searchType = searchType;
+    this.tokens = tokens;
+    const sortedTokens = [...tokens].sort((a, b) => b.length - a.length);
+    const regex = new RegExp('(' + sortedTokens.join('|') + ')', 'g');
+    this.tokenizer = (str: string) => str.split(regex);
   }
 
   combine_results(flatResults: [string, number][]) {
     // But to calculate the average Lev distance and score we first create an object
-    // This function only sums the Lev distances, so they need to be divided by the 
+    // This function only sums the Lev distances, so they need to be divided by the
     // number of query terms later
-    const combinedResults: { [posting: string]: [number, Location[], number] } = {};
-    const docCounter = new Counter([])
+    const combinedResults: { [posting: string]: [number, Location[], number] } =
+      {};
+    const docCounter = new Counter([]);
     for (const result of flatResults) {
       const term = result[0];
       const distance = result[1];
       const postings = Object.keys(this.index.data[term]);
-      docCounter.update(postings)
+      docCounter.update(postings);
       postings.forEach((posting) => {
         // Merge results in a single object
         if (posting in combinedResults) {
@@ -208,7 +216,7 @@ export class MTDSearch {
         }
       });
     }
-    return {combinedResults, docCounter}
+    return { combinedResults, docCounter };
   }
 
   search(query: string, maximum_edit_distance = 2, sort = false) {
@@ -222,9 +230,13 @@ export class MTDSearch {
         word = this.index.stemmerFunction(word);
       }
       if (this.searchType === SearchTypes.weighted_levenstein) {
+        word = this.tokenizer(word);
         return this.indexTerms
-          .map((term) => [term, this.transducer.getEditDistance(word, term)])
-          .filter((result) => result[1] < maximum_edit_distance)
+          .map((term) => [
+            term,
+            this.transducer.getEditDistance(word, this.tokenizer(term)),
+          ])
+          .filter((result) => result[1] < maximum_edit_distance);
       } else {
         return this.transducer.transduce(word, maximum_edit_distance);
       }
@@ -238,16 +250,21 @@ export class MTDSearch {
     // Flatten multi-query results
     const flatResults = results.flat();
     // Combine the results by averaging the edit distance and summing the BM25 scores
-    const {combinedResults, docCounter} = this.combine_results(flatResults)
+    const { combinedResults, docCounter } = this.combine_results(flatResults);
     // We return a list of Results
-    const resultsArray: Result[] = Object.keys(combinedResults).map((posting) => [
-      // if the doc was not found by any of the query terms, add an upper-bound default of the max edit distance + 1 for the
-      // un-matched query terms and then average the results
-      (combinedResults[posting][0] + ((splitQueryTerms.length - docCounter.counter[posting]) * (maximum_edit_distance + 1))) / splitQueryTerms.length,
-      posting,
-      combinedResults[posting][1],
-      combinedResults[posting][2],
-    ]);
+    const resultsArray: Result[] = Object.keys(combinedResults).map(
+      (posting) => [
+        // if the doc was not found by any of the query terms, add an upper-bound default of the max edit distance + 1 for the
+        // un-matched query terms and then average the results
+        (combinedResults[posting][0] +
+          (splitQueryTerms.length - docCounter.counter[posting]) *
+            (maximum_edit_distance + 1)) /
+          splitQueryTerms.length,
+        posting,
+        combinedResults[posting][1],
+        combinedResults[posting][2],
+      ]
+    );
     if (sort) {
       if (maximum_edit_distance === 0) {
         // if max edit distance is 0
@@ -256,7 +273,7 @@ export class MTDSearch {
       } else {
         // Sort by Lev Distance first
         // then by BM25 score
-        return sortResults(resultsArray)
+        return sortResults(resultsArray);
       }
     } else {
       return resultsArray;
