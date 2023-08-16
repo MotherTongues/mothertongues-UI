@@ -9,25 +9,14 @@
  * LAST UPDATED: 2023-08-10
  */
 
-interface SubstitutionCosts {
-  [a_char: string]: { [b_char: string]: number };
-}
-
-interface WeightsConfig {
-  insertionCost?: number;
-  deletionCost?: number;
-  insertionAtBeginningCost?: number;
-  deletionAtEndCost?: number;
-  substitutionCosts?: SubstitutionCosts;
-  defaultSubstitutionCost?: number;
-}
+import { WeightedLevensteinConfig, Substitutioncosts } from './mtd';
 
 export class DistanceCalculator {
   insertionCost: number;
   deletionCost: number;
   insertionAtBeginningCost: number;
   deletionAtEndCost: number;
-  substitutionCosts: SubstitutionCosts;
+  substitutionCosts: Substitutioncosts;
   defaultSubstitutionCost: number;
 
   constructor({
@@ -37,7 +26,7 @@ export class DistanceCalculator {
     deletionAtEndCost = 0.5,
     substitutionCosts = {},
     defaultSubstitutionCost = 1.0,
-  }: WeightsConfig) {
+  }: WeightedLevensteinConfig) {
     this.insertionCost = insertionCost;
     this.deletionCost = deletionCost;
     this.insertionAtBeginningCost = insertionAtBeginningCost;

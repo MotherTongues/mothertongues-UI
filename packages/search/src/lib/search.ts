@@ -4,17 +4,7 @@ import { Builder } from 'liblevenshtein';
 import { newStemmer } from 'snowball-stemmers';
 import { DistanceCalculator } from './weighted.levenstein';
 import { Counter } from './utils';
-import { Alphabet, L1Index, L2Index, RestrictedTransducer, SearchAlgorithms } from './mtd';
-
-export type Location = [entryIndex: string, positionIndex: number];
-
-export interface Posting {
-  [entryID: string]: { location: Location[]; score: { total: number } };
-}
-
-export interface IndexInterface {
-    [term: string]: Posting;
-}
+import { Alphabet, L1Index, L2Index, Location, RestrictedTransducer, SearchAlgorithms, StemmerEnum } from './mtd';
 
 // From the MTD configuration for a normalization function, create a normalization function
 // capable of lowercasing, unicode normalization, punctuation remove, and arbitrary replace rules.
@@ -107,7 +97,7 @@ export interface MTDParams {
 
 interface BasicIndexParams {
   normalizeFunctionConfig?: RestrictedTransducer;
-  stemmerFunctionChoice?: 'snowball_english' | 'none';
+  stemmerFunctionChoice?: StemmerEnum;
   data: L1Index | L2Index;
 }
 
@@ -140,7 +130,7 @@ export class Index {
 export type Result = [
   distance: number,
   docID: string,
-  location: Location[],
+  location: Location,
   score: number
 ];
 
@@ -184,7 +174,7 @@ export class MTDSearch {
     // But to calculate the average Lev distance and score we first create an object
     // This function only sums the Lev distances, so they need to be divided by the
     // number of query terms later
-    const combinedResults: { [posting: string]: [number, Location[], number] } =
+    const combinedResults: { [posting: string]: [number, Location, number] } =
       {};
     const docCounter = new Counter([]);
     for (const result of flatResults) {
