@@ -1,0 +1,114 @@
+{
+  "title": "DictionaryEntry",
+  "description": "There is a DictionaryEntry created for each entry in your dictionary.\nIt intentionally shares the same data structure as the ParserTargets,\nbut allows for extra fields.",
+  "type": "object",
+  "properties": {
+    "word": {
+      "title": "Word",
+      "type": "string"
+    },
+    "definition": {
+      "title": "Definition",
+      "type": "string"
+    },
+    "entryID": {
+      "title": "Entryid",
+      "type": "string"
+    },
+    "theme": {
+      "title": "Theme",
+      "default": "",
+      "type": "string"
+    },
+    "secondary_theme": {
+      "title": "Secondary Theme",
+      "default": "",
+      "type": "string"
+    },
+    "img": {
+      "title": "Img",
+      "default": "",
+      "type": "string"
+    },
+    "audio": {
+      "title": "Audio",
+      "default": [],
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Audio"
+      }
+    },
+    "definition_audio": {
+      "title": "Definition Audio",
+      "default": [],
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Audio"
+      }
+    },
+    "example_sentence": {
+      "title": "Example Sentence",
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "example_sentence_definition": {
+      "title": "Example Sentence Definition",
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "example_sentence_audio": {
+      "title": "Example Sentence Audio",
+      "default": [],
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Audio"
+      }
+    },
+    "example_sentence_definition_audio": {
+      "title": "Example Sentence Definition Audio",
+      "default": [],
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Audio"
+      }
+    },
+    "optional": {
+      "title": "Optional",
+      "default": {},
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "word",
+    "definition"
+  ],
+  "definitions": {
+    "Audio": {
+      "title": "Audio",
+      "type": "object",
+      "properties": {
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "filename": {
+          "title": "Filename",
+          "type": "string"
+        }
+      },
+      "required": [
+        "filename"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

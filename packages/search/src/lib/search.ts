@@ -4,6 +4,7 @@ import { Builder } from 'liblevenshtein';
 import { newStemmer } from 'snowball-stemmers';
 import { DistanceCalculator } from './weighted.levenstein';
 import { Counter } from './utils';
+import { Alphabet, L1Index, L2Index, RestrictedTransducer, SearchAlgorithms } from './mtd';
 
 export type Location = [entryIndex: string, positionIndex: number];
 
@@ -12,20 +13,13 @@ export interface Posting {
 }
 
 export interface IndexInterface {
-  [term: string]: Posting;
-}
-
-export interface RestrictedTransducerConfig {
-  lower: boolean;
-  unicode_normalization: 'NFC' | 'NFD' | 'NKFC' | 'NKFD' | 'none';
-  remove_punctuation: string;
-  replace_rules: object[];
+    [term: string]: Posting;
 }
 
 // From the MTD configuration for a normalization function, create a normalization function
 // capable of lowercasing, unicode normalization, punctuation remove, and arbitrary replace rules.
 export function create_normalization_function(
-  config: RestrictedTransducerConfig
+  config: RestrictedTransducer
 ): CallableFunction {
   const callables: CallableFunction[] = [];
   if (config.lower) {
@@ -42,7 +36,7 @@ export function create_normalization_function(
   }
   if (config.replace_rules) {
     const replace = (text: string) => {
-      Object.keys(config.replace_rules).forEach(([k, v]) => {
+      Object.keys(config.replace_rules ?? {}).forEach(([k, v]) => {
         text = text.replace(k, v);
       });
       return text;
@@ -72,11 +66,6 @@ export enum TransducerAlgorithmTypes {
   standard = 'standard',
   merge_and_split = 'merge_and_split',
   transposition = 'transposition',
-}
-
-export enum SearchTypes {
-  weighted_levenstein = 'weighted_levenstein',
-  liblevenstein_automata = 'liblevenstein_automata',
 }
 
 export interface BuilderConstructionParams {
@@ -112,20 +101,20 @@ export function constructTransducer({
 export interface MTDParams {
   transducer: Builder | object;
   index: Index;
-  searchType: SearchTypes;
-  tokens: string[];
+  searchType: SearchAlgorithms;
+  tokens: Alphabet | undefined;
 }
 
 interface BasicIndexParams {
-  normalizeFunctionConfig?: RestrictedTransducerConfig;
+  normalizeFunctionConfig?: RestrictedTransducer;
   stemmerFunctionChoice?: 'snowball_english' | 'none';
-  data: IndexInterface;
+  data: L1Index | L2Index;
 }
 
 export class Index {
   normalizeFunction: CallableFunction;
   stemmerFunction: CallableFunction | undefined;
-  data: IndexInterface = {};
+  data: L1Index | L2Index = {};
   constructor({
     normalizeFunctionConfig = {
       lower: true,
@@ -171,9 +160,9 @@ export class MTDSearch {
   index: Index;
   indexTerms: string[];
   transducer: Builder | DistanceCalculator;
-  tokens: string[] | null;
-  searchType: SearchTypes;
-  tokenizer: CallableFunction;
+  tokens: Alphabet | undefined;
+  searchType: SearchAlgorithms;
+  tokenizer: CallableFunction | undefined;
 
   constructor({ transducer, index, searchType, tokens }: MTDParams) {
     this.index = index;
@@ -181,9 +170,14 @@ export class MTDSearch {
     this.transducer = transducer;
     this.searchType = searchType;
     this.tokens = tokens;
-    const sortedTokens = [...tokens].sort((a, b) => b.length - a.length);
-    const regex = new RegExp('(' + sortedTokens.join('|') + ')', 'g');
-    this.tokenizer = (str: string) => str.split(regex);
+    if (this.tokens !== undefined) {
+      const sortedTokens = [...this.tokens].sort((a, b) => b.length - a.length);
+      const regex = new RegExp('(' + sortedTokens.join('|') + ')', 'g');
+      this.tokenizer = (str: string) => str.split(regex);
+    } else {
+      this.tokenizer = undefined
+    }
+    
   }
 
   combine_results(flatResults: [string, number][]) {
@@ -205,8 +199,7 @@ export class MTDSearch {
           combinedResults[posting][1] = combinedResults[posting][1].concat(
             this.index.data[term][posting].location
           );
-          combinedResults[posting][2] +=
-            this.index.data[term][posting].score['total'];
+          combinedResults[posting][2] += this.index.data[term][posting]['score']['total'];
         } else {
           combinedResults[posting] = [
             distance,
@@ -229,14 +222,24 @@ export class MTDSearch {
       if (this.index.stemmerFunction !== undefined) {
         word = this.index.stemmerFunction(word);
       }
-      if (this.searchType === SearchTypes.weighted_levenstein) {
-        word = this.tokenizer(word);
-        return this.indexTerms
+      if (this.searchType === "weighted_levenstein") {
+        if (this.tokenizer !== undefined) {
+          word = this.tokenizer(word);
+          return this.indexTerms
           .map((term) => [
             term,
-            this.transducer.getEditDistance(word, this.tokenizer(term)),
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            this.transducer.getEditDistance(word, this.tokenizer!(term)),
           ])
           .filter((result) => result[1] < maximum_edit_distance);
+        } else {
+          return this.indexTerms
+          .map((term) => [
+            term,
+            this.transducer.getEditDistance(word, term),
+          ])
+          .filter((result) => result[1] < maximum_edit_distance);
+        }
       } else {
         return this.transducer.transduce(word, maximum_edit_distance);
       }

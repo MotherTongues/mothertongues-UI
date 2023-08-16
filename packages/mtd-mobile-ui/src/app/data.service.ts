@@ -5,9 +5,9 @@ import {
   Index,
   MTDSearch,
   Result,
-  SearchTypes,
 } from '@mothertongues/search';
-import { Entry } from '../config/entries';
+import { DictionaryEntry } from '../config/entry'
+import { MTDExportFormat, SearchAlgorithms } from '../config/mtd'
 import { BehaviorSubject, take } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
@@ -27,7 +27,7 @@ export class DataService {
   public l2_search: MTDSearch;
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  public $entriesHash: BehaviorSubject<{ [id: string]: Entry }> =
+  public $entriesHash: BehaviorSubject<{ [id: string]: DictionaryEntry }> =
     new BehaviorSubject({});
   public $entriesLength = new BehaviorSubject(0);
   public $loaded = new BehaviorSubject(false);
@@ -37,57 +37,58 @@ export class DataService {
       .get('../assets/dictionary_data.json')
       .pipe(take(1))
       .subscribe((data: any) => {
+        const mtdData: MTDExportFormat = data;
         // Load config
-        const config = data.config;
+        const {config} = mtdData;
         this.$config.next(config);
         console.log(this.$config.value);
         // Load entries into hash
-        this.$entriesHash.next(data.data);
-        this.$entriesLength.next(Object.keys(data.data).length);
+        this.$entriesHash.next(mtdData.data);
+        this.$entriesLength.next(Object.keys(mtdData.data).length);
         console.log(this.$entriesHash.value);
         // Load L1 index
         const l1_index = new Index({
           normalizeFunctionConfig: config['l1_normalization_transducer'],
           stemmerFunctionChoice: config['l1_stemmer'],
-          data: data.l1_index,
+          data: mtdData.l1_index,
         });
         const l1_transducer = this.returnTransducer(
-          config['l1_search_strategy'],
+          config['l1_search_strategy'] ?? 'liblevenstein_automata',
           l1_index,
           config['l1_search_config']
         );
         this.l1_search = new MTDSearch({
           transducer: l1_transducer,
           index: l1_index,
-          searchType: config['l1_search_strategy'],
+          searchType: config['l1_search_strategy'] ?? 'liblevenstein_automata',
           tokens: config['alphabet'],
         });
         // Load L2 index
         const l2_index = new Index({
           normalizeFunctionConfig: config['l2_normalization_transducer'],
           stemmerFunctionChoice: config['l2_stemmer'],
-          data: data.l2_index,
+          data: mtdData.l2_index,
         });
         const l2_transducer = this.returnTransducer(
-          config['l2_search_strategy'],
+          config['l2_search_strategy'] ?? 'liblevenstein_automata',
           l2_index,
           config['l2_search_config']
         );
         this.l2_search = new MTDSearch({
           transducer: l2_transducer,
           index: l2_index,
-          searchType: config['l2_search_strategy'],
+          searchType: config['l2_search_strategy'] ?? 'liblevenstein_automata',
           tokens: config['alphabet'],
         });
         this.$loaded.next(true);
       });
   }
 
-  returnTransducer(searchType: SearchTypes, index: Index, config: any) {
+  returnTransducer(searchType: SearchAlgorithms, index: Index, config: any) {
     let transducer = null;
-    if (searchType === SearchTypes.liblevenstein_automata) {
+    if (searchType === "liblevenstein_automata") {
       transducer = constructTransducer({ terms: index });
-    } else if (searchType === SearchTypes.weighted_levenstein) {
+    } else if (searchType === "weighted_levenstein") {
       if (config) {
         transducer = new DistanceCalculator(config);
       } else {

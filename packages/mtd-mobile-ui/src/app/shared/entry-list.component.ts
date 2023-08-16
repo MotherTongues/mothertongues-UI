@@ -6,7 +6,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { DataService } from '../data.service';
-import { Entry } from '../../config/entries';
+import { DictionaryEntry } from '../../config/entry';
 import { Result } from '@mothertongues/search';
 
 @Component({
@@ -17,13 +17,13 @@ import { Result } from '@mothertongues/search';
 })
 export class EntryListComponent implements OnChanges, OnInit {
   edit = false;
-  formattedEntries: Entry[] = [];
+  formattedEntries: DictionaryEntry[] = [];
   maxResults = 20; // this can make it super slow if it's unconstrained
   $entriesHash;
   @Input()
   parentEdit!: boolean;
   @Input()
-  entries!: Result[]; // TODO: should actually be Entry[] | Result[]
+  entries!: Result[];
   @Input()
   searchterm!: string;
   @Input() threshold: number | undefined;
@@ -43,7 +43,7 @@ export class EntryListComponent implements OnChanges, OnInit {
     }
   }
 
-  showModal(entry: Entry) {
+  showModal(entry: DictionaryEntry) {
     console.log(entry);
     console.log('show modal for ' + entry);
   }
@@ -67,7 +67,7 @@ export class EntryListComponent implements OnChanges, OnInit {
     this.edit = this.parentEdit;
   }
 
-  trackByFn(index: number, item: Entry) {
+  trackByFn(index: number, item: DictionaryEntry) {
     console.log(item);
     console.log(index);
     return item.entryID;
