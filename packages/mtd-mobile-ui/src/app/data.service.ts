@@ -7,7 +7,7 @@ import {
   Result,
 } from '@mothertongues/search';
 import { DictionaryEntry } from '../config/entry'
-import { MTDExportFormat, SearchAlgorithms } from '../config/mtd'
+import { ExportLanguageConfiguration, MTDExportFormat, SearchAlgorithms } from '../config/mtd'
 import { BehaviorSubject, take } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
@@ -31,7 +31,7 @@ export class DataService {
     new BehaviorSubject({});
   public $entriesLength = new BehaviorSubject(0);
   public $loaded = new BehaviorSubject(false);
-  public $config: BehaviorSubject<object> = new BehaviorSubject({});
+  public $config: BehaviorSubject<ExportLanguageConfiguration> = new BehaviorSubject({});
   constructor(private http: HttpClient) {
     this.http
       .get('../assets/dictionary_data.json')

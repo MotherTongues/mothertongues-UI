@@ -1,0 +1,40 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-title>About</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <ion-header collapse="condense">
+        <ion-toolbar>
+            <ion-title size="large">about</ion-title>
+        </ion-toolbar>
+    </ion-header>
+    <ion-grid *ngIf="$config | async as config">
+        <ion-row class="ion-align-items-center ion-justify-content-center">
+            <h1>
+                {{ config.L1 }} / {{ config.L2 }} Dictionary
+            </h1>
+        </ion-row>
+        <ion-row *ngIf="config.credits">
+            <h2>Contributors</h2>
+            <ion-list>
+                <ion-item *ngFor="let contributor of config.credits">
+                    <ion-label>{{ contributor.name }} - {{ contributor.role }}</ion-label>
+                </ion-item>
+            </ion-list>
+        </ion-row>
+        <ion-img src="https://placehold.co/600x400" alt="The image for the {{ config.L1 }} / {{ config.L2 }} dictionary"></ion-img>
+        <ion-row>
+            <ion-col>
+                <p class="build">Built with <a href="https://docs.mothertongues.org/">Mother Tongues Dictionaries</a></p>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="config.build">
+            <ion-col>
+                <p class="build">Build Number: {{ config.build }}</p>
+            </ion-col>
+        </ion-row>
+
+    </ion-grid>
+</ion-content>

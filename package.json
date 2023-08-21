@@ -17,6 +17,7 @@
         "@capacitor/android": "^5.0.3",
         "@capacitor/cli": "^5.0.3",
         "@capacitor/ios": "^5.0.3",
+        "@ionic/angular-toolkit": "^10.0.0",
         "@nx/angular": "16.5.1",
         "@nx/cypress": "16.5.1",
         "@nx/eslint-plugin": "16.5.1",
