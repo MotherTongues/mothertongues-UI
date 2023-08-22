@@ -27,6 +27,10 @@ const routes: Routes = [
     loadChildren: () =>
       import('./bookmarks/bookmarks.module').then((m) => m.BookmarksPageModule),
   },
+  {
+    path: 'flashcards',
+    loadChildren: () => import('./flashcards/flashcards.module').then( m => m.FlashcardsPageModule)
+  },
 ];
 
 @NgModule({
