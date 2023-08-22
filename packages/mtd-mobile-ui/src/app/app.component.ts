@@ -9,6 +9,7 @@ export class AppComponent implements OnInit {
   public appPages = [
     { title: 'Search', url: '/search', icon: 'search' },
     { title: 'Browse', url: '/browse', icon: '' },
+    { title: 'Bookmarks', url: '/bookmarks', icon: 'bookmark' },
     { title: 'About', url: '/about', icon: 'information-circle' },
   ];
   title = 'Mother Tongues Dictionary'
@@ -17,8 +18,9 @@ export class AppComponent implements OnInit {
   }
   ngOnInit(){
     this.dataService.$config.subscribe((config) => {
-      console.log(config)
-      this.title = config.L1
+      if (config) {
+        this.title = config.L1
+      }
     })
   }
 }

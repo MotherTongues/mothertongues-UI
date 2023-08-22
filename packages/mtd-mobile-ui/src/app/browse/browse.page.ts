@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { LanguageConfigurationExportFormat } from '../../config/config';
-import { BehaviorSubject, combineLatest, map, min, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, Observable, Subject } from 'rxjs';
 import { DictionaryEntryExportFormat } from '../../config/entry';
 
 @Component({
@@ -10,7 +10,7 @@ import { DictionaryEntryExportFormat } from '../../config/entry';
   styleUrls: ['./browse.page.css'],
 })
 export class BrowsePage implements OnInit {
-  $config: Subject<LanguageConfigurationExportFormat>; 
+  $config: BehaviorSubject<LanguageConfigurationExportFormat|null>; 
   $dataHash: Subject<{ [id: string]: DictionaryEntryExportFormat; }>;
   displayLetters: string[] = []
   $currentEntries = new BehaviorSubject<DictionaryEntryExportFormat[]>([]);
@@ -30,11 +30,14 @@ export class BrowsePage implements OnInit {
       }
     })
     this.$config.subscribe((config) => {
+      console.log(config)
+      if (config) {
         if (Array.isArray(config.alphabet)) {
           this.displayLetters = config.alphabet
         } else {
           this.displayLetters = [...config.alphabet]
         }
+      }
       })
     
   }

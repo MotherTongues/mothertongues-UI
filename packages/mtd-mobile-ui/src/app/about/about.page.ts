@@ -9,7 +9,7 @@ import { Subject } from 'rxjs';
   styleUrls: ['./about.page.css'],
 })
 export class AboutPage implements OnInit {
-  $config: Subject<LanguageConfigurationExportFormat>; 
+  $config: Subject<LanguageConfigurationExportFormat|null>; 
   constructor(public dataService: DataService) { }
 
   ngOnInit() {

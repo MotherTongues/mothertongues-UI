@@ -13,22 +13,20 @@
             <ion-title size="large">browse</ion-title>
         </ion-toolbar>
     </ion-header>
-    <div *ngIf="$config | async as config">
-        <ion-list>
-            <ion-item>
-                <ion-select label="Select a Category" (ionChange)="handleCategoryChange($event)" placeholder="All">
-                    <ion-select-option *ngFor="let category of categories">{{ category }}</ion-select-option>
-                </ion-select>
-            </ion-item>
-            <ion-item *ngIf="displayLetters">
-                <ion-select label="Select a Letter" (ionChange)="handleLetterChange($event)">
-                    <ion-select-option *ngFor="let letter of displayLetters">{{ letter }}</ion-select-option>
-                </ion-select>
-            </ion-item>
-        </ion-list>
-        <div class="entry-container" *ngIf="currentTen$ | async as currentTen">
-            <mtd-entry-list [entries]="currentTen"></mtd-entry-list>
-        </div>
+    <ion-list>
+        <ion-item>
+            <ion-select label="Select a Category" (ionChange)="handleCategoryChange($event)" placeholder="All">
+                <ion-select-option *ngFor="let category of categories">{{ category }}</ion-select-option>
+            </ion-select>
+        </ion-item>
+        <ion-item *ngIf="displayLetters">
+            <ion-select label="Select a Letter" (ionChange)="handleLetterChange($event)">
+                <ion-select-option *ngFor="let letter of displayLetters">{{ letter }}</ion-select-option>
+            </ion-select>
+        </ion-item>
+    </ion-list>
+    <div class="entry-container" *ngIf="currentTen$ | async as currentTen">
+        <mtd-entry-list [entries]="currentTen"></mtd-entry-list>
     </div>
 </ion-content>
 

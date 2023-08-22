@@ -31,9 +31,10 @@ export class DataService {
     new BehaviorSubject({});
   public $entriesLength = new BehaviorSubject(0);
   public $loaded = new BehaviorSubject(false);
-  public $config: Subject<LanguageConfigurationExportFormat> = new Subject();
+  public $config = new BehaviorSubject<LanguageConfigurationExportFormat|null>(null);
   public $sortedEntries = new BehaviorSubject<DictionaryEntryExportFormat[]>([]);
   public $categorizedEntries = new BehaviorSubject<{ [id: string]: DictionaryEntryExportFormat[] }>({})
+  public $bookmarks = new BehaviorSubject<DictionaryEntryExportFormat[]>([]);
   constructor(private http: HttpClient) {
     this.http
       .get('../assets/dictionary_data.json')
