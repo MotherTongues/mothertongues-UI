@@ -6,9 +6,9 @@ import {
   MTDSearch,
   Result,
 } from '@mothertongues/search';
-import { DictionaryEntry } from '../config/entry'
-import { ExportLanguageConfiguration, MTDExportFormat, SearchAlgorithms } from '../config/mtd'
-import { BehaviorSubject, take } from 'rxjs';
+import { DictionaryEntryExportFormat } from '../config/entry'
+import { LanguageConfigurationExportFormat, MTDExportFormat, SearchAlgorithms } from '../config/mtd'
+import { BehaviorSubject, Subject, take } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 // function customNormalization(query: string): string {
@@ -27,13 +27,13 @@ export class DataService {
   public l2_search: MTDSearch;
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  public $entriesHash: BehaviorSubject<{ [id: string]: DictionaryEntry }> =
+  public $entriesHash: BehaviorSubject<{ [id: string]: DictionaryEntryExportFormat }> =
     new BehaviorSubject({});
   public $entriesLength = new BehaviorSubject(0);
   public $loaded = new BehaviorSubject(false);
-  public $config: BehaviorSubject<ExportLanguageConfiguration> = new BehaviorSubject({});
-  public $sortedEntries = new BehaviorSubject<DictionaryEntry[]>([]);
-  public $categorizedEntries = new BehaviorSubject<{ [id: string]: DictionaryEntry[] }>({})
+  public $config: Subject<LanguageConfigurationExportFormat> = new Subject();
+  public $sortedEntries = new BehaviorSubject<DictionaryEntryExportFormat[]>([]);
+  public $categorizedEntries = new BehaviorSubject<{ [id: string]: DictionaryEntryExportFormat[] }>({})
   constructor(private http: HttpClient) {
     this.http
       .get('../assets/dictionary_data.json')
@@ -43,14 +43,13 @@ export class DataService {
         // Load config
         const {config} = mtdData;
         this.$config.next(config);
-        console.log(this.$config.value);
         // Load entries into hash
         this.$entriesHash.next(mtdData.data);
         this.$entriesLength.next(Object.keys(mtdData.data).length);
         // Create Sorted Entries
-        this.$sortedEntries.next([...Object.values(mtdData.data)].sort((a: DictionaryEntry, b: DictionaryEntry) => a.word.localeCompare(b.word)))
+        this.$sortedEntries.next([...Object.values(mtdData.data)].sort((a: DictionaryEntryExportFormat, b: DictionaryEntryExportFormat) => a.word.localeCompare(b.word)))
         // Create Categorized Entries
-        const categorizedEntries: { [id: string]: DictionaryEntry[] } = {'All': []}
+        const categorizedEntries: { [id: string]: DictionaryEntryExportFormat[] } = {'All': []}
         this.$sortedEntries.value.forEach((entry) => {
           if (entry.theme) {
             if (entry.theme in categorizedEntries && entry.entryID) {

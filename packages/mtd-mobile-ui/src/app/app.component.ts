@@ -18,9 +18,7 @@ export class AppComponent implements OnInit {
   ngOnInit(){
     this.dataService.$config.subscribe((config) => {
       console.log(config)
-      if (config.L1 !== undefined) {
-        this.title = config.L1
-      }
+      this.title = config.L1
     })
   }
 }

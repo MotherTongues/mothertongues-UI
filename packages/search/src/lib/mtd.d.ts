@@ -30,10 +30,7 @@ export type RemovePunctuation = string;
 export type ReplaceRules = {
   [k: string]: string;
 }[];
-export type Alphabet = string[] | string;
-export type DisplayField = string;
-export type CompareField = string;
-export type SortingField = string;
+export type Alphabet = string[];
 export type OptionalFieldName = string;
 export type Role = string;
 export type Name = string;
@@ -42,6 +39,7 @@ export type Build = string;
 export type Word = string;
 export type Definition = string;
 export type Entryid = string;
+export type SortingForm = number[];
 export type Theme = string;
 export type SecondaryTheme = string;
 export type Img = string;
@@ -58,29 +56,26 @@ export type Positionindex = number;
 export type Location = [Entryindex, Positionindex][];
 
 export interface MTDExportFormat {
-  config: ExportLanguageConfiguration;
+  config: LanguageConfigurationExportFormat;
   data: Data;
   l1_index: L1Index;
   l2_index: L2Index;
 }
-export interface ExportLanguageConfiguration {
-  L1?: L1;
-  L2?: L2;
-  l1_search_strategy?: SearchAlgorithms & string;
-  l2_search_strategy?: SearchAlgorithms & string;
+export interface LanguageConfigurationExportFormat {
+  L1: L1;
+  L2: L2;
+  l1_search_strategy: SearchAlgorithms;
+  l2_search_strategy: SearchAlgorithms;
   l1_search_config?: WeightedLevensteinConfig;
   l2_search_config?: WeightedLevensteinConfig;
-  l1_stemmer?: StemmerEnum & string;
-  l2_stemmer?: StemmerEnum & string;
-  l1_normalization_transducer?: RestrictedTransducer;
-  l2_normalization_transducer?: RestrictedTransducer;
-  alphabet?: Alphabet;
-  display_field?: DisplayField;
-  compare_field?: CompareField;
-  sorting_field?: SortingField;
-  optional_field_name?: OptionalFieldName;
+  l1_stemmer: StemmerEnum;
+  l2_stemmer: StemmerEnum;
+  l1_normalization_transducer: RestrictedTransducer;
+  l2_normalization_transducer: RestrictedTransducer;
+  alphabet: Alphabet;
+  optional_field_name: OptionalFieldName;
   credits?: Credits;
-  build?: Build;
+  build: Build;
   [k: string]: unknown;
 }
 export interface WeightedLevensteinConfig {
@@ -108,17 +103,20 @@ export interface Contributor {
   name: Name;
 }
 export interface Data {
-  [k: string]: DictionaryEntry;
+  [k: string]: DictionaryEntryExportFormat;
 }
 /**
  * There is a DictionaryEntry created for each entry in your dictionary.
  * It intentionally shares the same data structure as the ParserTargets,
- * but allows for extra fields.
+ * but allows for extra fields. This is the same as DictionaryEntry except with
+ * some specifications for the output format (for example every exported entry will have)
+ * a value for entryID, and a sorting_form).
  */
-export interface DictionaryEntry {
+export interface DictionaryEntryExportFormat {
   word: Word;
   definition: Definition;
-  entryID?: Entryid;
+  entryID: Entryid;
+  sorting_form: SortingForm;
   theme?: Theme;
   secondary_theme?: SecondaryTheme;
   img?: Img;

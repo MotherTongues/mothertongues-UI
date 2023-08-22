@@ -6,7 +6,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { DataService } from '../data.service';
-import { DictionaryEntry } from '../../config/entry';
+import { DictionaryEntryExportFormat } from '../../config/entry';
 import { Result } from '@mothertongues/search';
 
 @Component({
@@ -33,7 +33,7 @@ export class SearchEntryListComponent implements OnChanges, OnInit {
   ngOnInit(): void {
   }
 
-  showModal(entry: DictionaryEntry) {
+  showModal(entry: DictionaryEntryExportFormat) {
     console.log(entry);
     console.log('show modal for ' + entry);
   }
@@ -59,7 +59,7 @@ export class SearchEntryListComponent implements OnChanges, OnInit {
     }
   }
 
-  trackByFn(index: number, item: DictionaryEntry) {
+  trackByFn(index: number, item: DictionaryEntryExportFormat) {
     return item.entryID;
   }
 }

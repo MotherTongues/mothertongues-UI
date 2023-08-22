@@ -6,7 +6,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { DataService } from '../data.service';
-import { DictionaryEntry } from '../../config/entry';
+import { DictionaryEntryExportFormat } from '../../config/entry';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -17,11 +17,11 @@ import { Subject } from 'rxjs';
 })
 export class EntryListComponent implements OnChanges, OnInit {
   edit = false;
-  $entriesHash: Subject<{ [id: string]: DictionaryEntry }>;
+  $entriesHash: Subject<{ [id: string]: DictionaryEntryExportFormat }>;
   @Input()
   parentEdit?: boolean;
   @Input()
-  entries!: DictionaryEntry[];
+  entries!: DictionaryEntryExportFormat[];
   entryIDS: string[] = []
   constructor(public dataService: DataService) {
     this.$entriesHash = this.dataService.$entriesHash;
@@ -33,7 +33,6 @@ export class EntryListComponent implements OnChanges, OnInit {
 
   getEntryIDS() {
     const entryIDS: string[] = []
-    console.log(this.entries)
     this.entries.forEach((entry) => {
       if (entry.entryID) {
         entryIDS.push(entry.entryID)
@@ -42,7 +41,7 @@ export class EntryListComponent implements OnChanges, OnInit {
       this.entryIDS = entryIDS
   }
 
-  showModal(entry: DictionaryEntry) {
+  showModal(entry: DictionaryEntryExportFormat) {
     console.log(entry);
     console.log('show modal for ' + entry);
   }
@@ -54,7 +53,7 @@ export class EntryListComponent implements OnChanges, OnInit {
     }
   }
 
-  trackByFn(index: number, item: DictionaryEntry) {
+  trackByFn(index: number, item: DictionaryEntryExportFormat) {
     console.log(item);
     console.log(index);
     return item.entryID;

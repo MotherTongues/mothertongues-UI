@@ -8,6 +8,7 @@
 export type Word = string;
 export type Definition = string;
 export type Entryid = string;
+export type SortingForm = number[];
 export type Theme = string;
 export type SecondaryTheme = string;
 export type Img = string;
@@ -23,12 +24,15 @@ export type ExampleSentenceDefinitionAudio = Audio1[];
 /**
  * There is a DictionaryEntry created for each entry in your dictionary.
  * It intentionally shares the same data structure as the ParserTargets,
- * but allows for extra fields.
+ * but allows for extra fields. This is the same as DictionaryEntry except with
+ * some specifications for the output format (for example every exported entry will have)
+ * a value for entryID, and a sorting_form).
  */
-export interface DictionaryEntry {
+export interface DictionaryEntryExportFormat {
   word: Word;
   definition: Definition;
-  entryID?: Entryid;
+  entryID: Entryid;
+  sorting_form: SortingForm;
   theme?: Theme;
   secondary_theme?: SecondaryTheme;
   img?: Img;

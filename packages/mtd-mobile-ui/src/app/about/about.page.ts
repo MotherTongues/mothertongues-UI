@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
-import { ExportLanguageConfiguration } from '../../config/config';
+import { LanguageConfigurationExportFormat } from '../../config/config';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -9,7 +9,7 @@ import { Subject } from 'rxjs';
   styleUrls: ['./about.page.css'],
 })
 export class AboutPage implements OnInit {
-  $config: Subject<ExportLanguageConfiguration>; 
+  $config: Subject<LanguageConfigurationExportFormat>; 
   constructor(public dataService: DataService) { }
 
   ngOnInit() {

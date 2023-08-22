@@ -30,34 +30,28 @@ export type RemovePunctuation = string;
 export type ReplaceRules = {
   [k: string]: string;
 }[];
-export type Alphabet = string[] | string;
-export type DisplayField = string;
-export type CompareField = string;
-export type SortingField = string;
+export type Alphabet = string[];
 export type OptionalFieldName = string;
 export type Role = string;
 export type Name = string;
 export type Credits = Contributor[];
 export type Build = string;
 
-export interface ExportLanguageConfiguration {
-  L1?: L1;
-  L2?: L2;
-  l1_search_strategy?: SearchAlgorithms & string;
-  l2_search_strategy?: SearchAlgorithms & string;
+export interface LanguageConfigurationExportFormat {
+  L1: L1;
+  L2: L2;
+  l1_search_strategy: SearchAlgorithms;
+  l2_search_strategy: SearchAlgorithms;
   l1_search_config?: WeightedLevensteinConfig;
   l2_search_config?: WeightedLevensteinConfig;
-  l1_stemmer?: StemmerEnum & string;
-  l2_stemmer?: StemmerEnum & string;
-  l1_normalization_transducer?: RestrictedTransducer;
-  l2_normalization_transducer?: RestrictedTransducer;
-  alphabet?: Alphabet;
-  display_field?: DisplayField;
-  compare_field?: CompareField;
-  sorting_field?: SortingField;
-  optional_field_name?: OptionalFieldName;
+  l1_stemmer: StemmerEnum;
+  l2_stemmer: StemmerEnum;
+  l1_normalization_transducer: RestrictedTransducer;
+  l2_normalization_transducer: RestrictedTransducer;
+  alphabet: Alphabet;
+  optional_field_name: OptionalFieldName;
   credits?: Credits;
-  build?: Build;
+  build: Build;
   [k: string]: unknown;
 }
 export interface WeightedLevensteinConfig {

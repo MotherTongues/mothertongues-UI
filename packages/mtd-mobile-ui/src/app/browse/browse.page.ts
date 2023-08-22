@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
-import { ExportLanguageConfiguration } from '../../config/config';
+import { LanguageConfigurationExportFormat } from '../../config/config';
 import { BehaviorSubject, combineLatest, map, min, Observable, Subject } from 'rxjs';
-import { DictionaryEntry } from '../../config/entry';
+import { DictionaryEntryExportFormat } from '../../config/entry';
 
 @Component({
   selector: 'mtd-browse',
@@ -10,13 +10,13 @@ import { DictionaryEntry } from '../../config/entry';
   styleUrls: ['./browse.page.css'],
 })
 export class BrowsePage implements OnInit {
-  $config: Subject<ExportLanguageConfiguration>; 
-  $dataHash: Subject<{ [id: string]: DictionaryEntry; }>;
+  $config: Subject<LanguageConfigurationExportFormat>; 
+  $dataHash: Subject<{ [id: string]: DictionaryEntryExportFormat; }>;
   displayLetters: string[] = []
-  $currentEntries = new BehaviorSubject<DictionaryEntry[]>([]);
+  $currentEntries = new BehaviorSubject<DictionaryEntryExportFormat[]>([]);
   $currentIndexStart: BehaviorSubject<number> = new BehaviorSubject(0);
   // Emit a combination of the start index and current entries any time either of them changes
-  currentTen$: Observable<DictionaryEntry[]> = combineLatest([this.$currentIndexStart, this.$currentEntries]).pipe(map(([start, entries]) => entries.slice(start, start + 10)))
+  currentTen$: Observable<DictionaryEntryExportFormat[]> = combineLatest([this.$currentIndexStart, this.$currentEntries]).pipe(map(([start, entries]) => entries.slice(start, start + 10)))
   categories: string[] = []
   constructor(public dataService: DataService) { }
 
@@ -30,13 +30,11 @@ export class BrowsePage implements OnInit {
       }
     })
     this.$config.subscribe((config) => {
-      if (config.alphabet !== undefined) {
         if (Array.isArray(config.alphabet)) {
           this.displayLetters = config.alphabet
         } else {
           this.displayLetters = [...config.alphabet]
         }
-      }
       })
     
   }
