@@ -11,14 +11,11 @@ import { DictionaryEntryExportFormat } from '../../config/entry';
 export class BookmarksPage implements OnInit {
   $bookmarks: BehaviorSubject<DictionaryEntryExportFormat[]>;
   edit = false;
-  constructor(public dataService: DataService) { }
+  constructor(public dataService: DataService) {}
 
   ngOnInit() {
     this.$bookmarks = this.dataService.$bookmarks;
   }
 
-  removeEntries() {
-    
-  }
-
+  removeEntries() {}
 }

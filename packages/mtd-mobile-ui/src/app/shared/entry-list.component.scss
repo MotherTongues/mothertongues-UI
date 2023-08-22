@@ -1,59 +1,59 @@
 @import '../../theme/variables.scss';
 // entry-list {
 .browseElements {
-    margin: auto;
-    height: auto;
-    width: auto;
-    text-align: center;
-    background-color: var(--ion-color-medium);
+  margin: auto;
+  height: auto;
+  width: auto;
+  text-align: center;
+  background-color: var(--ion-color-medium);
 }
 
 .browseElements {
-    margin: auto;
-    height: auto;
-    width: auto;
-    text-align: center !important;
-    background-color: var(--ion-color-medium);
+  margin: auto;
+  height: auto;
+  width: auto;
+  text-align: center !important;
+  background-color: var(--ion-color-medium);
 }
 
 .matchContainer {
-    margin: 1em 0;
-    text-align: center;
+  margin: 1em 0;
+  text-align: center;
 }
 
 .matchLeftDiv {
-    margin-right: 0.2em;
-    text-align: left;
+  margin-right: 0.2em;
+  text-align: left;
 }
 
 .matchLeftContainer,
 .matchRightContainer {
-    display: initial;
+  display: initial;
 }
 
 .matchRightDiv {
-    margin-left: 0.2em;
+  margin-left: 0.2em;
 }
 
 .matchResponse {
-    margin: 2.5em 0 0.75em 0;
-    text-decoration: underline;
+  margin: 2.5em 0 0.75em 0;
+  text-decoration: underline;
 }
 
 .browseL1 {
-    color: var(--ion-color-secondary);
+  color: var(--ion-color-secondary);
 }
 
 .matchLeftDiv .langMatched {
-    color: var(--ion-color-secondary);
-    // border-radius: 15px;
-    font-weight: 900;
-    // padding: 5px;
+  color: var(--ion-color-secondary);
+  // border-radius: 15px;
+  font-weight: 900;
+  // padding: 5px;
 }
 
 .matchRightDiv .langMatched {
-    color: var(--ion-color-secondary);
-    font-weight: 900;
+  color: var(--ion-color-secondary);
+  font-weight: 900;
 }
 
 // ion-item {

@@ -6,8 +6,8 @@ import { BrowsePage } from './browse.page';
 const routes: Routes = [
   {
     path: '',
-    component: BrowsePage
-  }
+    component: BrowsePage,
+  },
 ];
 
 @NgModule({

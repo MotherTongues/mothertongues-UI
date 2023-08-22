@@ -12,15 +12,13 @@ export class AppComponent implements OnInit {
     { title: 'Bookmarks', url: '/bookmarks', icon: 'bookmark' },
     { title: 'About', url: '/about', icon: 'information-circle' },
   ];
-  title = 'Mother Tongues Dictionary'
-  constructor(public dataService: DataService) {
-    
-  }
-  ngOnInit(){
+  title = 'Mother Tongues Dictionary';
+  constructor(public dataService: DataService) {}
+  ngOnInit() {
     this.dataService.$config.subscribe((config) => {
       if (config) {
-        this.title = config.L1
+        this.title = config.L1;
       }
-    })
+    });
   }
 }

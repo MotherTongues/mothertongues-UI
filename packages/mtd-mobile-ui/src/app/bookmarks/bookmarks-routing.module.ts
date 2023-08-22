@@ -6,8 +6,8 @@ import { BookmarksPage } from './bookmarks.page';
 const routes: Routes = [
   {
     path: '',
-    component: BookmarksPage
-  }
+    component: BookmarksPage,
+  },
 ];
 
 @NgModule({

@@ -15,8 +15,8 @@ import { SharedModule } from '../shared/shared.module';
     FormsModule,
     IonicModule,
     BrowsePageRoutingModule,
-    SharedModule
+    SharedModule,
   ],
-  declarations: [BrowsePage]
+  declarations: [BrowsePage],
 })
 export class BrowsePageModule {}

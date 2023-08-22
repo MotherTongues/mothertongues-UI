@@ -30,8 +30,7 @@ export class SearchEntryListComponent implements OnChanges, OnInit {
     this.$entriesHash = this.dataService.$entriesHash;
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   showModal(entry: DictionaryEntryExportFormat) {
     console.log(entry);
@@ -55,7 +54,7 @@ export class SearchEntryListComponent implements OnChanges, OnInit {
 
   ngOnChanges() {
     if (this.parentEdit !== undefined) {
-      this.edit = this.parentEdit
+      this.edit = this.parentEdit;
     }
   }
 

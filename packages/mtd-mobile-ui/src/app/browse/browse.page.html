@@ -1,49 +1,74 @@
 <ion-header [translucent]="true">
-    <ion-toolbar>
-        <ion-buttons slot="start">
-            <ion-menu-button></ion-menu-button>
-        </ion-buttons>
-        <ion-title>Browse</ion-title>
-    </ion-toolbar>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Browse</ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-    <ion-header collapse="condense">
-        <ion-toolbar>
-            <ion-title size="large">browse</ion-title>
-        </ion-toolbar>
-    </ion-header>
-    <ion-list>
-        <ion-item>
-            <ion-select label="Select a Category" (ionChange)="handleCategoryChange($event)" placeholder="All">
-                <ion-select-option *ngFor="let category of categories">{{ category }}</ion-select-option>
-            </ion-select>
-        </ion-item>
-        <ion-item *ngIf="displayLetters">
-            <ion-select label="Select a Letter" (ionChange)="handleLetterChange($event)">
-                <ion-select-option *ngFor="let letter of displayLetters">{{ letter }}</ion-select-option>
-            </ion-select>
-        </ion-item>
-    </ion-list>
-    <div class="entry-container" *ngIf="currentTen$ | async as currentTen">
-        <mtd-entry-list [entries]="currentTen"></mtd-entry-list>
-    </div>
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">browse</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-list>
+    <ion-item>
+      <ion-select
+        label="Select a Category"
+        (ionChange)="handleCategoryChange($event)"
+        placeholder="All"
+      >
+        <ion-select-option *ngFor="let category of categories"
+          >{{ category }}</ion-select-option
+        >
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="displayLetters">
+      <ion-select
+        label="Select a Letter"
+        (ionChange)="handleLetterChange($event)"
+      >
+        <ion-select-option *ngFor="let letter of displayLetters"
+          >{{ letter }}</ion-select-option
+        >
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <div class="entry-container" *ngIf="currentTen$ | async as currentTen">
+    <mtd-entry-list [entries]="currentTen"></mtd-entry-list>
+  </div>
 </ion-content>
 
 <ion-footer>
-    <ion-toolbar>
-        <ion-buttons slot="start" class="bar-buttons bar-buttons-ios">
-            <ion-button (click)="goBack()">
-                <ion-icon slot='icon-only' name="chevron-back-outline" class="scroll"></ion-icon>
-            </ion-button>
-        </ion-buttons>
-        <div class="browse-info" *ngIf="{ start: $currentIndexStart | async } as currentStart">
-            <ion-title *ngIf="currentStart.start !== null">Viewing {{ currentStart.start + 1 }} to {{ currentStart.start + 10 }} of {{ ($currentEntries | async)?.length }} Dictionary Entries</ion-title>
-        </div>
-        <ion-buttons slot="end" class="bar-buttons bar-buttons-ios">
-            <ion-button (click)="goForward()">
-                <ion-icon slot='icon-only' name="chevron-forward-outline" class="scroll"></ion-icon>
-            </ion-button>
-        </ion-buttons>
-    </ion-toolbar>
+  <ion-toolbar>
+    <ion-buttons slot="start" class="bar-buttons bar-buttons-ios">
+      <ion-button (click)="goBack()">
+        <ion-icon
+          slot="icon-only"
+          name="chevron-back-outline"
+          class="scroll"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <div
+      class="browse-info"
+      *ngIf="{ start: $currentIndexStart | async } as currentStart"
+    >
+      <ion-title *ngIf="currentStart.start !== null"
+        >Viewing {{ currentStart.start + 1 }} to {{ currentStart.start + 10 }}
+        of {{ ($currentEntries | async)?.length }} Dictionary Entries</ion-title
+      >
+    </div>
+    <ion-buttons slot="end" class="bar-buttons bar-buttons-ios">
+      <ion-button (click)="goForward()">
+        <ion-icon
+          slot="icon-only"
+          name="chevron-forward-outline"
+          class="scroll"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-footer>

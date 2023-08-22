@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowsePage } from './browse.page';
 import { IonicModule } from '@ionic/angular';
 
-
 describe('BrowsePage', () => {
   let component: BrowsePage;
   let fixture: ComponentFixture<BrowsePage>;

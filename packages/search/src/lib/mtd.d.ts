@@ -10,7 +10,7 @@ export type L2 = string;
 /**
  * An enumeration.
  */
-export type SearchAlgorithms = "weighted_levenstein" | "liblevenstein_automata";
+export type SearchAlgorithms = 'weighted_levenstein' | 'liblevenstein_automata';
 export type Insertioncost = number;
 export type Deletioncost = number;
 export type Insertionatbeginningcost = number;
@@ -20,12 +20,12 @@ export type Defaultsubstitutioncost = number;
 /**
  * An enumeration.
  */
-export type StemmerEnum = "snowball_english" | "none";
+export type StemmerEnum = 'snowball_english' | 'none';
 export type Lower = boolean;
 /**
  * An enumeration.
  */
-export type NormalizationEnum = "NFC" | "NFD" | "NFKC" | "NKFD" | "none";
+export type NormalizationEnum = 'NFC' | 'NFD' | 'NFKC' | 'NKFD' | 'none';
 export type RemovePunctuation = string;
 export type ReplaceRules = {
   [k: string]: string;

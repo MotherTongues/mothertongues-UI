@@ -6,8 +6,12 @@ import {
   MTDSearch,
   Result,
 } from '@mothertongues/search';
-import { DictionaryEntryExportFormat } from '../config/entry'
-import { LanguageConfigurationExportFormat, MTDExportFormat, SearchAlgorithms } from '../config/mtd'
+import { DictionaryEntryExportFormat } from '../config/entry';
+import {
+  LanguageConfigurationExportFormat,
+  MTDExportFormat,
+  SearchAlgorithms,
+} from '../config/mtd';
 import { BehaviorSubject, Subject, take } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
@@ -27,13 +31,19 @@ export class DataService {
   public l2_search: MTDSearch;
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  public $entriesHash: BehaviorSubject<{ [id: string]: DictionaryEntryExportFormat }> =
-    new BehaviorSubject({});
+  public $entriesHash: BehaviorSubject<{
+    [id: string]: DictionaryEntryExportFormat;
+  }> = new BehaviorSubject({});
   public $entriesLength = new BehaviorSubject(0);
   public $loaded = new BehaviorSubject(false);
-  public $config = new BehaviorSubject<LanguageConfigurationExportFormat|null>(null);
-  public $sortedEntries = new BehaviorSubject<DictionaryEntryExportFormat[]>([]);
-  public $categorizedEntries = new BehaviorSubject<{ [id: string]: DictionaryEntryExportFormat[] }>({})
+  public $config =
+    new BehaviorSubject<LanguageConfigurationExportFormat | null>(null);
+  public $sortedEntries = new BehaviorSubject<DictionaryEntryExportFormat[]>(
+    []
+  );
+  public $categorizedEntries = new BehaviorSubject<{
+    [id: string]: DictionaryEntryExportFormat[];
+  }>({});
   public $bookmarks = new BehaviorSubject<DictionaryEntryExportFormat[]>([]);
   constructor(private http: HttpClient) {
     this.http
@@ -42,28 +52,35 @@ export class DataService {
       .subscribe((data: any) => {
         const mtdData: MTDExportFormat = data;
         // Load config
-        const {config} = mtdData;
+        const { config } = mtdData;
         this.$config.next(config);
         // Load entries into hash
         this.$entriesHash.next(mtdData.data);
         this.$entriesLength.next(Object.keys(mtdData.data).length);
         // Create Sorted Entries
-        this.$sortedEntries.next([...Object.values(mtdData.data)].sort((a: DictionaryEntryExportFormat, b: DictionaryEntryExportFormat) => a.word.localeCompare(b.word)))
+        this.$sortedEntries.next(
+          [...Object.values(mtdData.data)].sort(
+            (a: DictionaryEntryExportFormat, b: DictionaryEntryExportFormat) =>
+              a.word.localeCompare(b.word)
+          )
+        );
         // Create Categorized Entries
-        const categorizedEntries: { [id: string]: DictionaryEntryExportFormat[] } = {'All': []}
+        const categorizedEntries: {
+          [id: string]: DictionaryEntryExportFormat[];
+        } = { All: [] };
         this.$sortedEntries.value.forEach((entry) => {
           if (entry.theme) {
             if (entry.theme in categorizedEntries && entry.entryID) {
-              categorizedEntries[entry.theme].push(entry)
+              categorizedEntries[entry.theme].push(entry);
             } else if (entry.entryID) {
-              categorizedEntries[entry.theme] = [entry]
+              categorizedEntries[entry.theme] = [entry];
             }
           }
           if (entry.entryID) {
-            categorizedEntries['All'].push(entry)
+            categorizedEntries['All'].push(entry);
           }
-        })
-        this.$categorizedEntries.next(categorizedEntries)
+        });
+        this.$categorizedEntries.next(categorizedEntries);
         // Load L1 index
         const l1_index = new Index({
           normalizeFunctionConfig: config['l1_normalization_transducer'],
@@ -104,9 +121,9 @@ export class DataService {
 
   returnTransducer(searchType: SearchAlgorithms, index: Index, config: any) {
     let transducer = null;
-    if (searchType === "liblevenstein_automata") {
+    if (searchType === 'liblevenstein_automata') {
       transducer = constructTransducer({ terms: index });
-    } else if (searchType === "weighted_levenstein") {
+    } else if (searchType === 'weighted_levenstein') {
       if (config) {
         transducer = new DistanceCalculator(config);
       } else {

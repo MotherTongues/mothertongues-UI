@@ -15,8 +15,8 @@ import { SharedModule } from '../shared/shared.module';
     FormsModule,
     IonicModule,
     BookmarksPageRoutingModule,
-    SharedModule
+    SharedModule,
   ],
-  declarations: [BookmarksPage]
+  declarations: [BookmarksPage],
 })
 export class BookmarksPageModule {}

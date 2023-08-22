@@ -22,23 +22,23 @@ export class EntryListComponent implements OnChanges, OnInit {
   parentEdit?: boolean;
   @Input()
   entries!: DictionaryEntryExportFormat[];
-  entryIDS: string[] = []
+  entryIDS: string[] = [];
   constructor(public dataService: DataService) {
     this.$entriesHash = this.dataService.$entriesHash;
   }
 
   ngOnInit(): void {
-    this.getEntryIDS()
+    this.getEntryIDS();
   }
 
   getEntryIDS() {
-    const entryIDS: string[] = []
+    const entryIDS: string[] = [];
     this.entries.forEach((entry) => {
       if (entry.entryID) {
-        entryIDS.push(entry.entryID)
+        entryIDS.push(entry.entryID);
       }
-      })
-      this.entryIDS = entryIDS
+    });
+    this.entryIDS = entryIDS;
   }
 
   showModal(entry: DictionaryEntryExportFormat) {
@@ -47,9 +47,9 @@ export class EntryListComponent implements OnChanges, OnInit {
   }
 
   ngOnChanges() {
-    this.getEntryIDS()
+    this.getEntryIDS();
     if (this.parentEdit !== undefined) {
-      this.edit = this.parentEdit
+      this.edit = this.parentEdit;
     }
   }
 

@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
-
-
 const routes: Routes = [
   {
     path: '',
@@ -16,16 +14,19 @@ const routes: Routes = [
   },
   {
     path: 'about',
-    loadChildren: () => import('./about/about.module').then( m => m.AboutPageModule)
+    loadChildren: () =>
+      import('./about/about.module').then((m) => m.AboutPageModule),
   },
   {
     path: 'browse',
-    loadChildren: () => import('./browse/browse.module').then( m => m.BrowsePageModule)
+    loadChildren: () =>
+      import('./browse/browse.module').then((m) => m.BrowsePageModule),
   },
   {
     path: 'bookmarks',
-    loadChildren: () => import('./bookmarks/bookmarks.module').then( m => m.BookmarksPageModule)
-  }
+    loadChildren: () =>
+      import('./bookmarks/bookmarks.module').then((m) => m.BookmarksPageModule),
+  },
 ];
 
 @NgModule({
