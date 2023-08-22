@@ -8,6 +8,7 @@ import { DataService } from './data.service';
 export class AppComponent implements OnInit {
   public appPages = [
     { title: 'Search', url: '/search', icon: 'search' },
+    { title: 'Browse', url: '/browse', icon: '' },
     { title: 'About', url: '/about', icon: 'information-circle' },
   ];
   title = 'Mother Tongues Dictionary'

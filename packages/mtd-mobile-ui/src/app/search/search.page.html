@@ -1,56 +1,33 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>Search</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Search</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-searchbar
-    id="searchBar"
-    color="primary"
-    [disabled]="($loaded | async) === false"
-    animated="true"
-    placeholder="Type your word here"
-    (ionInput)="search($event)"
-  >
-    <ion-spinner *ngIf="($loaded | async) === false"></ion-spinner>
-  </ion-searchbar>
-  <div *ngIf="searchQuery.length > 1">
-    <div class="result-container" *ngIf="matches.length > 0">
-      <h4>Matches</h4>
-      <mtd-entry-list
-        [entries]="matches"
-        [searchterm]="searchQuery"
-        [threshold]="0"
-      ></mtd-entry-list>
+    <ion-searchbar id="searchBar" color="primary" [disabled]="($loaded | async) === false" animated="true" placeholder="Type your word here" (ionInput)="search($event)">
+        <ion-spinner *ngIf="($loaded | async) === false"></ion-spinner>
+    </ion-searchbar>
+    <div *ngIf="searchQuery.length > 1">
+        <div class="result-container" *ngIf="matches.length > 0">
+            <h4>Matches</h4>
+            <mtd-search-entry-list [entries]="matches" [searchterm]="searchQuery" [threshold]="0"></mtd-search-entry-list>
+        </div>
+        <div class="result-container" *ngIf="partMatches.length > 0">
+            <h4>Partial Matches</h4>
+            <mtd-search-entry-list [entries]="partMatches" [searchterm]="searchQuery" [threshold]="partialThreshold"></mtd-search-entry-list>
+        </div>
+        <div class="result-container" *ngIf="maybeMatches.length > 0">
+            <h4>Maybe you meant this?</h4>
+            <mtd-search-entry-list [entries]="maybeMatches" [searchterm]="searchQuery" [threshold]="maybeThreshold"></mtd-search-entry-list>
+        </div>
+        <div class="result-container" *ngIf="matches.length === 0 && partMatches.length === 0 && maybeMatches.length === 0">
+            <h6>
+                Sorry, we couldn't find any words matching '{{ searchQuery }}'. Please try something else.
+            </h6>
+        </div>
     </div>
-    <div class="result-container" *ngIf="partMatches.length > 0">
-      <h4>Partial Matches</h4>
-      <mtd-entry-list
-        [entries]="partMatches"
-        [searchterm]="searchQuery"
-        [threshold]="partialThreshold"
-      ></mtd-entry-list>
-    </div>
-    <div class="result-container" *ngIf="maybeMatches.length > 0">
-      <h4>Maybe you meant this?</h4>
-      <mtd-entry-list
-        [entries]="maybeMatches"
-        [searchterm]="searchQuery"
-        [threshold]="maybeThreshold"
-      ></mtd-entry-list>
-    </div>
-    <div
-      class="result-container"
-      *ngIf="matches.length === 0 && partMatches.length === 0 && maybeMatches.length === 0"
-    >
-      <h6>
-        Sorry, we couldn't find any words matching '{{ searchQuery }}'. Please
-        try something else.
-      </h6>
-    </div>
-  </div>
 </ion-content>

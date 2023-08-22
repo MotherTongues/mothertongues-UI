@@ -32,6 +32,8 @@ export class DataService {
   public $entriesLength = new BehaviorSubject(0);
   public $loaded = new BehaviorSubject(false);
   public $config: BehaviorSubject<ExportLanguageConfiguration> = new BehaviorSubject({});
+  public $sortedEntries = new BehaviorSubject<DictionaryEntry[]>([]);
+  public $categorizedEntries = new BehaviorSubject<{ [id: string]: DictionaryEntry[] }>({})
   constructor(private http: HttpClient) {
     this.http
       .get('../assets/dictionary_data.json')
@@ -45,7 +47,23 @@ export class DataService {
         // Load entries into hash
         this.$entriesHash.next(mtdData.data);
         this.$entriesLength.next(Object.keys(mtdData.data).length);
-        console.log(this.$entriesHash.value);
+        // Create Sorted Entries
+        this.$sortedEntries.next([...Object.values(mtdData.data)].sort((a: DictionaryEntry, b: DictionaryEntry) => a.word.localeCompare(b.word)))
+        // Create Categorized Entries
+        const categorizedEntries: { [id: string]: DictionaryEntry[] } = {'All': []}
+        this.$sortedEntries.value.forEach((entry) => {
+          if (entry.theme) {
+            if (entry.theme in categorizedEntries && entry.entryID) {
+              categorizedEntries[entry.theme].push(entry)
+            } else if (entry.entryID) {
+              categorizedEntries[entry.theme] = [entry]
+            }
+          }
+          if (entry.entryID) {
+            categorizedEntries['All'].push(entry)
+          }
+        })
+        this.$categorizedEntries.next(categorizedEntries)
         // Load L1 index
         const l1_index = new Index({
           normalizeFunctionConfig: config['l1_normalization_transducer'],

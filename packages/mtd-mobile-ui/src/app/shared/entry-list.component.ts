@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { DataService } from '../data.service';
 import { DictionaryEntry } from '../../config/entry';
-import { Result } from '@mothertongues/search';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'mtd-entry-list',
@@ -17,30 +17,29 @@ import { Result } from '@mothertongues/search';
 })
 export class EntryListComponent implements OnChanges, OnInit {
   edit = false;
-  formattedEntries: DictionaryEntry[] = [];
-  maxResults = 20; // this can make it super slow if it's unconstrained
-  $entriesHash;
+  $entriesHash: Subject<{ [id: string]: DictionaryEntry }>;
   @Input()
-  parentEdit!: boolean;
+  parentEdit?: boolean;
   @Input()
-  entries!: Result[];
-  @Input()
-  searchterm!: string;
-  @Input() threshold: number | undefined;
+  entries!: DictionaryEntry[];
+  entryIDS: string[] = []
   constructor(public dataService: DataService) {
     this.$entriesHash = this.dataService.$entriesHash;
   }
 
   ngOnInit(): void {
-    if (Array.isArray(this.entries[0])) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      this.formattedEntries = this.entries.map((x: Result) => [x[1], x[2]]);
-    } else {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      this.formattedEntries = this.entries;
-    }
+    this.getEntryIDS()
+  }
+
+  getEntryIDS() {
+    const entryIDS: string[] = []
+    console.log(this.entries)
+    this.entries.forEach((entry) => {
+      if (entry.entryID) {
+        entryIDS.push(entry.entryID)
+      }
+      })
+      this.entryIDS = entryIDS
   }
 
   showModal(entry: DictionaryEntry) {
@@ -48,23 +47,11 @@ export class EntryListComponent implements OnChanges, OnInit {
     console.log('show modal for ' + entry);
   }
 
-  highlight(result: Result, lang: 'L1' | 'L2') {
-    // highlighting in this interface only happens on either words or definitions
-    const key = lang === 'L1' ? 'word' : 'definition';
-    const terms = this.$entriesHash.value[result[1]][key].split(/\s+/);
-    const htmlTerms = terms.map((word: any) => `<span>${word}</span>`);
-    result[2].forEach((match) => {
-      if (match[0] === key) {
-        htmlTerms[match[1]] = `<span class="langMatched">${
-          terms[match[1]]
-        }</span>`;
-      }
-    });
-    return htmlTerms.join(' ');
-  }
-
   ngOnChanges() {
-    this.edit = this.parentEdit;
+    this.getEntryIDS()
+    if (this.parentEdit !== undefined) {
+      this.edit = this.parentEdit
+    }
   }
 
   trackByFn(index: number, item: DictionaryEntry) {

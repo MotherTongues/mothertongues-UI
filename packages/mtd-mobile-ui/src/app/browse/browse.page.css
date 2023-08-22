@@ -1,0 +1,10 @@
+.browse-info {
+    margin: 0 auto;
+    text-align: center;
+}
+
+@media only screen and (max-width: 600px) {
+    .browse-info {
+        display: none;
+    }
+}
