@@ -26,6 +26,8 @@ export class SearchEntryListComponent implements OnChanges, OnInit {
   @Input()
   searchterm!: string;
   @Input() threshold?: number;
+  isModalOpen = false;
+  modalEntry: DictionaryEntryExportFormat;
   constructor(public dataService: DataService) {
     this.$entriesHash = this.dataService.$entriesHash;
   }
@@ -33,8 +35,16 @@ export class SearchEntryListComponent implements OnChanges, OnInit {
   ngOnInit(): void {}
 
   showModal(entry: DictionaryEntryExportFormat) {
-    console.log(entry);
-    console.log('show modal for ' + entry);
+    this.modalEntry = entry;
+    this.isModalOpen = true;
+  }
+
+  setOpen(value: boolean) {
+    this.isModalOpen = value
+  }
+
+  didDismiss() {
+    this.isModalOpen = false
   }
 
   highlight(result: Result, lang: 'L1' | 'L2') {

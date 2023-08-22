@@ -33,7 +33,6 @@ export class BrowsePage implements OnInit {
       }
     });
     this.$config.subscribe((config) => {
-      console.log(config);
       if (config) {
         if (Array.isArray(config.alphabet)) {
           this.displayLetters = config.alphabet;
