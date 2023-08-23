@@ -44,6 +44,7 @@ export class DataService {
   public $categorizedEntries = new BehaviorSubject<{
     [id: string]: DictionaryEntryExportFormat[];
   }>({});
+  public $categories = new BehaviorSubject<string[]>([]);
   public $bookmarks = new BehaviorSubject<DictionaryEntryExportFormat[]>([]);
   constructor(private http: HttpClient) {
     this.http
@@ -67,18 +68,30 @@ export class DataService {
         const categorizedEntries: {
           [id: string]: DictionaryEntryExportFormat[];
         } = { All: [] };
+        const themes: string[] = [];
+        const sources: string[] = [];
         this.$sortedEntries.value.forEach((entry) => {
-          if (entry.theme) {
-            if (entry.theme in categorizedEntries && entry.entryID) {
+          if (entry.theme && entry.theme !== 'null') {
+            if (entry.theme in categorizedEntries) {
               categorizedEntries[entry.theme].push(entry);
-            } else if (entry.entryID) {
+            } else {
               categorizedEntries[entry.theme] = [entry];
+              themes.push(entry.theme);
             }
           }
-          if (entry.entryID) {
-            categorizedEntries['All'].push(entry);
+          if (entry.source) {
+            if (entry.source in categorizedEntries) {
+              categorizedEntries[entry.source].push(entry);
+            } else {
+              categorizedEntries[entry.source] = [entry];
+              sources.push(entry.source);
+            }
           }
+          categorizedEntries['All'].push(entry);
         });
+        sources.sort();
+        themes.sort();
+        this.$categories.next(['All'].concat(sources).concat(themes));
         this.$categorizedEntries.next(categorizedEntries);
         // Load L1 index
         const l1_index = new Index({

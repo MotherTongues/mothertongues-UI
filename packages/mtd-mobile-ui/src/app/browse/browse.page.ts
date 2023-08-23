@@ -51,8 +51,10 @@ export class BrowsePage implements OnInit {
   ngOnInit() {
     this.$config = this.dataService.$config;
     this.$dataHash = this.dataService.$entriesHash;
+    this.dataService.$categories.subscribe(
+      (categories) => (this.categories = categories)
+    );
     this.dataService.$categorizedEntries.subscribe((entries) => {
-      this.categories = Object.keys(entries);
       if (entries['All'] !== undefined && entries['All'].length > 0) {
         this.$currentEntries.next(entries['All']);
       }

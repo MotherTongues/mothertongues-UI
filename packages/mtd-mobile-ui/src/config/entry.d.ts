@@ -20,6 +20,7 @@ export type ExampleSentence = string[];
 export type ExampleSentenceDefinition = string[];
 export type ExampleSentenceAudio = Audio1[];
 export type ExampleSentenceDefinitionAudio = Audio1[];
+export type Source = string;
 
 /**
  * There is a DictionaryEntry created for each entry in your dictionary.
@@ -43,6 +44,7 @@ export interface DictionaryEntryExportFormat {
   example_sentence_audio?: ExampleSentenceAudio;
   example_sentence_definition_audio?: ExampleSentenceDefinitionAudio;
   optional?: Optional;
+  source?: Source;
   [k: string]: unknown;
 }
 export interface Audio1 {

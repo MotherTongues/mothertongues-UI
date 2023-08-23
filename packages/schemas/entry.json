@@ -59,7 +59,8 @@
       "default": {},
       "type": "object",
       "additionalProperties": { "type": "string" }
-    }
+    },
+    "source": { "title": "Source", "default": "", "type": "string" }
   },
   "required": ["word", "definition", "entryID", "sorting_form"],
   "definitions": {

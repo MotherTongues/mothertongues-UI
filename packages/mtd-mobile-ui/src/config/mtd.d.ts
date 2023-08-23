@@ -51,6 +51,7 @@ export type ExampleSentence = string[];
 export type ExampleSentenceDefinition = string[];
 export type ExampleSentenceAudio = Audio1[];
 export type ExampleSentenceDefinitionAudio = Audio1[];
+export type Source = string;
 export type SortedData = DictionaryEntryExportFormat[];
 export type Entryindex = string;
 export type Positionindex = number;
@@ -125,6 +126,7 @@ export interface DictionaryEntryExportFormat {
   example_sentence_audio?: ExampleSentenceAudio;
   example_sentence_definition_audio?: ExampleSentenceDefinitionAudio;
   optional?: Optional;
+  source?: Source;
   [k: string]: unknown;
 }
 export interface Audio1 {
