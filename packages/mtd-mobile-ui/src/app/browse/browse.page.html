@@ -27,13 +27,20 @@
     </ion-item>
     <ion-item *ngIf="displayLetters">
       <ion-select
-        label="Select a Letter"
+        label="Current Letter"
         (ionChange)="handleLetterChange($event)"
+        [(ngModel)]="selectedLetter"
       >
         <ion-select-option *ngFor="let letter of displayLetters"
           >{{ letter }}</ion-select-option
         >
       </ion-select>
+      <ion-toast
+        [isOpen]="letterNotFound"
+        message="Sorry, it doesn't look like there are any words that start with that letter"
+        [duration]="5000"
+        (didDismiss)="letterNotFound = false"
+      ></ion-toast>
     </ion-item>
   </ion-list>
   <div class="entry-container" *ngIf="currentTen$ | async as currentTen">

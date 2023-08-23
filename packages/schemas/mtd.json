@@ -3,12 +3,10 @@
   "type": "object",
   "properties": {
     "config": { "$ref": "#/definitions/LanguageConfigurationExportFormat" },
-    "data": {
-      "title": "Data",
-      "type": "object",
-      "additionalProperties": {
-        "$ref": "#/definitions/DictionaryEntryExportFormat"
-      }
+    "sorted_data": {
+      "title": "Sorted Data",
+      "type": "array",
+      "items": { "$ref": "#/definitions/DictionaryEntryExportFormat" }
     },
     "l1_index": {
       "title": "L1 Index",
@@ -27,7 +25,7 @@
       }
     }
   },
-  "required": ["config", "data", "l1_index", "l2_index"],
+  "required": ["config", "sorted_data", "l1_index", "l2_index"],
   "additionalProperties": false,
   "definitions": {
     "SearchAlgorithms": {

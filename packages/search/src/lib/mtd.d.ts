@@ -51,13 +51,14 @@ export type ExampleSentence = string[];
 export type ExampleSentenceDefinition = string[];
 export type ExampleSentenceAudio = Audio1[];
 export type ExampleSentenceDefinitionAudio = Audio1[];
+export type SortedData = DictionaryEntryExportFormat[];
 export type Entryindex = string;
 export type Positionindex = number;
 export type Location = [Entryindex, Positionindex][];
 
 export interface MTDExportFormat {
   config: LanguageConfigurationExportFormat;
-  data: Data;
+  sorted_data: SortedData;
   l1_index: L1Index;
   l2_index: L2Index;
 }
@@ -101,9 +102,6 @@ export interface RestrictedTransducer {
 export interface Contributor {
   role: Role;
   name: Name;
-}
-export interface Data {
-  [k: string]: DictionaryEntryExportFormat;
 }
 /**
  * There is a DictionaryEntry created for each entry in your dictionary.

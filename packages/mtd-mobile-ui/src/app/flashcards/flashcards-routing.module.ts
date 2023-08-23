@@ -6,8 +6,8 @@ import { FlashcardsPage } from './flashcards.page';
 const routes: Routes = [
   {
     path: '',
-    component: FlashcardsPage
-  }
+    component: FlashcardsPage,
+  },
 ];
 
 @NgModule({

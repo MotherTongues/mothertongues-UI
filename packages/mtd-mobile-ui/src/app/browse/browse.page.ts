@@ -1,7 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { LanguageConfigurationExportFormat } from '../../config/config';
-import { BehaviorSubject, combineLatest, map, Observable, Subject } from 'rxjs';
+import {
+  BehaviorSubject,
+  combineLatest,
+  map,
+  tap,
+  Observable,
+  Subject,
+  first,
+} from 'rxjs';
 import { DictionaryEntryExportFormat } from '../../config/entry';
 
 @Component({
@@ -15,12 +23,29 @@ export class BrowsePage implements OnInit {
   displayLetters: string[] = [];
   $currentEntries = new BehaviorSubject<DictionaryEntryExportFormat[]>([]);
   $currentIndexStart: BehaviorSubject<number> = new BehaviorSubject(0);
+  $manualTrigger = new BehaviorSubject(null);
   // Emit a combination of the start index and current entries any time either of them changes
   currentTen$: Observable<DictionaryEntryExportFormat[]> = combineLatest([
     this.$currentIndexStart,
     this.$currentEntries,
-  ]).pipe(map(([start, entries]) => entries.slice(start, start + 10)));
+    this.$manualTrigger,
+  ]).pipe(map(([start, entries, _]) => entries.slice(start, start + 10)));
+  currentLetter$: Observable<string> = this.currentTen$.pipe(
+    map((entries) => {
+      if (entries && this.$config.value?.alphabet) {
+        const firstNonOOVIndex = entries[0].sorting_form.filter(
+          (x) => x < 10000
+        )[0];
+        return this.$config.value?.alphabet[firstNonOOVIndex];
+      } else {
+        return '';
+      }
+    })
+  );
+
   categories: string[] = [];
+  selectedLetter = '';
+  letterNotFound = false;
   constructor(public dataService: DataService) {}
 
   ngOnInit() {
@@ -32,6 +57,7 @@ export class BrowsePage implements OnInit {
         this.$currentEntries.next(entries['All']);
       }
     });
+    this.currentLetter$.subscribe((letter) => (this.selectedLetter = letter));
     this.$config.subscribe((config) => {
       if (config) {
         if (Array.isArray(config.alphabet)) {
@@ -44,12 +70,18 @@ export class BrowsePage implements OnInit {
   }
 
   handleLetterChange(letterEvent: Event) {
+    this.letterNotFound = false;
     const letterElement = letterEvent?.currentTarget as HTMLInputElement;
+    let found = false;
     for (const entry of this.$currentEntries.value) {
       if (entry.word.startsWith(letterElement.value)) {
         this.$currentIndexStart.next(this.$currentEntries.value.indexOf(entry));
+        found = true;
         break;
       }
+    }
+    if (!found) {
+      this.letterNotFound = true;
     }
   }
 

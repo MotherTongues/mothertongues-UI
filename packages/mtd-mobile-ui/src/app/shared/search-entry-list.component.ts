@@ -40,11 +40,11 @@ export class SearchEntryListComponent implements OnChanges, OnInit {
   }
 
   setOpen(value: boolean) {
-    this.isModalOpen = value
+    this.isModalOpen = value;
   }
 
   didDismiss() {
-    this.isModalOpen = false
+    this.isModalOpen = false;
   }
 
   highlight(result: Result, lang: 'L1' | 'L2') {

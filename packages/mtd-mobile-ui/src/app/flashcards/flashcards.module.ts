@@ -13,8 +13,8 @@ import { FlashcardsPage } from './flashcards.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    FlashcardsPageRoutingModule
+    FlashcardsPageRoutingModule,
   ],
-  declarations: [FlashcardsPage]
+  declarations: [FlashcardsPage],
 })
 export class FlashcardsPageModule {}

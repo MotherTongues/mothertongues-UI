@@ -49,11 +49,11 @@ export class EntryListComponent implements OnChanges, OnInit {
   }
 
   setOpen(value: boolean) {
-    this.isModalOpen = value
+    this.isModalOpen = value;
   }
 
   didDismiss() {
-    this.isModalOpen = false
+    this.isModalOpen = false;
   }
 
   ngOnChanges() {

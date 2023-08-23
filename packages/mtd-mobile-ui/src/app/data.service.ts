@@ -54,16 +54,15 @@ export class DataService {
         // Load config
         const { config } = mtdData;
         this.$config.next(config);
+        this.$entriesLength.next(mtdData.sorted_data.length);
         // Load entries into hash
-        this.$entriesHash.next(mtdData.data);
-        this.$entriesLength.next(Object.keys(mtdData.data).length);
+        const entriesHash: { [key: string]: DictionaryEntryExportFormat } = {};
+        mtdData.sorted_data.forEach((entry) => {
+          entriesHash[entry.entryID] = entry;
+        });
+        this.$entriesHash.next(entriesHash);
         // Create Sorted Entries
-        this.$sortedEntries.next(
-          [...Object.values(mtdData.data)].sort(
-            (a: DictionaryEntryExportFormat, b: DictionaryEntryExportFormat) =>
-              a.word.localeCompare(b.word)
-          )
-        );
+        this.$sortedEntries.next(Object.values(mtdData.sorted_data));
         // Create Categorized Entries
         const categorizedEntries: {
           [id: string]: DictionaryEntryExportFormat[];

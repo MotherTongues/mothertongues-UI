@@ -29,7 +29,10 @@ const routes: Routes = [
   },
   {
     path: 'flashcards',
-    loadChildren: () => import('./flashcards/flashcards.module').then( m => m.FlashcardsPageModule)
+    loadChildren: () =>
+      import('./flashcards/flashcards.module').then(
+        (m) => m.FlashcardsPageModule
+      ),
   },
 ];
 
