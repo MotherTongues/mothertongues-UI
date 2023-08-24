@@ -23,6 +23,11 @@ export function create_normalization_function(
   if (config.lower) {
     callables.push((string: string) => string.toLowerCase());
   }
+  if (config.remove_combining_characters) {
+    callables.push((text: string) =>
+      text.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    );
+  }
   if (config.unicode_normalization && config.unicode_normalization !== 'none') {
     callables.push((text: string) =>
       text.normalize(config.unicode_normalization)

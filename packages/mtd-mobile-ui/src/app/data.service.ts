@@ -16,13 +16,6 @@ import { BehaviorSubject, take } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 
-// function customNormalization(query: string): string {
-//   // Remove accents in French default
-//   return defaultNormalization(query)
-//     .normalize('NFD')
-//     .replace(/[\u0300-\u036f]/g, '');
-// }
-
 @Injectable({
   providedIn: 'root',
 })
