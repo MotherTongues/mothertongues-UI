@@ -1,205 +1,227 @@
 {
-    "name": "mtd-mobile-ui",
-    "$schema": "../../node_modules/nx/schemas/project-schema.json",
-    "projectType": "application",
-    "prefix": "mtd",
-    "sourceRoot": "packages/mtd-mobile-ui/src",
-    "tags": [],
-    "targets": {
-        "pre-build": {
-            "executor": "nx:run-script",
-            "options": {
-                "script": "compile-schema"
+  "name": "mtd-mobile-ui",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "mtd",
+  "sourceRoot": "packages/mtd-mobile-ui/src",
+  "tags": [],
+  "targets": {
+    "pre-build": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "compile-schema"
+      }
+    },
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/mtd-mobile-ui",
+        "index": "packages/mtd-mobile-ui/src/index.html",
+        "main": "packages/mtd-mobile-ui/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "packages/mtd-mobile-ui/tsconfig.app.json",
+        "assets": [
+          "packages/mtd-mobile-ui/src/assets",
+          {
+            "glob": "**/*.svg",
+            "input": "node_modules/ionicons/dist/ionicons/svg",
+            "output": "./svg"
+          }
+        ],
+        "styles": [
+          "packages/mtd-mobile-ui/src/styles.scss",
+          {
+            "input": "packages/mtd-mobile-ui/src/theme/variables.scss"
+          }
+        ],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "packages/mtd-mobile-ui/src/environments/environment.ts",
+              "with": "packages/mtd-mobile-ui/src/environments/environment.prod.ts"
             }
-        },
-        "build": {
-            "executor": "@angular-devkit/build-angular:browser",
-            "outputs": ["{options.outputPath}"],
-            "options": {
-                "outputPath": "dist/packages/mtd-mobile-ui",
-                "index": "packages/mtd-mobile-ui/src/index.html",
-                "main": "packages/mtd-mobile-ui/src/main.ts",
-                "polyfills": ["zone.js"],
-                "tsConfig": "packages/mtd-mobile-ui/tsconfig.app.json",
-                "assets": [
-                    "packages/mtd-mobile-ui/src/assets",
-                    {
-                        "glob": "**/*.svg",
-                        "input": "node_modules/ionicons/dist/ionicons/svg",
-                        "output": "./svg"
-                    }
-                ],
-                "styles": [
-                    "packages/mtd-mobile-ui/src/styles.scss",
-                    {
-                        "input": "packages/mtd-mobile-ui/src/theme/variables.scss"
-                    }
-                ],
-                "scripts": []
+          ],
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "8mb",
+              "maximumError": "15mb"
             },
-            "configurations": {
-                "production": {
-                    "budgets": [{
-                            "type": "initial",
-                            "maximumWarning": "8mb",
-                            "maximumError": "15mb"
-                        },
-                        {
-                            "type": "anyComponentStyle",
-                            "maximumWarning": "6kb",
-                            "maximumError": "8kb"
-                        }
-                    ],
-                    "outputHashing": "all"
-                },
-                "development": {
-                    "buildOptimizer": false,
-                    "optimization": false,
-                    "vendorChunk": true,
-                    "extractLicenses": false,
-                    "sourceMap": true,
-                    "namedChunks": true
-                }
-            },
-            "defaultConfiguration": "production"
-        },
-        "serve": {
-            "executor": "@angular-devkit/build-angular:dev-server",
-            "configurations": {
-                "production": {
-                    "browserTarget": "mtd-mobile-ui:build:production"
-                },
-                "development": {
-                    "browserTarget": "mtd-mobile-ui:build:development"
-                }
-            },
-            "defaultConfiguration": "development"
-        },
-        "extract-i18n": {
-            "executor": "@angular-devkit/build-angular:extract-i18n",
-            "options": {
-                "browserTarget": "mtd-mobile-ui:build"
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "6kb",
+              "maximumError": "8kb"
             }
+          ],
+          "outputHashing": "all"
         },
-        "lint": {
-            "executor": "@nx/linter:eslint",
-            "outputs": ["{options.outputFile}"],
-            "options": {
-                "lintFilePatterns": [
-                    "packages/mtd-mobile-ui/**/*.ts",
-                    "packages/mtd-mobile-ui/**/*.html"
-                ]
-            }
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
         },
-        "test": {
-            "executor": "@nx/jest:jest",
-            "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-            "options": {
-                "jestConfig": "packages/mtd-mobile-ui/jest.config.ts",
-                "passWithNoTests": true
-            },
-            "configurations": {
-                "ci": {
-                    "ci": true,
-                    "codeCoverage": true
-                }
+        "pydev": {
+          "fileReplacements": [
+            {
+              "replace": "packages/mtd-mobile-ui/src/environments/environment.ts",
+              "with": "packages/mtd-mobile-ui/src/environments/environment.py.ts"
             }
-        },
-        "serve-static": {
-            "executor": "@nx/web:file-server",
-            "options": {
-                "buildTarget": "mtd-mobile-ui:build"
-            }
-        },
-        "cap": {
-            "executor": "@nxext/capacitor:cap",
-            "options": {
-                "cmd": "--help"
-            }
-        },
-        "add": {
-            "executor": "@nxext/capacitor:cap",
-            "options": {
-                "cmd": "add"
-            },
-            "configurations": {
-                "ios": {
-                    "cmd": "add ios"
-                },
-                "android": {
-                    "cmd": "add android"
-                }
-            }
-        },
-        "copy": {
-            "executor": "@nxext/capacitor:cap",
-            "options": {
-                "cmd": "copy"
-            },
-            "configurations": {
-                "ios": {
-                    "cmd": "copy ios"
-                },
-                "android": {
-                    "cmd": "copy android"
-                }
-            }
-        },
-        "open": {
-            "executor": "@nxext/capacitor:cap",
-            "options": {
-                "cmd": "open"
-            },
-            "configurations": {
-                "ios": {
-                    "cmd": "open ios"
-                },
-                "android": {
-                    "cmd": "open android"
-                }
-            }
-        },
-        "run": {
-            "executor": "@nxext/capacitor:cap",
-            "options": {
-                "cmd": "run"
-            },
-            "configurations": {
-                "ios": {
-                    "cmd": "run ios"
-                },
-                "android": {
-                    "cmd": "run android"
-                }
-            }
-        },
-        "sync": {
-            "executor": "@nxext/capacitor:cap",
-            "options": {
-                "cmd": "sync"
-            },
-            "configurations": {
-                "ios": {
-                    "cmd": "sync ios"
-                },
-                "android": {
-                    "cmd": "sync android"
-                }
-            }
-        },
-        "update": {
-            "executor": "@nxext/capacitor:cap",
-            "options": {
-                "cmd": "update"
-            },
-            "configurations": {
-                "ios": {
-                    "cmd": "update ios"
-                },
-                "android": {
-                    "cmd": "update android"
-                }
-            }
+          ],
+          "outputPath": "../mothertongues/ui",
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
         }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "mtd-mobile-ui:build:production"
+        },
+        "development": {
+          "browserTarget": "mtd-mobile-ui:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "mtd-mobile-ui:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "packages/mtd-mobile-ui/**/*.ts",
+          "packages/mtd-mobile-ui/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "packages/mtd-mobile-ui/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "mtd-mobile-ui:build"
+      }
+    },
+    "cap": {
+      "executor": "@nxext/capacitor:cap",
+      "options": {
+        "cmd": "--help"
+      }
+    },
+    "add": {
+      "executor": "@nxext/capacitor:cap",
+      "options": {
+        "cmd": "add"
+      },
+      "configurations": {
+        "ios": {
+          "cmd": "add ios"
+        },
+        "android": {
+          "cmd": "add android"
+        }
+      }
+    },
+    "copy": {
+      "executor": "@nxext/capacitor:cap",
+      "options": {
+        "cmd": "copy"
+      },
+      "configurations": {
+        "ios": {
+          "cmd": "copy ios"
+        },
+        "android": {
+          "cmd": "copy android"
+        }
+      }
+    },
+    "open": {
+      "executor": "@nxext/capacitor:cap",
+      "options": {
+        "cmd": "open"
+      },
+      "configurations": {
+        "ios": {
+          "cmd": "open ios"
+        },
+        "android": {
+          "cmd": "open android"
+        }
+      }
+    },
+    "run": {
+      "executor": "@nxext/capacitor:cap",
+      "options": {
+        "cmd": "run"
+      },
+      "configurations": {
+        "ios": {
+          "cmd": "run ios"
+        },
+        "android": {
+          "cmd": "run android"
+        }
+      }
+    },
+    "sync": {
+      "executor": "@nxext/capacitor:cap",
+      "options": {
+        "cmd": "sync"
+      },
+      "configurations": {
+        "ios": {
+          "cmd": "sync ios"
+        },
+        "android": {
+          "cmd": "sync android"
+        }
+      }
+    },
+    "update": {
+      "executor": "@nxext/capacitor:cap",
+      "options": {
+        "cmd": "update"
+      },
+      "configurations": {
+        "ios": {
+          "cmd": "update ios"
+        },
+        "android": {
+          "cmd": "update android"
+        }
+      }
     }
+  }
 }

@@ -12,8 +12,9 @@ import {
   MTDExportFormat,
   SearchAlgorithms,
 } from '../config/mtd';
-import { BehaviorSubject, Subject, take } from 'rxjs';
+import { BehaviorSubject, take } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../environments/environment';
 
 // function customNormalization(query: string): string {
 //   // Remove accents in French default
@@ -48,7 +49,7 @@ export class DataService {
   public $bookmarks = new BehaviorSubject<DictionaryEntryExportFormat[]>([]);
   constructor(private http: HttpClient) {
     this.http
-      .get('../assets/dictionary_data.json')
+      .get(environment.dataPath)
       .pipe(take(1))
       .subscribe((data: any) => {
         const mtdData: MTDExportFormat = data;
