@@ -65,12 +65,12 @@
         },
         "insertionAtBeginningCost": {
           "title": "Insertionatbeginningcost",
-          "default": 0.5,
+          "default": 1.0,
           "type": "number"
         },
         "deletionAtEndCost": {
           "title": "Deletionatendcost",
-          "default": 0.5,
+          "default": 1.0,
           "type": "number"
         },
         "substitutionCosts": {
@@ -123,11 +123,8 @@
         },
         "replace_rules": {
           "title": "Replace Rules",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "additionalProperties": { "type": "string" }
-          }
+          "type": "object",
+          "additionalProperties": { "type": "string" }
         }
       },
       "additionalProperties": false

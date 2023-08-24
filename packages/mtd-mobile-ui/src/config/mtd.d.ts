@@ -27,9 +27,6 @@ export type Lower = boolean;
  */
 export type NormalizationEnum = 'NFC' | 'NFD' | 'NFKC' | 'NKFD' | 'none';
 export type RemovePunctuation = string;
-export type ReplaceRules = {
-  [k: string]: string;
-}[];
 export type Alphabet = string[];
 export type OptionalFieldName = string;
 export type Role = string;
@@ -99,6 +96,9 @@ export interface RestrictedTransducer {
   unicode_normalization?: NormalizationEnum & string;
   remove_punctuation?: RemovePunctuation;
   replace_rules?: ReplaceRules;
+}
+export interface ReplaceRules {
+  [k: string]: string;
 }
 export interface Contributor {
   role: Role;

@@ -4,7 +4,15 @@ import { Builder } from 'liblevenshtein';
 import { newStemmer } from 'snowball-stemmers';
 import { DistanceCalculator } from './weighted.levenstein';
 import { Counter } from './utils';
-import { Alphabet, L1Index, L2Index, Location, RestrictedTransducer, SearchAlgorithms, StemmerEnum } from './mtd';
+import {
+  Alphabet,
+  L1Index,
+  L2Index,
+  Location,
+  RestrictedTransducer,
+  SearchAlgorithms,
+  StemmerEnum,
+} from './mtd';
 
 // From the MTD configuration for a normalization function, create a normalization function
 // capable of lowercasing, unicode normalization, punctuation remove, and arbitrary replace rules.
@@ -26,7 +34,8 @@ export function create_normalization_function(
   }
   if (config.replace_rules) {
     const replace = (text: string) => {
-      Object.keys(config.replace_rules ?? {}).forEach(([k, v]) => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      Object.entries(config.replace_rules!).forEach(([k, v]) => {
         text = text.replace(k, v);
       });
       return text;
@@ -110,7 +119,7 @@ export class Index {
       lower: true,
       unicode_normalization: 'NFC',
       remove_punctuation: "[.,/#!$%^&?*';:{}=\\-_`~()]",
-      replace_rules: [],
+      replace_rules: {},
     },
     stemmerFunctionChoice = 'none',
     data,
@@ -165,9 +174,8 @@ export class MTDSearch {
       const regex = new RegExp('(' + sortedTokens.join('|') + ')', 'g');
       this.tokenizer = (str: string) => str.split(regex);
     } else {
-      this.tokenizer = undefined
+      this.tokenizer = undefined;
     }
-    
   }
 
   combine_results(flatResults: [string, number][]) {
@@ -189,7 +197,8 @@ export class MTDSearch {
           combinedResults[posting][1] = combinedResults[posting][1].concat(
             this.index.data[term][posting].location
           );
-          combinedResults[posting][2] += this.index.data[term][posting]['score']['total'];
+          combinedResults[posting][2] +=
+            this.index.data[term][posting]['score']['total'];
         } else {
           combinedResults[posting] = [
             distance,
@@ -208,27 +217,25 @@ export class MTDSearch {
     const results: [string, number][][] = splitQueryTerms.map((word) => {
       // normalize
       word = this.index.normalizeFunction(word);
+      console.log(word);
       // stem
       if (this.index.stemmerFunction !== undefined) {
         word = this.index.stemmerFunction(word);
       }
-      if (this.searchType === "weighted_levenstein") {
+      if (this.searchType === 'weighted_levenstein') {
         if (this.tokenizer !== undefined) {
           word = this.tokenizer(word);
           return this.indexTerms
-          .map((term) => [
-            term,
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            this.transducer.getEditDistance(word, this.tokenizer!(term)),
-          ])
-          .filter((result) => result[1] < maximum_edit_distance);
+            .map((term) => [
+              term,
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+              this.transducer.getEditDistance(word, this.tokenizer!(term)),
+            ])
+            .filter((result) => result[1] < maximum_edit_distance);
         } else {
           return this.indexTerms
-          .map((term) => [
-            term,
-            this.transducer.getEditDistance(word, term),
-          ])
-          .filter((result) => result[1] < maximum_edit_distance);
+            .map((term) => [term, this.transducer.getEditDistance(word, term)])
+            .filter((result) => result[1] < maximum_edit_distance);
         }
       } else {
         return this.transducer.transduce(word, maximum_edit_distance);
@@ -246,17 +253,19 @@ export class MTDSearch {
     const { combinedResults, docCounter } = this.combine_results(flatResults);
     // We return a list of Results
     const resultsArray: Result[] = Object.keys(combinedResults).map(
-      (posting) => [
-        // if the doc was not found by any of the query terms, add an upper-bound default of the max edit distance + 1 for the
-        // un-matched query terms and then average the results
-        (combinedResults[posting][0] +
-          (splitQueryTerms.length - docCounter.counter[posting]) *
-            (maximum_edit_distance + 1)) /
-          splitQueryTerms.length,
-        posting,
-        combinedResults[posting][1],
-        combinedResults[posting][2],
-      ]
+      (posting) => {
+        return [
+          // if the doc was not found by any of the query terms, add an upper-bound default of the max edit distance + 1 for the
+          // un-matched query terms and then average the results
+          (combinedResults[posting][0] +
+            Math.max(0, splitQueryTerms.length - docCounter.counter[posting]) *
+              (maximum_edit_distance + 1)) /
+            splitQueryTerms.length,
+          posting,
+          combinedResults[posting][1],
+          combinedResults[posting][2],
+        ];
+      }
     );
     if (sort) {
       if (maximum_edit_distance === 0) {

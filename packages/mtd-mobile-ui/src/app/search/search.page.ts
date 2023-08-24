@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
-import { Result } from '@mothertongues/search';
+import { Result, sortResults } from '@mothertongues/search';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
@@ -47,20 +47,21 @@ export class SearchPage implements OnInit {
           this.dataService.$entriesLength.value
         } entries in ${(t1 - t0).toString()} ms`
       );
-      const results = l1_results.concat(l2_results).sort((a, b) => b[0] - a[0]);
-      this.matches = results
-        .filter((result) => result[0] < this.partialThreshold)
-        .sort((a, b) => b[3] - a[3]);
-      this.partMatches = results
-        .filter(
+      const results = l1_results.concat(l2_results);
+      console.log(sortResults(results));
+      this.matches = sortResults(
+        results.filter((result) => result[0] < this.partialThreshold)
+      );
+      this.partMatches = sortResults(
+        results.filter(
           (result) =>
             result[0] >= this.partialThreshold &&
             result[0] < this.maybeThreshold
         )
-        .sort((a, b) => b[3] - a[3]);
-      this.maybeMatches = results
-        .filter((result) => result[0] >= this.maybeThreshold)
-        .sort((a, b) => b[3] - a[3]);
+      );
+      this.maybeMatches = sortResults(
+        results.filter((result) => result[0] >= this.maybeThreshold)
+      );
     }
   }
 }
