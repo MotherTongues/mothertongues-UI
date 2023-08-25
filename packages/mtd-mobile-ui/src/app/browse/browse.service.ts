@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable, map } from 'rxjs';
-import { DictionaryEntryExportFormat } from '../../config/entry';
-import { LanguageConfigurationExportFormat } from '../../config/config';
+import {
+  DictionaryEntryExportFormat,
+  LanguageConfigurationExportFormat,
+} from '../../config/mtd';
 import { DataService } from '../data.service';
 @Injectable({
   providedIn: 'root',

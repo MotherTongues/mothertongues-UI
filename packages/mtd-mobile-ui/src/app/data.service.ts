@@ -6,9 +6,9 @@ import {
   MTDSearch,
   Result,
 } from '@mothertongues/search';
-import { DictionaryEntryExportFormat } from '../config/entry';
 import {
   LanguageConfigurationExportFormat,
+  DictionaryEntryExportFormat,
   MTDExportFormat,
   SearchAlgorithms,
 } from '../config/mtd';

@@ -6,7 +6,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { DataService } from '../data.service';
-import { DictionaryEntryExportFormat } from '../../config/entry';
+import { DictionaryEntryExportFormat } from '../../config/mtd';
 import { Subject } from 'rxjs';
 
 @Component({

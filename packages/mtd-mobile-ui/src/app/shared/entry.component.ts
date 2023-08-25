@@ -10,7 +10,7 @@ import {
   DictionaryEntryExportFormat,
   Audio1,
   Optional,
-} from '../../config/entry';
+} from '../../config/mtd';
 
 @Component({
   selector: 'mtd-entry',

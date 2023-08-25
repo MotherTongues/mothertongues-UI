@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
-import { LanguageConfigurationExportFormat } from '../../config/config';
+import {
+  DictionaryEntryExportFormat,
+  LanguageConfigurationExportFormat,
+} from '../../config/mtd';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { DictionaryEntryExportFormat } from '../../config/entry';
 import { BrowseService } from './browse.service';
 
 @Component({
@@ -11,7 +13,8 @@ import { BrowseService } from './browse.service';
   styleUrls: ['./browse.page.css'],
 })
 export class BrowsePage implements OnInit {
-  $config: BehaviorSubject<LanguageConfigurationExportFormat | null> = this.dataService.$config;
+  $config: BehaviorSubject<LanguageConfigurationExportFormat | null> =
+    this.dataService.$config;
   $dataHash: Subject<{ [id: string]: DictionaryEntryExportFormat }>;
   displayLetters: string[] = [];
   categories: string[] = [];

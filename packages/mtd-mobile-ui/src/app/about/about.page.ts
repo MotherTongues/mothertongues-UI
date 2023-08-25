@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
-import { LanguageConfigurationExportFormat } from '../../config/config';
+import { LanguageConfigurationExportFormat } from '../../config/mtd';
 import { Subject } from 'rxjs';
 
 @Component({
