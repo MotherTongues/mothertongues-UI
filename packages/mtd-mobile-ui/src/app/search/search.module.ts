@@ -8,9 +8,17 @@ import { SearchPageRoutingModule } from './search-routing.module';
 
 import { SearchPage } from './search.page';
 import { SharedModule } from '../shared/shared.module';
+import { SearchService } from './search.service';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, IonicModule, SearchPageRoutingModule, SharedModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    SearchPageRoutingModule,
+    SharedModule,
+  ],
   declarations: [SearchPage],
+  providers: [SearchService],
 })
 export class SearchPageModule {}

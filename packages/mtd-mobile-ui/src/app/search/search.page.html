@@ -11,6 +11,7 @@
   <ion-searchbar
     id="searchBar"
     color="primary"
+    [value]="searchService.searchQuery"
     [disabled]="($loaded | async) === false"
     animated="true"
     placeholder="Type your word here"
@@ -18,38 +19,38 @@
   >
     <ion-spinner *ngIf="($loaded | async) === false"></ion-spinner>
   </ion-searchbar>
-  <div *ngIf="searchQuery.length > 1">
-    <div class="result-container" *ngIf="matches.length > 0">
+  <div *ngIf="searchService.searchQuery.length > 1">
+    <div class="result-container" *ngIf="searchService.matches.length > 0">
       <h4>Matches</h4>
       <mtd-search-entry-list
-        [entries]="matches"
-        [searchterm]="searchQuery"
+        [entries]="searchService.matches"
+        [searchterm]="searchService.searchQuery"
         [threshold]="0"
       ></mtd-search-entry-list>
     </div>
-    <div class="result-container" *ngIf="partMatches.length > 0">
+    <div class="result-container" *ngIf="searchService.partMatches.length > 0">
       <h4>Partial Matches</h4>
       <mtd-search-entry-list
-        [entries]="partMatches"
-        [searchterm]="searchQuery"
+        [entries]="searchService.partMatches"
+        [searchterm]="searchService.searchQuery"
         [threshold]="partialThreshold"
       ></mtd-search-entry-list>
     </div>
-    <div class="result-container" *ngIf="maybeMatches.length > 0">
+    <div class="result-container" *ngIf="searchService.maybeMatches.length > 0">
       <h4>Maybe you meant this?</h4>
       <mtd-search-entry-list
-        [entries]="maybeMatches"
-        [searchterm]="searchQuery"
+        [entries]="searchService.maybeMatches"
+        [searchterm]="searchService.searchQuery"
         [threshold]="maybeThreshold"
       ></mtd-search-entry-list>
     </div>
     <div
       class="result-container"
-      *ngIf="matches.length === 0 && partMatches.length === 0 && maybeMatches.length === 0"
+      *ngIf="searchService.matches.length === 0 && searchService.partMatches.length === 0 && searchService.maybeMatches.length === 0"
     >
       <h6>
-        Sorry, we couldn't find any words matching '{{ searchQuery }}'. Please
-        try something else.
+        Sorry, we couldn't find any words matching '{{ searchService.searchQuery
+        }}'. Please try something else.
       </h6>
     </div>
   </div>

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
-import { Result, sortResults } from '@mothertongues/search';
+import { sortResults } from '@mothertongues/search';
 import { BehaviorSubject } from 'rxjs';
+import { SearchService } from './search.service';
 
 @Component({
   selector: 'mtd-search',
@@ -9,14 +10,13 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./search.page.scss'],
 })
 export class SearchPage implements OnInit {
-  searchQuery = '';
-  matches: Result[] = [];
-  partMatches: Result[] = [];
-  maybeMatches: Result[] = [];
   partialThreshold = 1;
   maybeThreshold = 2;
   $loaded: BehaviorSubject<boolean>;
-  constructor(public dataService: DataService) {
+  constructor(
+    public dataService: DataService,
+    public searchService: SearchService
+  ) {
     this.$loaded = this.dataService.$loaded;
   }
 
@@ -26,9 +26,8 @@ export class SearchPage implements OnInit {
     if (ev.target === null) {
       return;
     }
-
     const query = (ev.target as HTMLTextAreaElement).value;
-    this.searchQuery = query;
+    this.searchService.searchQuery = query;
     if (query.length > 1) {
       let t0 = Date.now();
       // TODO: should be a better way to join results, this could have duplicates
@@ -49,17 +48,17 @@ export class SearchPage implements OnInit {
       );
       const results = l1_results.concat(l2_results);
       console.log(sortResults(results));
-      this.matches = sortResults(
+      this.searchService.matches = sortResults(
         results.filter((result) => result[0] < this.partialThreshold)
       );
-      this.partMatches = sortResults(
+      this.searchService.partMatches = sortResults(
         results.filter(
           (result) =>
             result[0] >= this.partialThreshold &&
             result[0] < this.maybeThreshold
         )
       );
-      this.maybeMatches = sortResults(
+      this.searchService.maybeMatches = sortResults(
         results.filter((result) => result[0] >= this.maybeThreshold)
       );
     }
