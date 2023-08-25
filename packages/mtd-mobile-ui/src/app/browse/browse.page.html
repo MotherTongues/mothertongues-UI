@@ -29,7 +29,7 @@
       <ion-select
         label="Current Letter"
         (ionChange)="handleLetterChange($event)"
-        [(ngModel)]="selectedLetter"
+        [value]="this.browseService.currentLetter$ | async"
       >
         <ion-select-option *ngFor="let letter of displayLetters"
           >{{ letter }}</ion-select-option
@@ -43,7 +43,10 @@
       ></ion-toast>
     </ion-item>
   </ion-list>
-  <div class="entry-container" *ngIf="currentTen$ | async as currentTen">
+  <div
+    class="entry-container"
+    *ngIf="browseService.currentTen$ | async as currentTen"
+  >
     <mtd-entry-list [entries]="currentTen"></mtd-entry-list>
   </div>
 </ion-content>
@@ -61,11 +64,12 @@
     </ion-buttons>
     <div
       class="browse-info"
-      *ngIf="{ start: $currentIndexStart | async } as currentStart"
+      *ngIf="{ start: browseService.$currentIndexStart | async } as currentStart"
     >
       <ion-title *ngIf="currentStart.start !== null"
         >Viewing {{ currentStart.start + 1 }} to {{ currentStart.start + 10 }}
-        of {{ ($currentEntries | async)?.length }} Dictionary Entries</ion-title
+        of {{ (browseService.$currentEntries | async)?.length }} Dictionary
+        Entries</ion-title
       >
     </div>
     <ion-buttons slot="end" class="bar-buttons bar-buttons-ios">

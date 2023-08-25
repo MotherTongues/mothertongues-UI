@@ -8,6 +8,7 @@ import { BrowsePageRoutingModule } from './browse-routing.module';
 
 import { BrowsePage } from './browse.page';
 import { SharedModule } from '../shared/shared.module';
+import { BrowseService } from './browse.service';
 
 @NgModule({
   imports: [
@@ -18,5 +19,6 @@ import { SharedModule } from '../shared/shared.module';
     SharedModule,
   ],
   declarations: [BrowsePage],
+  providers: [BrowseService],
 })
 export class BrowsePageModule {}
