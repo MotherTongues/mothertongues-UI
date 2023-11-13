@@ -57,7 +57,7 @@ export type Location = [Entryindex, Positionindex][];
 
 export interface MTDExportFormat {
   config: LanguageConfigurationExportFormat;
-  sorted_data: SortedData;
+  data: SortedData;
   l1_index: L1Index;
   l2_index: L2Index;
 }
