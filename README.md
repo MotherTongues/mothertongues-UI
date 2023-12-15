@@ -40,6 +40,8 @@ Then, either fork or clone this repo and put the `dictionary_data.json` file in 
 
 Part of how all MTD-UI's work is by following a statically typed format of what the data and configurations look like. If you change the type definitions in [MTD](https://github.com/MotherTongues/mothertongues) you will have to update them here as well. To do that, after you make your changes to the [Pydantic type definitions in MTD](https://github.com/MotherTongues/mothertongues/tree/main/mothertongues/config), you can export them using `mothertongues schema main packages/schemas/mtd.json`. Then run `npx nx run-many -t pre-build` to generate the TypeScript modules from the JSON schemas. You may have to update the UI and/or `search` library following these changes.
 
+Unfortunately, json-schema-to-typescript does not support prefixItems, so we annoyingly manually change, change `prefixItems` to `items` in the schema until the issue is fixed. See https://github.com/bcherny/json-schema-to-typescript/issues/543
+
 ## Contributing
 
 PRs accepted. If you would like to create more MTD-UIs those are also accepted.

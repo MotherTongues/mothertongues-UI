@@ -327,7 +327,6 @@
     "Location": {
       "maxItems": 2,
       "minItems": 2,
-      "type": "array",
       "items": [
         {
           "title": "Entryindex",
@@ -337,7 +336,8 @@
           "title": "Positionindex",
           "type": "integer"
         }
-      ]
+      ],
+      "type": "array"
     },
     "NormalizationEnum": {
       "enum": ["NFC", "NFD", "NFKC", "NKFD", "none"],
