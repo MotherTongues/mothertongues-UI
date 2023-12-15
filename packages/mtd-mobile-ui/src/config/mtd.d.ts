@@ -7,57 +7,59 @@
 
 export type L1 = string;
 export type L2 = string;
-/**
- * An enumeration.
- */
 export type SearchAlgorithms = 'weighted_levenstein' | 'liblevenstein_automata';
 export type Insertioncost = number;
 export type Deletioncost = number;
 export type Insertionatbeginningcost = number;
 export type Deletionatendcost = number;
-export type Substitutioncostspath = string;
+export type Substitutioncostspath = string | null;
 export type Defaultsubstitutioncost = number;
-/**
- * An enumeration.
- */
 export type StemmerEnum = 'snowball_english' | 'none';
 export type Lower = boolean;
-/**
- * An enumeration.
- */
 export type NormalizationEnum = 'NFC' | 'NFD' | 'NFKC' | 'NKFD' | 'none';
 export type RemovePunctuation = string;
 export type RemoveCombiningCharacters = boolean;
+export type ReplaceRules = {
+  [k: string]: string;
+} | null;
 export type Alphabet = string[];
 export type OptionalFieldName = string;
+export type Credits = Contributor[] | null;
 export type Role = string;
 export type Name = string;
-export type Credits = Contributor[];
 export type Build = string;
 export type Word = string;
 export type Definition = string;
 export type Entryid = string;
 export type SortingForm = number[];
-export type Theme = string;
-export type SecondaryTheme = string;
-export type Img = string;
-export type Description = string;
+export type Theme = string | null;
+export type SecondaryTheme = string | null;
+export type Img = string | null;
+export type Audio = Audio1[] | null;
+export type Description = string | null;
 export type Filename = string;
-export type Audio = Audio1[];
-export type DefinitionAudio = Audio1[];
-export type ExampleSentence = string[];
-export type ExampleSentenceDefinition = string[];
-export type ExampleSentenceAudio = Audio1[];
-export type ExampleSentenceDefinitionAudio = Audio1[];
-export type Source = string;
-export type SortedData = DictionaryEntryExportFormat[];
+export type DefinitionAudio = Audio1[] | null;
+export type ExampleSentence = string[] | null;
+export type ExampleSentenceDefinition = string[] | null;
+export type ExampleSentenceAudio = Audio1[][] | null;
+export type ExampleSentenceDefinitionAudio = Audio1[][] | null;
+export type Optional = {
+  [k: string]: string;
+} | null;
+export type Source = string | null;
+export type Data = DictionaryEntryExportFormat[];
+/**
+ * @minItems 2
+ * @maxItems 2
+ */
+export type Location1 = [Entryindex, Positionindex];
 export type Entryindex = string;
 export type Positionindex = number;
-export type Location = [Entryindex, Positionindex][];
+export type Location = Location1[];
 
 export interface MTDExportFormat {
   config: LanguageConfigurationExportFormat;
-  data: SortedData;
+  data: Data;
   l1_index: L1Index;
   l2_index: L2Index;
 }
@@ -66,8 +68,8 @@ export interface LanguageConfigurationExportFormat {
   L2: L2;
   l1_search_strategy: SearchAlgorithms;
   l2_search_strategy: SearchAlgorithms;
-  l1_search_config?: WeightedLevensteinConfig;
-  l2_search_config?: WeightedLevensteinConfig;
+  l1_search_config?: WeightedLevensteinConfig | null;
+  l2_search_config?: WeightedLevensteinConfig | null;
   l1_stemmer: StemmerEnum;
   l2_stemmer: StemmerEnum;
   l1_normalization_transducer: RestrictedTransducer;
@@ -98,9 +100,6 @@ export interface RestrictedTransducer {
   remove_punctuation?: RemovePunctuation;
   remove_combining_characters?: RemoveCombiningCharacters;
   replace_rules?: ReplaceRules;
-}
-export interface ReplaceRules {
-  [k: string]: string;
 }
 export interface Contributor {
   role: Role;
@@ -134,9 +133,7 @@ export interface DictionaryEntryExportFormat {
 export interface Audio1 {
   description?: Description;
   filename: Filename;
-}
-export interface Optional {
-  [k: string]: string;
+  [k: string]: unknown;
 }
 export interface L1Index {
   [k: string]: {
@@ -146,6 +143,7 @@ export interface L1Index {
 export interface PostingData {
   location: Location;
   score: Score;
+  [k: string]: unknown;
 }
 export interface Score {
   [k: string]: number;

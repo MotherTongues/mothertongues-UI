@@ -55,18 +55,18 @@
         <ion-thumbnail slot="start">
           <ion-button
             *ngIf="entry.example_sentence_audio"
-            (click)="playAudio(entry.example_sentence_audio[i])"
+            (click)="playAudio(entry.example_sentence_audio[i][0])"
           >
             <ion-icon slot="start" name="musical-notes-outline"></ion-icon>
-            <span *ngIf="entry.example_sentence_audio[i].description">{{
-              entry.example_sentence_audio[i].description
+            <span *ngIf="entry.example_sentence_audio[i][0].description">{{
+              entry.example_sentence_audio[i][0].description
             }}</span>
           </ion-button>
         </ion-thumbnail>
         <ion-label
           >{{ sentence
           }}<span *ngIf="entry.example_sentence_definition"
-            >- {{ entry.example_sentence_definition[i] }}</span
+            >- {{ entry.example_sentence_definition[i][0] }}</span
           ></ion-label
         >
       </ion-item>
