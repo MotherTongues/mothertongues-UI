@@ -21,6 +21,17 @@ l1_search.search('this is a test') // returns Result[]
 l2_search.search('this is a test', 0) // returns Result[]
 ```
 
+## Local Install
+
+To install locally, we recommend cloning the whole project:
+
+`git clone https://github.com/MotherTongues/mothertongues.git --recursive`
+
+Then install the UI: `cd mothertongues/mothertongues-UI && npm install`
+
+Visit the [MotherTongues Readme](https://github.com/MotherTongues/mothertongues) for more information
+
+
 ## Building
 
 Run `nx build search` to build the library.
