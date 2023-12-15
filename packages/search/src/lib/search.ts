@@ -66,42 +66,6 @@ export function englishStemmer(term: string): string {
   return englishSnowballStemmer.stem(term);
 }
 
-export enum TransducerAlgorithmTypes {
-  standard = 'standard',
-  merge_and_split = 'merge_and_split',
-  transposition = 'transposition',
-}
-
-export interface BuilderConstructionParams {
-  terms: Index | string[];
-  algorithm?: TransducerAlgorithmTypes;
-  sort_candidates?: boolean;
-  case_insensitive_sort?: boolean;
-  include_distance?: boolean;
-  maximum_candidates?: number;
-}
-
-export function constructTransducer({
-  terms,
-  algorithm = TransducerAlgorithmTypes.standard,
-  sort_candidates = true,
-  case_insensitive_sort = true,
-  include_distance = true,
-  maximum_candidates = 10,
-}: BuilderConstructionParams) {
-  if (!Array.isArray(terms)) {
-    terms = Object.keys(terms.data);
-  }
-  const builder = new Builder()
-    .dictionary(terms, false) // generate spelling candidates from unsorted completion_list
-    .algorithm(algorithm) // use Levenshtein distance extended with transposition
-    .sort_candidates(sort_candidates) // sort the spelling candidates before returning them
-    .case_insensitive_sort(case_insensitive_sort) // ignore character-casing while sorting terms
-    .include_distance(include_distance) // keep distances
-    .maximum_candidates(maximum_candidates); // maximum number of candidates
-  return builder.build();
-}
-
 export interface MTDParams {
   transducer: Builder | object;
   index: Index;
@@ -222,7 +186,6 @@ export class MTDSearch {
     const results: [string, number][][] = splitQueryTerms.map((word) => {
       // normalize
       word = this.index.normalizeFunction(word);
-      console.log(word);
       // stem
       if (this.index.stemmerFunction !== undefined) {
         word = this.index.stemmerFunction(word);

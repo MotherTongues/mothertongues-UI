@@ -1,8 +1,5 @@
-import {
-  constructTransducer,
-  create_normalization_function,
-  englishStemmer,
-} from './search';
+import { create_normalization_function, englishStemmer } from './search';
+import { constructTransducer } from './factories';
 
 describe('stemmer', () => {
   it('should do basic stemming', () => {
@@ -15,7 +12,7 @@ describe('normalize', () => {
     const defaultNormalization = create_normalization_function({
       lower: true,
       unicode_normalization: 'NFC',
-      replace_rules: [],
+      replace_rules: {},
       remove_punctuation: "[.,/#!$%^&?*';:{}=\\-_`~()]",
     });
     expect(defaultNormalization('rElAtE')).toEqual('relate');
@@ -27,7 +24,7 @@ describe('normalize', () => {
     const defaultNormalization = create_normalization_function({
       lower: true,
       unicode_normalization: 'NFC',
-      replace_rules: [],
+      replace_rules: {},
       remove_punctuation: "[.,/#!$%^&?*';:{}=\\-_`~()]",
     });
     expect(defaultNormalization('rElAtE,;')).toEqual('relate');

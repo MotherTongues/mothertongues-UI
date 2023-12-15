@@ -3,7 +3,7 @@ import { DataService } from '../data.service';
 import {
   DictionaryEntryExportFormat,
   LanguageConfigurationExportFormat,
-} from '../../config/mtd';
+} from '@mothertongues/search';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { BrowseService } from './browse.service';
 

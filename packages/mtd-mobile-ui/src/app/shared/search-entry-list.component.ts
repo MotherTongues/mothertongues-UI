@@ -6,8 +6,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { DataService } from '../data.service';
-import { DictionaryEntryExportFormat } from '../../config/mtd';
-import { Result } from '@mothertongues/search';
+import { DictionaryEntryExportFormat, Result } from '@mothertongues/search';
 
 @Component({
   selector: 'mtd-search-entry-list',

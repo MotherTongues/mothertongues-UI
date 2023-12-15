@@ -10,7 +10,7 @@ import {
   DictionaryEntryExportFormat,
   Audio1,
   Optional,
-} from '../../config/mtd';
+} from '@mothertongues/search';
 
 @Component({
   selector: 'mtd-entry',

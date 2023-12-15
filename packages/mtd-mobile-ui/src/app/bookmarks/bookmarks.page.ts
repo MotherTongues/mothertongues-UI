@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { BehaviorSubject } from 'rxjs';
-import { DictionaryEntryExportFormat } from '../../config/mtd';
+import { DictionaryEntryExportFormat } from '@mothertongues/search';
 
 @Component({
   selector: 'mtd-bookmarks',

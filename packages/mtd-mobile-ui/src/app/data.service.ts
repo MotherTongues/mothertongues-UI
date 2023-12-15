@@ -1,17 +1,10 @@
 import { Injectable } from '@angular/core';
+import { constructSearchers, MTDSearch, Result } from '@mothertongues/search';
 import {
-  constructTransducer,
-  DistanceCalculator,
-  Index,
-  MTDSearch,
-  Result,
-} from '@mothertongues/search';
-import {
-  LanguageConfigurationExportFormat,
   DictionaryEntryExportFormat,
+  LanguageConfigurationExportFormat,
   MTDExportFormat,
-  SearchAlgorithms,
-} from '../config/mtd';
+} from '@mothertongues/search';
 import { BehaviorSubject, take } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
@@ -87,56 +80,10 @@ export class DataService {
         themes.sort();
         this.$categories.next(['All'].concat(sources).concat(themes));
         this.$categorizedEntries.next(categorizedEntries);
-        // Load L1 index
-        const l1_index = new Index({
-          normalizeFunctionConfig: config['l1_normalization_transducer'],
-          stemmerFunctionChoice: config['l1_stemmer'],
-          data: mtdData.l1_index,
-        });
-        const l1_transducer = this.returnTransducer(
-          config['l1_search_strategy'] ?? 'liblevenstein_automata',
-          l1_index,
-          config['l1_search_config']
-        );
-        this.l1_search = new MTDSearch({
-          transducer: l1_transducer,
-          index: l1_index,
-          searchType: config['l1_search_strategy'] ?? 'liblevenstein_automata',
-          tokens: config['alphabet'],
-        });
-        // Load L2 index
-        const l2_index = new Index({
-          normalizeFunctionConfig: config['l2_normalization_transducer'],
-          stemmerFunctionChoice: config['l2_stemmer'],
-          data: mtdData.l2_index,
-        });
-        const l2_transducer = this.returnTransducer(
-          config['l2_search_strategy'] ?? 'liblevenstein_automata',
-          l2_index,
-          config['l2_search_config']
-        );
-        this.l2_search = new MTDSearch({
-          transducer: l2_transducer,
-          index: l2_index,
-          searchType: config['l2_search_strategy'] ?? 'liblevenstein_automata',
-          tokens: config['alphabet'],
-        });
+        // Load Searchers
+        [this.l1_search, this.l2_search] = constructSearchers(mtdData);
         this.$loaded.next(true);
       });
-  }
-
-  returnTransducer(searchType: SearchAlgorithms, index: Index, config: any) {
-    let transducer = null;
-    if (searchType === 'liblevenstein_automata') {
-      transducer = constructTransducer({ terms: index });
-    } else if (searchType === 'weighted_levenstein') {
-      if (config) {
-        transducer = new DistanceCalculator(config);
-      } else {
-        transducer = new DistanceCalculator({});
-      }
-    }
-    return transducer;
   }
 
   search_l1(query: string): Result[] {

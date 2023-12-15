@@ -3,7 +3,7 @@ import { BehaviorSubject, combineLatest, Observable, map } from 'rxjs';
 import {
   DictionaryEntryExportFormat,
   LanguageConfigurationExportFormat,
-} from '../../config/mtd';
+} from '@mothertongues/search';
 import { DataService } from '../data.service';
 @Injectable({
   providedIn: 'root',
