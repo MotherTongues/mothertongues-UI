@@ -1,6 +1,8 @@
 {
-    "name": "@mothertongues/search",
-    "scripts": { "compile-schema": "ts-node ./src/buildSchema.ts --skipLibCheck" },
-    "version": "0.0.1",
-    "type": "commonjs"
+  "name": "@mothertongues/search",
+  "scripts": {
+    "compile-schema": "ts-node ./src/buildSchema.ts --skipLibCheck"
+  },
+  "version": "0.0.3",
+  "type": "commonjs"
 }
