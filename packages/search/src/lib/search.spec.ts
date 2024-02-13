@@ -49,7 +49,7 @@ describe('normalize', () => {
       replace_rules: {},
       remove_punctuation: "[.,/#!$%^&?*';:{}=\\-_`~()]",
     });
-    expect(defaultNormalization('a,a;a.')).toEqual('aaa');
+    expect(defaultNormalization('a,a;a...')).toEqual('aaa');
   });
 
   it('should NOT remove punctuation not in remove_punctionation', () => {
