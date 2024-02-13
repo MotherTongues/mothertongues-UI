@@ -41,7 +41,8 @@ export function create_normalization_function(
     const replace = (text: string) => {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       Object.entries(config.replace_rules!).forEach(([k, v]) => {
-        text = text.replace(k, v);
+        const regEx = new RegExp(k, 'g');
+        text = text.replace(regEx, v);
       });
       return text;
     };
