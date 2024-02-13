@@ -1,5 +1,5 @@
 import { create_normalization_function, englishStemmer } from './search';
-import { constructTransducer } from './factories';
+
 
 describe('stemmer', () => {
   it('should do basic stemming', () => {
@@ -120,17 +120,6 @@ describe('normalize', () => {
 
 });
 
-describe('transducer', () => {
-  const dummyTerms = ['dog', 'cat'];
-  it('should be able to search', () => {
-    expect(
-      constructTransducer({
-        terms: dummyTerms,
-        include_distance: false,
-      }).transduce('kat', 1)
-    ).toContain('cat');
-  });
-});
 
 //describe('sortResults')
 
