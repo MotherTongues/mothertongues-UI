@@ -1,4 +1,4 @@
-import { create_normalization_function, englishStemmer } from './search';
+import { create_normalization_function, englishStemmer, sortResults, Result } from './search';
 
 
 describe('stemmer', () => {
@@ -120,8 +120,59 @@ describe('normalize', () => {
 
 });
 
+describe('sortResults', () => {
+  it('should sort by Levenstein distance (first value)', () => {
+    const result1: Result = [1, 'result1', [[ 'entryIndex', 2]], 1];
+    const result2: Result = [0, 'result2', [[ 'entryIndex', 2]], 1];
+    const result3: Result = [0.5, 'result3', [['entryIndex', 2]], 1];
+      
+    const givenArray = [result1, result2, result3]
 
-//describe('sortResults')
+    const sortResultsOutput = sortResults(givenArray);
+
+    expect(sortResultsOutput[0]).toEqual(result2);
+    expect(sortResultsOutput[1]).toEqual(result3);
+    expect(sortResultsOutput[2]).toEqual(result1);
+  });
+
+  it('should sort by BM25 score (last value) when Levenstein distance is equal', () => {
+    const result1: Result = [0, 'result1', [[ 'entryIndex', 2]], 1];
+    const result2: Result = [0, 'result2', [[ 'entryIndex', 2]], 0];
+    const result3: Result = [0, 'result3', [['entryIndex', 2]], .5];
+      
+    const givenArray = [result1, result2, result3]
+
+    const sortResultsOutput = sortResults(givenArray);
+
+    expect(sortResultsOutput[0]).toEqual(result1);
+    expect(sortResultsOutput[1]).toEqual(result3);
+    expect(sortResultsOutput[2]).toEqual(result2);
+  });
+
+  it('should sort by Lev score first, BM25 score second', () => {
+    const result1: Result = [0, 'result1', [[ 'entryIndex', 2]], 1];
+    const result2: Result = [0, 'result2', [[ 'entryIndex', 2]], 0];
+    const result3: Result = [.5, 'result3', [['entryIndex', 2]], .5];
+    const result4: Result = [.5, 'result4', [['entryIndex', 2]], 1];
+      
+    const givenArray = [result1, result2, result3, result4]
+
+    const sortResultsOutput = sortResults(givenArray);
+
+    expect(sortResultsOutput[0]).toEqual(result1);
+    expect(sortResultsOutput[1]).toEqual(result2);
+    expect(sortResultsOutput[2]).toEqual(result4);
+    expect(sortResultsOutput[3]).toEqual(result3);
+  });
+
+  it('should not blow up if given an empty Result set', () => {      
+    const givenArray: Result[] = []
+
+    expect(sortResults(givenArray)).toEqual([]);
+  });
+
+});
+
 
 //describe('MTDSearch class')
   // class has combine_results()
