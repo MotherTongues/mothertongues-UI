@@ -45,7 +45,7 @@
     "jest-environment-jsdom": "^29.4.1",
     "jest-preset-angular": "~13.1.0",
     "json-schema-to-typescript": "^13.1.1",
-    "nx": "^16.5.1",
+    "nx": "16.5.1",
     "prettier": "^2.6.2",
     "ts-jest": "^29.1.0",
     "ts-node": "10.9.1",
@@ -90,7 +90,8 @@
     "rxjs": "~7.8.0",
     "snowball-stemmers": "^0.6.0",
     "transliteration": "^2.3.5",
-    "tslib": "^2.3.0",
+    "tslib": "^2.6.2",
     "zone.js": "~0.13.0"
   }
 }
+
