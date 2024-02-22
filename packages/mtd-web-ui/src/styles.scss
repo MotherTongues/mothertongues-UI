@@ -1,39 +1,110 @@
+/* Common stylesheet for the app as a whole. */
 
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
-// Plus imports for other components in your app.
+@import 'material-icons/iconfont/filled';
+@import 'styles-variables';
 
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
+@import 'bootstrap/scss/bootstrap-reboot';
+@import 'bootstrap/scss/bootstrap-grid';
+/* Undo bootstrap things */
+@import 'styles-reset';
+
 @include mat.core();
 
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$mtd-web-ui-primary: mat.define-palette(mat.$indigo-palette);
-$mtd-web-ui-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+@import './themes/default-theme';
+@import './themes/light-theme';
+@import './themes/black-theme';
+@import './themes/nature-theme';
 
-// The warn palette is optional (defaults to red).
-$mtd-web-ui-warn: mat.define-palette(mat.$red-palette);
+/* Undo bootstrap things some more */
+@import 'styles-reset.scss-theme';
 
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
-$mtd-web-ui-theme: mat.define-light-theme((
-  color: (
-    primary: $mtd-web-ui-primary,
-    accent: $mtd-web-ui-accent,
-    warn: $mtd-web-ui-warn,
-  )
-));
+/* These are all mostly the same thing, unfortunately */
+@import './app/app/app.component.scss-theme';
+@import './app/shared/big-input/big-input/big-input.component.scss-theme';
+@import './app/pages/bookmarks/bookmarks.component.scss-theme.scss';
+@import './app/pages/browse/browse.component.scss-theme.scss';
+@import './app/pages/random/random.component.scss-theme.scss';
+@import './app/pages/search/search.component.scss-theme.scss';
+@import './app/shared/layout/single/single.component.scss-theme.scss';
+@import './app/shared/entry-list/entry-list.component.scss-theme.scss';
+@import './app/shared/word-modal/word-modal.component.scss-theme.scss';
 
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include mat.all-component-themes($mtd-web-ui-theme);
+@mixin custom-components-theme($theme) {
+  @include mtd-styles-reset-theme($theme);
+  @include mtd-app-component-theme($theme);
+  @include mtd-big-input-component-theme($theme);
+  @include mtd-bookmarks-component-theme($theme);
+  @include mtd-browse-component-theme($theme);
+  @include mtd-random-component-theme($theme);
+  @include mtd-search-component-theme($theme);
+  @include mtd-entry-list-component-theme($theme);
+  @include mtd-word-modal-component-theme($theme);
+  @include mtd-single-component-theme($theme);
+}
 
-/* You can add global styles to this file, and also import other style files */
+.default-theme {
+  @include mat.all-component-themes($mtd-theme);
+  @include custom-components-theme($mtd-theme);
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.light-theme {
+  @include mat.all-component-themes($mtd-light-theme);
+  @include custom-components-theme($mtd-light-theme);
+}
+
+.black-theme {
+  @include mat.all-component-themes($mtd-black-theme);
+  @include custom-components-theme($mtd-black-theme);
+}
+
+.nature-theme {
+  @include mat.all-component-themes($mtd-nature-theme);
+  @include custom-components-theme($mtd-nature-theme);
+}
+
+/* Things used in a bunch of components (they go here to avoid being
+   scoped by Angular) */
+.desktop-only {
+  @media (max-width: map-get($angular-breakpoints, laptop) - 1) {
+    display: none;
+  }
+}
+
+.mobile-only {
+  @media (min-width: map-get($angular-breakpoints, laptop)) {
+    display: none;
+  }
+}
+
+/* Hack for small screens like iPhone SE (FIXME: should not be
+   necessary if we could use flexbox properly instead of hardcoding
+   content height but I haven't figured that out yet) */
+.not-for-tiny-phone {
+  @media (max-width: 480px) {
+    display: none;
+  }
+}
+
+.centered {
+  text-align: center;
+  margin: 0 auto;
+}
+
+/* This has to be global, for Reasons (Angular always has Reasons) */
+@media (max-width: $phone-max-width) {
+  /* Fix wacky Material margins that are totally inappropriate for small phones */
+  .mtd-word-dialog {
+    .mat-dialog-container {
+      padding: 8px;
+    }
+    .mat-dialog-content {
+      margin: 0;
+      padding: 0;
+    }
+    .mat-dialog-actions {
+      margin: 0;
+      padding: 0 8px;
+    }
+  }
+}

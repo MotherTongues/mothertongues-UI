@@ -1,16 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <title>MotherTongues Web UI</title>
     <base href="/" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
-      <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head>
+    <title>Michif Talking Dictionary</title>
+
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta property="og:title" content="Michif Talking Dictionary" />
+    <meta
+      property="og:description"
+      content="On-Line Dictionary of the Southern Michif Language"
+    />
+    <meta property="og:image" content="/assets/logo.png" />
+    <meta property="og:url" content="https://dictionary.michif.org/" />
+    <meta
+      name="description"
+      content="A digital adaptation of
+                   'The Michif Dictionary: Turtle Mountain Chippewa Cree'
+                   by Ida Rose Allard, Patline Laverdure and John Crawford
+                   &#169;1983 Turtle Mountain Community College."
+    />
+
+    <link rel="icon" type="image/png" href="./assets/favicon.png" />
+    <style type="text/css">
+      body,
+      html {
+        height: 100%;
+      }
+
+      .app-loading {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+      }
+
+      .app-loading .spinner {
+        height: 200px;
+        width: 200px;
+        animation: rotate 2s linear infinite;
+        transform-origin: center center;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+      }
+
+      .app-loading .spinner .path {
+        stroke-dasharray: 1, 200;
+        stroke-dashoffset: 0;
+        animation: dash 1.5s ease-in-out infinite;
+        stroke-linecap: round;
+        stroke: #ddd;
+      }
+
+      @keyframes rotate {
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes dash {
+        0% {
+          stroke-dasharray: 1, 200;
+          stroke-dashoffset: 0;
+        }
+
+        50% {
+          stroke-dasharray: 89, 200;
+          stroke-dashoffset: -35px;
+        }
+
+        100% {
+          stroke-dasharray: 89, 200;
+          stroke-dashoffset: -124px;
+        }
+      }
+    </style>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <meta name="theme-color" content="#1976d2" />
+  </head>
+
   <body>
-    <mothertongues-root></mothertongues-root>
+    <mtd-root>
+      <div class="app-loading">
+        <div class="logo">
+          <svg class="spinner" viewBox="25 25 50 50">
+            <circle
+              class="path"
+              cx="50"
+              cy="50"
+              r="20"
+              fill="none"
+              stroke-width="2"
+              stroke-miterlimit="10"
+            />
+          </svg>
+        </div>
+      </div>
+    </mtd-root>
+
+    <noscript
+      >Please enable JavaScript to continue using this application.</noscript
+    >
+    <!-- language-specific files -->
+    <script src="assets/js/config-michif.js"></script>
+    <script src="assets/js/dict_cached-michif.js"></script>
+
+    <!-- MTD JS dependencies -->
+    <!-- un-minified -->
+    <!-- <script src="/assets/js/mtd.js"></script>
+  <script src="/assets/js/levenshtein.js"></script>
+  <script src="/assets/js/editDistance.js"></script>
+  <script src="assets/js/utility.js"></script>
+  <script src="/assets/js/deadSearch.js"></script> -->
+
+    <!-- minified -->
+    <script src="assets/js/mtd-ui.min.js"></script>
   </body>
 </html>

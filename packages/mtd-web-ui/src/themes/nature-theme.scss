@@ -1,0 +1,61 @@
+@use '@angular/material' as mat;
+$mtd-nature-primary: mat.define-palette(mat.$brown-palette, 700, 300, 900);
+$mtd-nature-accent: mat.define-palette(mat.$deep-purple-palette, 300);
+$mtd-nature-warn: mat.define-palette(mat.$red-palette, 600);
+
+$mtd-nature-theme: mat.define-light-theme(
+  $mtd-nature-primary,
+  $mtd-nature-accent,
+  $mtd-nature-warn
+);
+
+$red: #cd2d27;
+$black: #050302;
+$white: #fff;
+
+.nature-theme .mat-toolbar.mat-primary,
+.nature-theme mat-sidenav-container .footer {
+  background: $black !important;
+}
+.nature-theme mat-sidenav-container .footer,
+.nature-theme mat-sidenav-container .footer .links a,
+.nature-theme mat-sidenav-container .footer .signature a,
+.nature-theme .mat-flat-button,
+.nature-theme .mat-raised-button,
+.nature-theme .mat-fab,
+.nature-theme .mat-mini-fab {
+  color: $white !important;
+}
+
+/* WTF? Aren't these supposed be styled in the 7000 different
+   *.scss-theme.scss files??? */
+.nature-theme mat-sidenav-container mat-toolbar button.active,
+.nature-theme .langMatched,
+.nature-theme .word__active,
+.nature-theme .mat-flat-button.mat-accent,
+.nature-theme .mat-raised-button.mat-accent,
+.nature-theme .mat-fab.mat-accent,
+.nature-theme .mat-mini-fab.mat-accent,
+.nature-theme .chosen,
+.nature-theme .mat-flat-button,
+.nature-theme .mat-raised-button,
+.nature-theme .mat-fab,
+.nature-theme .mat-mini-fab,
+.nature-theme .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb,
+.nature-theme mat-sidenav-container mat-sidenav .mat-list-item.active {
+  background-color: $red !important;
+}
+
+.nature-theme .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+  background-color: rgba(205, 45, 39, 0.54) !important;
+}
+
+.nature-theme .mat-icon.mat-accent {
+  color: $red !important;
+}
+
+.nature-theme .results,
+.nature-theme .browse__entry__list__container,
+.nature-theme .search__results {
+  border: 0.125em solid transparent !important;
+}

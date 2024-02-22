@@ -1,0 +1,50 @@
+{
+  "theme_color": "#1976d2",
+  "background_color": "#fafafa",
+  "display": "standalone",
+  "scope": "./",
+  "start_url": "./",
+  "name": "Michif Talking Dictionary",
+  "short_name": "Michif Dictionary",
+  "description": "A digital adaptation of the The Michif Dictionary Turtle Mountain Chippewa Cree by Ida Rose Allard, Patline Laverdure and John Crawford ©1983 Turtle Mountain Community College",
+  "icons": [
+    {
+      "src": "assets/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icon-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "id": "mtd-michif-pwa",
+  "dir": "ltr",
+  "lang": "en",
+  "orientation": "portrait",
+  "shortcuts": [
+    {
+      "name": "Search",
+      "url": "./search/",
+      "description": "Search the Dictionary"
+    },
+    {
+      "name": "Browse",
+      "url": "./browse/",
+      "description": "Browse the Dictionary"
+    }
+  ],
+  "categories": ["books", "education"]
+}
