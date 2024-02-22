@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Store, select } from '@ngrx/store';
@@ -27,7 +27,7 @@ import { selectSettings } from '../../core/settings/settings.selectors';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SettingsContainerComponent implements OnInit {
+export class SettingsContainerComponent {
   displayNav = true;
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
   settings$: Observable<SettingsState>;
@@ -46,9 +46,7 @@ export class SettingsContainerComponent implements OnInit {
     };
   });
 
-  constructor(private store: Store<State>) {}
-
-  ngOnInit() {
+  constructor(private store: Store<State>) {
     this.settings$ = this.store.pipe(select(selectSettings));
   }
 

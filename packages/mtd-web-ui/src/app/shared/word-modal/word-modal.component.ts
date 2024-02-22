@@ -25,12 +25,8 @@ import { FileNotFoundDialogComponent } from '../file-not-found/file-not-found.co
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WordModalComponent implements OnInit, OnDestroy {
-  checkedOptions: string[];
-  displayImages = true; // default show images, turns to false on 404
   examples: Array<Example>;
   optional = false;
-  optionalSelection: string[];
-  image: string;
   tabs = false;
   heightQuery: string;
   unsubscribe$ = new Subject<void>();
@@ -44,7 +40,6 @@ export class WordModalComponent implements OnInit, OnDestroy {
     private ref: ChangeDetectorRef,
     private breakpointObserver: BreakpointObserver
   ) {
-    this.checkedOptions = this.optionalSelection;
 
     // Restructure the examples to Help With Stuff
     this.examples = [];
@@ -151,10 +146,6 @@ export class WordModalComponent implements OnInit, OnDestroy {
       };
     }
     audiotag.play();
-  }
-
-  imageError() {
-    this.displayImages = false;
   }
 
   toggleFav(entry: DictionaryData) {

@@ -3,7 +3,6 @@
   <mtd-entry-list
     *ngIf="show || bookmarks.length !== 0"
     [entries]="bookmarks"
-    [parentEdit]="edit"
   ></mtd-entry-list>
   <div *ngIf="bookmarks.length === 0">
     <p>

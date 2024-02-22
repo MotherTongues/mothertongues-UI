@@ -1,5 +1,5 @@
 import browser from 'browser-detect';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component,  OnDestroy } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
@@ -18,6 +18,7 @@ import {
   actionSettingsChangeAnimationsPageDisabled,
   actionSettingsChangeLanguage
 } from '../core/settings/settings.actions';
+import { RouterOutlet } from '@angular/router';
 
 interface MenuItem {
   link: string;
@@ -31,7 +32,7 @@ interface MenuItem {
   styleUrls: ['./app.component.scss'],
   animations: [routeAnimations]
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnDestroy {
   displayNav = false;
   isProd = env.production;
   envName = env.envName;
@@ -57,17 +58,7 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store,
     private storageService: LocalStorageService
-  ) {}
-
-  private static isIEorEdgeOrSafari() {
-    return ['ie', 'edge', 'safari'].includes(browser().name);
-  }
-
-  ngOnDestroy(): void {
-    this.unsubscribe$.next();
-  }
-
-  ngOnInit(): void {
+  ) {
     this.storageService.testLocalStorage();
     if (AppComponent.isIEorEdgeOrSafari()) {
       this.store.dispatch(
@@ -80,7 +71,22 @@ export class AppComponent implements OnInit, OnDestroy {
     this.theme$ = this.store.pipe(select(selectEffectiveTheme));
   }
 
+  private static isIEorEdgeOrSafari() {
+    const browserObj = browser();
+    const browserName = browserObj.name || "";
+    return ['ie', 'edge', 'safari'].includes(browserName);
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+  }
+
   onLanguageSelect(event: MatSelectChange) {
     this.store.dispatch(actionSettingsChangeLanguage(event.value));
+  }
+
+  getRouteAnimations(o: RouterOutlet) {
+    // FIXME: What does this even do?!?!?
+    return o.isActivated && o.activatedRoute.routeConfig?.data?.title;
   }
 }

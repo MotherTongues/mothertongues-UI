@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DictionaryData } from '../../core/models';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, from } from 'rxjs';
 import { map,  takeUntil } from 'rxjs/operators';
 import {
   BookmarksService,
@@ -21,13 +21,11 @@ import {
 })
 export class BrowseComponent implements OnDestroy {
   currentEntries$: BehaviorSubject<DictionaryData[]>;
-  currentX: DictionaryData[];
+  currentX: DictionaryData[] = []
   displayCategories$: Observable<any>;
-  displayLetters$: Observable<any>;
-  letters: string[];
-  initialLetters: string[];
+  displayLetters$: Observable<any> = from([]);
+  letters: string[] = []
   selectedCategory = 'words';
-  selectedLetter: number;
   startIndex$: BehaviorSubject<number> = new BehaviorSubject(0);
   numShown$: BehaviorSubject<number> = new BehaviorSubject(
     this.guessNumEntries()
@@ -236,5 +234,15 @@ export class BrowseComponent implements OnDestroy {
     this.selectedCategory = category;
     this.startIndex$.next(0);
     this.letterInit();
+  }
+
+  getShowingIndices() {
+    // FIXME: WHY ARE THESE BEHAVIOUR SUBJECTS ANYWAY???
+    const current_val = this.startIndex$.value;
+    return {
+      startIndex: current_val + 1,
+      endIndex: current_val + this.currentX.length,
+      length: this.currentX.length
+    }
   }
 }

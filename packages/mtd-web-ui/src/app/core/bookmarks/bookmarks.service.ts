@@ -6,7 +6,7 @@ import { Config, DictionaryData } from '../models';
 @Injectable({ providedIn: 'root' })
 export class BookmarksService {
   public bookmarks = new BehaviorSubject<DictionaryData[]>([]);
-  entries: DictionaryData[];
+  entries: DictionaryData[] = []
   config: Config;
   constructor(private mtdService: MtdService) {
     this.config = this.mtdService.config_value;
@@ -17,12 +17,13 @@ export class BookmarksService {
   }
 
   loadBookmarks() {
-    const vals = JSON.parse(
-      localStorage.getItem(this.config.L1.name + this.config.build)
-    );
-    if (vals) {
+    const item = localStorage.getItem(this.config.L1.name + this.config.build);
+    if (item !== null) {
+      const vals = JSON.parse(item);
       for (let i = 0; i < vals.length; i++) {
         const entry = this.entries.find(x => x['entryID'] === vals[i]);
+        if (entry === undefined)
+          continue;
         const index = this.bookmarks.value.indexOf(entry);
         if (index === -1) {
           entry.favourited = true;
@@ -43,6 +44,7 @@ export class BookmarksService {
 
   toggleBookmark(entry: DictionaryData) {
     const i = this.bookmarks.value.indexOf(entry);
+    // FIXME: if it's not there...? this code is suspect
     let bookmarks;
     if (i > -1) {
       bookmarks = this.bookmarks.value;
@@ -50,6 +52,7 @@ export class BookmarksService {
     } else if (i < 0) {
       bookmarks = this.bookmarks.value.concat([entry]);
     }
-    this.setBookmarks(bookmarks);
+    if (bookmarks)
+      this.setBookmarks(bookmarks);
   }
 }

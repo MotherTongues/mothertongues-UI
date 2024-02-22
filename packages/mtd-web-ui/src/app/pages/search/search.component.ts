@@ -3,19 +3,15 @@ import {
   OnDestroy,
   OnInit,
   ChangeDetectorRef,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import {
-  takeUntil,
-  tap,
-  debounceTime
-} from 'rxjs/operators';
+import { takeUntil, tap, debounceTime } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { DictionaryData } from '../../core/models';
 import { MtdService, ROUTE_ANIMATIONS_ELEMENTS } from '../../core/core.module';
-import { DictionaryTitle } from "../../shared/entry-list/entry-list.component";
+import { DictionaryTitle } from '../../shared/entry-list/entry-list.component';
 
 import { slugify } from 'transliteration';
 
@@ -23,13 +19,13 @@ import { slugify } from 'transliteration';
   selector: 'mtd-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchComponent implements OnDestroy, OnInit {
   displayNav = true;
-  entries: DictionaryData[];
+  entries: DictionaryData[] = [];
   entries$: Observable<DictionaryData[]>;
-  matches$: BehaviorSubject<Array<DictionaryData | DictionaryTitle>> = new BehaviorSubject([]);
+  matches$ = new BehaviorSubject<Array<DictionaryData | DictionaryTitle>>([]);
   matchThreshold = 0;
   partialThreshold = 1;
   maybeThreshold = 3;
@@ -53,7 +49,7 @@ export class SearchComponent implements OnDestroy, OnInit {
     this.language$ = this.mtdService.name$;
     this.route.queryParams
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(params => {
+      .subscribe((params) => {
         this.show = params.show;
         this.ref.markForCheck();
       });
@@ -66,13 +62,13 @@ export class SearchComponent implements OnDestroy, OnInit {
   ngOnInit(): void {
     this.entries$
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(entries => (this.entries = entries));
+      .subscribe((entries) => (this.entries = entries));
     this.onSearchKeyUp$
       .pipe(
         tap(() => this.loading$.next(true)),
         debounceTime(200)
       )
-      .subscribe(event => {
+      .subscribe((event) => {
         const value = (event.target as HTMLInputElement).value;
         this.getResults(value);
         this.loading$.next(false);
@@ -88,7 +84,7 @@ export class SearchComponent implements OnDestroy, OnInit {
         results.push(entry);
       }
     }
-    const sorted_answers = results.sort(function(a, b) {
+    const sorted_answers = results.sort(function (a, b) {
       // @ts-ignore
       return a[key].length - b[key].length;
     });
@@ -103,7 +99,7 @@ export class SearchComponent implements OnDestroy, OnInit {
         results.push(entry);
       }
     }
-    const sorted_answers = results.sort(function(a, b) {
+    const sorted_answers = results.sort(function (a, b) {
       // @ts-ignore
       return a[key].length - b[key].length;
     });
@@ -191,45 +187,48 @@ export class SearchComponent implements OnDestroy, OnInit {
         const entry = Object.assign({}, result);
         entry.distance += this.approxWeight;
         const resultIndex = allMatches.findIndex(
-          match =>
+          (match) =>
             match.word === entry.word && match.definition === match.definition
         );
         if (resultIndex === -1) {
           allMatches.push(entry);
-        } else {
-          if (
-            'distance' in allMatches[resultIndex] &&
-            allMatches[resultIndex].distance > entry.distance
-          ) {
-            allMatches[resultIndex].distance = entry.distance;
-          }
+          continue;
         }
+        const matchedEntry = allMatches[resultIndex];
+        if (
+          matchedEntry.distance !== undefined &&
+          matchedEntry.distance > entry.distance
+        )
+          matchedEntry.distance = entry.distance;
       }
     };
 
     const mergeMatches = () => {
       for (const entry of allMatches) {
-        if ('distance' in entry) {
-          if (entry.distance === this.matchThreshold) {
-            matches.push(entry);
-          } else if (
-            'distance' in entry &&
-            entry.distance <= this.partialThreshold &&
-            entry.distance > this.matchThreshold
-          ) {
-            partMatches.push(entry);
-          } else if (
-            entry.distance <= this.maybeThreshold &&
-            entry.distance > this.partialThreshold
-          ) {
-            maybeMatches.push(entry);
-          }
-        } else {
+        if (entry.distance === undefined) {
           matches.push(entry);
+          continue;
+        } else if (entry.distance === this.matchThreshold) {
+          matches.push(entry);
+        } else if (
+          entry.distance <= this.partialThreshold &&
+          entry.distance > this.matchThreshold
+        ) {
+          partMatches.push(entry);
+        } else if (
+          entry.distance <= this.maybeThreshold &&
+          entry.distance > this.partialThreshold
+        ) {
+          maybeMatches.push(entry);
         }
       }
       // Only these actually need to be sorted by distance
-      maybeMatches.sort((a, b) => a.distance - b.distance);
+      maybeMatches.sort((a, b) => {
+        // FIXME: Really need to enforce that distance exists
+        if (a.distance !== undefined && b.distance !== undefined)
+          return a.distance - b.distance
+        return 0;
+      });
     };
     populateL1Exact();
     populateL2Exact();
@@ -239,7 +238,7 @@ export class SearchComponent implements OnDestroy, OnInit {
     allMatches = allMatches.filter(
       (match, index, self) =>
         self.findIndex(
-          t => t.word === match.word && t.definition === match.definition
+          (t) => t.word === match.word && t.definition === match.definition
         ) === index
     );
     mergeMatches();

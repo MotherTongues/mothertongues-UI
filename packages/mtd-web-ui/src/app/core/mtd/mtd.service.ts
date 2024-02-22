@@ -99,7 +99,8 @@ export class MtdService {
         const keys = uniq(entries.map(x => x.source));
         const categories: CategoryData = {};
         for (const key of keys) {
-          categories[key] = entries.filter(x => x.source === key);
+          if (key !== undefined)
+            categories[key] = entries.filter(x => x.source === key);
         }
         const semantic_categories = uniq(
           entries.map(entry => {

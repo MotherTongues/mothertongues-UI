@@ -9,7 +9,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { DictionaryData } from '../../core/models';
 import { MtdService, ROUTE_ANIMATIONS_ELEMENTS } from '../../core/core.module';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 
 @Component({
   selector: 'mtd-random',
@@ -22,7 +22,7 @@ import { Observable } from 'rxjs';
 })
 export class RandomComponent {
   displayNav = true;
-  entries$: Observable<DictionaryData[]>;
+  entries$: Observable<Array<DictionaryData>> = from([]);
   unsubscribe$ = new Subject<void>();
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
   show?: string;

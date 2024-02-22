@@ -1,20 +1,18 @@
-import { Directive, ElementRef, OnInit, OnDestroy } from '@angular/core';
+import { Directive, ElementRef, OnDestroy } from '@angular/core';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 
 @Directive({
   selector: '[rtl]' // eslint-disable-line @angular-eslint/directive-selector
 })
-export class RtlSupportDirective implements OnInit, OnDestroy {
-  private subscription: Subscription;
+export class RtlSupportDirective implements OnDestroy {
+  private subscription$: Subscription;
   constructor(private el: ElementRef, public translate: TranslateService) {
     el.nativeElement.style.textAlign =
       translate.currentLang === 'he' ? 'right' : 'left';
     el.nativeElement.style.direction =
       translate.currentLang === 'he' ? 'rtl' : 'ltr';
-  }
-  ngOnInit() {
-    this.subscription = this.translate.onLangChange.subscribe(
+    this.subscription$ = this.translate.onLangChange.subscribe(
       (event: LangChangeEvent) => {
         this.el.nativeElement.style.textAlign =
           event.lang === 'he' ? 'right' : 'left';
@@ -25,8 +23,8 @@ export class RtlSupportDirective implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
+    if (this.subscription$) {
+      this.subscription$.unsubscribe();
     }
   }
 }

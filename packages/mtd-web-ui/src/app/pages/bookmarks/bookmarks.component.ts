@@ -20,7 +20,7 @@ import { Subject } from 'rxjs';
 })
 export class BookmarksComponent implements OnDestroy {
   displayNav = true;
-  bookmarks: DictionaryData[];
+  bookmarks: DictionaryData[] = [];
   edit = false;
   unsubscribe$ = new Subject<void>();
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;

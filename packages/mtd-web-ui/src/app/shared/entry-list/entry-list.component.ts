@@ -1,7 +1,6 @@
 import {
   Component,
   Input,
-  OnChanges,
   OnInit,
   OnDestroy,
 } from '@angular/core';
@@ -26,18 +25,13 @@ export interface DictionaryTitle {
   templateUrl: 'entry-list.component.html',
   styleUrls: ['entry-list.component.scss']
 })
-export class EntryListComponent implements OnChanges, OnInit, OnDestroy {
-  pageName: string;
-  edit = false;
+export class EntryListComponent implements OnInit, OnDestroy {
   unsubscribe$ = new Subject<void>();
 
-  @Input() parentEdit: boolean;
-  @Input() entries: Array<DictionaryData | DictionaryTitle>;
-  @Input() searchTerm: string;
-  @Input() threshold: number;
-  @Input() showEntry: number;
-  @Input() shouldHighlight = false;
-  @Input() searchResults: boolean = false;
+  // Have to allow null here because of #@!$@# async pipe
+  @Input() entries: Array<DictionaryData | DictionaryTitle> | null = [];
+  @Input() searchTerm: string = "";
+  @Input() threshold: number = 0;
   @Input() floatingGuide: boolean = false;
   constructor(
     private bookmarkService: BookmarksService,
@@ -89,10 +83,7 @@ export class EntryListComponent implements OnChanges, OnInit, OnDestroy {
   }
 
   playDefaultAudio(entry: DictionaryData) {
-    let audioPrefix = '';
-    if ('audio_path' in this.mtdService.config_value) {
-      audioPrefix = this.mtdService.config_value.audio_path;
-    }
+    const audioPrefix = this.mtdService.config_value.audio_path;
     const defaultAudio =
       audioPrefix +
           entry.audio.filter((audioFile: ExampleAudio) => audioFile.filename)[0].filename;
@@ -112,8 +103,8 @@ export class EntryListComponent implements OnChanges, OnInit, OnDestroy {
     return this.mtdService.hasAudio(entry);
   }
 
-  highlight(entry: DictionaryData, langType: 'L1' | 'L2'): string {
-    let text;
+  highlight(entry: DictionaryData, langType: 'L1' | 'L2') {
+    let text = "";
     if (langType === 'L1') {
       text = entry.word;
     } else if (langType === 'L2') {
@@ -129,10 +120,6 @@ export class EntryListComponent implements OnChanges, OnInit, OnDestroy {
 
   toggleBookmark(entry: DictionaryData) {
     this.bookmarkService.toggleBookmark(entry);
-  }
-
-  ngOnChanges() {
-    this.edit = this.parentEdit;
   }
 
   /**

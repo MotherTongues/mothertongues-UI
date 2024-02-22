@@ -5,7 +5,7 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
-    "noImplicitAny": true
+    "strict": true
   },
   "files": [],
   "include": [],

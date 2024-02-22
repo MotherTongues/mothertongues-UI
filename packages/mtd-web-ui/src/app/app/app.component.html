@@ -151,11 +151,7 @@
       <!-- Content that covers the area under the toolbar -->
       <div
         class="content"
-        [@routeAnimations]="
-          o.isActivated &&
-          o.activatedRoute.routeConfig.data &&
-          o.activatedRoute.routeConfig.data.title
-        "
+        [@routeAnimations]="getRouteAnimations(o)"
       >
         <!-- Wrapper for page components, restoring relative
 	     position and adding top spacing. -->
