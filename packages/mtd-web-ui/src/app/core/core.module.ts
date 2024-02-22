@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { NgModule, Optional, SkipSelf, ErrorHandler } from '@angular/core';
+import { NgModule, Optional, SkipSelf } from '@angular/core';
 import {
   HttpClientModule,
   HttpClient,
@@ -38,6 +38,7 @@ import {
   selectRouterState
 } from './core.state';
 import { TitleService } from './title/title.service';
+import { DataService } from '../data.service';
 import {
   ROUTE_ANIMATIONS_ELEMENTS,
   routeAnimations
@@ -74,6 +75,7 @@ export {
   TitleService,
   routeAnimations,
   AppState,
+  DataService,
   LocalStorageService,
   ROUTE_ANIMATIONS_ELEMENTS,
   AnimationsService,
@@ -134,7 +136,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
-    { provide: RouterStateSerializer, useClass: CustomSerializer }
+    { provide: RouterStateSerializer, useClass: CustomSerializer },
+    DataService,
   ],
   exports: [
     // angular

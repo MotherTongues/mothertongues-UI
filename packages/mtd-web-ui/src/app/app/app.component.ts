@@ -12,7 +12,7 @@ import {
   routeAnimations,
   LocalStorageService,
   selectSettingsLanguage,
-  selectEffectiveTheme
+  selectEffectiveTheme,
 } from '../core/core.module';
 import {
   actionSettingsChangeAnimationsPageDisabled,
@@ -57,7 +57,7 @@ export class AppComponent implements OnDestroy {
   unsubscribe$ = new Subject<void>();
   constructor(
     private store: Store,
-    private storageService: LocalStorageService
+    private storageService: LocalStorageService,
   ) {
     this.storageService.testLocalStorage();
     if (AppComponent.isIEorEdgeOrSafari()) {

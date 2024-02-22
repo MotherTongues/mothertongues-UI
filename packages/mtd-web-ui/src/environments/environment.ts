@@ -12,8 +12,7 @@ export const environment = {
   test: false,
   i18nPrefix: '.',
   apiBaseURL: 'http://localhost:4200',
-  remoteData: false,
-  remoteConfig: false,
+  dataPath: '../assets/dictionary_data.json',
   versions: {
     app: packageJson.version,
     angular: packageJson.dependencies['@angular/core'],
