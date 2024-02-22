@@ -27,8 +27,8 @@
         "production": {
           "fileReplacements": [
             {
-              "replace": "packages/mtd/src/environments/environment.ts",
-              "with": "packages/mtd/src/environments/environment.prod.ts"
+              "replace": "packages/mtd-web-ui/src/environments/environment.ts",
+              "with": "packages/mtd-web-ui/src/environments/environment.prod.ts"
             }
           ],
           "budgets": [
@@ -50,8 +50,8 @@
         "development": {
           "fileReplacements": [
             {
-              "replace": "packages/mtd/src/environments/environment.ts",
-              "with": "packages/mtd/src/environments/environment.test.ts"
+              "replace": "packages/mtd-web-ui/src/environments/environment.ts",
+              "with": "packages/mtd-web-ui/src/environments/environment.test.ts"
             }
           ],
           "buildOptimizer": false,

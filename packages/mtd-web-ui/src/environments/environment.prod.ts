@@ -1,4 +1,4 @@
-const packageJson = require('../../../../package.json');
+import packageJson from '../../../../package.json';
 
 export const environment = {
   appName: 'MotherTongues Dictionary',
@@ -16,8 +16,7 @@ export const environment = {
     bootstrap: packageJson.dependencies.bootstrap,
     rxjs: packageJson.dependencies.rxjs,
     ngxtranslate: packageJson.dependencies['@ngx-translate/core'],
-    fontAwesome:
-      packageJson.dependencies['@fortawesome/fontawesome-free-webfonts'],
+    fontAwesome: packageJson.dependencies['@fortawesome/fontawesome-svg-core'],
     angularCli: packageJson.devDependencies['@angular/cli'],
     typescript: packageJson.devDependencies['typescript'],
     cypress: packageJson.devDependencies['cypress']
