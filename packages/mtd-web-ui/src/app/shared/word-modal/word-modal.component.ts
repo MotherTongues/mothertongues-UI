@@ -17,7 +17,6 @@ import {
 } from '@angular/material/dialog';
 import { BookmarksService, MtdService } from '../../core/core.module';
 import { FileNotFoundDialogComponent } from '../file-not-found/file-not-found.component';
-import { ReportDialogComponent } from '../report-dialog/report-dialog.component';
 
 interface ExampleAudio {
   speaker: string;
@@ -51,7 +50,6 @@ export class WordModalComponent implements OnInit, OnDestroy {
   optionalSelection: string[];
   objectKeys = Object.keys;
   image: string;
-  reported = false;
   tabs = false;
   heightQuery: string;
   unsubscribe$ = new Subject<void>();
@@ -119,27 +117,6 @@ export class WordModalComponent implements OnInit, OnDestroy {
 
   getVal(obj) {
     return Object.values(obj);
-  }
-
-  openReport() {
-    if (this.reported) return;
-    const dialogRef = this.dialog.open(ReportDialogComponent, {
-      data: this.data
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.reported = true;
-        this.ref.markForCheck();
-      }
-    });
-  }
-
-  checkChecked(option) {
-    if (this.checkedOptions.indexOf(option) >= 0) {
-      return true;
-    } else {
-      return false;
-    }
   }
 
   hasAudio() {

@@ -44,22 +44,6 @@ export class AppComponent implements OnInit, OnDestroy {
     { link: 'browse', label: marker('mtd.menu.browse') },
     { link: 'random', label: marker('mtd.menu.random') },
     { link: 'bookmarks', label: marker('mtd.menu.bookmarks') },
-    {
-      link: 'about',
-      label: marker('mtd.menu.about'),
-      children: [
-        { link: 'about', label: marker('mtd.menu.about') },
-        { link: 'introduction', label: marker('mtd.menu.introduction') },
-        { link: 'people', label: marker('mtd.menu.people') }
-      ]
-    },
-    {
-      link: 'speakers',
-      label: marker('mtd.menu.speakers'),
-      children: Object.entries(SPEAKERS).map(([id, name]) => {
-        return { link: `speakers/${id}`, label: name };
-      })
-    }
   ];
   navigationSideMenu: Array<MenuItem> = [
     ...this.navigation,

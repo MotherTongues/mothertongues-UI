@@ -1,12 +1,12 @@
 const packageJson = require('../../../../package.json');
 
 export const environment = {
-  appName: 'Michif Talking Dictionary',
+  appName: 'MotherTongues Dictionary',
   envName: 'PROD',
   production: true,
   test: false,
   i18nPrefix: '.',
-  apiBaseURL: 'http://dictionary.michif.org/',
+  apiBaseURL: 'http://mothertongues.org/',
   remoteData: false,
   remoteConfig: false,
   versions: {

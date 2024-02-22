@@ -13,18 +13,6 @@ const routes: Routes = [
       import('./pages/home/home.module').then(m => m.HomeModule)
   },
   {
-    path: 'introduction',
-    loadChildren: () =>
-      import('./pages/introduction/introduction.module').then(
-        m => m.IntroductionModule
-      )
-  },
-  {
-    path: 'about',
-    loadChildren: () =>
-      import('./pages/about/about.module').then(m => m.AboutModule)
-  },
-  {
     path: 'browse',
     loadChildren: () =>
       import('./pages/browse/browse.module').then(m => m.BrowseModule)
@@ -48,21 +36,6 @@ const routes: Routes = [
     path: 'settings',
     loadChildren: () =>
       import('./pages/settings/settings.module').then(m => m.SettingsModule)
-  },
-  {
-    path: 'people',
-    loadChildren: () =>
-      import('./pages/people/people.module').then(m => m.PeopleModule)
-  },
-  {
-    path: 'speakers',
-    loadChildren: () =>
-      import('./pages/speakers/speakers.module').then(m => m.SpeakersModule)
-  },
-  {
-    path: 'speakers/:speaker',
-    loadChildren: () =>
-      import('./pages/speakers/speakers.module').then(m => m.SpeakersModule)
   },
   {
     path: '**',

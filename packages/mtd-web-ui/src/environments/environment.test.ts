@@ -1,7 +1,7 @@
 const packageJson = require('../../../../package.json');
 
 export const environment = {
-  appName: 'Michif Talking Dictionary',
+  appName: 'MotherTongues Dictionary',
   envName: 'TEST',
   production: false,
   test: true,

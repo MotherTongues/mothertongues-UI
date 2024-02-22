@@ -4,22 +4,6 @@
   }
 }
 
-.report-row {
-  text-align: left;
-}
-.report {
-  font-size: x-small;
-  text-decoration: underline;
-  cursor: pointer;
-}
-.reported {
-  pointer-events: none;
-}
-.report-check {
-  font-size: x-small;
-  color: green;
-}
-
 // FIXME: Probably not supposed to do this, but Angular Material
 // seemingly gives us no choice (do any Google employees still have
 // small screens?)
