@@ -1,0 +1,25 @@
+/*
+  Undo bootstrap stuff (see
+  https://stackoverflow.com/questions/57289966/how-can-i-use-bootstrap-grid-style-in-angular-without-disturbing-overriding-angu)
+*/
+
+* {
+  &:active,
+  :focus {
+    outline: none !important;
+  }
+}
+
+.mat-mdc-menu-content {
+  fa-icon {
+    position: relative;
+    top: 2px;
+    left: 4px;
+  }
+}
+
+p {
+  a {
+    border-bottom: 3px solid;
+  }
+}

@@ -1,0 +1,44 @@
+<div class="page__content container">
+  <div class="search__bar__container" [ngClass]="routeAnimationsElements">
+    <mat-form-field class="search__bar" style="min-height: 40px">
+      <mat-icon [inline]="true" matPrefix class="search__icon">search</mat-icon>
+      <mat-spinner
+        *ngIf="loading$ | async"
+        style="position: absolute; right: 20px"
+        [diameter]="20"
+      >
+      </mat-spinner>
+      <input
+        *ngIf="entries$ | async as entries"
+        autocomplete="off"
+        type="text"
+        placeholder="{{ placeholder }}"
+        aria-label="Number"
+        matInput
+        (keyup)="onSearchKeyUp$.next($event)"
+        [(ngModel)]="searchQuery"
+      />
+    </mat-form-field>
+  </div>
+  <div class="search__results" *ngIf="show || searchQuery">
+    <div class="search__results__container" *ngIf="matches$ | async as matches">
+      <mtd-entry-list
+        *ngIf="show || matches.length > 0"
+        [entries]="matches"
+        [searchTerm]="searchQuery"
+        [threshold]="matchThreshold"
+      >
+      </mtd-entry-list>
+      <div
+        *ngIf="matches.length === 0 && searchQuery"
+        class="search__results--none"
+      >
+        <h5 *ngIf="searchQuery">
+          {{
+            'mtd.pages.search.no-results' | translate : { value: searchQuery }
+          }}
+        </h5>
+      </div>
+    </div>
+  </div>
+</div>

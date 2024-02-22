@@ -6,3 +6,5 @@ build
 *index.json
 dictionary_data.json
 en-fr.json
+
+/.nx/cache

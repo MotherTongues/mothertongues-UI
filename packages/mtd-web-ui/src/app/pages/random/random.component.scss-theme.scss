@@ -1,0 +1,29 @@
+@use '@angular/material' as mat;
+
+@mixin mtd-random-component-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  mtd-random {
+    .background {
+      color: mat.get-color-from-palette($foreground, text);
+      background-color: mat.get-color-from-palette($background, background);
+
+      .gradient {
+        &::before {
+          background: linear-gradient(
+            to bottom,
+            mat.get-color-from-palette($background, background, 0) 0%,
+            mat.get-color-from-palette($background, background, 1) 100%
+          );
+        }
+      }
+    }
+    .results {
+      border: 0.125em solid mat.get-color-from-palette($accent);
+      background-color: mat.get-color-from-palette($background, background);
+    }
+  }
+}

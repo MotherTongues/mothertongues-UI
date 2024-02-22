@@ -1,0 +1,92 @@
+<mtd-single>
+  <h1 title>{{ 'mtd.settings.title' | translate }}</h1>
+  <ng-container>
+    <div class="row" *ngIf="languages.length > 1">
+      <div class="col-md-6 group">
+        <h2>{{ 'mtd.settings.general.title' | translate }}</h2>
+        <div class="icon-form-field" *ngIf="languages.length > 1">
+          <mat-icon color="accent"
+            ><fa-icon icon="language" color="accent"></fa-icon
+          ></mat-icon>
+          <mat-form-field>
+            <mat-select
+              [placeholder]="'mtd.settings.general.placeholder' | translate"
+              [(ngModel)]="settings.language"
+              name="language"
+            >
+              <ng-container *ngFor="let l of languages">
+                <!-- ngFor hack of missing ngLet of Angular -->
+                <mat-option
+                  *ngFor="
+                    let title of [
+                      'mtd.settings.general.language.' + l.value | translate
+                    ]
+                  "
+                  [value]="l.value"
+                  [title]="title !== l.label ? title : ''"
+                >
+                  {{ l.label | translate }}
+                </mat-option>
+              </ng-container>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 group">
+        <h2>{{ 'mtd.settings.themes.title' | translate }}</h2>
+        <div class="icon-form-field">
+          <mat-icon color="accent"
+            ><fa-icon icon="paint-brush" color="accent"></fa-icon
+          ></mat-icon>
+          <mat-form-field>
+            <mat-select
+              [(ngModel)]="settings.theme"
+              [placeholder]="'mtd.settings.themes.placeholder' | translate"
+              name="themes"
+            >
+              <mat-option *ngFor="let t of themes" [value]="t.value">
+                {{ 'mtd.settings.themes.' + t.label | translate }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="icon-form-field">
+          <mat-icon color="accent"
+            ><fa-icon icon="lightbulb" color="accent"></fa-icon
+          ></mat-icon>
+          <mat-label
+            >{{ 'mtd.settings.themes.night-mode' | translate }}
+          </mat-label>
+          <mat-slide-toggle [(ngModel)]="settings.autoNightMode">
+          </mat-slide-toggle>
+        </div>
+      </div>
+      <div class="col-md-6 group">
+        <h2>{{ 'mtd.settings.animations.title' | translate }}</h2>
+        <div class="icon-form-field">
+          <mat-icon color="accent"
+            ><mat-icon color="accent"
+              ><fa-icon icon="window-maximize"></fa-icon></mat-icon
+          ></mat-icon>
+          <mat-label
+            >{{ 'mtd.settings.animations.page' | translate }}
+          </mat-label>
+          <mat-slide-toggle [(ngModel)]="settings.pageAnimations">
+          </mat-slide-toggle>
+        </div>
+        <div class="icon-form-field">
+          <mat-icon color="accent"
+            ><fa-icon icon="stream" color="accent"></fa-icon
+          ></mat-icon>
+          <mat-label
+            >{{ 'mtd.settings.animations.elements' | translate }}
+          </mat-label>
+          <mat-slide-toggle [(ngModel)]="settings.elementsAnimations">
+          </mat-slide-toggle>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</mtd-single>

@@ -1,0 +1,69 @@
+@import '../../../../styles-variables';
+
+.floating-img {
+  float: right;
+  @media (max-width: map-get($angular-breakpoints, laptop) - 1) {
+    width: 50%;
+  }
+}
+.funding-img {
+  @media (max-width: map-get($angular-breakpoints, laptop) - 1) {
+    width: 100%;
+  }
+}
+
+h1 {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 1em;
+}
+
+h2 {
+  font-size: 1.5em;
+}
+
+@media (max-width: map-get($angular-breakpoints, laptop)) {
+  h1 {
+    font-size: 1.5em;
+    line-height: 32px;
+    margin-bottom: 0;
+  }
+  h2 {
+    line-height: 1em;
+    font-size: 1.15em;
+  }
+}
+
+$notphone-padding: 15px;
+$phone-padding: 10px;
+
+.content {
+  &__container {
+    padding: $notphone-padding;
+    border-radius: $notphone-padding;
+    @media (max-width: $phone-max-width) {
+      padding: $phone-padding;
+      border-radius: $phone-padding;
+    }
+  }
+
+  &__title {
+    height: 48px;
+    @media (max-width: $phone-max-width) {
+      height: 32px;
+    }
+  }
+
+  &__text {
+    max-height: calc(
+      $notphone-content-height - 48px - $notphone-margin - 2 * $notphone-padding
+    );
+    @media (max-width: $phone-max-width) {
+      max-height: calc(
+        $phone-content-height - 32px - $phone-margin - 2 * $phone-padding
+      );
+    }
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+}
