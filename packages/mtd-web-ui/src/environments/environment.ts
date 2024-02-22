@@ -3,10 +3,10 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
-const packageJson = require('../../../../package.json');
+import packageJson from '../../../../package.json';
 
 export const environment = {
-  appName: 'Michif Talking Dictionary',
+  appName: 'MotherTongues Dictionary',
   envName: 'DEV',
   production: false,
   test: false,
@@ -22,7 +22,7 @@ export const environment = {
     bootstrap: packageJson.dependencies.bootstrap,
     rxjs: packageJson.dependencies.rxjs,
     ngxtranslate: packageJson.dependencies['@ngx-translate/core'],
-    fontAwesome: packageJson.dependencies['@fortawesome/fontawesome-free'],
+    fontAwesome: packageJson.dependencies['@fortawesome/fontawesome-svg-core'],
     angularCli: packageJson.devDependencies['@angular/cli'],
     typescript: packageJson.devDependencies['typescript'],
     cypress: packageJson.devDependencies['cypress']
