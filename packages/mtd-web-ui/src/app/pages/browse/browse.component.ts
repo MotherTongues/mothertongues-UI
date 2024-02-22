@@ -228,9 +228,7 @@ export class BrowseComponent implements OnDestroy {
         .subscribe()
         .unsubscribe();
     } else {
-      // FIXME: omg, do not understand this at all
       this.mtdService.categories$
-      // @ts-ignore
         .pipe(map(x => this.currentEntries$.next(x[category])))
         .subscribe()
         .unsubscribe();
