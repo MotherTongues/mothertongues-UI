@@ -16,11 +16,11 @@
         "polyfills": ["zone.js"],
         "tsConfig": "packages/mtd-web-ui/tsconfig.app.json",
         "assets": [
-          "packages/mtd-web-ui/src/favicon.ico",
           "packages/mtd-web-ui/src/assets",
           "packages/mtd-web-ui/src/manifest.webmanifest"
         ],
-        "styles": ["packages/mtd-web-ui/src/styles.scss"],
+        "styles": ["packages/mtd-web-ui/src/styles.scss",
+                   "packages/mtd-web-ui/src/styles-app-loading.scss",],
         "scripts": []
       },
       "configurations": {
