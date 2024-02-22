@@ -5,6 +5,7 @@ import { Config, DictionaryData } from '../models';
 import { uniq } from 'lodash';
 import { environment } from '../../../environments/environment';
 import { META } from '../../../config/config';
+import { slugify } from 'transliteration';
 
 interface CategoryData {
   [category: string]: Array<DictionaryData>
@@ -19,29 +20,10 @@ export class MtdService {
   slug: string;
   base: string = environment.apiBaseURL;
   constructor() {
-    this.slug = this.slugify(this._config$.getValue().L1.name);
+    this.slug = slugify(this._config$.getValue().L1.name);
   }
 
-  async presentUpdateAlert() {
-    console.log('alert');
-    // const alert = await this.alertCtrl.create({
-    //     header: 'Success',
-    //     message: 'New words have been updated from the server.',
-    //     buttons: ['OK']
-    // });
-    // await alert.present();
-  }
-
-  async presentUpdateFailedAlert() {
-    console.log('alert');
-    // const alert = await this.alertCtrl.create({
-    //     header: 'Oops',
-    //     message: "There might be new words, but we couldn't check. Try connecting to the internet.",
-    //     buttons: ['OK']
-    // });
-    // await alert.present();
-  }
-
+  /* FIXME: This is not an efficient way to sample random entries */
   private shuffle(array: Array<any>) {
     let copy = array.map(x => x);
     let tmp,
@@ -56,18 +38,6 @@ export class MtdService {
       }
     }
     return copy;
-  }
-
-  /* FIXME: we use slugify from transliteration elsewhere, why not here */
-  slugify(text: string) {
-    return text
-      .toString()
-      .toLowerCase()
-      .replace(/\s+/g, '-') // Replace spaces with -
-      .replace(/[^\w\-]+/g, '-') // Replace all non-word chars with -
-      .replace(/\-\-+/g, '-') // Replace multiple - with single -
-      .replace(/^-+/, '') // Trim - from start of text
-      .replace(/-+$/, ''); // Trim - from end of text
   }
 
   getRandom$(no_random: number) {
