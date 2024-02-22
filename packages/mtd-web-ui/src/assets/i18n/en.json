@@ -1,0 +1,103 @@
+{
+  "mtd": {
+    "common": {
+      "title": "Mother Tongues"
+    },
+    "file-not-found": {
+      "connection": "Please check your connection and try again.",
+      "header": "Couldn't find file named at path: ",
+      "title": "File not found"
+    },
+    "footer": {
+      "changelog": "Show changelog"
+    },
+    "general": {
+      "ok": "OK"
+    },
+    "header": {
+      "github": "Project Github Repository"
+    },
+    "menu": {
+      "about": "About",
+      "bookmarks": "Bookmarks",
+      "browse": "Browse",
+      "examples": "Examples",
+      "features": "Features",
+      "login": "Sign in",
+      "logout": "Logout",
+      "random": "Random",
+      "search": "Search",
+      "settings": "Settings"
+    },
+    "pages": {
+      "about": {
+        "contributors": {
+          "title": "Contributors"
+        },
+        "slogan": "Quickly build customized dictionaries for your language!",
+        "text": "Mother Tongues Dictionaries (MTD) is the first dictionary app suite for low-resource languages that combines a language agnostic design, customizable approximate search, cross-platform deployability (Web/Android/iOS), and open-source access."
+      },
+      "bookmarks": {
+        "body": "Sorry, you don't have any bookmarks.",
+        "bookmarked-instructions": "To save an entry to your bookmarks, click on the bookmark icon beside it that looks like this: ",
+        "remove": "Remove selected bookmarks",
+        "title": "Bookmarks",
+        "unbookmarked-instructions": "A bookmarked entry will have an icon that looks like this beside it: "
+      },
+      "browse": {
+        "next": "next",
+        "previous": "previous",
+        "select-category": "Select a category",
+        "showing": "Showing entries {{ startIndex }} to {{ endIndex }} of {{ length }}"
+      },
+      "home": {
+        "slogan": "Welcome to the {{ value }} Mother Tongues Dictionary!",
+        "sub-slogan": "To get started, click on the search button above, and start learning!"
+      },
+      "random": {
+        "button": "Click here to see 10 random entries"
+      },
+      "search": {
+        "matches": "Matches",
+        "maybe-matches": "Maybe you meant this?",
+        "no-results": "Sorry, we couldn't find any words that match '{{ value }}'. Please try something else.",
+        "partial-matches": "Partial Matches"
+      }
+    },
+    "settings": {
+      "animations": {
+        "elements": "Navigation page elements slide up",
+        "page": "Navigation whole page transition",
+        "title": "Animations"
+      },
+      "general": {
+        "language": {
+          "en": "English",
+          "fr": "French"
+        },
+        "placeholder": "Language",
+        "title": "General"
+      },
+      "themes": {
+        "blue": "Blue",
+        "dark": "Dark",
+        "light": "Light",
+        "nature": "Nature",
+        "night-mode": "Auto night mode (from 21:00 to 7:00)",
+        "placeholder": "Color Theme",
+        "sticky-header": "Sticky header",
+        "title": "Themes"
+      },
+      "title": "Settings"
+    },
+    "title": {
+      "long": "Mother Tongues",
+      "short": "Mother Tongues"
+    },
+    "word-modal": {
+      "audio": "Audio",
+      "audio-instructions": "Click on the audio below to listen to '{{value}}'",
+      "exit": "exit"
+    }
+  }
+}
