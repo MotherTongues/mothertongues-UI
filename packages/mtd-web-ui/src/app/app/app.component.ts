@@ -26,7 +26,7 @@ interface MenuItem {
 }
 
 @Component({
-  selector: 'mtd-root',
+  selector: 'mothertongues-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   animations: [routeAnimations]
