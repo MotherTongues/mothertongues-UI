@@ -1,0 +1,17 @@
+<mtd-single>
+  <h1 title>{{ 'mtd.pages.bookmarks.title' | translate }}</h1>
+  <mtd-entry-list
+    *ngIf="show || bookmarks.length !== 0"
+    [entries]="bookmarks"
+    [parentEdit]="edit"
+  ></mtd-entry-list>
+  <div *ngIf="bookmarks.length === 0">
+    <p>
+      {{ 'mtd.pages.bookmarks.body' | translate }}<br />
+      {{ 'mtd.pages.bookmarks.unbookmarked-instructions' | translate }}
+      <mat-icon>bookmark_border </mat-icon><br />
+      {{ 'mtd.pages.bookmarks.bookmarked-instructions' | translate }}
+      <mat-icon class="color-accent"> bookmark</mat-icon>
+    </p>
+  </div>
+</mtd-single>

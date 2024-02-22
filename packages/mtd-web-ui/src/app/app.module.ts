@@ -1,21 +1,31 @@
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
-import { AppComponent } from './app.component';
-import { appRoutes } from './app.routes';
-import { NxWelcomeComponent } from './nx-welcome.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgModule } from '@angular/core';
+
+import { CoreModule } from './core/core.module';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app/app.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
-  declarations: [AppComponent, NxWelcomeComponent],
   imports: [
-    BrowserModule,
-    RouterModule.forRoot(appRoutes, { initialNavigation: 'enabledBlocking' }),
-    FontAwesomeModule,
+    // angular
     BrowserAnimationsModule,
+    BrowserModule,
+
+    // core
+    CoreModule,
+
+    // app
+    AppRoutingModule,
+
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production
+    })
   ],
-  providers: [],
-  bootstrap: [AppComponent],
+  declarations: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

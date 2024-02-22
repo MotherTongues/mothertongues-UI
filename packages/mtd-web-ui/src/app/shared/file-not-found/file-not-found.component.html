@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>{{ 'mtd.file-not-found.title' | translate }}</h1>
+<div mat-dialog-content>
+  <p>{{ 'mtd.file-not-found.header' | translate }}</p>
+  <a>{{ data.path }}</a>
+  <p>{{ 'mtd.file-not-found.connection' | translate }}</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button cdkFocusInitial (click)="close()">
+    {{ 'mtd.general.ok' | translate }}
+  </button>
+</div>

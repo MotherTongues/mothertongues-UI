@@ -1,0 +1,118 @@
+<div class="page__content container-md">
+  <div class="row">
+    <div class="browse__controls__container col-sm-4">
+      <div class="browse__categories" [ngClass]="routeAnimationsElements">
+        <mat-form-field>
+          <mat-label>{{
+            'mtd.pages.browse.select-category' | translate
+          }}</mat-label>
+          <mat-select (selectionChange)="selectCategory($event.value)">
+            <mat-option value="words">All Entries</mat-option>
+            <mat-option
+              *ngFor="let cat of displayCategories$ | async"
+              [value]="cat"
+            >
+              {{ cat }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div
+        class="browse__alphabet__container"
+        [ngClass]="routeAnimationsElements"
+      >
+        <div class="browse__alphabet__grid">
+          <ul class="browse__alphabet__list">
+            <li
+              class="browse__alphabet__letter"
+              [class.chosen]="highlightLetter(letter)"
+              *ngFor="let letter of displayLetters$ | async"
+            >
+              <button mat-button (click)="scrollTo(letter)">
+                {{ letter }}
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div
+      class="browse__entries__container col-sm-8"
+      [ngClass]="routeAnimationsElements"
+    >
+      <div class="browse__entries" *ngIf="currentX">
+        <mat-toolbar class="browse__toolbar">
+          <button
+            color="accent"
+            class="browse__nav browse__nav--left browse__nav--web color-white"
+            mat-flat-button
+            aria-label="See previous entries"
+            (click)="prevX()"
+          >
+            <mat-icon class="browse__nav--left--icon">navigate_before</mat-icon>
+            <span class="browse__nav--left--text"
+              >{{ 'mtd.pages.browse.previous' | translate }}
+            </span>
+          </button>
+          <button
+            color="accent"
+            class="browse__nav browse__nav--left browse__nav--mobile"
+            mat-icon-button
+            aria-label="See previous entries"
+            (click)="prevX()"
+          >
+            <mat-icon class="browse__nav--left--icon">navigate_before</mat-icon>
+          </button>
+          <p class="browse__entries--progress browse__nav--web">
+            {{
+              'mtd.pages.browse.showing'
+                | translate
+                  : {
+                      startIndex: (startIndex$ | async) + 1,
+                      endIndex: (startIndex$ | async) + currentX.length,
+                      length: (currentEntries$ | async)?.length
+                    }
+            }}
+          </p>
+          <p class="browse__entries--progress browse__nav--mobile">
+            {{
+              'mtd.pages.browse.showing-mobile'
+                | translate
+                  : {
+                      startIndex: (startIndex$ | async) + 1,
+                      endIndex: (startIndex$ | async) + currentX.length,
+                      length: (currentEntries$ | async)?.length
+                    }
+            }}
+          </p>
+          <button
+            class="browse__nav browse__nav--right color-white browse__nav--web"
+            color="accent"
+            mat-flat-button
+            aria-label="See following entries"
+            (click)="nextX()"
+          >
+            <span class="browse__nav--right--text">{{
+              'mtd.pages.browse.next' | translate
+            }}</span>
+            <mat-icon class="browse__nav--right--icon">navigate_next</mat-icon>
+          </button>
+          <button
+            class="browse__nav browse__nav--right browse__nav--mobile"
+            color="accent"
+            mat-icon-button
+            aria-label="See following entries"
+            (click)="nextX()"
+          >
+            <mat-icon class="browse__nav--right--icon">navigate_next</mat-icon>
+          </button>
+        </mat-toolbar>
+        <div class="browse__entry__list__container">
+          <mtd-entry-list [entries]="currentX"></mtd-entry-list>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- row -->
+</div>
+<!-- page__content -->

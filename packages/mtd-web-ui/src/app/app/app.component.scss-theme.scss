@@ -1,0 +1,75 @@
+@use '@angular/material' as mat;
+
+@mixin mtd-app-component-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  mat-sidenav-container {
+    mat-toolbar {
+      button {
+        &.active {
+          color: mat.get-color-from-palette($accent, default-contrast);
+          background-color: mat.get-color-from-palette($accent);
+        }
+      }
+
+      .link {
+        color: mat.get-color-from-palette($primary, default-contrast);
+      }
+    }
+
+    mat-sidenav {
+      .mat-list-item {
+        &.active {
+          color: mat.get-color-from-palette($accent, default-contrast);
+          background-color: #cd2d27;
+
+          &:hover {
+            background-color: mat.get-color-from-palette(
+              $accent,
+              darker
+            ) !important;
+          }
+        }
+      }
+    }
+
+    .wrapper {
+      color: mat.get-color-from-palette($foreground, text);
+      background-color: mat.get-color-from-palette($background, background);
+
+      .content {
+        &::before {
+          background: linear-gradient(
+            to bottom,
+            mat.get-color-from-palette($background, background, 0) 0%,
+            mat.get-color-from-palette($background, background, 1) 100%
+          );
+        }
+      }
+    }
+  }
+
+  .error-notification-overlay {
+    color: mat.get-color-from-palette($warn, default-contrast);
+    background-color: mat.get-color-from-palette($warn);
+  }
+
+  .info-notification-overlay {
+    color: mat.get-color-from-palette($accent, default-contrast);
+    background-color: mat.get-color-from-palette($accent);
+  }
+
+  .success-notification-overlay {
+    color: mat.get-color-from-palette($success-colors, default-contrast);
+    background-color: mat.get-color-from-palette($success-colors);
+  }
+
+  .warning-notification-overlay {
+    color: mat.get-color-from-palette($warning-colors, default-contrast);
+    background-color: mat.get-color-from-palette($warning-colors);
+  }
+}

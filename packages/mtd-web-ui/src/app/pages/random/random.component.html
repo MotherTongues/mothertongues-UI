@@ -1,0 +1,16 @@
+<mtd-single>
+  <div title class="centered random-header">
+    <button
+      title
+      class="accent-contrast"
+      mat-raised-button
+      color="accent"
+      (click)="getRandom()"
+    >
+      {{ 'mtd.pages.random.button' | translate: { nRandom: nRandom } }}
+    </button>
+  </div>
+  <div class="results" *ngIf="show || entries$">
+    <mtd-entry-list [entries]="entries$ | async"></mtd-entry-list>
+  </div>
+</mtd-single>
