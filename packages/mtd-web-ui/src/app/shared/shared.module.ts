@@ -57,7 +57,6 @@ import { RtlSupportDirective } from './rtl-support/rtl-support.directive';
 import { FileNotFoundDialogComponent } from './file-not-found/file-not-found.component';
 import { WordModalComponent } from './word-modal/word-modal.component';
 import { SingleComponent } from './layout/single/single.component';
-import { PronunciationGuideComponent } from './pronunciation-guide/pronunciation-guide.component';
 import {
   NoNullValuesPipe,
   NoNullObjectValuesPipe
@@ -100,7 +99,6 @@ import { EntryListComponent } from './entry-list/entry-list.component';
     FileNotFoundDialogComponent,
     WordModalComponent,
     SingleComponent,
-    PronunciationGuideComponent,
     NoNullObjectValuesPipe,
     NoNullValuesPipe,
     SingleSpeakerPipe

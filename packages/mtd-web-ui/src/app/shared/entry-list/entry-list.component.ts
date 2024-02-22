@@ -8,7 +8,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { WordModalComponent } from '../word-modal/word-modal.component';
-import { PronunciationGuideComponent } from '../pronunciation-guide/pronunciation-guide.component';
 import { DictionaryData, ExampleAudio } from '../../core/models';
 import { BookmarksService, MtdService } from '../../core/core.module';
 
@@ -32,7 +31,6 @@ export class EntryListComponent implements OnInit, OnDestroy {
   @Input() entries: Array<DictionaryData | DictionaryTitle> | null = [];
   @Input() searchTerm: string = "";
   @Input() threshold: number = 0;
-  @Input() floatingGuide: boolean = false;
   constructor(
     private bookmarkService: BookmarksService,
     public dialog: MatDialog,
@@ -76,10 +74,6 @@ export class EntryListComponent implements OnInit, OnDestroy {
       queryParams: { show: entry.entryID },
       relativeTo: this.route
     });
-  }
-
-  openPronunciation() {
-    this.dialog.open(PronunciationGuideComponent);
   }
 
   playDefaultAudio(entry: DictionaryData) {

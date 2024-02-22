@@ -1,8 +1,3 @@
-<div class="guide" [class.guide__floating]="floatingGuide">
-  <button class="guide-button" mat-raised-button (click)="openPronunciation()">
-    Pronunciation Guide
-  </button>
-</div>
 <div class="entry-list container">
   <div *ngFor="let entry of entries; last as isLast" text-wrap>
     <div class="row" *ngIf="isTitle(entry)">
