@@ -11,14 +11,25 @@ interface CategoryData {
   [category: string]: Array<DictionaryData>
 }
 
+const bogusConfig: Config = {
+  L1: {
+    name: "OMG",
+    lettersInLanguage: ['O', 'M', 'G', 'W', 'T', 'F'],
+  },
+  L2: {
+    name: "WTF",
+  },
+  build: "bogus"
+}
+
+
 @Injectable({ providedIn: 'root' })
 export class MtdService {
-  // @ts-ignore
-  _dictionary_data$ = new BehaviorSubject<DictionaryData[]>(window['dataDict']);
-  // @ts-ignore
-  _config$ = new BehaviorSubject<Config>(window['config']);
+  _dictionary_data$ = new BehaviorSubject<DictionaryData[]>([]);
+  _config$ = new BehaviorSubject<Config>(bogusConfig);
   slug: string;
   base: string = environment.apiBaseURL;
+
   constructor() {
     this.slug = slugify(this._config$.getValue().L1.name);
   }
