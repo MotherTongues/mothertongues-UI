@@ -17,13 +17,20 @@
         "tsConfig": "packages/mtd-web-ui/tsconfig.app.json",
         "assets": [
           "packages/mtd-web-ui/src/favicon.ico",
-          "packages/mtd-web-ui/src/assets"
+          "packages/mtd-web-ui/src/assets",
+          "packages/mtd-web-ui/src/manifest.webmanifest"
         ],
         "styles": ["packages/mtd-web-ui/src/styles.scss"],
         "scripts": []
       },
       "configurations": {
         "production": {
+          "fileReplacements": [
+            {
+              "replace": "packages/mtd/src/environments/environment.ts",
+              "with": "packages/mtd/src/environments/environment.prod.ts"
+            }
+          ],
           "budgets": [
             {
               "type": "initial",
@@ -36,9 +43,17 @@
               "maximumError": "4kb"
             }
           ],
-          "outputHashing": "all"
+          "outputHashing": "all",
+          "serviceWorker": true,
+          "ngswConfigPath": "packages/mtd-web-ui/ngsw-config.json"
         },
         "development": {
+          "fileReplacements": [
+            {
+              "replace": "packages/mtd/src/environments/environment.ts",
+              "with": "packages/mtd/src/environments/environment.test.ts"
+            }
+          ],
           "buildOptimizer": false,
           "optimization": false,
           "vendorChunk": true,
