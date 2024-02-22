@@ -3,11 +3,13 @@ $mtd-nature-primary: mat.define-palette(mat.$brown-palette, 700, 300, 900);
 $mtd-nature-accent: mat.define-palette(mat.$deep-purple-palette, 300);
 $mtd-nature-warn: mat.define-palette(mat.$red-palette, 600);
 
-$mtd-nature-theme: mat.define-light-theme(
-  $mtd-nature-primary,
-  $mtd-nature-accent,
-  $mtd-nature-warn
-);
+$mtd-nature-theme: mat.define-light-theme((
+  color: (
+    primary: $mtd-nature-primary,
+    accent: $mtd-nature-accent,
+    warn: $mtd-nature-warn
+  ),
+));
 
 $red: #cd2d27;
 $black: #050302;
