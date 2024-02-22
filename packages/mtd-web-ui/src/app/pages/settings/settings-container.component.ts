@@ -1,4 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { MatSelectChange } from '@angular/material/select';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { META } from '../../../config/config';
@@ -11,7 +13,7 @@ import {
   actionSettingsChangeAnimationsPage,
   actionSettingsChangeAutoNightMode,
   actionSettingsChangeLanguage,
-  actionSettingsChangeTheme
+  actionSettingsChangeTheme,
 } from '../../core/settings/settings.actions';
 import { SettingsState, State } from '../../core/settings/settings.model';
 import { selectSettings } from '../../core/settings/settings.selectors';
@@ -21,9 +23,9 @@ import { selectSettings } from '../../core/settings/settings.selectors';
   templateUrl: './settings-container.component.html',
   styleUrls: [
     './settings-container.component.scss',
-    '../../shared/layout/single/single.component.scss'
+    '../../shared/layout/single/single.component.scss',
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SettingsContainerComponent implements OnInit {
   displayNav = true;
@@ -34,13 +36,13 @@ export class SettingsContainerComponent implements OnInit {
     { value: 'DEFAULT-THEME', label: 'blue' },
     { value: 'LIGHT-THEME', label: 'light' },
     { value: 'NATURE-THEME', label: 'nature' },
-    { value: 'BLACK-THEME', label: 'dark' }
+    { value: 'BLACK-THEME', label: 'dark' },
   ];
 
-  languages = META.languages.map(x => {
+  languages = META.languages.map((x) => {
     return {
       value: x.value,
-      label: marker(`mtd.settings.general.language.${x.value}`)
+      label: marker(`mtd.settings.general.language.${x.value}`),
     };
   });
 
@@ -50,25 +52,31 @@ export class SettingsContainerComponent implements OnInit {
     this.settings$ = this.store.pipe(select(selectSettings));
   }
 
-  onLanguageSelect({ value: language }) {
-    this.store.dispatch(actionSettingsChangeLanguage({ language }));
+  onLanguageSelect(event: MatSelectChange) {
+    this.store.dispatch(actionSettingsChangeLanguage(event.value));
   }
 
-  onThemeSelect({ value: theme }) {
-    this.store.dispatch(actionSettingsChangeTheme({ theme }));
+  onThemeSelect(event: MatSelectChange) {
+    this.store.dispatch(actionSettingsChangeTheme(event.value));
   }
 
-  onAutoNightModeToggle({ checked: autoNightMode }) {
-    this.store.dispatch(actionSettingsChangeAutoNightMode({ autoNightMode }));
-  }
-
-  onPageAnimationsToggle({ checked: pageAnimations }) {
-    this.store.dispatch(actionSettingsChangeAnimationsPage({ pageAnimations }));
-  }
-
-  onElementsAnimationsToggle({ checked: elementsAnimations }) {
+  onAutoNightModeToggle(event: MatSlideToggleChange) {
     this.store.dispatch(
-      actionSettingsChangeAnimationsElements({ elementsAnimations })
+      actionSettingsChangeAutoNightMode({ autoNightMode: event.checked })
+    );
+  }
+
+  onPageAnimationsToggle(event: MatSlideToggleChange) {
+    this.store.dispatch(
+      actionSettingsChangeAnimationsPage({ pageAnimations: event.checked })
+    );
+  }
+
+  onElementsAnimationsToggle(event: MatSlideToggleChange) {
+    this.store.dispatch(
+      actionSettingsChangeAnimationsElements({
+        elementsAnimations: event.checked,
+      })
     );
   }
 }

@@ -1,51 +1,25 @@
 import {
   Component,
   Input,
-  Inject,
   OnChanges,
   OnInit,
   OnDestroy,
-  SimpleChange
 } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { WordModalComponent } from '../word-modal/word-modal.component';
 import { PronunciationGuideComponent } from '../pronunciation-guide/pronunciation-guide.component';
-import { DictionaryData } from '../../core/models';
+import { DictionaryData, ExampleAudio } from '../../core/models';
 import { BookmarksService, MtdService } from '../../core/core.module';
 
 import { MatDialog } from '@angular/material/dialog';
 
 import { FileNotFoundDialogComponent } from '../file-not-found/file-not-found.component';
-import { slugify } from 'transliteration';
 
-const levenstein = function(string1, string2) {
-  const a = string1,
-    b = string2 + '',
-    m = [],
-    min = Math.min;
-  let i, j;
-
-  if (!(a && b)) return (b || a).length;
-
-  for (i = 0; i <= b.length; m[i] = [i++]);
-  for (j = 0; j <= a.length; m[0][j] = j++);
-
-  for (i = 1; i <= b.length; i++) {
-    for (j = 1; j <= a.length; j++) {
-      m[i][j] =
-        b.charAt(i - 1) === a.charAt(j - 1)
-          ? m[i - 1][j - 1]
-          : (m[i][j] = min(
-              m[i - 1][j - 1] + 1,
-              min(m[i][j - 1] + 1, m[i - 1][j] + 1)
-            ));
-    }
-  }
-
-  return m[b.length][a.length];
-};
+export interface DictionaryTitle {
+  title: string;
+}
 
 @Component({
   selector: 'mtd-entry-list',
@@ -58,7 +32,7 @@ export class EntryListComponent implements OnChanges, OnInit, OnDestroy {
   unsubscribe$ = new Subject<void>();
 
   @Input() parentEdit: boolean;
-  @Input() entries: DictionaryData[];
+  @Input() entries: Array<DictionaryData | DictionaryTitle>;
   @Input() searchTerm: string;
   @Input() threshold: number;
   @Input() showEntry: number;
@@ -81,19 +55,19 @@ export class EntryListComponent implements OnChanges, OnInit, OnDestroy {
         // Look first in the (small) list of entries if it exists, but check the full
         // one too so that permalinks always work (as long as there's an entry list...!)
         const entry =
-          this.entries?.find(entry => entry.entryID == params.show) ??
+          this.entries?.find(entry => "entryID" in entry && entry.entryID == params.show) ??
           this.mtdService.dataDict_value.find(
             entry => entry.entryID == params.show
           );
         if (entry === undefined) return; // FIXME: Perhaps should show an error of some sort
         const dialogRef = this.dialog.open(WordModalComponent, {
           panelClass: 'mtd-word-dialog',
-          data: { entry }
+          data: entry
         });
         dialogRef
           .afterClosed()
           .pipe(takeUntil(this.unsubscribe$))
-          .subscribe(result => {
+          .subscribe(_ => {
             this.router.navigate(['.'], { relativeTo: this.route });
           });
       });
@@ -103,7 +77,7 @@ export class EntryListComponent implements OnChanges, OnInit, OnDestroy {
     this.unsubscribe$.next();
   }
 
-  showModal(entry) {
+  showModal(entry: DictionaryData) {
     this.router.navigate(['.'], {
       queryParams: { show: entry.entryID },
       relativeTo: this.route
@@ -114,27 +88,27 @@ export class EntryListComponent implements OnChanges, OnInit, OnDestroy {
     this.dialog.open(PronunciationGuideComponent);
   }
 
-  playDefaultAudio(entry) {
+  playDefaultAudio(entry: DictionaryData) {
     let audioPrefix = '';
     if ('audio_path' in this.mtdService.config_value) {
       audioPrefix = this.mtdService.config_value.audio_path;
     }
     const defaultAudio =
       audioPrefix +
-      entry.audio.filter(audioFile => audioFile.filename)[0].filename;
+          entry.audio.filter((audioFile: ExampleAudio) => audioFile.filename)[0].filename;
     const audio = new Audio(defaultAudio);
     audio.onerror = () => this.fileNotFound(defaultAudio);
     audio.play();
   }
 
-  fileNotFound(path) {
-    const dialogRef = this.dialog.open(FileNotFoundDialogComponent, {
+  fileNotFound(path: string) {
+    this.dialog.open(FileNotFoundDialogComponent, {
       width: '250px',
-      data: { path }
+      data: path
     });
   }
 
-  hasAudio(entry) {
+  hasAudio(entry: DictionaryData) {
     return this.mtdService.hasAudio(entry);
   }
 
@@ -153,11 +127,25 @@ export class EntryListComponent implements OnChanges, OnInit, OnDestroy {
     );
   }
 
-  toggleBookmark(entry) {
+  toggleBookmark(entry: DictionaryData) {
     this.bookmarkService.toggleBookmark(entry);
   }
 
   ngOnChanges() {
     this.edit = this.parentEdit;
+  }
+
+  /**
+   * Narrow things from the list so we know if we cannot treat them as entries.
+   */
+  isTitle(entry: DictionaryData | DictionaryTitle): entry is DictionaryTitle {
+    return "title" in entry;
+  }
+
+  /**
+   * Narrow things from the list so we know if we can treat them as entries.
+   */
+  isEntry(entry: DictionaryData | DictionaryTitle): entry is DictionaryData {
+    return !("title" in entry);
   }
 }

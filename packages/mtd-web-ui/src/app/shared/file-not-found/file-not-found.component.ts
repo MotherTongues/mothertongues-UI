@@ -1,12 +1,8 @@
 import {
   Component,
-  Input,
   Inject,
-  OnChanges,
-  SimpleChange
 } from '@angular/core';
 import {
-  MatDialog,
   MatDialogRef,
   MAT_DIALOG_DATA
 } from '@angular/material/dialog';
@@ -18,7 +14,7 @@ import {
 export class FileNotFoundDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<FileNotFoundDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data
+    @Inject(MAT_DIALOG_DATA) public data: string
   ) {}
 
   close(): void {

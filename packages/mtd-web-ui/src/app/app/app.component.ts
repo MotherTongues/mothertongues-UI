@@ -1,5 +1,6 @@
 import browser from 'browser-detect';
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { MatSelectChange } from '@angular/material/select';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
 import { marker } from '@biesbjerg/ngx-translate-extract-marker';
@@ -79,7 +80,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.theme$ = this.store.pipe(select(selectEffectiveTheme));
   }
 
-  onLanguageSelect({ value: language }) {
-    this.store.dispatch(actionSettingsChangeLanguage({ language }));
+  onLanguageSelect(event: MatSelectChange) {
+    this.store.dispatch(actionSettingsChangeLanguage(event.value));
   }
 }

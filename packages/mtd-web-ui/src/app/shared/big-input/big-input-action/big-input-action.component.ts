@@ -5,7 +5,6 @@ import {
   EventEmitter,
   ChangeDetectionStrategy
 } from '@angular/core';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 @Component({
   selector: 'mtd-big-input-action',
@@ -17,15 +16,15 @@ export class BigInputActionComponent {
   @Input()
   disabled = false;
   @Input()
-  fontSet?;
+  fontSet?: any;  // FIXME: These have types... what are they?
   @Input()
-  fontIcon?;
+  fontIcon?: any;
   @Input()
-  faIcon?;
+  faIcon?: any;
   @Input()
-  label?;
+  label?: any;
   @Input()
-  color?;
+  color?: any;
 
   @Output()
   action = new EventEmitter<void>();

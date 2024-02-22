@@ -6,10 +6,10 @@ import {
   OnDestroy,
   Inject
 } from '@angular/core';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { DictionaryData } from '../../core/models';
+import { DictionaryData, Example, ExampleAudio } from '../../core/models';
 import {
   MatDialog,
   MatDialogRef,
@@ -17,23 +17,6 @@ import {
 } from '@angular/material/dialog';
 import { BookmarksService, MtdService } from '../../core/core.module';
 import { FileNotFoundDialogComponent } from '../file-not-found/file-not-found.component';
-
-interface ExampleAudio {
-  speaker: string;
-  filename: string;
-  starts: Array<number>;
-}
-
-interface ExampleText {
-  text: string;
-  active: boolean;
-}
-
-interface Example {
-  text: string;
-  definition: Array<ExampleText>;
-  audio: Array<ExampleAudio>;
-}
 
 @Component({
   selector: 'mtd-word-modal',
@@ -44,11 +27,9 @@ interface Example {
 export class WordModalComponent implements OnInit, OnDestroy {
   checkedOptions: string[];
   displayImages = true; // default show images, turns to false on 404
-  entry: DictionaryData;
   examples: Array<Example>;
   optional = false;
   optionalSelection: string[];
-  objectKeys = Object.keys;
   image: string;
   tabs = false;
   heightQuery: string;
@@ -58,14 +39,13 @@ export class WordModalComponent implements OnInit, OnDestroy {
     public bookmarkService: BookmarksService,
     private mtdService: MtdService,
     public dialogRef: MatDialogRef<WordModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data,
+    @Inject(MAT_DIALOG_DATA) public entry: DictionaryData,
     public dialog: MatDialog,
     private ref: ChangeDetectorRef,
     private breakpointObserver: BreakpointObserver
   ) {
     this.checkedOptions = this.optionalSelection;
 
-    this.entry = this.data.entry!;
     // Restructure the examples to Help With Stuff
     this.examples = [];
     if (this.entry.example_sentence) {
@@ -75,8 +55,8 @@ export class WordModalComponent implements OnInit, OnDestroy {
         if (this.entry.example_sentence_definition)
           definition = this.entry.example_sentence_definition[idx]
             .split(/[\s.,:;()]+/)
-            .filter(w => w.length)
-            .map((w, i) => {
+            .filter((w: string) => w.length)
+            .map((w: string) => {
               return { text: w, active: false };
             });
         let audio;
@@ -111,11 +91,11 @@ export class WordModalComponent implements OnInit, OnDestroy {
     this.unsubscribe$.next();
   }
 
-  getKey(obj) {
+  getKey(obj: object) {
     return Object.keys(obj);
   }
 
-  getVal(obj) {
+  getVal(obj: object) {
     return Object.values(obj);
   }
 
@@ -130,14 +110,14 @@ export class WordModalComponent implements OnInit, OnDestroy {
     return !!this.entry.example_sentence;
   }
 
-  fileNotFound(path) {
-    const dialogRef = this.dialog.open(FileNotFoundDialogComponent, {
+  fileNotFound(path: string) {
+    this.dialog.open(FileNotFoundDialogComponent, {
       width: '250px',
-      data: { path }
+      data: path
     });
   }
 
-  playAudio(example, audio) {
+  playAudio(example: Example | null, audio: ExampleAudio) {
     const path = this.mtdService.config_value.audio_path + audio.filename;
     const audiotag = new Audio(path);
     const starts = audio.starts.map(x => x * 0.01);
@@ -145,7 +125,6 @@ export class WordModalComponent implements OnInit, OnDestroy {
     audiotag.onerror = () => this.fileNotFound(path);
     // Only highlight if we have an alignment
     if (example && starts.length == example.definition.length - 1) {
-      const definition = example.definition;
       let active = 0;
       audiotag.onplaying = () => {
         if (example === null) return;
@@ -153,7 +132,7 @@ export class WordModalComponent implements OnInit, OnDestroy {
         example.definition[0].active = true;
         this.ref.markForCheck();
       };
-      audiotag.ontimeupdate = event => {
+      audiotag.ontimeupdate = () => {
         if (example === null) return;
         let idx;
         for (idx = 0; idx < starts.length; idx++) {
@@ -178,11 +157,11 @@ export class WordModalComponent implements OnInit, OnDestroy {
     this.displayImages = false;
   }
 
-  toggleFav(entry) {
+  toggleFav(entry: DictionaryData) {
     this.bookmarkService.toggleBookmark(entry);
   }
 
-  favourited(entry) {
+  favourited(entry: DictionaryData) {
     return this.bookmarkService.bookmarks.value.indexOf(entry) > -1;
   }
 }

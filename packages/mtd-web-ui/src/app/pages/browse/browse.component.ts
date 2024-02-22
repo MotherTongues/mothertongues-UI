@@ -7,8 +7,7 @@ import {
 import { Router, ActivatedRoute } from '@angular/router';
 import { DictionaryData } from '../../core/models';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { map, tap, takeUntil } from 'rxjs/operators';
-import { META } from '../../../config/config';
+import { map,  takeUntil } from 'rxjs/operators';
 import {
   BookmarksService,
   MtdService,
@@ -140,7 +139,6 @@ export class BrowseComponent implements OnDestroy {
     const guide_height = 18; // FIXME: should not actually take any space?
     // FIXME: Totally hard coded!
     const alphabet_height = is_mini ? 108 : is_phone ? 84 : 0;
-    const border = 7;
     const height =
       vh - 2 * toolbar_height - 2 * margin - alphabet_height - guide_height;
 
@@ -157,13 +155,7 @@ export class BrowseComponent implements OnDestroy {
     this.letterInit();
   }
 
-  letterNeverStarts(letter) {
-    return this.displayLetters$.pipe(
-      map(letters => letters.indexOf(letter) === -1)
-    );
-  }
-
-  highlightLetter(letter) {
+  highlightLetter(letter: string) {
     return this.letters.indexOf(letter) === this.currentX[0].sorting_form[0];
   }
 
@@ -236,7 +228,9 @@ export class BrowseComponent implements OnDestroy {
         .subscribe()
         .unsubscribe();
     } else {
+      // FIXME: omg, do not understand this at all
       this.mtdService.categories$
+      // @ts-ignore
         .pipe(map(x => this.currentEntries$.next(x[category])))
         .subscribe()
         .unsubscribe();

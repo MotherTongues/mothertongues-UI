@@ -12,23 +12,10 @@ export class NoNullValuesPipe implements PipeTransform {
   /**
    * Removes empty strings from array
    */
-  transform(value: Array<string>, ...args) {
+  transform(value: Array<string>) {
     if (value && Array.isArray(value)) {
       return value.filter(x => x !== null && x !== '');
     }
-  }
-}
-
-@Pipe({
-  name: 'filterNullValues'
-})
-export class FilterNullValuesPipe implements PipeTransform {
-  /**
-   * Removes empty objects from array
-   */
-  transform(value: Array<object>) {
-    const filtered = value.filter(x => Object.keys(x).every(k => x[k]));
-    return filtered;
   }
 }
 
@@ -39,7 +26,7 @@ export class NoNullObjectValuesPipe implements PipeTransform {
   /**
    * Removes empty objects from array
    */
-  transform(value: Array<any>, ...args): Array<any> {
+  transform(value: Array<any>): Array<any> {
     if (value && Array.isArray(value)) {
       return value.filter(x => {
         let notEmpty = true;

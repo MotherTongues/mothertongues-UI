@@ -32,16 +32,16 @@ export class BookmarksService {
     }
   }
 
-  setBookmarks(val) {
+  setBookmarks(val: DictionaryData[]) {
     this.bookmarks.next(val);
-    const vals = val.map(x => x['entryID']);
+    const vals = val.map(x => x.entryID);
     localStorage.setItem(
       this.config.L1.name + this.config.build,
       JSON.stringify(vals)
     );
   }
 
-  toggleBookmark(entry) {
+  toggleBookmark(entry: DictionaryData) {
     const i = this.bookmarks.value.indexOf(entry);
     let bookmarks;
     if (i > -1) {

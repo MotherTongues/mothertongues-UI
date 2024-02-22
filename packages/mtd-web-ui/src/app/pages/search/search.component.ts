@@ -9,14 +9,13 @@ import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import {
   takeUntil,
-  map,
   tap,
-  distinctUntilChanged,
   debounceTime
 } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { DictionaryData } from '../../core/models';
 import { MtdService, ROUTE_ANIMATIONS_ELEMENTS } from '../../core/core.module';
+import { DictionaryTitle } from "../../shared/entry-list/entry-list.component";
 
 import { slugify } from 'transliteration';
 
@@ -30,7 +29,7 @@ export class SearchComponent implements OnDestroy, OnInit {
   displayNav = true;
   entries: DictionaryData[];
   entries$: Observable<DictionaryData[]>;
-  matches$: BehaviorSubject<DictionaryData[]> = new BehaviorSubject([]);
+  matches$: BehaviorSubject<Array<DictionaryData | DictionaryTitle>> = new BehaviorSubject([]);
   matchThreshold = 0;
   partialThreshold = 1;
   maybeThreshold = 3;
@@ -70,7 +69,7 @@ export class SearchComponent implements OnDestroy, OnInit {
       .subscribe(entries => (this.entries = entries));
     this.onSearchKeyUp$
       .pipe(
-        tap(event => this.loading$.next(true)),
+        tap(() => this.loading$.next(true)),
         debounceTime(200)
       )
       .subscribe(event => {
@@ -145,6 +144,7 @@ export class SearchComponent implements OnDestroy, OnInit {
 
     const searchQueryRe = searchQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     // Normalize
+    // @ts-ignore
     const mtd = window['mtd'];
     const originalSearchTerm = mtd.convertQuery(searchQuery);
     // 1. Exact match
@@ -169,18 +169,18 @@ export class SearchComponent implements OnDestroy, OnInit {
       )
     );
     // 4. levenstein (includes compare form and display)
+    // @ts-ignore
     const target = window['searchL1'](originalSearchTerm);
     // Match containers
-    let allMatches = [];
-    const matches = [];
-    const partMatches = [];
-    const maybeMatches = [];
+    let allMatches: Array<DictionaryData> = [];
+    const matches: Array<DictionaryData> = [];
+    const partMatches: Array<DictionaryData> = [];
+    const maybeMatches: Array<DictionaryData> = [];
 
     // Collect l1Exact matches and add to allMatches
     const populateL1Exact = () => {
       for (const result of l1Exact) {
         const entry = Object.assign({}, result);
-        entry.type = 'L1';
         entry.distance = this.matchThreshold;
         allMatches.push(entry);
       }
@@ -190,7 +190,6 @@ export class SearchComponent implements OnDestroy, OnInit {
     const populateL2Exact = () => {
       for (const result of l2Exact) {
         const entry = Object.assign({}, result);
-        entry.type = 'L2';
         entry.distance = this.matchThreshold;
         allMatches.push(entry);
       }
@@ -200,7 +199,6 @@ export class SearchComponent implements OnDestroy, OnInit {
     const populateL1Partial = () => {
       for (const result of l1Partial.concat(l1PartialSlug)) {
         const entry = Object.assign({}, result);
-        entry.type = 'L1';
         entry.distance = this.partialThreshold;
         allMatches.push(entry);
       }
@@ -210,7 +208,6 @@ export class SearchComponent implements OnDestroy, OnInit {
     const populateL2Partial = () => {
       for (const result of l2Partial) {
         const entry = Object.assign({}, result);
-        entry.type = 'L2';
         entry.distance = this.partialThreshold;
         allMatches.push(entry);
       }
@@ -219,7 +216,6 @@ export class SearchComponent implements OnDestroy, OnInit {
     const populateTarget = () => {
       for (const result of target) {
         const entry = Object.assign({}, result);
-        entry.type = 'L1';
         entry.distance += this.approxWeight;
         const resultIndex = allMatches.findIndex(
           match =>
@@ -275,15 +271,19 @@ export class SearchComponent implements OnDestroy, OnInit {
     );
     mergeMatches();
     // Add headers
+    const displayMatches: Array<DictionaryData | DictionaryTitle> = [];
     if (matches.length) {
-      matches.unshift({ title: 'mtd.pages.search.matches' });
+      displayMatches.unshift({ title: 'mtd.pages.search.matches' });
+      displayMatches.unshift(...matches);
     }
     if (partMatches.length) {
-      partMatches.unshift({ title: 'mtd.pages.search.partial-matches' });
+      displayMatches.unshift({ title: 'mtd.pages.search.partial-matches' });
+      displayMatches.unshift(...partMatches);
     }
     if (maybeMatches.length) {
-      maybeMatches.unshift({ title: 'mtd.pages.search.maybe-matches' });
+      displayMatches.unshift({ title: 'mtd.pages.search.maybe-matches' });
+      displayMatches.unshift(...maybeMatches);
     }
-    this.matches$.next(matches.concat(partMatches).concat(maybeMatches));
+    this.matches$.next(displayMatches);
   }
 }

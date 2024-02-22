@@ -5,12 +5,12 @@
 </div>
 <div class="entry-list container">
   <div *ngFor="let entry of entries; last as isLast" text-wrap>
-    <div class="row" *ngIf="entry.title">
+    <div class="row" *ngIf="isTitle(entry)">
       <h4 class="col-sm-12 entry-list__title">
         {{ entry.title | translate }}
       </h4>
     </div>
-    <div class="row" *ngIf="!entry.title">
+    <div class="row" *ngIf="isEntry(entry)">
       <div class="col-2 col-sm-auto">
         <button
           mat-icon-button
