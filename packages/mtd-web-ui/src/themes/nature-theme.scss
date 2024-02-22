@@ -9,6 +9,8 @@ $mtd-nature-theme: mat.define-light-theme((
     accent: $mtd-nature-accent,
     warn: $mtd-nature-warn
   ),
+  typography: mat.define-typography-config(),
+  density: 0,
 ));
 
 $red: #cd2d27;

@@ -9,4 +9,6 @@ $mtd-light-theme: mat.define-light-theme((
     accent: $mtd-light-accent,
     warn: $mtd-light-warn
   ),
+  typography: mat.define-typography-config(),
+  density: 0,
 ));

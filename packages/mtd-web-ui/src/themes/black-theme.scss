@@ -9,4 +9,6 @@ $mtd-black-theme: mat.define-dark-theme((
       accent: $mtd-black-accent,
       warn: $mtd-black-warn,
   ),
+  typography: mat.define-typography-config(),
+  density: 0,
 ));
