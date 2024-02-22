@@ -79,62 +79,35 @@ export class SearchComponent implements OnDestroy, OnInit {
       });
   }
 
-  getRegex(re, key = 'definition') {
+  getRegex(re: RegExp, key = 'definition') {
     const results = [];
     for (const entry of this.entries) {
+      // FIXME: All these methods are very suspect
+      // @ts-ignore
       if (re.test(entry[key])) {
         results.push(entry);
       }
     }
     const sorted_answers = results.sort(function(a, b) {
+      // @ts-ignore
       return a[key].length - b[key].length;
     });
     return sorted_answers.slice(0, 9);
   }
 
-  getRegexFromSlug(re, key = 'word') {
+  getRegexFromSlug(re: RegExp, key = 'word') {
     const results = [];
     for (const entry of this.entries) {
+      // @ts-ignore
       if (re.test(slugify(entry[key]))) {
         results.push(entry);
       }
     }
     const sorted_answers = results.sort(function(a, b) {
+      // @ts-ignore
       return a[key].length - b[key].length;
     });
     return sorted_answers.slice(0, 9);
-  }
-
-  filterMatches(results) {
-    return results.filter(r => r.distance <= this.matchThreshold);
-  }
-  filterPartMatches(results) {
-    return results.filter(
-      r =>
-        r.distance <= this.partialThreshold && r.distance > this.matchThreshold
-    );
-  }
-  filterMaybeMatches(results) {
-    return results.filter(
-      r => this.maybeThreshold && r.distance > this.partialThreshold
-    );
-  }
-
-  getL2(searchQuery, entries): DictionaryData[] {
-    const results = [];
-    const re = new RegExp(
-      searchQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'),
-      'i'
-    );
-    for (const entry of entries) {
-      if (re.test(entry.definition)) {
-        results.push(entry);
-      }
-    }
-    const sortedAnswers = results.sort((a, b) => {
-      return a.definition.length - b.definition.length;
-    });
-    return sortedAnswers.slice(0, 9);
   }
 
   // Get l2_results (eng) and target (l1) results

@@ -1,84 +1,25 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Config, DictionaryData } from '../models';
-import { HttpClient, HttpResponse } from '@angular/common/http';
 import { uniq } from 'lodash';
 import { environment } from '../../../environments/environment';
 import { META } from '../../../config/config';
-// import { AlertController } from '@ionic/angular';
+
+interface CategoryData {
+  [category: string]: Array<DictionaryData>
+}
 
 @Injectable({ providedIn: 'root' })
 export class MtdService {
+  // @ts-ignore
   _dictionary_data$ = new BehaviorSubject<DictionaryData[]>(window['dataDict']);
+  // @ts-ignore
   _config$ = new BehaviorSubject<Config>(window['config']);
   slug: string;
-  remoteData$: any;
-  remoteConfig$: any;
   base: string = environment.apiBaseURL;
-  // remote: string = environment.remoteSlug;
-  constructor(private http: HttpClient) {
+  constructor() {
     this.slug = this.slugify(this._config$.getValue().L1.name);
-    // this.slug = this.remote
-    // console.log(this.slug)
-    if (environment.remoteData) {
-      this.remoteData$ = this.http.get(
-        `${environment.remoteData}?name=${this.slug}&only-data=true`,
-        { observe: 'response' }
-      );
-    } else {
-      this.remoteData$ = of(false);
-    }
-
-    if (environment.remoteConfig) {
-      this.remoteConfig$ = this.http.get(
-        `${environment.remoteConfig}?name=${this.slug}&only-config=true`,
-        { observe: 'response' }
-      );
-    } else {
-      this.remoteConfig$ = of(false);
-    }
-
-    // TODO: if in storage
-    if (environment.remoteData && environment.remoteConfig) {
-      // TODO: check remote build is newer
-      this.remoteConfig$.subscribe(x => {
-        if (x.status === 200) {
-          // TODO: and storage.config.build < x.build
-          this._config$.next(x.body);
-          this.remoteData$.subscribe(y => {
-            if (y.status === 200) {
-              this.presentUpdateAlert();
-              // setTimeout(() => {
-              this._dictionary_data$.next(y.body);
-              // }, 3000)
-            } else {
-              this.presentUpdateFailedAlert();
-              // TODO: return error message
-            }
-          });
-        } else {
-          this.presentUpdateFailedAlert();
-          // TODO: return error message
-        }
-      });
-    } else {
-      // TODO: try and update from remote
-      this.remoteConfig$.subscribe(x => {
-        if (x.status === 200) {
-          this._config$.next(x.body);
-          this.remoteData$.subscribe(y => {
-            if (y.status === 200) {
-              this._dictionary_data$.next(y.body);
-            } else {
-              // return error message
-            }
-          });
-        } else {
-          // return error message
-        }
-      });
-    }
   }
 
   async presentUpdateAlert() {
@@ -101,7 +42,7 @@ export class MtdService {
     // await alert.present();
   }
 
-  private shuffle(array) {
+  private shuffle(array: Array<any>) {
     let copy = array.map(x => x);
     let tmp,
       current,
@@ -117,7 +58,8 @@ export class MtdService {
     return copy;
   }
 
-  slugify(text) {
+  /* FIXME: we use slugify from transliteration elsewhere, why not here */
+  slugify(text: string) {
     return text
       .toString()
       .toLowerCase()
@@ -140,7 +82,7 @@ export class MtdService {
       .pipe(map(x => x.slice(start_index, start_index + no_slice)));
   }
 
-  hasAudio(entry) {
+  hasAudio(entry: DictionaryData) {
     if (!('audio' in entry)) return false;
     if (entry.audio instanceof Array) {
       const files = entry.audio.filter(audioFile => audioFile.filename);
@@ -181,13 +123,13 @@ export class MtdService {
     return this._dictionary_data$.getValue();
   }
 
-  get categories$(): Observable<object> {
+  get categories$(): Observable<CategoryData> {
     return this._dictionary_data$.asObservable().pipe(
       map(entries => {
-        const keys = uniq(entries.map(x => x['source']));
-        const categories: object = {};
+        const keys = uniq(entries.map(x => x.source));
+        const categories: CategoryData = {};
         for (const key of keys) {
-          categories[key] = entries.filter(x => x['source'] === key);
+          categories[key] = entries.filter(x => x.source === key);
         }
         const semantic_categories = uniq(
           entries.map(entry => {
@@ -212,7 +154,6 @@ export class MtdService {
           audioEntries.length > 0 &&
           (audioEntries.length < entries.length * 0.75 || META.browseAudio)
         ) {
-          categories['audio'] = {};
           categories['audio'] = audioEntries;
         }
         return categories;

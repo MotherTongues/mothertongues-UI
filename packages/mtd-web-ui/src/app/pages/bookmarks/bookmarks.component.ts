@@ -47,13 +47,6 @@ export class BookmarksComponent implements OnDestroy {
     this.unsubscribe$.next();
   }
 
-  removeEntries(bookmarks) {
-    this.bookmarkService.setBookmarks(
-      bookmarks.filter(bookmark => !bookmark.checked)
-    );
-    this.toggleEdit();
-  }
-
   toggleEdit() {
     this.edit = !this.edit;
   }
