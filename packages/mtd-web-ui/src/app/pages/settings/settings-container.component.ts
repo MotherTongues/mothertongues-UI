@@ -51,11 +51,11 @@ export class SettingsContainerComponent {
   }
 
   onLanguageSelect(event: MatSelectChange) {
-    this.store.dispatch(actionSettingsChangeLanguage(event.value));
+    this.store.dispatch(actionSettingsChangeLanguage({ language: event.value}));
   }
 
   onThemeSelect(event: MatSelectChange) {
-    this.store.dispatch(actionSettingsChangeTheme(event.value));
+    this.store.dispatch(actionSettingsChangeTheme({ theme: event.value }));
   }
 
   onAutoNightModeToggle(event: MatSlideToggleChange) {
