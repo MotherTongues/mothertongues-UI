@@ -1,22 +1,11 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import { META } from '../../../config/config';
 import { marker } from '@biesbjerg/ngx-translate-extract-marker';
 
 import { ROUTE_ANIMATIONS_ELEMENTS } from '../../core/core.module';
-
-import {
-  actionSettingsChangeAnimationsElements,
-  actionSettingsChangeAnimationsPage,
-  actionSettingsChangeAutoNightMode,
-  actionSettingsChangeLanguage,
-  actionSettingsChangeTheme,
-} from '../../core/settings/settings.actions';
-import { SettingsState, State } from '../../core/settings/settings.model';
-import { selectSettings } from '../../core/settings/settings.selectors';
+import { SettingsState } from '../../core/settings/settings.model';
 
 @Component({
   selector: 'mtd-settings',
@@ -30,7 +19,16 @@ import { selectSettings } from '../../core/settings/settings.selectors';
 export class SettingsContainerComponent {
   displayNav = true;
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
-  settings$: Observable<SettingsState>;
+  settings: SettingsState = {
+    language: "en",
+    theme: "DEFAULT-THEME",
+    autoNightMode: false,
+    nightTheme: "BLACK-THEME",
+    pageAnimations: true,
+    pageAnimationsDisabled: false,
+    elementsAnimations: true,
+    hour: 12
+  };
 
   themes = [
     { value: 'DEFAULT-THEME', label: 'blue' },
@@ -46,35 +44,24 @@ export class SettingsContainerComponent {
     };
   });
 
-  constructor(private store: Store<State>) {
-    this.settings$ = this.store.pipe(select(selectSettings));
-  }
-
+  /* FIXME: can just use ngModel for all of this obviously */
   onLanguageSelect(event: MatSelectChange) {
-    this.store.dispatch(actionSettingsChangeLanguage({ language: event.value}));
+    this.settings.language = event.value;
   }
 
   onThemeSelect(event: MatSelectChange) {
-    this.store.dispatch(actionSettingsChangeTheme({ theme: event.value }));
+    this.settings.theme = event.value;
   }
 
   onAutoNightModeToggle(event: MatSlideToggleChange) {
-    this.store.dispatch(
-      actionSettingsChangeAutoNightMode({ autoNightMode: event.checked })
-    );
+    this.settings.autoNightMode = event.checked;
   }
 
   onPageAnimationsToggle(event: MatSlideToggleChange) {
-    this.store.dispatch(
-      actionSettingsChangeAnimationsPage({ pageAnimations: event.checked })
-    );
+    this.settings.pageAnimations = event.checked;
   }
 
   onElementsAnimationsToggle(event: MatSlideToggleChange) {
-    this.store.dispatch(
-      actionSettingsChangeAnimationsElements({
-        elementsAnimations: event.checked,
-      })
-    );
+    this.settings.elementsAnimations = event.checked;
   }
 }

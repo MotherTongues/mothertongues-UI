@@ -2,18 +2,12 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
 
-import {
-  selectEffectiveTheme,
-  selectSettingsLanguage
-} from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
-  let store: MockStore;
 
   beforeEach(
     waitForAsync(() => {
@@ -24,13 +18,9 @@ describe('AppComponent', () => {
           NoopAnimationsModule,
           TranslateModule.forRoot()
         ],
-        providers: [provideMockStore()],
         declarations: [AppComponent]
       }).compileComponents();
 
-      store = TestBed.inject(MockStore);
-      store.overrideSelector(selectSettingsLanguage, 'en');
-      store.overrideSelector(selectEffectiveTheme, 'default');
     })
   );
 

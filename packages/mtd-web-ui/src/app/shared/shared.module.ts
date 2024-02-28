@@ -53,7 +53,6 @@ import { faMediumM, faGithub } from '@fortawesome/free-brands-svg-icons';
 
 import { BigInputComponent } from './big-input/big-input/big-input.component';
 import { BigInputActionComponent } from './big-input/big-input-action/big-input-action.component';
-import { RtlSupportDirective } from './rtl-support/rtl-support.directive';
 import { FileNotFoundDialogComponent } from './file-not-found/file-not-found.component';
 import { WordModalComponent } from './word-modal/word-modal.component';
 import { SingleComponent } from './layout/single/single.component';
@@ -94,7 +93,6 @@ import { EntryListComponent } from './entry-list/entry-list.component';
   declarations: [
     BigInputComponent,
     BigInputActionComponent,
-    RtlSupportDirective,
     EntryListComponent,
     FileNotFoundDialogComponent,
     WordModalComponent,
@@ -137,7 +135,6 @@ import { EntryListComponent } from './entry-list/entry-list.component';
     SingleComponent,
     BigInputComponent,
     BigInputActionComponent,
-    RtlSupportDirective
   ]
 })
 export class SharedModule {

@@ -1,4 +1,4 @@
-<div [class]="'theme-wrapper ' + (theme$ | async)">
+<div [class]="'theme-wrapper ' + theme">
   <mat-sidenav-container>
     <!-- sidebar for small displays (always present but cannot
          be activated unless the icon is actually visible!) -->
@@ -134,7 +134,7 @@
           </button>
           <!-- i18n languages -->
           <ng-container *ngIf="languages.length > 1">
-            <span *ngIf="language$ | async as language">
+            <span *ngIf="language">
               <mat-select
                 [ngModel]="language"
                 (selectionChange)="onLanguageSelect($event)"

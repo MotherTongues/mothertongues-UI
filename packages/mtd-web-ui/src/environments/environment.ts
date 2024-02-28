@@ -10,13 +10,11 @@ export const environment = {
   envName: 'DEV',
   production: false,
   test: false,
-  i18nPrefix: '.',
   apiBaseURL: 'http://localhost:4200',
   dataPath: '../assets/dictionary_data.json',
   versions: {
     app: packageJson.version,
     angular: packageJson.dependencies['@angular/core'],
-    ngrx: packageJson.dependencies['@ngrx/store'],
     material: packageJson.dependencies['@angular/material'],
     bootstrap: packageJson.dependencies.bootstrap,
     rxjs: packageJson.dependencies.rxjs,

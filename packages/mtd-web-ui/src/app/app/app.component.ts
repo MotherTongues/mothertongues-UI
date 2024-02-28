@@ -1,8 +1,5 @@
-import browser from 'browser-detect';
-import { Component,  OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
-import { Store, select } from '@ngrx/store';
-import { Observable, Subject } from 'rxjs';
 import { marker } from '@biesbjerg/ngx-translate-extract-marker';
 
 import { environment as env } from '../../environments/environment';
@@ -11,13 +8,7 @@ import { META } from '../../config/config';
 import {
   routeAnimations,
   LocalStorageService,
-  selectSettingsLanguage,
-  selectEffectiveTheme,
 } from '../core/core.module';
-import {
-  actionSettingsChangeAnimationsPageDisabled,
-  actionSettingsChangeLanguage
-} from '../core/settings/settings.actions';
 import { RouterOutlet } from '@angular/router';
 
 interface MenuItem {
@@ -32,7 +23,7 @@ interface MenuItem {
   styleUrls: ['./app.component.scss'],
   animations: [routeAnimations]
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent {
   displayNav = false;
   isProd = env.production;
   envName = env.envName;
@@ -52,37 +43,14 @@ export class AppComponent implements OnDestroy {
     { link: 'settings', label: 'mtd.menu.settings' }
   ];
 
-  language$: Observable<string>;
-  theme$: Observable<string>;
-  unsubscribe$ = new Subject<void>();
-  constructor(
-    private store: Store,
-    private storageService: LocalStorageService,
-  ) {
+  language = "en";
+  theme = "nature-theme";
+  constructor(private storageService: LocalStorageService) {
     this.storageService.testLocalStorage();
-    if (AppComponent.isIEorEdgeOrSafari()) {
-      this.store.dispatch(
-        actionSettingsChangeAnimationsPageDisabled({
-          pageAnimationsDisabled: true
-        })
-      );
-    }
-    this.language$ = this.store.pipe(select(selectSettingsLanguage));
-    this.theme$ = this.store.pipe(select(selectEffectiveTheme));
-  }
-
-  private static isIEorEdgeOrSafari() {
-    const browserObj = browser();
-    const browserName = browserObj.name || "";
-    return ['ie', 'edge', 'safari'].includes(browserName);
-  }
-
-  ngOnDestroy(): void {
-    this.unsubscribe$.next();
   }
 
   onLanguageSelect(event: MatSelectChange) {
-    this.store.dispatch(actionSettingsChangeLanguage(event.value));
+    //this.store.dispatch(actionSettingsChangeLanguage(event.value));
   }
 
   getRouteAnimations(o: RouterOutlet) {

@@ -31,8 +31,7 @@ $white: #fff;
   color: $white !important;
 }
 
-/* WTF? Aren't these supposed be styled in the 7000 different
-   *.scss-theme.scss files??? */
+/* FIXME: Not sure why these aren't in custom component themes? */
 .nature-theme mat-sidenav-container mat-toolbar button.active,
 .nature-theme .langMatched,
 .nature-theme .word__active,
