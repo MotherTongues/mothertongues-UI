@@ -43,23 +43,24 @@
   @include mtd-single-component-theme($theme);
 }
 
+@include mat.all-component-themes($mtd-theme);
+
 .default-theme {
-  @include mat.all-component-themes($mtd-theme);
   @include custom-components-theme($mtd-theme);
 }
 
 .light-theme {
-  @include mat.all-component-themes($mtd-light-theme);
+  @include mat.all-component-colors($mtd-light-theme);
   @include custom-components-theme($mtd-light-theme);
 }
 
 .black-theme {
-  @include mat.all-component-themes($mtd-black-theme);
+  @include mat.all-component-colors($mtd-black-theme);
   @include custom-components-theme($mtd-black-theme);
 }
 
 .nature-theme {
-  @include mat.all-component-themes($mtd-nature-theme);
+  @include mat.all-component-colors($mtd-nature-theme);
   @include custom-components-theme($mtd-nature-theme);
 }
 
