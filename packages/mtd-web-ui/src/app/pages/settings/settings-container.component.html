@@ -11,8 +11,7 @@
           <mat-form-field>
             <mat-select
               [placeholder]="'mtd.settings.general.placeholder' | translate"
-              [ngModel]="settings.language"
-              (selectionChange)="onLanguageSelect($event)"
+              [(ngModel)]="settings.language"
               name="language"
             >
               <ng-container *ngFor="let l of languages">
@@ -42,12 +41,7 @@
             ><fa-icon icon="paint-brush" color="accent"></fa-icon
           ></mat-icon>
           <mat-form-field>
-            <mat-select
-              [placeholder]="'mtd.settings.themes.placeholder' | translate"
-              [ngModel]="settings.theme"
-              (selectionChange)="onThemeSelect($event)"
-              name="themes"
-            >
+            <mat-select [(ngModel)]="settings.theme" name="themes">
               <mat-option *ngFor="let t of themes" [value]="t.value">
                 {{ 'mtd.settings.themes.' + t.label | translate }}
               </mat-option>
@@ -61,10 +55,7 @@
           <mat-label
             >{{ 'mtd.settings.themes.night-mode' | translate }}
           </mat-label>
-          <mat-slide-toggle
-            [checked]="settings.autoNightMode"
-            (change)="onAutoNightModeToggle($event)"
-          >
+          <mat-slide-toggle [(ngModel)]="settings.autoNightMode">
           </mat-slide-toggle>
         </div>
       </div>
@@ -78,18 +69,7 @@
           <mat-label
             >{{ 'mtd.settings.animations.page' | translate }}
           </mat-label>
-          <mat-slide-toggle
-            matTooltip="Sorry, this feature is disabled in IE, EDGE and Safari"
-            matTooltipPosition="before"
-            *ngIf="settings.pageAnimationsDisabled"
-            disabled
-          >
-          </mat-slide-toggle>
-          <mat-slide-toggle
-            *ngIf="!settings.pageAnimationsDisabled"
-            [checked]="settings.pageAnimations"
-            (change)="onPageAnimationsToggle($event)"
-          >
+          <mat-slide-toggle [(ngModel)]="settings.pageAnimations">
           </mat-slide-toggle>
         </div>
         <div class="icon-form-field">
@@ -99,10 +79,7 @@
           <mat-label
             >{{ 'mtd.settings.animations.elements' | translate }}
           </mat-label>
-          <mat-slide-toggle
-            [checked]="settings.elementsAnimations"
-            (change)="onElementsAnimationsToggle($event)"
-          >
+          <mat-slide-toggle [(ngModel)]="settings.elementsAnimations">
           </mat-slide-toggle>
         </div>
       </div>

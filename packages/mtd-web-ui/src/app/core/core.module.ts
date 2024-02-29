@@ -7,6 +7,7 @@ import {
 import { AnimationsService } from './animations/animations.service';
 import { BookmarksService } from './bookmarks/bookmarks.service';
 import { LocalStorageService } from './local-storage/local-storage.service';
+import { SettingsService } from './settings/settings.service';
 import { MtdService } from './mtd/mtd.service';
 
 export {
@@ -14,6 +15,7 @@ export {
   routeAnimations,
   DataService,
   LocalStorageService,
+  SettingsService,
   ROUTE_ANIMATIONS_ELEMENTS,
   AnimationsService,
   BookmarksService,

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { MatSelectChange } from '@angular/material/select';
+import { RouterOutlet } from '@angular/router';
+
 import { marker } from '@biesbjerg/ngx-translate-extract-marker';
 
 import { environment as env } from '../../environments/environment';
@@ -7,9 +8,9 @@ import { META } from '../../config/config';
 
 import {
   routeAnimations,
+  SettingsService,
   LocalStorageService,
 } from '../core/core.module';
-import { RouterOutlet } from '@angular/router';
 
 interface MenuItem {
   link: string;
@@ -43,14 +44,9 @@ export class AppComponent {
     { link: 'settings', label: 'mtd.menu.settings' }
   ];
 
-  language = "en";
-  theme = "nature-theme";
-  constructor(private storageService: LocalStorageService) {
+  constructor(private storageService: LocalStorageService,
+              public settings: SettingsService) {
     this.storageService.testLocalStorage();
-  }
-
-  onLanguageSelect(event: MatSelectChange) {
-    //this.store.dispatch(actionSettingsChangeLanguage(event.value));
   }
 
   getRouteAnimations(o: RouterOutlet) {
