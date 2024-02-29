@@ -1,5 +1,5 @@
 import { TitleService } from './title/title.service';
-import { DataService } from '../data.service';
+import { DataService } from './data/data.service';
 import {
   ROUTE_ANIMATIONS_ELEMENTS,
   routeAnimations

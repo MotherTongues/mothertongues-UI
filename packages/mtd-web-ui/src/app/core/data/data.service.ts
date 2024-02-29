@@ -7,7 +7,7 @@ import {
 } from '@mothertongues/search';
 import { BehaviorSubject, take } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../environments/environment';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
