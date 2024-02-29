@@ -8,6 +8,8 @@ export class AnimationsService {
     AnimationsService.routeAnimationType = 'NONE';
   }
 
+  /* FIXME: This is truly bogus. Services provided in root are
+   * singletons anyway!  And why is this even a service! OMG! */
   private static routeAnimationType: RouteAnimationType = 'NONE';
 
   static isRouteAnimationsType(type: RouteAnimationType) {
