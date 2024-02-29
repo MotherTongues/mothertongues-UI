@@ -84,7 +84,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppRoutingModule,
     // ngsw
     ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production
+        enabled: environment.production
     })
   ],
   declarations: [AppComponent],

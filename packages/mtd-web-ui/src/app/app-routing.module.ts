@@ -1,54 +1,71 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { HomeModule } from './pages/home/home.module';
+import { HomeComponent } from './pages/home/home.component';
+import { BrowseModule } from './pages/browse/browse.module';
+import { BrowseComponent } from './pages/browse/browse.component';
+import { BookmarksModule } from './pages/bookmarks/bookmarks.module';
+import { BookmarksComponent } from './pages/bookmarks/bookmarks.component';
+import { RandomModule } from './pages/random/random.module';
+import { RandomComponent } from './pages/random/random.component';
+import { SearchModule } from './pages/search/search.module';
+import { SearchComponent } from './pages/search/search.component';
+import { SettingsModule } from './pages/settings/settings.module';
+import { SettingsContainerComponent } from './pages/settings/settings-container.component';
 
 const routes: Routes = [
   {
     path: '',
     redirectTo: 'home',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'home',
-    loadChildren: () =>
-      import('./pages/home/home.module').then(m => m.HomeModule)
+    component: HomeComponent,
   },
   {
     path: 'browse',
-    loadChildren: () =>
-      import('./pages/browse/browse.module').then(m => m.BrowseModule)
+    redirectTo: 'browse/0',
+    pathMatch: 'full'
+  },
+  {
+    path: 'browse/:start',
+    component: BrowseComponent,
   },
   {
     path: 'bookmarks',
-    loadChildren: () =>
-      import('./pages/bookmarks/bookmarks.module').then(m => m.BookmarksModule)
+    component: BookmarksComponent,
   },
   {
     path: 'random',
-    loadChildren: () =>
-      import('./pages/random/random.module').then(m => m.RandomModule)
+    component: RandomComponent,
   },
   {
     path: 'search',
-    loadChildren: () =>
-      import('./pages/search/search.module').then(m => m.SearchModule)
+    component: SearchComponent,
   },
   {
     path: 'settings',
-    loadChildren: () =>
-      import('./pages/settings/settings.module').then(m => m.SettingsModule)
+    component: SettingsContainerComponent,
   },
   {
     path: '**',
-    redirectTo: 'home'
-  }
+    redirectTo: 'home',
+  },
 ];
 
 @NgModule({
   imports: [
+    HomeModule,
+    BrowseModule,
+    BookmarksModule,
+    RandomModule,
+    SearchModule,
+    SettingsModule,
     RouterModule.forRoot(routes, {
-      scrollPositionRestoration: 'enabled'
-    })
+      scrollPositionRestoration: 'enabled',
+    }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}
