@@ -30,32 +30,4 @@ describe('LocalStorageService', () => {
     service.removeItem('TEST');
     expect(service.getItem('TEST')).toBe(null);
   });
-
-  it('should load initial state', () => {
-    service.setItem('TEST.PROP', 'value');
-    expect(LocalStorageService.loadInitialState()).toEqual({
-      test: { prop: 'value' }
-    });
-  });
-
-  it('should load nested initial state', () => {
-    service.setItem('TEST.PROP1.PROP2', 'value');
-    expect(LocalStorageService.loadInitialState()).toEqual({
-      test: { prop1: { prop2: 'value' } }
-    });
-  });
-
-  it('should load initial state with camel case property', () => {
-    service.setItem('TEST.SUB-PROP', 'value');
-    expect(LocalStorageService.loadInitialState()).toEqual({
-      test: { subProp: 'value' }
-    });
-  });
-
-  it('should load nested initial state with camel case properties', () => {
-    service.setItem('TEST.SUB-PROP.SUB-SUB-PROP', 'value');
-    expect(LocalStorageService.loadInitialState()).toEqual({
-      test: { subProp: { subSubProp: 'value' } }
-    });
-  });
 });

@@ -50,7 +50,10 @@ export class AppComponent {
   }
 
   getRouteAnimations(o: RouterOutlet) {
-    // FIXME: What does this even do?!?!?
-    return o.isActivated && o.activatedRoute.routeConfig?.data?.title;
+    if (o.isActivated) {
+      /* Gets the i18n label for the current page */
+      return o.activatedRoute.routeConfig?.data?.title;
+    }
+    return "";
   }
 }
