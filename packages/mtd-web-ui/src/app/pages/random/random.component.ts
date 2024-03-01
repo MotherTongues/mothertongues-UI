@@ -2,39 +2,38 @@ import {
   Component,
   ChangeDetectorRef,
   ChangeDetectionStrategy,
-  HostListener
+  HostListener,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { DictionaryData } from '../../core/models';
-import { MtdService, ROUTE_ANIMATIONS_ELEMENTS } from '../../core/core.module';
-import { Observable, from } from 'rxjs';
+import { DataService, ROUTE_ANIMATIONS_ELEMENTS } from '../../core/core.module';
 
 @Component({
   selector: 'mtd-random',
   templateUrl: './random.component.html',
   styleUrls: [
     './random.component.scss',
-    '../../shared/layout/single/single.component.scss'
+    '../../shared/layout/single/single.component.scss',
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RandomComponent {
   displayNav = true;
-  entries$: Observable<Array<DictionaryData>> = from([]);
+  entries$ = new Subject<DictionaryData[]>();
   unsubscribe$ = new Subject<void>();
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
   show?: string;
   nRandom = this.guessNumEntries();
   constructor(
-    private mtdService: MtdService,
+    private dataService: DataService,
     private route: ActivatedRoute,
     private ref: ChangeDetectorRef
   ) {
     this.route.queryParams
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(params => {
+      .subscribe((params) => {
         this.show = params.show;
         this.ref.markForCheck();
       });
@@ -85,6 +84,22 @@ export class RandomComponent {
   }
 
   getRandom() {
-    this.entries$ = this.mtdService.getRandom$(this.nRandom);
+    // FIXME: Not actually guaranteed to exist yet...
+    const entries = this.dataService.$sortedEntries.value;
+    const r = Array(this.nRandom).fill(0).map(_ => {
+      const idx = Math.floor(Math.random() * entries.length);
+      const ent = entries[idx];
+      return {
+          word: ent.word,
+          definition: ent.definition,
+          entryID: ent.entryID,
+          sorting_form: ent.sorting_form,
+          compare_form: ent.word,
+          example_sentence: ent.example_sentence,
+          example_sentence_audio: [],
+          example_sentence_definition_audio: [],
+      };
+    });
+    this.entries$.next(r);
   }
 }
