@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { ChildrenOutletContexts, RouterOutlet } from '@angular/router';
 
 import { marker } from '@biesbjerg/ngx-translate-extract-marker';
 
@@ -22,7 +22,7 @@ interface MenuItem {
   selector: 'mothertongues-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  animations: [routeAnimations]
+  animations: [routeAnimations],
 })
 export class AppComponent {
   displayNav = false;
@@ -41,19 +41,20 @@ export class AppComponent {
   ];
   navigationSideMenu: Array<MenuItem> = [
     ...this.navigation,
-    { link: 'settings', label: 'mtd.menu.settings' }
+    { link: 'settings', label: 'mtd.menu.settings' },
   ];
 
-  constructor(private storageService: LocalStorageService,
-              public settings: SettingsService) {
+  constructor(
+    private storageService: LocalStorageService,
+    private contexts: ChildrenOutletContexts,
+    public settings: SettingsService
+  ) {
     this.storageService.testLocalStorage();
   }
 
-  getRouteAnimations(o: RouterOutlet) {
-    if (o.isActivated) {
-      /* Gets the i18n label for the current page */
-      return o.activatedRoute.routeConfig?.data?.title;
-    }
-    return "";
+  getRouteAnimations() {
+    const animations =
+      this.contexts.getContext('primary')?.route?.snapshot?.data?.title;
+    return animations;
   }
 }
