@@ -2,29 +2,30 @@ import {
   Component,
   OnDestroy,
   ChangeDetectionStrategy,
-  HostListener
+  HostListener,
 } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { DictionaryData } from '../../core/models';
 import { BehaviorSubject, Observable, Subject, from } from 'rxjs';
-import { map,  takeUntil } from 'rxjs/operators';
+import { map, takeUntil } from 'rxjs/operators';
 import {
   BookmarksService,
-  MtdService,
-  ROUTE_ANIMATIONS_ELEMENTS
+  DataService,
+  ROUTE_ANIMATIONS_ELEMENTS,
 } from '../../core/core.module';
+import { DictionaryEntryExportFormat } from '@mothertongues/search';
+import { DictionaryData } from '../../core/models';
 @Component({
   selector: 'mtd-browse',
   templateUrl: './browse.component.html',
   styleUrls: ['./browse.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrowseComponent implements OnDestroy {
-  currentEntries$: BehaviorSubject<DictionaryData[]>;
-  currentX: DictionaryData[] = []
+  currentEntries$: BehaviorSubject<DictionaryEntryExportFormat[]>;
+  currentX: DictionaryData[] = [];
   displayCategories$: Observable<any>;
   displayLetters$: Observable<any> = from([]);
-  letters: string[] = []
+  letters: string[] = [];
   selectedCategory = 'words';
   startIndex$: BehaviorSubject<number> = new BehaviorSubject(0);
   numShown$: BehaviorSubject<number> = new BehaviorSubject(
@@ -37,15 +38,15 @@ export class BrowseComponent implements OnDestroy {
   unsubscribe$ = new Subject<void>();
   constructor(
     public bookmarkService: BookmarksService,
-    private mtdService: MtdService,
+    private dataService: DataService,
     private route: ActivatedRoute,
     private router: Router
   ) {
-    this.displayCategories$ = this.mtdService.category_keys$;
-    this.currentEntries$ = new BehaviorSubject<DictionaryData[]>(
-      this.mtdService.dataDict_value
+    this.displayCategories$ = this.dataService.$categories;
+    this.currentEntries$ = new BehaviorSubject<DictionaryEntryExportFormat[]>(
+      []
     );
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       const start = parseInt(params.start ?? 0);
       const clamped = Math.max(
         0,
@@ -55,19 +56,20 @@ export class BrowseComponent implements OnDestroy {
         this.router.navigate([clamped], { relativeTo: this.route.parent });
       else this.startIndex$.next(clamped);
     });
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe((params) => {
       if ('default_shown' in params)
         this.numShown$.next(parseInt(params.default_shown));
     });
-    this.mtdService.dataDict$
+
+    this.dataService.$sortedEntries
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(x => {
+      .subscribe((x) => {
         this.currentEntries$.next(x);
         this.initializeEntries();
       });
     this.currentEntries$
       .pipe(
-        map(entries =>
+        map((entries) =>
           this.getXFrom(
             this.startIndex$.getValue(),
             entries,
@@ -76,10 +78,10 @@ export class BrowseComponent implements OnDestroy {
         ),
         takeUntil(this.unsubscribe$)
       )
-      .subscribe(entries => (this.currentX = entries));
+      .subscribe(entries => this.convertEntries(entries));
     this.startIndex$
       .pipe(
-        map(i =>
+        map((i) =>
           this.getXFrom(
             i,
             this.currentEntries$.getValue(),
@@ -88,10 +90,10 @@ export class BrowseComponent implements OnDestroy {
         ),
         takeUntil(this.unsubscribe$)
       )
-      .subscribe(entries => (this.currentX = entries));
+      .subscribe(entries => this.convertEntries(entries));
     this.numShown$
       .pipe(
-        map(x =>
+        map((x) =>
           this.getXFrom(
             this.startIndex$.getValue(),
             this.currentEntries$.getValue(),
@@ -100,8 +102,21 @@ export class BrowseComponent implements OnDestroy {
         ),
         takeUntil(this.unsubscribe$)
       )
-      .subscribe(entries => (this.currentX = entries));
+      .subscribe(entries => this.convertEntries(entries));
     this.initializeEntries();
+  }
+
+  convertEntries(entries: DictionaryEntryExportFormat[]) {
+    this.currentX = entries.map((ent) => ({
+      word: ent.word,
+      definition: ent.definition,
+      entryID: ent.entryID,
+      sorting_form: ent.sorting_form,
+      compare_form: ent.word,
+      example_sentence: ent.example_sentence,
+      example_sentence_audio: [],
+      example_sentence_definition_audio: [],
+    }));
   }
 
   ngOnDestroy(): void {
@@ -144,7 +159,11 @@ export class BrowseComponent implements OnDestroy {
     return Math.max(2, Math.floor(is_phone ? height / 96 : height / 56));
   }
 
-  getXFrom(i: number, entries: DictionaryData[], x: number): DictionaryData[] {
+  getXFrom(
+    i: number,
+    entries: DictionaryEntryExportFormat[],
+    x: number
+  ): DictionaryEntryExportFormat[] {
     return entries.slice(i, i + x);
   }
 
@@ -159,9 +178,11 @@ export class BrowseComponent implements OnDestroy {
 
   // Determine whether letter occurs word-initially
   letterInit() {
-    this.letters = this.mtdService.config_value.L1.lettersInLanguage;
+    const config = this.dataService.$config.value;
+    if (config === null) return;
+    this.letters = config.alphabet;
     this.displayLetters$ = this.currentEntries$.pipe(
-      map(entries => {
+      map((entries) => {
         const newLetters = [];
         for (const letter of this.letters) {
           const ind = this.letters.indexOf(letter);
@@ -183,7 +204,7 @@ export class BrowseComponent implements OnDestroy {
     const numShown = this.numShown$.value;
     if (current_val - numShown > 0) {
       this.router.navigate([(current_val -= numShown)], {
-        relativeTo: this.route.parent
+        relativeTo: this.route.parent,
       });
     } else {
       this.router.navigate([0], { relativeTo: this.route.parent });
@@ -196,7 +217,7 @@ export class BrowseComponent implements OnDestroy {
     const numShown = this.numShown$.value;
     if (current_val + numShown < this.currentEntries$.getValue().length) {
       this.router.navigate([current_val + numShown], {
-        relativeTo: this.route.parent
+        relativeTo: this.route.parent,
       });
     } else {
       this.router.navigate(
@@ -212,7 +233,7 @@ export class BrowseComponent implements OnDestroy {
     for (const entry of this.currentEntries$.getValue()) {
       if (entry.sorting_form[0] === letterIndex) {
         this.router.navigate([this.currentEntries$.getValue().indexOf(entry)], {
-          relativeTo: this.route.parent
+          relativeTo: this.route.parent,
         });
         break;
       }
@@ -221,13 +242,13 @@ export class BrowseComponent implements OnDestroy {
 
   selectCategory(category: string) {
     if (category === 'words') {
-      this.mtdService.dataDict$
-        .pipe(map(x => this.currentEntries$.next(x)))
+      this.dataService.$sortedEntries
+        .pipe(map((x) => this.currentEntries$.next(x)))
         .subscribe()
         .unsubscribe();
     } else {
-      this.mtdService.categories$
-        .pipe(map(x => this.currentEntries$.next(x[category])))
+      this.dataService.$categorizedEntries
+        .pipe(map((x) => this.currentEntries$.next(x[category])))
         .subscribe()
         .unsubscribe();
     }
@@ -242,7 +263,7 @@ export class BrowseComponent implements OnDestroy {
     return {
       startIndex: current_val + 1,
       endIndex: current_val + this.currentX.length,
-      length: this.currentX.length
-    }
+      length: this.currentX.length,
+    };
   }
 }
