@@ -44,16 +44,17 @@ export class BrowseComponent implements OnDestroy {
   ) {
     this.displayCategories$ = this.dataService.$categories;
     this.currentEntries$ = new BehaviorSubject<DictionaryEntryExportFormat[]>(
-      []
+      this.dataService.$sortedEntries.value
     );
     this.route.params.subscribe((params) => {
       const start = parseInt(params.start ?? 0);
       const clamped = Math.max(
         0,
-        Math.min(start, this.currentEntries$.getValue().length - 1)
+        Math.min(start, this.currentEntries$.value.length - 1)
       );
-      if (start !== clamped)
-        this.router.navigate([clamped], { relativeTo: this.route.parent });
+      if (start !== clamped) {
+        this.router.navigate(["..", clamped], {relativeTo: this.route});
+      }
       else this.startIndex$.next(clamped);
     });
     this.route.queryParams.subscribe((params) => {
@@ -71,9 +72,9 @@ export class BrowseComponent implements OnDestroy {
       .pipe(
         map((entries) =>
           this.getXFrom(
-            this.startIndex$.getValue(),
+            this.startIndex$.value,
             entries,
-            this.numShown$.getValue()
+            this.numShown$.value
           )
         ),
         takeUntil(this.unsubscribe$)
@@ -84,8 +85,8 @@ export class BrowseComponent implements OnDestroy {
         map((i) =>
           this.getXFrom(
             i,
-            this.currentEntries$.getValue(),
-            this.numShown$.getValue()
+            this.currentEntries$.value,
+            this.numShown$.value
           )
         ),
         takeUntil(this.unsubscribe$)
@@ -95,8 +96,8 @@ export class BrowseComponent implements OnDestroy {
       .pipe(
         map((x) =>
           this.getXFrom(
-            this.startIndex$.getValue(),
-            this.currentEntries$.getValue(),
+            this.startIndex$.value,
+            this.currentEntries$.value,
             x
           )
         ),
@@ -202,12 +203,11 @@ export class BrowseComponent implements OnDestroy {
   prevX() {
     let current_val = this.startIndex$.value;
     const numShown = this.numShown$.value;
-    if (current_val - numShown > 0) {
-      this.router.navigate([(current_val -= numShown)], {
-        relativeTo: this.route.parent,
-      });
+    const prevStart = current_val - numShown;
+    if (prevStart > 0) {
+      this.router.navigate(["..", prevStart], {relativeTo: this.route});
     } else {
-      this.router.navigate([0], { relativeTo: this.route.parent });
+      this.router.navigate(["..", "0"], {relativeTo: this.route});
     }
   }
 
@@ -215,25 +215,22 @@ export class BrowseComponent implements OnDestroy {
   nextX() {
     let current_val = this.startIndex$.value;
     const numShown = this.numShown$.value;
-    if (current_val + numShown < this.currentEntries$.getValue().length) {
-      this.router.navigate([current_val + numShown], {
-        relativeTo: this.route.parent,
-      });
+    const nextStart = current_val + numShown;
+    if (nextStart < this.currentEntries$.value.length) {
+      this.router.navigate(["..", nextStart], {relativeTo: this.route});
     } else {
-      this.router.navigate(
-        [Math.max(this.currentEntries$.getValue().length - numShown, 0)],
-        { relativeTo: this.route.parent }
-      );
+      const maxStart = Math.max(this.currentEntries$.value.length - numShown, 0);
+      this.router.navigate(["..", maxStart], {relativeTo: this.route});
     }
   }
 
   // Scroll to letter
   scrollTo(letter: string) {
     const letterIndex = this.letters.indexOf(letter);
-    for (const entry of this.currentEntries$.getValue()) {
+    for (const entry of this.currentEntries$.value) {
       if (entry.sorting_form[0] === letterIndex) {
-        this.router.navigate([this.currentEntries$.getValue().indexOf(entry)], {
-          relativeTo: this.route.parent,
+        this.router.navigate(["..", this.currentEntries$.value.indexOf(entry)], {
+          relativeTo: this.route,
         });
         break;
       }
@@ -263,7 +260,7 @@ export class BrowseComponent implements OnDestroy {
     return {
       startIndex: current_val + 1,
       endIndex: current_val + this.currentX.length,
-      length: this.currentX.length,
+      length: this.currentEntries$.value.length
     };
   }
 }

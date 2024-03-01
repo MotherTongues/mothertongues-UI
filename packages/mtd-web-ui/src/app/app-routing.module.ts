@@ -64,6 +64,7 @@ const routes: Routes = [
     SettingsModule,
     RouterModule.forRoot(routes, {
       scrollPositionRestoration: 'enabled',
+      // enableTracing: true,
     }),
   ],
   exports: [RouterModule],
