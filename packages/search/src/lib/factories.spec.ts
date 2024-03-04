@@ -29,7 +29,7 @@ describe('transducer', () => {
       expect(result[2]).toEqual('hat');
     });
 
-    it('should return only maximum number of candidates in order they were given', () => {
+    it('should return only maximum number of candidates sorted by distance THEN alphabetized', () => {
       const dummyTerms = ['rat', 'cat', 'kit', 'Cat', 'Kart', 'kart'];
 
       const transducer = constructTransducer({
