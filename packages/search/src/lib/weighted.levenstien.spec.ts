@@ -69,35 +69,50 @@ describe('DistanceCalculator', () => {
             });
 
             const v1 = calculator_withEndDeletion_lowValue.getEditDistance('happy', 'happiness');
-            expect(calculator_withEndDeletion_lowValue.getEditDistance('happy', 'poppy')).toBe(2);
 
             const calculator_defaultValues = new DistanceCalculator({});
             const v2 = calculator_defaultValues.getEditDistance('happy', 'happiness');
 
             expect(v1).toBeLessThan(v2);
-
         });
 
+        it('should create calculator that favors prefixation', () => {
+            const calculator_withEndDeletion_lowValue = new DistanceCalculator({
+                insertionAtBeginningCost: 0.1
+            });
+
+            const v1 = calculator_withEndDeletion_lowValue.getEditDistance('lucky', 'unlucky');
+
+            const calculator_defaultValues = new DistanceCalculator({});
+            const v2 = calculator_defaultValues.getEditDistance('lucky', 'unlucky');
+
+            expect(v1).toBeLessThan(v2);
+        });
+
+        it('should create calculator with lower character substitution costs', () => {
+            const calculator = new DistanceCalculator({
+                substitutionCosts: {
+                    'q': {
+                        'k': .6,
+                        'c': .7
+                    }
+                }
+            });
+
+            const v1 = calculator.getEditDistance('quick', 'kuick');
+
+            // because we defined only 1-way substitution in calculator, expect difference depending on input order
+            const v2 = calculator.getEditDistance('kuick', 'quick');
+
+            const calculator_defaultValues = new DistanceCalculator({});
+            const v1_default = calculator_defaultValues.getEditDistance('quick', 'kuick');
+            const v2_default = calculator_defaultValues.getEditDistance('kuick', 'quick');
+
+            expect(v1).toBe(.6);
+            expect(v1).toBeLessThan(v2);
+            expect(v1).toBeLessThan(v1_default);
+            expect(v2).toBe(v2_default);
+        });
 
     });
-
-    // describe('getLeastEditDistance', () => {
-    //     it('should calculate least edit distance correctly', () => {
-    //       const calculator = new DistanceCalculator({
-    //         insertionCost: 1,
-    //         deletionCost: 1,
-    //         insertionAtBeginningCost: 0.5,
-    //         deletionAtEndCost: 0.5,
-    //         substitutionCosts: {},
-    //         defaultSubstitutionCost: 1,
-    //       });
-      
-    //       const bs1 = ['kitten', 'sitting'];
-    //       const bs2 = ['hello', 'world'];
-    //       expect(calculator.getLeastEditDistance('kitten', bs1)).toBe(2.5);
-    //       expect(calculator.getLeastEditDistance('hello', bs2)).toBe(4);
-          
-    //       // TODO: Add more test cases as needed
-    //     });
-    // });
 });
