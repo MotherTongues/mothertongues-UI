@@ -1,43 +1,38 @@
 import { Injectable } from '@angular/core';
-
-// FIXME: should be different for every dictionary, presumably
-// Note that bookmarks service does the right thing here
-const APP_PREFIX = 'mothertongues-';
+import { DataService } from '../core.module';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocalStorageService {
-  constructor() {}
+  prefix: string | null = null;
+  
+  constructor(private dataService: DataService) {
+    this.dataService.$config.subscribe((config) => {
+      if (config === null)
+        throw "DataService yielded null config!";
+      this.prefix = `${config.L1}-${config.L2}-${config.build}`;
+    });
+  }
 
   setItem(key: string, value: any) {
-    localStorage.setItem(`${APP_PREFIX}${key}`, JSON.stringify(value));
+    if (this.prefix === null)
+      throw "DataService not ready, no local storage available";
+    localStorage.prefix(`${this.prefix}-${key}`, JSON.stringify(value));
   }
 
   getItem(key: string) {
-    const item = localStorage.getItem(`${APP_PREFIX}${key}`);
+    if (this.prefix === null)
+      throw "DataService not ready, no local storage available";
+    const item = localStorage.getItem(`${this.prefix}-${key}`);
     if (item !== null)
       return JSON.parse(item);
     return null;
   }
 
   removeItem(key: string) {
-    localStorage.removeItem(`${APP_PREFIX}${key}`);
-  }
-
-  /** Tests that localStorage exists, can be written to, and read from. */
-  testLocalStorage() {
-    const testValue = 'testValue';
-    const testKey = 'testKey';
-    let retrievedValue: string;
-    const errorMessage = 'localStorage did not return expected value';
-
-    this.setItem(testKey, testValue);
-    retrievedValue = this.getItem(testKey);
-    this.removeItem(testKey);
-
-    if (retrievedValue !== testValue) {
-      throw new Error(errorMessage);
-    }
+    if (this.prefix === null)
+      throw "DataService not ready, no local storage available";
+    localStorage.removeItem(`${this.prefix}-${key}`);
   }
 }

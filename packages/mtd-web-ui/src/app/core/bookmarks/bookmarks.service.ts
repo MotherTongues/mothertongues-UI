@@ -8,7 +8,7 @@ import { DataService, EntryDict } from '../core.module';
 
 @Injectable({ providedIn: 'root' })
 export class BookmarksService {
-  public bookmarks = new BehaviorSubject<DictionaryEntryExportFormat[]>([]);
+  public $bookmarks = new BehaviorSubject<DictionaryEntryExportFormat[]>([]);
   entries: EntryDict = {};
   config: LanguageConfigurationExportFormat | null = null;
   constructor(private dataService: DataService) {
@@ -37,10 +37,10 @@ export class BookmarksService {
       for (let i = 0; i < vals.length; i++) {
         const entry = this.entries[vals[i]];
         if (entry === undefined) continue;
-        const index = this.bookmarks.value.indexOf(entry);
+        const index = this.$bookmarks.value.indexOf(entry);
         if (index === -1) {
           entry.favourited = true;
-          this.bookmarks.next(this.bookmarks.value.concat([entry]));
+          this.$bookmarks.next(this.$bookmarks.value.concat([entry]));
         }
       }
     }
@@ -50,20 +50,20 @@ export class BookmarksService {
     // FIXME: Use LocalStorageService, duh!
     const key = this.localStorageKey();
     if (key === null) return;
-    this.bookmarks.next(val);
+    this.$bookmarks.next(val);
     const vals = val.map((x) => x.entryID);
     localStorage.setItem(key, JSON.stringify(vals));
   }
 
   toggleBookmark(entry: DictionaryEntryExportFormat) {
-    const i = this.bookmarks.value.indexOf(entry);
+    const i = this.$bookmarks.value.indexOf(entry);
     let bookmarks;
     if (i == -1) {
       // Add if not present
-      bookmarks = this.bookmarks.value.concat([entry]);
+      bookmarks = this.$bookmarks.value.concat([entry]);
     }
     else {
-      bookmarks = this.bookmarks.value;
+      bookmarks = this.$bookmarks.value;
       bookmarks.splice(i, 1);
     }
     // Update bookmarks

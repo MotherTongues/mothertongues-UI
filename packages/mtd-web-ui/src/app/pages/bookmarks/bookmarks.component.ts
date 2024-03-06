@@ -36,7 +36,7 @@ export class BookmarksComponent implements OnDestroy {
         this.show = params.show;
         this.ref.markForCheck();
       });
-    this.bookmarkService.bookmarks
+    this.bookmarkService.$bookmarks
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(bookmarks => {
         this.bookmarks = bookmarks;

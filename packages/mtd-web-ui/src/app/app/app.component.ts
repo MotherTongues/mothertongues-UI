@@ -45,12 +45,9 @@ export class AppComponent {
   ];
 
   constructor(
-    private storageService: LocalStorageService,
     private contexts: ChildrenOutletContexts,
     public settings: SettingsService
-  ) {
-    this.storageService.testLocalStorage();
-  }
+  ) {}
 
   getRouteAnimations() {
     const animations =
