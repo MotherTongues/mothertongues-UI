@@ -9,7 +9,7 @@ $desktop-min-width: map-get($angular-breakpoints, 'laptop');
 
 @mixin letters($width) {
   width: $width;
-  .mat-button {
+  .mat-mdc-button {
     padding: 0;
     border-radius: 0;
     min-width: $width;

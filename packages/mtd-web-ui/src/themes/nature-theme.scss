@@ -24,10 +24,10 @@ $white: #fff;
 .nature-theme mat-sidenav-container .footer,
 .nature-theme mat-sidenav-container .footer .links a,
 .nature-theme mat-sidenav-container .footer .signature a,
-.nature-theme .mat-flat-button,
-.nature-theme .mat-raised-button,
-.nature-theme .mat-fab,
-.nature-theme .mat-mini-fab {
+.nature-theme .mat-mdc-unelevated-button,
+.nature-theme .mat-mdc-raised-button,
+.nature-theme .mat-mdc-fab,
+.nature-theme .mat-mdc-mini-fab {
   color: $white !important;
 }
 
@@ -35,10 +35,10 @@ $white: #fff;
 .nature-theme mat-sidenav-container mat-toolbar button.active,
 .nature-theme .langMatched,
 .nature-theme .word__active,
-.nature-theme .mat-flat-button.mat-accent,
-.nature-theme .mat-raised-button.mat-accent,
-.nature-theme .mat-fab.mat-accent,
-.nature-theme .mat-mini-fab.mat-accent,
+.nature-theme .mat-mdc-unelevated-button.mat-accent,
+.nature-theme .mat-mdc-raised-button.mat-accent,
+.nature-theme .mat-mdc-fab.mat-accent,
+.nature-theme .mat-mdc-mini-fab.mat-accent,
 .nature-theme .chosen,
 .nature-theme .mat-flat-button,
 .nature-theme .mat-raised-button,
@@ -49,7 +49,8 @@ $white: #fff;
   background-color: $red !important;
 }
 
-.nature-theme .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+/* TODO(mdc-migration): The following rule targets internal classes of slide-toggle that may no longer apply for the MDC version. */
+.nature-theme .mat-mdc-slide-toggle.mat-checked .mat-slide-toggle-bar {
   background-color: rgba(205, 45, 39, 0.54) !important;
 }
 

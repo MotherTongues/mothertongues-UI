@@ -7,6 +7,7 @@
 // FIXME: Probably not supposed to do this, but Angular Material
 // seemingly gives us no choice (do any Google employees still have
 // small screens?)
+/* TODO(mdc-migration): The following rule targets internal classes of tabs that may no longer apply for the MDC version.*/
 :host ::ng-deep .mat-tab-label {
   height: 36px;
 }
