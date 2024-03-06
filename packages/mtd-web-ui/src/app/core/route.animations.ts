@@ -8,7 +8,7 @@ import {
   sequence,
   AnimationMetadata
 } from '@angular/animations';
-import { AnimationsService } from './animations.service';
+import { routeAnimationType } from "./core.module";
 
 export const ROUTE_ANIMATIONS_ELEMENTS = 'route-animations-elements';
 
@@ -65,25 +65,10 @@ const STEPS_NONE: AnimationMetadata[] = [];
 const STEPS_PAGE = [STEPS_ALL[0], STEPS_ALL[2]];
 const STEPS_ELEMENTS = [STEPS_ALL[1], STEPS_ALL[3]];
 
+/* FIXME: Should be a better way to do this than with a module variable? */
 export const routeAnimations = trigger('routeAnimations', [
-  transition(isRouteAnimationsAll, STEPS_ALL),
-  transition(isRouteAnimationsNone, STEPS_NONE),
-  transition(isRouteAnimationsPage, STEPS_PAGE),
-  transition(isRouteAnimationsElements, STEPS_ELEMENTS)
+  transition(() => routeAnimationType === 'ALL', STEPS_ALL),
+  transition(() => routeAnimationType === 'NONE', STEPS_NONE),
+  transition(() => routeAnimationType ==='PAGE', STEPS_PAGE),
+  transition(() => routeAnimationType === 'ELEMENTS', STEPS_ELEMENTS)
 ]);
-
-export function isRouteAnimationsAll() {
-  return AnimationsService.isRouteAnimationsType('ALL');
-}
-
-export function isRouteAnimationsNone() {
-  return AnimationsService.isRouteAnimationsType('NONE');
-}
-
-export function isRouteAnimationsPage() {
-  return AnimationsService.isRouteAnimationsType('PAGE');
-}
-
-export function isRouteAnimationsElements() {
-  return AnimationsService.isRouteAnimationsType('ELEMENTS');
-}

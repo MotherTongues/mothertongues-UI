@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { AnimationsService } from '../animations/animations.service';
 
 export interface SettingsState {
   language: string;
@@ -21,13 +20,31 @@ const DEFAULT_STATE: SettingsState = {
   hour: 12,
 };
 
+/* Handle animation type directly here instead of having a bogus
+ * "service" that just sets a static variable. */
+export type RouteAnimationType = 'ALL' | 'PAGE' | 'ELEMENTS' | 'NONE';
+export let routeAnimationType: RouteAnimationType = "NONE";
+function updateRouteAnimationType(
+  pageAnimations: boolean,
+  elementsAnimations: boolean
+) {
+  routeAnimationType =
+    pageAnimations && elementsAnimations
+      ? 'ALL'
+      : pageAnimations
+        ? 'PAGE'
+        : elementsAnimations
+          ? 'ELEMENTS'
+          : 'NONE';
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class SettingsService {
   public state: SettingsState;
 
-  constructor(private animations: AnimationsService) {
+  constructor() {
     const key = this.localStorageKey();
     const data = localStorage.getItem(key);
     if (data === null) this.state = DEFAULT_STATE;
@@ -35,7 +52,7 @@ export class SettingsService {
       this.state = JSON.parse(data);
       console.log(`Loaded settings from ${key}`);
     }
-    this.animations.updateRouteAnimationType(
+    updateRouteAnimationType(
       this.state.pageAnimations,
       this.state.elementsAnimations
     );
@@ -80,9 +97,8 @@ export class SettingsService {
   }
   set pageAnimations(val: boolean) {
     this.state.pageAnimations = val;
-    // FIXME: Use this very bogus API for the moment (should just rely
-    // on change detection like everything else)
-    this.animations.updateRouteAnimationType(
+    /* Bogus API to share info with static animation functions. */
+    updateRouteAnimationType(
       this.state.pageAnimations,
       this.state.elementsAnimations
     );
@@ -94,7 +110,7 @@ export class SettingsService {
   }
   set elementsAnimations(val: boolean) {
     this.state.elementsAnimations = val;
-    this.animations.updateRouteAnimationType(
+    updateRouteAnimationType(
       this.state.pageAnimations,
       this.state.elementsAnimations
     );
