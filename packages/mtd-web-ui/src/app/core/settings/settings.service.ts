@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { LocalStorageService } from '../core.module';
 import { AnimationsService } from '../animations/animations.service';
 
-const SETTINGS_KEY = 'settings';
 export interface SettingsState {
   language: string;
   theme: string;
@@ -29,14 +27,13 @@ const DEFAULT_STATE: SettingsState = {
 export class SettingsService {
   public state: SettingsState;
 
-  constructor(
-    private localStorage: LocalStorageService,
-    private animations: AnimationsService
-  ) {
-    const stored = this.localStorage.getItem(SETTINGS_KEY);
-    if (stored) this.state = stored;
+  constructor(private animations: AnimationsService) {
+    const key = this.localStorageKey();
+    const data = localStorage.getItem(key);
+    if (data === null) this.state = DEFAULT_STATE;
     else {
-      this.state = DEFAULT_STATE;
+      this.state = JSON.parse(data);
+      console.log(`Loaded settings from ${key}`);
     }
     this.animations.updateRouteAnimationType(
       this.state.pageAnimations,
@@ -44,8 +41,14 @@ export class SettingsService {
     );
   }
 
+  localStorageKey(): string {
+    return 'mtd-settings';
+  }
+
   saveState() {
-    this.localStorage.setItem(SETTINGS_KEY, this.state);
+    const key = this.localStorageKey();
+    localStorage.setItem(key, JSON.stringify(this.state));
+    console.log(`Saved settings to ${key}`);
   }
 
   get language() {

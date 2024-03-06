@@ -24,15 +24,18 @@ export class BookmarksService {
 
   localStorageKey(): string | null {
     if (this.config === null) return null;
-    return `${this.config.L1}-${this.config.L2}-${this.config.build}`;
+    return `mtd-bookmarks-${this.config.L1}-${this.config.L2}-${this.config.build}`;
   }
 
   loadBookmarks() {
-    // FIXME: Use LocalStorageService, duh!
     const key = this.localStorageKey();
-    if (key === null) return;
+    if (key === null) {
+      console.log("Not loading bookmarks, config not initialized");
+      return;
+    }
     const item = localStorage.getItem(key);
     if (item !== null) {
+      console.log(`Loaded bookmarks from ${key}`);
       const vals = JSON.parse(item);
       for (let i = 0; i < vals.length; i++) {
         const entry = this.entries[vals[i]];
@@ -47,12 +50,19 @@ export class BookmarksService {
   }
 
   setBookmarks(val: DictionaryEntryExportFormat[]) {
-    // FIXME: Use LocalStorageService, duh!
     const key = this.localStorageKey();
-    if (key === null) return;
+    if (key === null) {
+      console.log("Not saving bookmarks, config not initialized");
+      return;
+    }
     this.$bookmarks.next(val);
     const vals = val.map((x) => x.entryID);
     localStorage.setItem(key, JSON.stringify(vals));
+    console.log(`Saved bookmarks to ${key}`);
+  }
+
+  isBookmarked(entry: DictionaryEntryExportFormat): boolean {
+    return (this.$bookmarks.value.indexOf(entry) != -1);
   }
 
   toggleBookmark(entry: DictionaryEntryExportFormat) {

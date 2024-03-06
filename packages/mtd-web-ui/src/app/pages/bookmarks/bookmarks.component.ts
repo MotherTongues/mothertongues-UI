@@ -10,7 +10,7 @@ import {
   ROUTE_ANIMATIONS_ELEMENTS
 } from '../../core/core.module';
 import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { DictionaryEntryExportFormat } from '@mothertongues/search';
 @Component({
   selector: 'mtd-bookmarks',
@@ -20,7 +20,7 @@ import { DictionaryEntryExportFormat } from '@mothertongues/search';
 })
 export class BookmarksComponent implements OnDestroy {
   displayNav = true;
-  bookmarks: DictionaryEntryExportFormat[] = [];
+  $bookmarks: BehaviorSubject<DictionaryEntryExportFormat[]>;
   edit = false;
   unsubscribe$ = new Subject<void>();
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
@@ -30,16 +30,12 @@ export class BookmarksComponent implements OnDestroy {
     private ref: ChangeDetectorRef,
     private route: ActivatedRoute
   ) {
+    this.$bookmarks = bookmarkService.$bookmarks;
     this.route.queryParams
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(params => {
         this.show = params.show;
         this.ref.markForCheck();
-      });
-    this.bookmarkService.$bookmarks
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(bookmarks => {
-        this.bookmarks = bookmarks;
       });
   }
 

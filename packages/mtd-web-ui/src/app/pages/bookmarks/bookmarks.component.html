@@ -1,10 +1,10 @@
 <mtd-single>
   <h1 title>{{ 'mtd.pages.bookmarks.title' | translate }}</h1>
   <mtd-entry-list
-    *ngIf="show || bookmarks.length !== 0"
-    [entries]="bookmarks"
+    *ngIf="show || $bookmarks.value"
+    [entries]="$bookmarks | async"
   ></mtd-entry-list>
-  <div *ngIf="bookmarks.length === 0">
+  <div *ngIf="$bookmarks.value.length === 0">
     <p>
       {{ 'mtd.pages.bookmarks.body' | translate }}<br />
       {{ 'mtd.pages.bookmarks.unbookmarked-instructions' | translate }}

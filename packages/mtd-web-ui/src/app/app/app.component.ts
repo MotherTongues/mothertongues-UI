@@ -9,7 +9,6 @@ import { META } from '../../config/config';
 import {
   routeAnimations,
   SettingsService,
-  LocalStorageService,
 } from '../core/core.module';
 
 interface MenuItem {

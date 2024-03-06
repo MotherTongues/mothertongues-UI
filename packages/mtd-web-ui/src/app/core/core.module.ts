@@ -6,7 +6,6 @@ import {
 } from './animations/route.animations';
 import { AnimationsService } from './animations/animations.service';
 import { BookmarksService } from './bookmarks/bookmarks.service';
-import { LocalStorageService } from './local-storage/local-storage.service';
 import { SettingsService } from './settings/settings.service';
 
 export {
@@ -14,7 +13,6 @@ export {
   routeAnimations,
   DataService,
   EntryDict,
-  LocalStorageService,
   SettingsService,
   ROUTE_ANIMATIONS_ELEMENTS,
   AnimationsService,

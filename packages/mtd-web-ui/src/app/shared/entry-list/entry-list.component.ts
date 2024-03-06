@@ -105,7 +105,7 @@ export class EntryListComponent implements OnInit, OnDestroy {
   }
 
   toggleBookmark(entry: DictionaryEntryExportFormat) {
-    // this.bookmarkService.toggleBookmark(entry);
+    this.bookmarkService.toggleBookmark(entry);
   }
 
   /**

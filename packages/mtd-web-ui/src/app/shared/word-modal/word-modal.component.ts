@@ -152,10 +152,10 @@ export class WordModalComponent implements OnInit, OnDestroy {
   }
 
   toggleFav(entry: DictionaryEntryExportFormat) {
-    // this.bookmarkService.toggleBookmark(entry);
+    this.bookmarkService.toggleBookmark(entry);
   }
 
   favourited(entry: DictionaryEntryExportFormat) {
-    // return this.bookmarkService.bookmarks.value.indexOf(entry) > -1;
+    return this.bookmarkService.isBookmarked(entry);
   }
 }
