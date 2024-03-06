@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 
 export interface SettingsState {
   language: string;
@@ -17,13 +17,13 @@ const DEFAULT_STATE: SettingsState = {
   nightTheme: 'black-theme',
   pageAnimations: true,
   elementsAnimations: true,
-  hour: 12,
+  hour: new Date().getHours(),
 };
 
 /* Handle animation type directly here instead of having a bogus
  * "service" that just sets a static variable. */
 export type RouteAnimationType = 'ALL' | 'PAGE' | 'ELEMENTS' | 'NONE';
-export let routeAnimationType: RouteAnimationType = "NONE";
+export let routeAnimationType: RouteAnimationType = 'NONE';
 function updateRouteAnimationType(
   pageAnimations: boolean,
   elementsAnimations: boolean
@@ -32,10 +32,10 @@ function updateRouteAnimationType(
     pageAnimations && elementsAnimations
       ? 'ALL'
       : pageAnimations
-        ? 'PAGE'
-        : elementsAnimations
-          ? 'ELEMENTS'
-          : 'NONE';
+      ? 'PAGE'
+      : elementsAnimations
+      ? 'ELEMENTS'
+      : 'NONE';
 }
 
 @Injectable({
@@ -44,7 +44,7 @@ function updateRouteAnimationType(
 export class SettingsService {
   public state: SettingsState;
 
-  constructor() {
+  constructor(private ngZone: NgZone) {
     const key = this.localStorageKey();
     const data = localStorage.getItem(key);
     if (data === null) this.state = DEFAULT_STATE;
@@ -55,6 +55,16 @@ export class SettingsService {
     updateRouteAnimationType(
       this.state.pageAnimations,
       this.state.elementsAnimations
+    );
+    this.ngZone.runOutsideAngular(() =>
+      setInterval(() => {
+        const hour = new Date().getHours();
+        if (hour !== this.state.hour) {
+          this.state.hour = hour;
+          this.theme = this.state.theme;
+          this.ngZone.run(() => this.saveState());
+        }
+      }, 60_000)
     );
   }
 
@@ -77,7 +87,10 @@ export class SettingsService {
   }
 
   get theme() {
-    return this.state.theme;
+    const isNightHour =
+      this.state.autoNightMode &&
+      (this.state.hour >= 21 || this.state.hour <= 7);
+    return isNightHour ? this.state.nightTheme : this.state.theme;
   }
   set theme(val: string) {
     this.state.theme = val;
