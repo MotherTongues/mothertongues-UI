@@ -1,5 +1,5 @@
 <ng-template #audioPane>
-  <div class="container audio__container" *ngIf="hasAudio()">
+  <div class="container audio__container" *ngIf="entry.audio">
     <div *ngIf="!tabs" class="container__row audio__header">
       <h3 class="container__col audio__header">
         {{ 'mtd.word-modal.audio' | translate }}
@@ -65,8 +65,8 @@
 <ng-template #optional>
   <div class="container__row" *ngIf="entry && entry.optional">
     <div class="container__col centered">
-      <span *ngFor="let opt of entry.optional | noNullObjectValues"
-        >{{ getKey(opt) }}: {{ getVal(opt) }}</span
+      <span *ngFor="let key in entry.optional"
+        >{{ key }}: {{ entry.optional[key] }}</span
       >
     </div>
   </div>

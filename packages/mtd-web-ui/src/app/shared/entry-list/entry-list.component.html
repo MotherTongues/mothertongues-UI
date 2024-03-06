@@ -29,7 +29,7 @@
           <mat-icon>list</mat-icon>
         </button>
         <button
-          [disabled]="!hasAudio(entry)"
+          [disabled]="!entry.audio"
           class="entry-list__play"
           mat-icon-button
           aria-label="Play Audio"

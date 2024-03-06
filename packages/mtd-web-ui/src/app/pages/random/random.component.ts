@@ -7,8 +7,8 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { DictionaryData } from '../../core/models';
 import { DataService, ROUTE_ANIMATIONS_ELEMENTS } from '../../core/core.module';
+import { DictionaryEntryExportFormat } from '@mothertongues/search';
 
 @Component({
   selector: 'mtd-random',
@@ -21,7 +21,7 @@ import { DataService, ROUTE_ANIMATIONS_ELEMENTS } from '../../core/core.module';
 })
 export class RandomComponent {
   displayNav = true;
-  entries$ = new Subject<DictionaryData[]>();
+  entries$ = new Subject<DictionaryEntryExportFormat[]>();
   unsubscribe$ = new Subject<void>();
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
   show?: string;
@@ -88,17 +88,7 @@ export class RandomComponent {
     const entries = this.dataService.$sortedEntries.value;
     const r = Array(this.nRandom).fill(0).map(_ => {
       const idx = Math.floor(Math.random() * entries.length);
-      const ent = entries[idx];
-      return {
-          word: ent.word,
-          definition: ent.definition,
-          entryID: ent.entryID,
-          sorting_form: ent.sorting_form,
-          compare_form: ent.word,
-          example_sentence: ent.example_sentence,
-          example_sentence_audio: [],
-          example_sentence_definition_audio: [],
-      };
+      return entries[idx];
     });
     this.entries$.next(r);
   }

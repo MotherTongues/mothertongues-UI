@@ -5,13 +5,13 @@ import {
   ChangeDetectionStrategy
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DictionaryData } from '../../core/models';
 import {
   BookmarksService,
   ROUTE_ANIMATIONS_ELEMENTS
 } from '../../core/core.module';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { DictionaryEntryExportFormat } from '@mothertongues/search';
 @Component({
   selector: 'mtd-bookmarks',
   templateUrl: './bookmarks.component.html',
@@ -20,7 +20,7 @@ import { Subject } from 'rxjs';
 })
 export class BookmarksComponent implements OnDestroy {
   displayNav = true;
-  bookmarks: DictionaryData[] = [];
+  bookmarks: DictionaryEntryExportFormat[] = [];
   edit = false;
   unsubscribe$ = new Subject<void>();
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;

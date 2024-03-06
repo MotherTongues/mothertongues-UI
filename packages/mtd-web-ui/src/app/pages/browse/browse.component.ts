@@ -13,7 +13,6 @@ import {
   ROUTE_ANIMATIONS_ELEMENTS,
 } from '../../core/core.module';
 import { DictionaryEntryExportFormat } from '@mothertongues/search';
-import { DictionaryData } from '../../core/models';
 @Component({
   selector: 'mtd-browse',
   templateUrl: './browse.component.html',
@@ -22,7 +21,7 @@ import { DictionaryData } from '../../core/models';
 })
 export class BrowseComponent implements OnDestroy {
   currentEntries$: BehaviorSubject<DictionaryEntryExportFormat[]>;
-  currentX: DictionaryData[] = [];
+  currentX: DictionaryEntryExportFormat[] = [];
   displayCategories$: Observable<any>;
   displayLetters$: Observable<any> = from([]);
   letters: string[] = [];
@@ -79,7 +78,7 @@ export class BrowseComponent implements OnDestroy {
         ),
         takeUntil(this.unsubscribe$)
       )
-      .subscribe(entries => this.convertEntries(entries));
+      .subscribe(entries => this.updateEntries(entries));
     this.startIndex$
       .pipe(
         map((i) =>
@@ -91,7 +90,7 @@ export class BrowseComponent implements OnDestroy {
         ),
         takeUntil(this.unsubscribe$)
       )
-      .subscribe(entries => this.convertEntries(entries));
+      .subscribe(entries => this.updateEntries(entries));
     this.numShown$
       .pipe(
         map((x) =>
@@ -103,21 +102,12 @@ export class BrowseComponent implements OnDestroy {
         ),
         takeUntil(this.unsubscribe$)
       )
-      .subscribe(entries => this.convertEntries(entries));
+      .subscribe(entries => this.updateEntries(entries));
     this.initializeEntries();
   }
 
-  convertEntries(entries: DictionaryEntryExportFormat[]) {
-    this.currentX = entries.map((ent) => ({
-      word: ent.word,
-      definition: ent.definition,
-      entryID: ent.entryID,
-      sorting_form: ent.sorting_form,
-      compare_form: ent.word,
-      example_sentence: ent.example_sentence,
-      example_sentence_audio: [],
-      example_sentence_definition_audio: [],
-    }));
+  updateEntries(entries: DictionaryEntryExportFormat[]) {
+    this.currentX = entries;
   }
 
   ngOnDestroy(): void {

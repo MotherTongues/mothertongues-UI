@@ -9,6 +9,13 @@ import { BehaviorSubject, take } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
+export type EntryDict = {
+  [key: string]: DictionaryEntryExportFormat;
+};
+export type CategoryDict = {
+  [id: string]: DictionaryEntryExportFormat[];
+};
+
 @Injectable({
   providedIn: 'root',
 })
@@ -18,9 +25,7 @@ export class DataService {
   public l2_search: MTDSearch | null = null;
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  public $entriesHash: BehaviorSubject<{
-    [id: string]: DictionaryEntryExportFormat;
-  }> = new BehaviorSubject({});
+  public $entriesHash: BehaviorSubject<EntryDict> = new BehaviorSubject({});
   public $entriesLength = new BehaviorSubject(0);
   public $loaded = new BehaviorSubject(false);
   public $config =
@@ -28,9 +33,7 @@ export class DataService {
   public $sortedEntries = new BehaviorSubject<DictionaryEntryExportFormat[]>(
     []
   );
-  public $categorizedEntries = new BehaviorSubject<{
-    [id: string]: DictionaryEntryExportFormat[];
-  }>({});
+  public $categorizedEntries = new BehaviorSubject<CategoryDict>({});
   public $categories = new BehaviorSubject<string[]>([]);
   public $bookmarks = new BehaviorSubject<DictionaryEntryExportFormat[]>([]);
   constructor(private http: HttpClient) {
@@ -44,7 +47,7 @@ export class DataService {
         this.$config.next(config);
         this.$entriesLength.next(mtdData.data.length);
         // Load entries into hash
-        const entriesHash: { [key: string]: DictionaryEntryExportFormat } = {};
+        const entriesHash: EntryDict = {};
         mtdData.data.forEach((entry) => {
           entriesHash[entry.entryID] = entry;
         });

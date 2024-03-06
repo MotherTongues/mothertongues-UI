@@ -4,25 +4,26 @@ import {
   ChangeDetectorRef,
   OnInit,
   OnDestroy,
-  Inject
+  Inject,
 } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { DictionaryData, Example, ExampleAudio } from '../../core/models';
 import {
   MatDialog,
   MatDialogRef,
-  MAT_DIALOG_DATA
+  MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
-import { BookmarksService, MtdService } from '../../core/core.module';
+import { BookmarksService, DataService } from '../../core/core.module';
 import { FileNotFoundDialogComponent } from '../file-not-found/file-not-found.component';
+import { DictionaryEntryExportFormat } from '@mothertongues/search';
+import { Example, ExampleAudio, ExampleText } from '../../core/models';
 
 @Component({
   selector: 'mtd-word-modal',
   templateUrl: './word-modal.component.html',
   styleUrls: ['./word-modal.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WordModalComponent implements OnInit, OnDestroy {
   examples: Array<Example>;
@@ -33,20 +34,19 @@ export class WordModalComponent implements OnInit, OnDestroy {
 
   constructor(
     public bookmarkService: BookmarksService,
-    private mtdService: MtdService,
+    private dataService: DataService,
     public dialogRef: MatDialogRef<WordModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public entry: DictionaryData,
+    @Inject(MAT_DIALOG_DATA) public entry: DictionaryEntryExportFormat,
     public dialog: MatDialog,
     private ref: ChangeDetectorRef,
     private breakpointObserver: BreakpointObserver
   ) {
-
     // Restructure the examples to Help With Stuff
     this.examples = [];
     if (this.entry.example_sentence) {
       for (const idx in this.entry.example_sentence) {
         const text = this.entry.example_sentence[idx];
-        let definition;
+        let definition: Array<ExampleText> = [];
         if (this.entry.example_sentence_definition)
           definition = this.entry.example_sentence_definition[idx]
             .split(/[\s.,:;()]+/)
@@ -54,13 +54,20 @@ export class WordModalComponent implements OnInit, OnDestroy {
             .map((w: string) => {
               return { text: w, active: false };
             });
-        let audio;
-        if (this.entry.example_sentence_audio)
-          audio = this.entry.example_sentence_audio[idx];
+        let audio: Array<ExampleAudio> = [];
+        if (this.entry.example_sentence_definition_audio)
+          audio = this.entry.example_sentence_definition_audio[idx].map(
+            (a) => ({
+              filename: a.filename,
+              speaker: a.description ?? "unknown",
+              // FIXME: add starts to model
+              starts: [],
+            })
+          );
         this.examples.push({
           text,
           definition,
-          audio
+          audio,
         });
       }
     }
@@ -73,7 +80,7 @@ export class WordModalComponent implements OnInit, OnDestroy {
     this.breakpointObserver
       .observe([this.heightQuery])
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(result => {
+      .subscribe((result) => {
         const prevTabs = this.tabs;
         if (result.matches)
           this.tabs = !!(this.entry.audio && this.examples.length);
@@ -94,10 +101,6 @@ export class WordModalComponent implements OnInit, OnDestroy {
     return Object.values(obj);
   }
 
-  hasAudio() {
-    return this.mtdService.hasAudio(this.entry);
-  }
-
   hasExample() {
     if (!('example_sentence' in this.entry)) return false;
     if (this.entry.example_sentence instanceof Array)
@@ -108,14 +111,14 @@ export class WordModalComponent implements OnInit, OnDestroy {
   fileNotFound(path: string) {
     this.dialog.open(FileNotFoundDialogComponent, {
       width: '250px',
-      data: path
+      data: path,
     });
   }
 
   playAudio(example: Example | null, audio: ExampleAudio) {
-    const path = this.mtdService.config_value.audio_path + audio.filename;
+    const path = this.dataService.$config.value?.audio_path + audio.filename;
     const audiotag = new Audio(path);
-    const starts = audio.starts.map(x => x * 0.01);
+    const starts = audio.starts.map((x) => x * 0.01);
 
     audiotag.onerror = () => this.fileNotFound(path);
     // Only highlight if we have an alignment
@@ -148,11 +151,11 @@ export class WordModalComponent implements OnInit, OnDestroy {
     audiotag.play();
   }
 
-  toggleFav(entry: DictionaryData) {
-    this.bookmarkService.toggleBookmark(entry);
+  toggleFav(entry: DictionaryEntryExportFormat) {
+    // this.bookmarkService.toggleBookmark(entry);
   }
 
-  favourited(entry: DictionaryData) {
-    return this.bookmarkService.bookmarks.value.indexOf(entry) > -1;
+  favourited(entry: DictionaryEntryExportFormat) {
+    // return this.bookmarkService.bookmarks.value.indexOf(entry) > -1;
   }
 }

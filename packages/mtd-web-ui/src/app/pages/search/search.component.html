@@ -12,9 +12,7 @@
         *ngIf="entries$ | async as entries"
         autocomplete="off"
         type="text"
-        placeholder="Type here to search {{ entries.length }} {{
-          language$ | async
-        }} words."
+        placeholder="Type here to search {{ entries.length }} words."
         aria-label="Number"
         matInput
         (keyup)="onSearchKeyUp$.next($event)"
@@ -22,7 +20,7 @@
       />
     </mat-form-field>
   </div>
-  <div class="search__results" *ngIf="show || (searchQuery && entries)">
+  <div class="search__results" *ngIf="show || searchQuery">
     <div class="search__results__container" *ngIf="matches$ | async as matches">
       <mtd-entry-list
         *ngIf="show || matches.length > 0"

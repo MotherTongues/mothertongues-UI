@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 // FIXME: should be different for every dictionary, presumably
+// Note that bookmarks service does the right thing here
 const APP_PREFIX = 'mothertongues-';
 
 @Injectable({
