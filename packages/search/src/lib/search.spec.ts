@@ -1,5 +1,5 @@
-import { create_normalization_function, englishStemmer, sortResults, Result } from './search';
-
+import { create_normalization_function, englishStemmer, sortResults, Result, MTDSearch, Index, MTDParams } from './search';
+import { returnTransducer } from './factories';
 
 describe('stemmer', () => {
   it('should do basic stemming', () => {
@@ -173,9 +173,82 @@ describe('sortResults', () => {
 
 });
 
+describe('Index', () => {
+  it('should work with empty data', () => {
+    const basicIndexParams = {
+      data: {}
+    }
+    const index = new Index(basicIndexParams);
 
-//describe('MTDSearch class')
-  // class has combine_results()
-  // class has search
+    expect(index.data).toEqual({});
+  });
 
-//describe('Index class')
+  it('should construct w given data', () => {
+    const basicIndexParams = {
+      data: {'one': {}}
+    }
+    const index = new Index(basicIndexParams);
+
+    expect(index.data).toEqual({'one': {}});
+  });
+});
+
+describe('MTDSearch class', () => {
+
+  let mtdSearch: MTDSearch;
+
+  const basicIndexParams = {
+    data: {'one': {}, 'two': {}}
+  }
+
+  const mtdParams: MTDParams = {
+    transducer: {},
+    index: new Index(basicIndexParams),
+    searchType: 'weighted_levenstein',
+    tokens: undefined
+  }
+
+  it('should construct with undefined tokens', () => {
+    // arrange
+    mtdSearch = new MTDSearch(mtdParams)
+
+    // act + assert
+    expect(mtdSearch.indexTerms).toEqual(['one','two']);
+    expect(mtdSearch.tokenizer).toEqual(undefined);
+  });
+
+  it('should construct with defined tokens', () => {
+    // arrange
+    mtdParams.tokens = ['a','b','c']
+    mtdSearch = new MTDSearch(mtdParams)
+  
+    // act + assert
+    expect(mtdSearch.indexTerms).toEqual(['one','two']);
+    expect(mtdSearch.tokenizer).not.toEqual(undefined);
+  });
+
+  //it('should combine_results')
+
+  // it('should search with weighted_levenstien searchType', () => {
+  //   // arrange
+  //   mtdParams.transducer = returnTransducer(mtdParams.searchType, mtdParams.index, undefined);
+  //   mtdParams.tokens = ['one','two','three']
+  //   mtdSearch = new MTDSearch(mtdParams);
+
+  //   const x = mtdSearch.search("one");
+  //   expect(x).toEqual('one');
+
+
+  // });
+
+  // it('should search with other searchType', () => {
+  //   // arrange
+  //   mtdParams.searchType = 'liblevenstein_automata'
+  //   mtdSearch = new MTDSearch(mtdParams);
+
+
+
+  // });
+
+});
+
