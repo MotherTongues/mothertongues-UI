@@ -1,5 +1,5 @@
 import { create_normalization_function, englishStemmer, sortResults, Result, MTDSearch, Index, MTDParams } from './search';
-import { returnTransducer } from './factories';
+import { DistanceCalculator } from './weighted.levenstein';
 
 describe('stemmer', () => {
   it('should do basic stemming', () => {
@@ -201,6 +201,18 @@ describe('MTDSearch class', () => {
     data: {'one': {}, 'two': {}}
   }
 
+  const moreInterstingIndexParams = {
+    data: {
+    'one': {}, 
+    'two': {}, 
+    'seven': {}, 
+    'thirteen': {}, 
+    'seventeen': {}, 
+    'thirty three': {},
+    'thirty seven': {}
+    }
+  }
+
   const mtdParams: MTDParams = {
     transducer: {},
     index: new Index(basicIndexParams),
@@ -227,28 +239,101 @@ describe('MTDSearch class', () => {
     expect(mtdSearch.tokenizer).not.toEqual(undefined);
   });
 
-  //it('should combine_results')
+  describe('search method', () => {
+    it('should return correct search results with weighed distance calculator', () => {
+      const query = 'one'; // replace with your test query
+      const maximum_edit_distance = 2;
+      const sort = false;
+  
+      mtdParams.transducer = new DistanceCalculator({});
+      mtdSearch = new MTDSearch(mtdParams);
 
-  // it('should search with weighted_levenstien searchType', () => {
-  //   // arrange
-  //   mtdParams.transducer = returnTransducer(mtdParams.searchType, mtdParams.index, undefined);
-  //   mtdParams.tokens = ['one','two','three']
-  //   mtdSearch = new MTDSearch(mtdParams);
+      const result = mtdSearch.search(query, maximum_edit_distance, sort);
+  
+      // replace the expected result with your expected output
+      const expectedResult: Result[] = [];
+  
+      expect(result).toEqual(expectedResult);
+    });
+  });
 
-  //   const x = mtdSearch.search("one");
-  //   expect(x).toEqual('one');
+  it('should return correct results for single word query', () => {
+    const query = 'one';
+    const maximum_edit_distance = 2;
+    const sort = false;
+  
+    mtdParams.transducer = new DistanceCalculator({});
+    mtdSearch = new MTDSearch(mtdParams);
 
+    const result = mtdSearch.search(query, maximum_edit_distance, sort);
+    const expectedResult: Result[] = [ /* expected result for 'one' */ ];
+  
+    expect(result).toEqual(expectedResult);
+  });
+  
+  test('search method should return correct results', () => {
+    const query = 'your test query'; // replace with your test query
+    const maximum_edit_distance = 2;
+    const sort = false;
 
-  // });
+    const result = mtdSearch.search(query, maximum_edit_distance, sort);
 
-  // it('should search with other searchType', () => {
-  //   // arrange
-  //   mtdParams.searchType = 'liblevenstein_automata'
-  //   mtdSearch = new MTDSearch(mtdParams);
+    // replace the expected result with your expected output
+    const expectedResult = [ /* expected result */ ];
 
+    expect(result).toEqual(expectedResult);
+  });
 
+  test('search method should return correct results', () => {
+    const query = 'your test query'; // replace with your test query
+    const maximum_edit_distance = 2;
+    const sort = false;
 
-  // });
+    const result = mtdSearch.search(query, maximum_edit_distance, sort);
+
+    // replace the expected result with your expected output
+    const expectedResult = [ /* expected result */ ];
+
+    expect(result).toEqual(expectedResult);
+  });
+
+  it('should return correct results', () => {
+    const query = 'your test query'; // replace with your test query
+    const maximum_edit_distance = 2;
+    const sort = false;
+
+    const result = mtdSearch.search(query, maximum_edit_distance, sort);
+
+    // replace the expected result with your expected output
+    const expectedResult = [ /* expected result */ ];
+
+    expect(result).toEqual(expectedResult);
+  });
+
+  it('should return correct results', () => {
+    const query = 'your test query'; // replace with your test query
+    const maximum_edit_distance = 2;
+    const sort = false;
+
+    const result = mtdSearch.search(query, maximum_edit_distance, sort);
+
+    // replace the expected result with your expected output
+    const expectedResult = [ /* expected result */ ];
+
+    expect(result).toEqual(expectedResult);
+  });
+
+  it('should return correct results for query with sort option', () => {
+    const query = 'one two';
+    const maximum_edit_distance = 2;
+    const sort = true;
+  
+    const result = mtdSearch.search(query, maximum_edit_distance, sort);
+    const expectedResult = [ /* expected sorted result for 'one' and 'two' */ ];
+  
+    expect(result).toEqual(expectedResult);
+  });
+  
 
 });
 
