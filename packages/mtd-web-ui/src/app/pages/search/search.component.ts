@@ -88,16 +88,16 @@ export class SearchComponent implements OnDestroy {
     ).map(m => this.entries$.value[m[1]]);
     const displayMatches: Array<DictionaryEntryExportFormat | DictionaryTitle> = [];
     if (matches.length) {
-      displayMatches.unshift({ title: 'mtd.pages.search.matches' });
-      displayMatches.unshift(...matches);
+      displayMatches.push({ title: 'mtd.pages.search.matches' });
+      displayMatches.push(...matches);
     }
     if (partMatches.length) {
-      displayMatches.unshift({ title: 'mtd.pages.search.partial-matches' });
-      displayMatches.unshift(...partMatches);
+      displayMatches.push({ title: 'mtd.pages.search.partial-matches' });
+      displayMatches.push(...partMatches);
     }
     if (maybeMatches.length) {
-      displayMatches.unshift({ title: 'mtd.pages.search.maybe-matches' });
-      displayMatches.unshift(...maybeMatches);
+      displayMatches.push({ title: 'mtd.pages.search.maybe-matches' });
+      displayMatches.push(...maybeMatches);
     }
     this.matches$.next(displayMatches);
   }
