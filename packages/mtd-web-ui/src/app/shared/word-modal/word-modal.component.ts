@@ -17,7 +17,23 @@ import {
 import { BookmarksService, DataService } from '../../core/core.module';
 import { FileNotFoundDialogComponent } from '../file-not-found/file-not-found.component';
 import { DictionaryEntryExportFormat } from '@mothertongues/search';
-import { Example, ExampleAudio, ExampleText } from '../../core/models';
+
+interface ExampleAudio {
+  speaker: string;
+  filename: string;
+  starts: Array<number>;
+}
+
+interface ExampleText {
+  text: string;
+  active: boolean;
+}
+
+interface Example {
+  text: string;
+  definition: Array<ExampleText>;
+  audio: Array<ExampleAudio>;
+}
 
 @Component({
   selector: 'mtd-word-modal',
