@@ -19,8 +19,10 @@
           "packages/mtd-web-ui/src/assets",
           "packages/mtd-web-ui/src/manifest.webmanifest"
         ],
-        "styles": ["packages/mtd-web-ui/src/styles.scss",
-                   "packages/mtd-web-ui/src/styles-app-loading.scss",],
+        "styles": [
+          "packages/mtd-web-ui/src/styles.scss",
+          "packages/mtd-web-ui/src/styles-app-loading.scss"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -83,7 +85,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
