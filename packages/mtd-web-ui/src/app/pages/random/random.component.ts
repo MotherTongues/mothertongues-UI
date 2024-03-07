@@ -7,7 +7,8 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { DataService, ROUTE_ANIMATIONS_ELEMENTS } from '../../core/core.module';
+import { DataService } from '../../core/data.service';
+import { ROUTE_ANIMATIONS_ELEMENTS } from '../../core/route.animations';
 import { DictionaryEntryExportFormat } from '@mothertongues/search';
 
 @Component({
@@ -86,10 +87,12 @@ export class RandomComponent {
   getRandom() {
     // FIXME: Not actually guaranteed to exist yet...
     const entries = this.dataService.$sortedEntries.value;
-    const r = Array(this.nRandom).fill(0).map(_ => {
-      const idx = Math.floor(Math.random() * entries.length);
-      return entries[idx];
-    });
+    const r = Array(this.nRandom)
+      .fill(0)
+      .map((_) => {
+        const idx = Math.floor(Math.random() * entries.length);
+        return entries[idx];
+      });
     this.entries$.next(r);
   }
 }

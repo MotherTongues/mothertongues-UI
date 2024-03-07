@@ -5,10 +5,8 @@ import {
   ChangeDetectionStrategy
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {
-  BookmarksService,
-  ROUTE_ANIMATIONS_ELEMENTS
-} from '../../core/core.module';
+import { BookmarksService } from '../../core/bookmarks.service';
+import { ROUTE_ANIMATIONS_ELEMENTS } from '../../core/route.animations';
 import { takeUntil } from 'rxjs/operators';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { DictionaryEntryExportFormat } from '@mothertongues/search';

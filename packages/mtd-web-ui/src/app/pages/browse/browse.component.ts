@@ -7,11 +7,9 @@ import {
 import { Router, ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Observable, Subject, from } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
-import {
-  BookmarksService,
-  DataService,
-  ROUTE_ANIMATIONS_ELEMENTS,
-} from '../../core/core.module';
+import { DataService } from '../../core/data.service';
+import { BookmarksService } from '../../core/bookmarks.service';
+import { ROUTE_ANIMATIONS_ELEMENTS } from '../../core/route.animations';
 import { DictionaryEntryExportFormat } from '@mothertongues/search';
 @Component({
   selector: 'mtd-browse',

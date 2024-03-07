@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { ROUTE_ANIMATIONS_ELEMENTS } from '../../core/core.module';
+import { ROUTE_ANIMATIONS_ELEMENTS } from '../../core/route.animations';
 
 @Component({
   selector: 'mtd-home',

@@ -9,7 +9,8 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { takeUntil, tap, debounceTime } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 
-import { DataService, EntryDict, ROUTE_ANIMATIONS_ELEMENTS } from '../../core/core.module';
+import { DataService, EntryDict } from '../../core/data.service';
+import { ROUTE_ANIMATIONS_ELEMENTS } from '../../core/route.animations';
 import { DictionaryTitle } from '../../shared/entry-list/entry-list.component';
 
 import { DictionaryEntryExportFormat, sortResults } from '@mothertongues/search';

@@ -14,7 +14,8 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
-import { BookmarksService, DataService } from '../../core/core.module';
+import { DataService } from '../../core/data.service';
+import { BookmarksService } from '../../core/bookmarks.service';
 import { FileNotFoundDialogComponent } from '../file-not-found/file-not-found.component';
 import { DictionaryEntryExportFormat } from '@mothertongues/search';
 

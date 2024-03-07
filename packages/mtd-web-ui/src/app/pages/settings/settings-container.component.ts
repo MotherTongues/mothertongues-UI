@@ -2,8 +2,8 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { META } from '../../../config/config';
 import { marker } from '@biesbjerg/ngx-translate-extract-marker';
 
-import { ROUTE_ANIMATIONS_ELEMENTS } from '../../core/core.module';
-import { SettingsService } from '../../core/settings/settings.service';
+import { ROUTE_ANIMATIONS_ELEMENTS } from '../../core/route.animations';
+import { SettingsService } from '../../core/settings.service';
 
 @Component({
   selector: 'mtd-settings',

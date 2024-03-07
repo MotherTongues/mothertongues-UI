@@ -8,7 +8,7 @@ import {
   sequence,
   AnimationMetadata
 } from '@angular/animations';
-import { routeAnimationType } from "./core.module";
+import { routeAnimationType } from "./settings.service";
 
 export const ROUTE_ANIMATIONS_ELEMENTS = 'route-animations-elements';
 

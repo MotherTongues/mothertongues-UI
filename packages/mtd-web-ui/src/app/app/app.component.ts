@@ -6,10 +6,8 @@ import { marker } from '@biesbjerg/ngx-translate-extract-marker';
 import { environment as env } from '../../environments/environment';
 import { META } from '../../config/config';
 
-import {
-  routeAnimations,
-  SettingsService,
-} from '../core/core.module';
+import { routeAnimations } from '../core/route.animations';
+import { SettingsService } from '../core/settings.service';
 
 interface MenuItem {
   link: string;

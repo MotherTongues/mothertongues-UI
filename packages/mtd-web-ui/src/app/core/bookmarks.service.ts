@@ -4,7 +4,7 @@ import {
   DictionaryEntryExportFormat,
   LanguageConfigurationExportFormat,
 } from '@mothertongues/search';
-import { DataService, EntryDict } from '../core.module';
+import { DataService, EntryDict } from './data.service';
 
 @Injectable({ providedIn: 'root' })
 export class BookmarksService {
@@ -30,7 +30,7 @@ export class BookmarksService {
   loadBookmarks() {
     const key = this.localStorageKey();
     if (key === null) {
-      console.log("Not loading bookmarks, config not initialized");
+      console.log('Not loading bookmarks, config not initialized');
       return;
     }
     const item = localStorage.getItem(key);
@@ -52,7 +52,7 @@ export class BookmarksService {
   setBookmarks(val: DictionaryEntryExportFormat[]) {
     const key = this.localStorageKey();
     if (key === null) {
-      console.log("Not saving bookmarks, config not initialized");
+      console.log('Not saving bookmarks, config not initialized');
       return;
     }
     this.$bookmarks.next(val);
@@ -62,7 +62,7 @@ export class BookmarksService {
   }
 
   isBookmarked(entry: DictionaryEntryExportFormat): boolean {
-    return (this.$bookmarks.value.indexOf(entry) != -1);
+    return this.$bookmarks.value.indexOf(entry) != -1;
   }
 
   toggleBookmark(entry: DictionaryEntryExportFormat) {
@@ -71,8 +71,7 @@ export class BookmarksService {
     if (i == -1) {
       // Add if not present
       bookmarks = this.$bookmarks.value.concat([entry]);
-    }
-    else {
+    } else {
       bookmarks = this.$bookmarks.value;
       bookmarks.splice(i, 1);
     }

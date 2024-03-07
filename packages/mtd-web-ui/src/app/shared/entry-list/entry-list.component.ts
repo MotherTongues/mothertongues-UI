@@ -4,7 +4,8 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { WordModalComponent } from '../word-modal/word-modal.component';
 import { Audio1, DictionaryEntryExportFormat } from '@mothertongues/search';
-import { BookmarksService, DataService } from '../../core/core.module';
+import { DataService } from '../../core/data.service';
+import { BookmarksService } from '../../core/bookmarks.service';
 
 import { MatDialog } from '@angular/material/dialog';
 
