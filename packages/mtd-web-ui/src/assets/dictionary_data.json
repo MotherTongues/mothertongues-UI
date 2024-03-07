@@ -108,7 +108,7 @@
             "example_sentence_audio": [],
             "example_sentence_definition_audio": [],
             "optional": {},
-            "source": "YourData"
+            "source": "MyData"
         },
         {
             "word": "any",
@@ -130,7 +130,7 @@
             "example_sentence_audio": [],
             "example_sentence_definition_audio": [],
             "optional": {},
-            "source": "YourData"
+            "source": "MyData"
         },
         {
             "word": "charge",
@@ -155,7 +155,7 @@
             "example_sentence_audio": [],
             "example_sentence_definition_audio": [],
             "optional": {},
-            "source": "YourData"
+            "source": "MyData"
         },
         {
             "word": "deserves",

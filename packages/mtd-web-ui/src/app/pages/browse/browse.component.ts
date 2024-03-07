@@ -18,10 +18,12 @@ import { DictionaryEntryExportFormat } from '@mothertongues/search';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrowseComponent implements OnDestroy {
+  // Full list of entries (could be a single category)
   currentEntries$: BehaviorSubject<DictionaryEntryExportFormat[]>;
+  // Entries currently on display
   currentX: DictionaryEntryExportFormat[] = [];
-  displayCategories$: Observable<any>;
-  displayLetters$: Observable<any> = from([]);
+
+  displayLetters: string[] = [];
   letters: string[] = [];
   selectedCategory = 'words';
   startIndex$: BehaviorSubject<number> = new BehaviorSubject(0);
@@ -35,11 +37,10 @@ export class BrowseComponent implements OnDestroy {
   unsubscribe$ = new Subject<void>();
   constructor(
     public bookmarkService: BookmarksService,
-    private dataService: DataService,
+    public dataService: DataService,
     private route: ActivatedRoute,
     private router: Router
   ) {
-    this.displayCategories$ = this.dataService.$categories;
     this.currentEntries$ = new BehaviorSubject<DictionaryEntryExportFormat[]>(
       this.dataService.$sortedEntries.value
     );
@@ -47,7 +48,7 @@ export class BrowseComponent implements OnDestroy {
       const start = parseInt(params.start ?? 0);
       const clamped = Math.max(
         0,
-        Math.min(start, this.currentEntries$.value.length - 1)
+        Math.min(start, this.dataService.$entriesLength.value - 1)
       );
       if (start !== clamped) {
         this.router.navigate(["..", clamped], {relativeTo: this.route});
@@ -59,26 +60,30 @@ export class BrowseComponent implements OnDestroy {
         this.numShown$.next(parseInt(params.default_shown));
     });
 
+    // Take entries from full sorted list by default
     this.dataService.$sortedEntries
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((x) => {
-        this.currentEntries$.next(x);
-        this.initializeEntries();
-      });
+      .subscribe((x) => this.currentEntries$.next(x));
+
+    // Update display when set of entries changes
     this.currentEntries$
       .pipe(
-        map((entries) =>
-          this.getXFrom(
+        takeUntil(this.unsubscribe$),
+        map((entries) => {
+          this.letterInit(entries);
+          return this.getXFrom(
             this.startIndex$.value,
             entries,
             this.numShown$.value
           )
-        ),
-        takeUntil(this.unsubscribe$)
+        })
       )
       .subscribe(entries => this.updateEntries(entries));
+
+    // Update display when indices change
     this.startIndex$
       .pipe(
+        takeUntil(this.unsubscribe$),
         map((i) =>
           this.getXFrom(
             i,
@@ -86,11 +91,11 @@ export class BrowseComponent implements OnDestroy {
             this.numShown$.value
           )
         ),
-        takeUntil(this.unsubscribe$)
       )
       .subscribe(entries => this.updateEntries(entries));
     this.numShown$
       .pipe(
+        takeUntil(this.unsubscribe$),
         map((x) =>
           this.getXFrom(
             this.startIndex$.value,
@@ -98,13 +103,12 @@ export class BrowseComponent implements OnDestroy {
             x
           )
         ),
-        takeUntil(this.unsubscribe$)
       )
       .subscribe(entries => this.updateEntries(entries));
-    this.initializeEntries();
   }
 
   updateEntries(entries: DictionaryEntryExportFormat[]) {
+    // Change detection takes care of this
     this.currentX = entries;
   }
 
@@ -156,36 +160,27 @@ export class BrowseComponent implements OnDestroy {
     return entries.slice(i, i + x);
   }
 
-  initializeEntries() {
-    // Add letter index to first words of that letter in entries
-    this.letterInit();
-  }
-
   highlightLetter(letter: string) {
     return this.letters.indexOf(letter) === this.currentX[0].sorting_form[0];
   }
 
-  // Determine whether letter occurs word-initially
-  letterInit() {
+  // Update the list of initial letters
+  letterInit(entries: DictionaryEntryExportFormat[]) {
     const config = this.dataService.$config.value;
     if (config === null) return;
     this.letters = config.alphabet;
-    this.displayLetters$ = this.currentEntries$.pipe(
-      map((entries) => {
-        const newLetters = [];
-        for (const letter of this.letters) {
-          const ind = this.letters.indexOf(letter);
-          for (const entry of entries) {
-            if (entry.sorting_form[0] === ind) {
-              entry.firstWordIndex = ind;
-              newLetters.push(letter);
-              break;
-            }
-          }
+    this.displayLetters = [];
+    // FIXME: Rewrite this to be O(N) not O(N^2)
+    for (const letter of this.letters) {
+      const ind = this.letters.indexOf(letter);
+      for (const entry of entries) {
+        if (entry.sorting_form[0] === ind) {
+          entry.firstWordIndex = ind;
+          this.displayLetters.push(letter);
+          break;
         }
-        return newLetters;
-      })
-    );
+      }
+    }
   }
   // Scroll to previous X entries
   prevX() {
@@ -226,24 +221,12 @@ export class BrowseComponent implements OnDestroy {
   }
 
   selectCategory(category: string) {
-    if (category === 'words') {
-      this.dataService.$sortedEntries
-        .pipe(map((x) => this.currentEntries$.next(x)))
-        .subscribe()
-        .unsubscribe();
-    } else {
-      this.dataService.$categorizedEntries
-        .pipe(map((x) => this.currentEntries$.next(x[category])))
-        .subscribe()
-        .unsubscribe();
-    }
+    this.currentEntries$.next(this.dataService.$categorizedEntries.value[category])
     this.selectedCategory = category;
     this.startIndex$.next(0);
-    this.letterInit();
   }
 
   getShowingIndices() {
-    // FIXME: WHY ARE THESE BEHAVIOUR SUBJECTS ANYWAY???
     const current_val = this.startIndex$.value;
     return {
       startIndex: current_val + 1,
