@@ -44,12 +44,12 @@
         <mat-toolbar class="browse__toolbar">
           <button
             color="accent"
-            class="browse__nav browse__nav--left browse__nav--web color-white"
+            class="browse__nav browse__nav--web color-white"
             mat-flat-button
             aria-label="See previous entries"
             (click)="prevX()"
           >
-            <mat-icon class="browse__nav--left--icon">navigate_before</mat-icon>
+            <mat-icon>navigate_before</mat-icon>
             <span class="browse__nav--left--text"
               >{{ 'mtd.pages.browse.previous' | translate }}
             </span>
@@ -61,7 +61,7 @@
             aria-label="See previous entries"
             (click)="prevX()"
           >
-            <mat-icon class="browse__nav--left--icon">navigate_before</mat-icon>
+            <mat-icon>navigate_before</mat-icon>
           </button>
           <p class="browse__entries--progress browse__nav--web">
             {{
@@ -76,7 +76,7 @@
             }}
           </p>
           <button
-            class="browse__nav browse__nav--right color-white browse__nav--web"
+            class="browse__nav color-white browse__nav--web"
             color="accent"
             mat-flat-button
             aria-label="See following entries"
@@ -85,16 +85,16 @@
             <span class="browse__nav--right--text">{{
               'mtd.pages.browse.next' | translate
             }}</span>
-            <mat-icon class="browse__nav--right--icon">navigate_next</mat-icon>
+            <mat-icon iconPositionEnd>navigate_next</mat-icon>
           </button>
           <button
-            class="browse__nav browse__nav--right browse__nav--mobile"
+            class="browse__nav browse__nav--mobile"
             color="accent"
             mat-icon-button
             aria-label="See following entries"
             (click)="nextX()"
           >
-            <mat-icon class="browse__nav--right--icon">navigate_next</mat-icon>
+            <mat-icon iconPositionEnd>navigate_next</mat-icon>
           </button>
         </mat-toolbar>
         <div class="browse__entry__list__container">
