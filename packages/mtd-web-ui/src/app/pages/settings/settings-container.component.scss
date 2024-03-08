@@ -4,12 +4,10 @@
 h1 {
   text-align: center;
   font-size: 2em;
-  text-transform: uppercase;
 }
 
 h2 {
   font-size: 1.5em;
-  text-transform: uppercase;
 }
 .group {
   margin-bottom: 40px;
@@ -17,14 +15,10 @@ h2 {
 @media (max-width: $phone-max-width) {
   h1 {
     font-size: 1.5em;
-    margin-bottom: 4px;
-    text-transform: uppercase;
   }
 
   h2 {
     font-size: 1em;
-    margin-bottom: 4px;
-    text-transform: uppercase;
   }
 
   .group {
@@ -50,4 +44,8 @@ mat-icon {
 
 mat-form-field {
   flex: 1 0 auto;
+}
+
+mat-slide-toggle {
+  margin-left: 6px;
 }

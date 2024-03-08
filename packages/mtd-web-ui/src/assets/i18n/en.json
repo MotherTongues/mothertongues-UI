@@ -56,7 +56,7 @@
         "sub-slogan": "To get started, click on the search button above, and start learning!"
       },
       "random": {
-        "button": "Click here to see 10 random entries"
+        "button": "Click here to see {{ nRandom }} random entries"
       },
       "search": {
         "matches": "Matches",

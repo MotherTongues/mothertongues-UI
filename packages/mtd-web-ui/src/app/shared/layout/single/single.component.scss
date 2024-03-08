@@ -15,13 +15,11 @@
 h1 {
   text-align: center;
   font-size: 2em;
-  text-transform: uppercase;
   margin-bottom: 1em;
 }
 
 h2 {
   font-size: 1.5em;
-  text-transform: uppercase;
 }
 
 @media (max-width: map-get($angular-breakpoints, laptop)) {
