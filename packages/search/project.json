@@ -1,40 +1,41 @@
 {
-    "name": "search",
-    "$schema": "../../node_modules/nx/schemas/project-schema.json",
-    "sourceRoot": "packages/search/src",
-    "projectType": "library",
-    "targets": {
-        "pre-build": {
-            "executor": "nx:run-script",
-            "options": {
-                "script": "compile-schema"
-            }
-        },
-        "build": {
-            "executor": "@nx/js:tsc",
-            "outputs": ["{options.outputPath}"],
-            "options": {
-                "outputPath": "dist/packages/search",
-                "main": "packages/search/src/index.ts",
-                "tsConfig": "packages/search/tsconfig.lib.json",
-                "assets": ["packages/search/*.md"]
-            }
-        },
-        "lint": {
-            "executor": "@nx/linter:eslint",
-            "outputs": ["{options.outputFile}"],
-            "options": {
-                "lintFilePatterns": ["packages/search/**/*.ts"]
-            }
-        },
-        "test": {
-            "executor": "@nx/vite:test",
-            "outputs": ["coverage/packages/search"],
-            "options": {
-                "passWithNoTests": true,
-                "reportsDirectory": "../../coverage/packages/search"
-            }
-        }
+  "name": "search",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/search/src",
+  "projectType": "library",
+  "targets": {
+    "pre-build": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "compile-schema"
+      }
     },
-    "tags": []
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/search",
+        "main": "packages/search/src/index.ts",
+        "tsConfig": "packages/search/tsconfig.lib.json",
+        "assets": ["packages/search/*.md"],
+        "updateBuildableProjectDepsInPackageJson": true
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/search/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["{workspaceRoot}/coverage/packages/search"],
+      "options": {
+        "passWithNoTests": true,
+        "reportsDirectory": "../../coverage/packages/search"
+      }
+    }
+  },
+  "tags": []
 }

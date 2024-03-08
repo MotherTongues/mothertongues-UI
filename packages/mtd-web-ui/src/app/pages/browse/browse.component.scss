@@ -1,0 +1,145 @@
+@import '../../../styles-variables';
+
+/* FIXME: Need to calculate this dynamically somehow */
+$mini-alphabet-height: 108px;
+$phone-alphabet-height: 84px;
+$mini-max-width: 360px;
+$tablet-max-width: map-get($angular-breakpoints, 'laptop') - 1;
+$desktop-min-width: map-get($angular-breakpoints, 'laptop');
+
+@mixin letters($width) {
+  width: $width;
+  .mat-mdc-button {
+    padding: 0;
+    border-radius: 0;
+    min-width: $width;
+  }
+}
+
+.browse {
+  &__categories {
+    text-align: center;
+    padding: 0 15px;
+    border-radius: 5px;
+    width: fit-content;
+    margin: 0 auto;
+    @media (max-width: $tablet-max-width) {
+      width: 100%;
+      font-size: smaller;
+    }
+    @media (max-width: $phone-max-width) {
+      display: none;
+    }
+  }
+
+  &__alphabet {
+    &__grid {
+      width: 80%;
+      margin: $notphone-margin auto;
+      @media (max-width: $tablet-max-width) {
+        /* Give it a bit more space */
+        width: 100%;
+      }
+      @media (max-width: $phone-max-width) {
+        /* No top margin, as there is no box above it */
+        margin: 0 auto $phone-margin auto;
+        /* FIXME: fixed height because ugh argh ugh argh */
+        height: $phone-alphabet-height;
+      }
+      @media (max-width: $mini-max-width) {
+        /* FIXME: even worse! */
+        height: $mini-alphabet-height;
+      }
+      padding: 5px;
+      overflow: hidden;
+      border-radius: 5px;
+    }
+
+    &__list {
+      list-style-type: none;
+      padding: 0;
+      margin: auto;
+      opacity: 0.95;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    &__letter {
+      display: inline-block;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      /* FIXME: these widths are somewhat arbitrary */
+      @include letters(36px);
+      @media (max-width: $tablet-max-width) {
+        @include letters(24px);
+      }
+    }
+  }
+
+  &__entries {
+    &--progress {
+      margin: 0 auto !important;
+      font-size: smaller;
+      @media (max-width: $tablet-max-width) {
+        font-size: small;
+      }
+    }
+  }
+
+  &__toolbar {
+    border-radius: 5px 5px 0 0;
+  }
+
+  &__nav {
+    &--web {
+      @media (max-width: $tablet-max-width) {
+        display: none !important;
+      }
+    }
+
+    &--mobile {
+      @media (min-width: $desktop-min-width) {
+        display: none !important;
+      }
+    }
+
+    &--left {
+      &--text {
+        margin-left: 15px;
+      }
+    }
+
+    &--right {
+      &--text {
+        margin-right: 15px;
+      }
+    }
+  }
+
+  /* Ludicrous nesting... totally unnecessary... */
+  &__entry {
+    &__list {
+      &__container {
+        max-height: calc(
+          $notphone-content-height - $notphone-margin - $notphone-toolbar-height
+        );
+        @media (max-width: $phone-max-width) {
+          max-height: calc(
+            $phone-content-height - $phone-margin - $phone-toolbar-height -
+              $phone-alphabet-height - $phone-margin
+          );
+        }
+        @media (max-width: $mini-max-width) {
+          max-height: calc(
+            $phone-content-height - $phone-margin - $phone-toolbar-height -
+              $mini-alphabet-height - $phone-margin
+          );
+        }
+        overflow-y: auto;
+        border-radius: 0 0 5px 5px;
+      }
+    }
+  }
+}

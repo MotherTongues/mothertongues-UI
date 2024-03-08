@@ -1,0 +1,167 @@
+@import '../../styles-variables';
+
+mat-sidenav-container {
+  height: 100%;
+  width: 100%;
+
+  .toolbar {
+    position: fixed;
+    width: 100%;
+    display: flex;
+    z-index: 10;
+
+    .nav-button {
+      margin: 0 10px 0 0;
+    }
+
+    fa-icon {
+      font-size: 24px;
+    }
+
+    .branding {
+      cursor: pointer;
+      overflow: hidden;
+      padding-top: 4px;
+      text-overflow: ellipsis;
+
+      &.center {
+        text-align: center;
+      }
+
+      img {
+        position: relative;
+        top: -2px;
+        width: 48px;
+        height: 48px;
+      }
+    }
+
+    .spacer {
+      flex: 1 1 auto;
+    }
+    /* TODO(mdc-migration): The following rule targets internal classes of select that may no longer apply for the MDC version. */
+    mat-select {
+      margin: 0 0 0 20px;
+      width: 40px;
+      font-size: 14px;
+    }
+
+    /* i.e. mobile-only */
+    @media (max-width: map-get($angular-breakpoints, laptop) - 1) {
+      .nav-button {
+        min-width: 0;
+        padding: 0 10px;
+      }
+    }
+  }
+
+  /* A wrapper that covers *the* *entire* *viewport* and gives
+     flex-magic to its innards. Not convinced this is the best way to
+     do this!!! (actually not even sure what it really does) */
+  .wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    /* This shows the background. */
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: url('../../assets/background.jpg') no-repeat center top;
+      background-size: cover;
+      content: '';
+      z-index: 0;
+    }
+
+    /* Absolutely positioned, which is why we have to set margin-top.
+       Should cover the entire viewport minus the toolbar. Not sure
+       why this is flex and that is absolute. Not sure the original
+       author was either. */
+    .content {
+      flex: 1 0 auto;
+      margin-top: $notphone-toolbar-height;
+      @media (max-width: $phone-max-width) {
+        margin-top: $phone-toolbar-height;
+      }
+      overflow: hidden;
+
+      /* This does the gradient over the background. */
+      &::before {
+        position: absolute;
+        top: 51%;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        content: '';
+        z-index: 0;
+      }
+
+      /* Exists to restore relative positioning.  Really not sure about this. */
+      .content-wrapper {
+        position: relative;
+        /* Could be margin or padding, no difference here */
+        margin-top: $notphone-margin;
+        @media (max-width: $phone-max-width) {
+          margin-top: $phone-margin;
+        }
+        height: $notphone-content-height;
+        @media (max-width: $phone-max-width) {
+          height: $phone-content-height;
+        }
+        /* Page components *MUST* handle scrolling. We will not scroll the
+	   main app UI, no we will not. */
+        overflow: hidden;
+      }
+    }
+  }
+}
+
+mat-sidenav {
+  width: 250px;
+
+  .branding {
+    height: 64px;
+    padding: 8px 10px;
+    font-size: 20px;
+    font-weight: 500;
+
+    img {
+      height: 48px;
+      margin: 2px 10px 0 0;
+    }
+
+    span {
+      position: relative;
+      top: 3px;
+    }
+  }
+
+  .mat-nav-list {
+    padding-top: 0;
+  }
+
+  /* This should not be, but Material is dumb. */
+  ::ng-deep .mat-expansion-panel-header {
+    padding: 0 16px;
+    font-size: 16px;
+  }
+  /* Likewise!  Did it not occur to them that people might want submenus
+     in sidenavs?  Google Quality Software as usual! */
+  ::ng-deep .mat-expansion-panel-body {
+    padding-bottom: 0;
+  }
+}
+
+/* FIXME: really necessary? what does this do? */
+.theme-wrapper {
+  height: 100%;
+  width: 100%;
+}

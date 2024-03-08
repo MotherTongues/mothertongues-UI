@@ -1,0 +1,15 @@
+@import '../../../styles-variables';
+
+/* Match the height of the h1 we would normally have in mtd-single */
+.random-header {
+  height: 48px;
+  margin-bottom: 32px;
+}
+@media (max-width: $phone-max-width) {
+  .random-header {
+    height: 32px;
+    button {
+      line-height: 32px;
+    }
+  }
+}

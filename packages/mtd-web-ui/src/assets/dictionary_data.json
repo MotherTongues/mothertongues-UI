@@ -1,0 +1,451 @@
+{
+    "config": {
+        "L1": "French",
+        "L2": "English",
+        "l1_search_strategy": "weighted_levenstein",
+        "l2_search_strategy": "liblevenstein_automata",
+        "l1_search_config": {
+            "insertionCost": 1.0,
+            "deletionCost": 1.0,
+            "insertionAtBeginningCost": 1.0,
+            "deletionAtEndCost": 1.0,
+            "substitutionCosts": {},
+            "substitutionCostsPath": null,
+            "defaultSubstitutionCost": 1.0
+        },
+        "l2_search_config": null,
+        "l1_stemmer": "none",
+        "l2_stemmer": "snowball_english",
+        "l1_normalization_transducer": {
+            "lower": true,
+            "unicode_normalization": "NFC",
+            "remove_punctuation": "[.,/#!$%^&?*';:{}=\\-_`~()]",
+            "remove_combining_characters": true,
+            "replace_rules": null
+        },
+        "l2_normalization_transducer": {
+            "lower": true,
+            "unicode_normalization": "NFC",
+            "remove_punctuation": "[.,/#!$%^&?*';:{}=\\-_`~()]",
+            "remove_combining_characters": true,
+            "replace_rules": null
+        },
+        "alphabet": [
+            "a",
+            "b",
+            "c",
+            "d",
+            "e",
+            "f",
+            "g",
+            "h",
+            "i",
+            "j",
+            "k",
+            "l",
+            "m",
+            "n",
+            "o",
+            "p",
+            "q",
+            "r",
+            "s",
+            "t",
+            "u",
+            "v",
+            "w",
+            "x",
+            "y",
+            "z",
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G",
+            "H",
+            "I",
+            "J",
+            "K",
+            "L",
+            "M",
+            "N",
+            "O",
+            "P",
+            "Q",
+            "R",
+            "S",
+            "T",
+            "U",
+            "V",
+            "W",
+            "X",
+            "Y",
+            "Z"
+        ],
+        "optional_field_name": "Optional Field",
+        "credits": null,
+        "build": "1694556630"
+    },
+    "data": [
+        {
+            "word": "alouette",
+            "definition": "lark",
+            "entryID": "starter00",
+            "sorting_form": [
+                0,
+                11,
+                14,
+                20,
+                4,
+                19,
+                19,
+                4
+            ],
+            "theme": "animals",
+            "secondary_theme": "",
+            "img": "",
+            "audio": [
+                {
+                    "description": "dhd",
+                    "filename": "assets/audio/alouette.mp3"
+                }
+            ],
+            "video": [],
+            "definition_audio": [],
+            "example_sentence": [
+                "L'alouette chante le matin"
+            ],
+            "example_sentence_definition": [
+                "The lark sings in the morning"
+            ],
+            "example_sentence_audio": [
+                [
+                    {
+                        "description": "dhd",
+                        "filename": "assets/audio/alouette1.mp3"
+                    }
+                ]
+            ],
+            "example_sentence_definition_audio": [],
+            "optional": {},
+            "source": "starter"
+        },
+        {
+            "word": "belette",
+            "definition": "weasel",
+            "entryID": "starter01",
+            "sorting_form": [
+                1,
+                4,
+                11,
+                4,
+                19,
+                19,
+                4
+            ],
+            "theme": "animals",
+            "secondary_theme": "",
+            "img": "",
+            "audio": [
+                {
+                    "description": "dhd",
+                    "filename": "assets/audio/belette.mp3"
+                }
+            ],
+            "video": [],
+            "definition_audio": [],
+            "example_sentence": [
+                "J'ai vu une petite belette"
+            ],
+            "example_sentence_definition": [
+                "I saw a little weasel"
+            ],
+            "example_sentence_audio": [
+                [
+                    {
+                        "description": "dhd",
+                        "filename": "assets/audio/belette1.mp3"
+                    }
+                ]
+            ],
+            "example_sentence_definition_audio": [],
+            "optional": {},
+            "source": "starter"
+        },
+        {
+            "word": "carcajou",
+            "definition": "wolverine",
+            "entryID": "starter02",
+            "sorting_form": [
+                2,
+                0,
+                17,
+                2,
+                0,
+                9,
+                14,
+                20
+            ],
+            "theme": "animals",
+            "secondary_theme": "",
+            "img": "",
+            "audio": [
+                {
+                    "description": "dhd",
+                    "filename": "assets/audio/carcajou.mp3"
+                }
+            ],
+            "video": [],
+            "definition_audio": [],
+            "example_sentence": [
+                "Le carcajou a toujours faim"
+            ],
+            "example_sentence_definition": [
+                "The wolverine is always hungry"
+            ],
+            "example_sentence_audio": [
+                [
+                    {
+                        "description": "dhd",
+                        "filename": "assets/audio/carcajou1.mp3"
+                    }
+                ]
+            ],
+            "example_sentence_definition_audio": [],
+            "optional": {},
+            "source": "starter"
+        },
+        {
+            "word": "courgette",
+            "definition": "zucchini",
+            "entryID": "starter03",
+            "sorting_form": [
+                2,
+                14,
+                20,
+                17,
+                6,
+                4,
+                19,
+                19,
+                4
+            ],
+            "theme": "vegetables",
+            "secondary_theme": "",
+            "img": "",
+            "audio": [
+                {
+                    "description": "dhd",
+                    "filename": "assets/audio/courgette.mp3"
+                }
+            ],
+            "video": [],
+            "definition_audio": [],
+            "example_sentence": [
+                "J'ai cueilli une courgette"
+            ],
+            "example_sentence_definition": [
+                "I picked a zucchini"
+            ],
+            "example_sentence_audio": [
+                [
+                    {
+                        "description": "dhd",
+                        "filename": "assets/audio/courgette1.mp3"
+                    }
+                ]
+            ],
+            "example_sentence_definition_audio": [],
+            "optional": {},
+            "source": "starter"
+        },
+        {
+            "word": "granite",
+            "definition": "granite",
+            "entryID": "starter04",
+            "sorting_form": [
+                6,
+                17,
+                0,
+                13,
+                8,
+                19,
+                4
+            ],
+            "theme": "minerals",
+            "secondary_theme": "",
+            "img": "",
+            "audio": [
+                {
+                    "description": "dhd",
+                    "filename": "assets/audio/granite.mp3"
+                }
+            ],
+            "video": [],
+            "definition_audio": [],
+            "example_sentence": [
+                "Le granite vient de St-Tite"
+            ],
+            "example_sentence_definition": [
+                "The granite comes from St-Tite"
+            ],
+            "example_sentence_audio": [
+                [
+                    {
+                        "description": "dhd",
+                        "filename": "assets/audio/granite1.mp3"
+                    }
+                ]
+            ],
+            "example_sentence_definition_audio": [],
+            "optional": {},
+            "source": "starter"
+        }
+    ],
+    "l1_index": {
+        "alouette": {
+            "starter00": {
+                "location": [
+                    [
+                        "word",
+                        0
+                    ]
+                ],
+                "score": {
+                    "word": 1.0986122886681098,
+                    "total": 1.0986122886681098
+                }
+            }
+        },
+        "belette": {
+            "starter01": {
+                "location": [
+                    [
+                        "word",
+                        0
+                    ]
+                ],
+                "score": {
+                    "word": 1.0986122886681098,
+                    "total": 1.0986122886681098
+                }
+            }
+        },
+        "carcajou": {
+            "starter02": {
+                "location": [
+                    [
+                        "word",
+                        0
+                    ]
+                ],
+                "score": {
+                    "word": 1.0986122886681098,
+                    "total": 1.0986122886681098
+                }
+            }
+        },
+        "courgette": {
+            "starter03": {
+                "location": [
+                    [
+                        "word",
+                        0
+                    ]
+                ],
+                "score": {
+                    "word": 1.0986122886681098,
+                    "total": 1.0986122886681098
+                }
+            }
+        },
+        "granite": {
+            "starter04": {
+                "location": [
+                    [
+                        "word",
+                        0
+                    ]
+                ],
+                "score": {
+                    "word": 1.0986122886681098,
+                    "total": 1.0986122886681098
+                }
+            }
+        }
+    },
+    "l2_index": {
+        "lark": {
+            "starter00": {
+                "location": [
+                    [
+                        "definition",
+                        0
+                    ]
+                ],
+                "score": {
+                    "definition": 1.0986122886681098,
+                    "total": 1.0986122886681098
+                }
+            }
+        },
+        "weasel": {
+            "starter01": {
+                "location": [
+                    [
+                        "definition",
+                        0
+                    ]
+                ],
+                "score": {
+                    "definition": 1.0986122886681098,
+                    "total": 1.0986122886681098
+                }
+            }
+        },
+        "wolverin": {
+            "starter02": {
+                "location": [
+                    [
+                        "definition",
+                        0
+                    ]
+                ],
+                "score": {
+                    "definition": 1.0986122886681098,
+                    "total": 1.0986122886681098
+                }
+            }
+        },
+        "zucchini": {
+            "starter03": {
+                "location": [
+                    [
+                        "definition",
+                        0
+                    ]
+                ],
+                "score": {
+                    "definition": 1.0986122886681098,
+                    "total": 1.0986122886681098
+                }
+            }
+        },
+        "granit": {
+            "starter04": {
+                "location": [
+                    [
+                        "definition",
+                        0
+                    ]
+                ],
+                "score": {
+                    "definition": 1.0986122886681098,
+                    "total": 1.0986122886681098
+                }
+            }
+        }
+    }
+}

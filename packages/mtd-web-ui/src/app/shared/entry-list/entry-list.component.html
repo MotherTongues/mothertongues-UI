@@ -1,0 +1,64 @@
+<div class="entry-list container">
+  <div *ngFor="let entry of entries; last as isLast" text-wrap>
+    <div class="row" *ngIf="isTitle(entry)">
+      <h4 class="col-sm-12 entry-list__title">
+        {{ entry.title | translate }}
+      </h4>
+    </div>
+    <div class="row" *ngIf="isEntry(entry)">
+      <div class="col-2 col-sm-auto">
+        <button
+          mat-icon-button
+          aria-label="Bookmark Entry"
+          title="Bookmark Entry"
+          (click)="entry.favourited = !entry.favourited; toggleBookmark(entry)"
+        >
+          <mat-icon *ngIf="!entry.favourited">bookmark_border</mat-icon>
+          <mat-icon *ngIf="entry.favourited" color="accent" class="color-accent"
+            >bookmark</mat-icon
+          >
+        </button>
+        <!-- ideally there would be a routerLink here but ... Angular ... -->
+        <button
+          mat-icon-button
+          class="entry-list__info"
+          aria-label="Show More information"
+          title="Show More information"
+          (click)="showModal(entry)"
+        >
+          <mat-icon>list</mat-icon>
+        </button>
+        <button
+          [disabled]="!entry.audio"
+          class="entry-list__play"
+          mat-icon-button
+          aria-label="Play Audio"
+          title="Play Audio"
+          (click)="playDefaultAudio(entry)"
+        >
+          <mat-icon>audiotrack</mat-icon>
+        </button>
+      </div>
+
+      <div class="col-10 col-sm">
+        <!-- FIXME: click should be conditional on phone/tablet -->
+        <div class="row match" (click)="showModal(entry)">
+          <div class="col-sm match__term__container">
+            <span
+              class="match__term match__term--target"
+              [innerHTML]="highlight(entry, 'L1')"
+            ></span>
+          </div>
+
+          <div class="col-sm match__term__container">
+            <span
+              class="match__term match__term--translation"
+              [innerHTML]="highlight(entry, 'L2')"
+            ></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr *ngIf="!isLast" />
+  </div>
+</div>

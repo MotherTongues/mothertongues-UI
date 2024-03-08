@@ -1,0 +1,73 @@
+@import '../../../styles-variables';
+
+.page__content {
+  max-height: calc($notphone-content-height - $notphone-margin);
+  @media (max-width: $phone-max-width) {
+    max-height: calc($phone-content-height - $phone-margin);
+  }
+  overflow: hidden;
+}
+
+/* FIXME: This is very hard coded. */
+$search-bar-height: 65px;
+
+.search {
+  &__icon {
+    font-size: small;
+    top: 5px;
+    right: 0;
+    margin-right: 5px;
+  }
+
+  &__bar {
+    &__container {
+      text-align: center;
+      padding: 0 $notphone-padding;
+      border-radius: 5px;
+      width: fit-content;
+      margin: 0 auto;
+      @media (max-width: $phone-max-width) {
+        padding: 0 $phone-padding;
+      }
+    }
+
+    margin: 0 auto;
+    width: 500px;
+    /* Do not define a fixed width on small screens!!! */
+    @media (max-width: $phone-max-width) {
+      width: 100%;
+    }
+  }
+
+  &__results {
+    /* Needed to get the guide popup in the right place */
+    position: relative;
+    margin: $notphone-margin auto;
+    padding: $notphone-padding;
+    border-radius: $notphone-padding;
+    @media (max-width: $phone-max-width) {
+      margin: $phone-margin auto;
+      padding: $phone-padding;
+      border-radius: $phone-padding;
+    }
+    &__container {
+      max-height: calc(
+        $notphone-content-height - $notphone-margin - $search-bar-height -
+          $notphone-margin - 2 * $notphone-padding
+      );
+      @media (max-width: $phone-max-width) {
+        max-height: calc(
+          $phone-content-height - $phone-margin - $search-bar-height -
+            $phone-margin - 2 * $phone-padding
+        );
+      }
+      overflow-y: auto;
+    }
+    &__title {
+      text-align: center;
+    }
+    &--none {
+      text-align: center;
+    }
+  }
+}

@@ -1,0 +1,15 @@
+@use '@angular/material' as mat;
+
+@mixin mtd-word-modal-component-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+
+  .word {
+    // FIXME: Should be shared with entry-list .langMatched
+    &__active {
+      background: mat.get-color-from-palette($accent);
+      color: mat.get-color-from-palette($accent, default-contrast);
+      border-radius: 2px;
+    }
+  }
+}
