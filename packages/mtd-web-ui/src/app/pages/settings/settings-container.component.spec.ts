@@ -10,7 +10,6 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { SharedModule } from '../../shared/shared.module';
 
 import { SettingsContainerComponent } from './settings-container.component';
-import { SettingsState } from '../../core/settings/settings.model';
 
 describe('SettingsComponent', () => {
   let component: SettingsContainerComponent;
@@ -35,4 +34,7 @@ describe('SettingsComponent', () => {
       fixture.detectChanges();
     })
   );
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 });

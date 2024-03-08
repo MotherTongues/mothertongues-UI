@@ -3,6 +3,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { BookmarksComponent } from './bookmarks.component';
+import { SharedModule } from '../../shared/shared.module';
 
 describe('BookmarksComponent', () => {
   let component: BookmarksComponent;
@@ -14,6 +15,7 @@ describe('BookmarksComponent', () => {
         imports: [
           HttpClientTestingModule,
           RouterTestingModule,
+          SharedModule,
           TranslateModule.forRoot()
         ],
         declarations: [BookmarksComponent]

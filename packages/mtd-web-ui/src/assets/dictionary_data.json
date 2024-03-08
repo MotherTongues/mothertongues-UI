@@ -147,14 +147,18 @@
             "theme": "",
             "secondary_theme": "",
             "img": "",
-            "audio": [],
+          "audio": [{
+            "description": "DHD",
+            "filename": "assets/audio/charge.mp3"
+          }
+          ],
             "video": [],
             "definition_audio": [],
             "example_sentence": [],
             "example_sentence_definition": [],
             "example_sentence_audio": [],
             "example_sentence_definition_audio": [],
-            "optional": {},
+          "optional": {"feature": "value"},
             "source": "MyData"
         },
         {

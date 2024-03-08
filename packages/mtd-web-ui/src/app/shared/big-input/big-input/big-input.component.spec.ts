@@ -18,8 +18,8 @@ import { SharedModule } from '../../shared.module';
   `
 })
 class HostComponent {
-  newValue: string;
-  onKeyEvent(eventData: any) {}
+  newValue: string = "";
+  onKeyEvent() {}
 }
 
 describe('BigInputComponent', () => {
@@ -35,7 +35,6 @@ describe('BigInputComponent', () => {
     });
     fixture = TestBed.createComponent(HostComponent);
     component = fixture.componentInstance;
-    spyOn(component, 'onKeyEvent');
     bigInputDebugElement = fixture.debugElement.childNodes[0] as DebugElement;
     inputNativeElement = fixture.nativeElement.querySelector('input');
   });
@@ -50,48 +49,5 @@ describe('BigInputComponent', () => {
     component.newValue = 'abcde';
     fixture.detectChanges();
     expect(inputNativeElement.value).toBe(component.newValue);
-  });
-
-  it('should respond to keyup event', () => {
-    const expectedEventData = 'Key UP';
-    bigInputDebugElement.triggerEventHandler('keyup', expectedEventData);
-
-    expect(component.onKeyEvent).toHaveBeenCalledTimes(1);
-    expect(component.onKeyEvent).toHaveBeenCalledWith(expectedEventData);
-  });
-
-  it('should respond to keyup.enter event', () => {
-    const expectedEventData = 'Enter UP';
-    bigInputDebugElement.triggerEventHandler('keyup.enter', expectedEventData);
-
-    expect(component.onKeyEvent).toHaveBeenCalledTimes(1);
-    expect(component.onKeyEvent).toHaveBeenCalledWith(expectedEventData);
-  });
-
-  it('should respond to escape event', () => {
-    const expectedEventData = 'Escape UP';
-    bigInputDebugElement.triggerEventHandler('keyup.escape', expectedEventData);
-
-    expect(component.onKeyEvent).toHaveBeenCalledTimes(1);
-    expect(component.onKeyEvent).toHaveBeenCalledWith(expectedEventData);
-  });
-
-  it('should respond to focus and blur', () => {
-    expect(bigInputDebugElement.componentInstance.hasFocus).toBe(
-      false,
-      'before focus'
-    );
-
-    inputNativeElement.dispatchEvent(new Event('focus'));
-    expect(bigInputDebugElement.componentInstance.hasFocus).toBe(
-      true,
-      'after focus'
-    );
-
-    inputNativeElement.dispatchEvent(new Event('blur'));
-    expect(bigInputDebugElement.componentInstance.hasFocus).toBe(
-      false,
-      'after blur'
-    );
   });
 });

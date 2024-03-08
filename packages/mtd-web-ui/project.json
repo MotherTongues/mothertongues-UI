@@ -50,12 +50,6 @@
           "ngswConfigPath": "packages/mtd-web-ui/ngsw-config.json"
         },
         "development": {
-          "fileReplacements": [
-            {
-              "replace": "packages/mtd-web-ui/src/environments/environment.ts",
-              "with": "packages/mtd-web-ui/src/environments/environment.test.ts"
-            }
-          ],
           "buildOptimizer": false,
           "optimization": false,
           "vendorChunk": true,

@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { HomeComponent } from './home.component';
+import { SharedModule } from '../../shared/shared.module';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -10,7 +11,7 @@ describe('HomeComponent', () => {
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [HttpClientTestingModule, TranslateModule.forRoot()],
+        imports: [HttpClientTestingModule, SharedModule, TranslateModule.forRoot()],
         declarations: [HomeComponent]
       }).compileComponents();
     })

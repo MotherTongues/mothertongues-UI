@@ -3,6 +3,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { RandomComponent } from './random.component';
+import { SharedModule } from '../../shared/shared.module';
 
 describe('RandomComponent', () => {
   let component: RandomComponent;
@@ -14,6 +15,7 @@ describe('RandomComponent', () => {
         imports: [
           HttpClientTestingModule,
           RouterTestingModule,
+          SharedModule,
           TranslateModule.forRoot()
         ],
         declarations: [RandomComponent]
