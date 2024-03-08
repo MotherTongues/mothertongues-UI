@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -20,7 +20,7 @@ export interface DictionaryTitle {
   templateUrl: 'entry-list.component.html',
   styleUrls: ['entry-list.component.scss'],
 })
-export class EntryListComponent implements OnInit, OnDestroy {
+export class EntryListComponent implements OnDestroy {
   unsubscribe$ = new Subject<void>();
 
   // Have to allow null here because of #@!$@# async pipe
@@ -35,29 +35,31 @@ export class EntryListComponent implements OnInit, OnDestroy {
     private dataService: DataService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
-
-  ngOnInit() {
-    this.route.queryParams
+  ) {
+    this.dataService.$entriesHash
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((params) => {
-        if (!('show' in params)) return;
-        // Look first in the (small) list of entries if it exists, but check the full
-        // one too so that permalinks always work (as long as there's an entry list...!)
-        const entry =
-          this.entries?.find(
-            (entry) => 'entryID' in entry && entry.entryID == params.show
-          ) ?? this.dataService.$entriesHash.value[params.show];
-        if (entry === undefined) return; // FIXME: Perhaps should show an error of some sort
-        const dialogRef = this.dialog.open(WordModalComponent, {
-          panelClass: 'mtd-word-dialog',
-          data: entry,
-        });
-        dialogRef
-          .afterClosed()
+      .subscribe((entries) => {
+        // FIXME: This is probably *not* what we want to do since
+        // we'll have multiple subscriptions if $entriesHash ever
+        // changes.  Luckily we know that it will never change!
+        this.route.queryParams
           .pipe(takeUntil(this.unsubscribe$))
-          .subscribe((_) => {
-            this.router.navigate(['.'], { relativeTo: this.route });
+          .subscribe((params) => {
+            if (!('show' in params)) return;
+            // Look first in the (small) list of entries if it exists, but check the full
+            // one too so that permalinks always work (as long as there's an entry list...!)
+            const entry = entries[params.show];
+            if (entry === undefined) return; // FIXME: Perhaps should show an error of some sort
+            const dialogRef = this.dialog.open(WordModalComponent, {
+              panelClass: 'mtd-word-dialog',
+              data: entry,
+            });
+            dialogRef
+              .afterClosed()
+              .pipe(takeUntil(this.unsubscribe$))
+              .subscribe((_) => {
+                this.router.navigate(['.'], { relativeTo: this.route });
+              });
           });
       });
   }
