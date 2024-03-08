@@ -1,4 +1,4 @@
-import * as packageJson from '../../../../package.json';
+const packageJson = require('../../../../package.json');
 
 export const environment = {
   appName: 'MotherTongues Dictionary',
