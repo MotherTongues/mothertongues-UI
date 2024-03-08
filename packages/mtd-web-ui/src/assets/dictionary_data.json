@@ -1,6 +1,6 @@
 {
     "config": {
-        "L1": "YourLanguage",
+        "L1": "French",
         "L2": "English",
         "l1_search_strategy": "weighted_levenstein",
         "l2_search_strategy": "liblevenstein_automata",
@@ -86,1025 +86,227 @@
         ],
         "optional_field_name": "Optional Field",
         "credits": null,
-        "build": "1708623245"
+        "build": "1694556630"
     },
     "data": [
         {
-            "word": "an",
-            "definition": "an",
-            "entryID": "YourData07",
+            "word": "alouette",
+            "definition": "lark",
+            "entryID": "starter00",
             "sorting_form": [
                 0,
-                13
-            ],
-            "theme": "",
-            "secondary_theme": "",
-            "img": "",
-            "audio": [],
-            "video": [],
-            "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
-            "example_sentence_definition_audio": [],
-            "optional": {},
-            "source": "MyData"
-        },
-        {
-            "word": "any",
-            "definition": "any",
-            "entryID": "YourData020",
-            "sorting_form": [
-                0,
-                13,
-                24
-            ],
-            "theme": "",
-            "secondary_theme": "",
-            "img": "",
-            "audio": [],
-            "video": [],
-            "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
-            "example_sentence_definition_audio": [],
-            "optional": {},
-            "source": "MyData"
-        },
-        {
-            "word": "charge",
-            "definition": "charge",
-            "entryID": "YourData041",
-            "sorting_form": [
-                2,
-                7,
-                0,
-                17,
-                6,
+                11,
+                14,
+                20,
+                4,
+                19,
+                19,
                 4
             ],
-            "theme": "",
+            "theme": "animals",
             "secondary_theme": "",
             "img": "",
-          "audio": [{
-            "description": "DHD",
-            "filename": "assets/audio/charge.mp3"
-          }
-          ],
-            "video": [],
-            "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
-            "example_sentence_definition_audio": [],
-          "optional": {"feature": "value"},
-            "source": "MyData"
-        },
-        {
-            "word": "deserves",
-            "definition": "deserves",
-            "entryID": "YourData047",
-            "sorting_form": [
-                3,
-                4,
-                18,
-                4,
-                17,
-                21,
-                4,
-                18
+            "audio": [
+                {
+                    "description": "dhd",
+                    "filename": "assets/audio/alouette.mp3"
+                }
             ],
-            "theme": "",
-            "secondary_theme": "",
-            "img": "",
-            "audio": [],
             "video": [],
             "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
+            "example_sentence": [
+                "L'alouette chante le matin"
+            ],
+            "example_sentence_definition": [
+                "The lark sings in the morning"
+            ],
+            "example_sentence_audio": [
+                [
+                    {
+                        "description": "dhd",
+                        "filename": "assets/audio/alouette1.mp3"
+                    }
+                ]
+            ],
             "example_sentence_definition_audio": [],
             "optional": {},
-            "source": "YourData"
+            "source": "starter"
         },
         {
-            "word": "election",
-            "definition": "election",
-            "entryID": "YourData013",
+            "word": "belette",
+            "definition": "weasel",
+            "entryID": "starter01",
             "sorting_form": [
+                1,
                 4,
                 11,
                 4,
-                2,
                 19,
-                8,
-                14,
-                13
-            ],
-            "theme": "",
-            "secondary_theme": "",
-            "img": "",
-            "audio": [],
-            "video": [],
-            "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
-            "example_sentence_definition_audio": [],
-            "optional": {},
-            "source": "YourData"
-        },
-        {
-            "word": "evidence",
-            "definition": "evidence",
-            "entryID": "YourData017",
-            "sorting_form": [
-                4,
-                21,
-                8,
-                3,
-                4,
-                13,
-                2,
+                19,
                 4
             ],
-            "theme": "",
+            "theme": "animals",
             "secondary_theme": "",
             "img": "",
-            "audio": [],
-            "video": [],
-            "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
-            "example_sentence_definition_audio": [],
-            "optional": {},
-            "source": "YourData"
-        },
-        {
-            "word": "further",
-            "definition": "further",
-            "entryID": "YourData027",
-            "sorting_form": [
-                5,
-                20,
-                17,
-                19,
-                7,
-                4,
-                17
+            "audio": [
+                {
+                    "description": "dhd",
+                    "filename": "assets/audio/belette.mp3"
+                }
             ],
-            "theme": "",
-            "secondary_theme": "",
-            "img": "",
-            "audio": [],
             "video": [],
             "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
-            "example_sentence_definition_audio": [],
-            "optional": {},
-            "source": "YourData"
-        },
-        {
-            "word": "had",
-            "definition": "had",
-            "entryID": "YourData039",
-            "sorting_form": [
-                7,
-                0,
-                3
+            "example_sentence": [
+                "J'ai vu une petite belette"
             ],
-            "theme": "",
-            "secondary_theme": "",
-            "img": "",
-            "audio": [],
-            "video": [],
-            "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
-            "example_sentence_definition_audio": [],
-            "optional": {},
-            "source": "YourData"
-        },
-        {
-            "word": "in",
-            "definition": "in",
-            "entryID": "YourData029",
-            "sorting_form": [
-                8,
-                13
+            "example_sentence_definition": [
+                "I saw a little weasel"
             ],
-            "theme": "",
-            "secondary_theme": "",
-            "img": "",
-            "audio": [],
-            "video": [],
-            "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
-            "example_sentence_definition_audio": [],
-            "optional": {},
-            "source": "YourData"
-        },
-        {
-            "word": "investigation",
-            "definition": "investigation",
-            "entryID": "YourData08",
-            "sorting_form": [
-                8,
-                13,
-                21,
-                4,
-                18,
-                19,
-                8,
-                6,
-                0,
-                19,
-                8,
-                14,
-                13
+            "example_sentence_audio": [
+                [
+                    {
+                        "description": "dhd",
+                        "filename": "assets/audio/belette1.mp3"
+                    }
+                ]
             ],
-            "theme": "",
-            "secondary_theme": "",
-            "img": "",
-            "audio": [],
-            "video": [],
-            "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
             "example_sentence_definition_audio": [],
             "optional": {},
-            "source": "YourData"
+            "source": "starter"
         },
         {
-            "word": "irregularities",
-            "definition": "irregularities",
-            "entryID": "YourData021",
+            "word": "carcajou",
+            "definition": "wolverine",
+            "entryID": "starter02",
             "sorting_form": [
-                8,
-                17,
-                17,
-                4,
-                6,
-                20,
-                11,
+                2,
                 0,
                 17,
-                8,
-                19,
-                8,
-                4,
-                18
-            ],
-            "theme": "",
-            "secondary_theme": "",
-            "img": "",
-            "audio": [],
-            "video": [],
-            "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
-            "example_sentence_definition_audio": [],
-            "optional": {},
-            "source": "YourData"
-        },
-        {
-            "word": "jury",
-            "definition": "jury",
-            "entryID": "YourData026",
-            "sorting_form": [
+                2,
+                0,
                 9,
-                20,
-                17,
-                24
-            ],
-            "theme": "",
-            "secondary_theme": "",
-            "img": "",
-            "audio": [],
-            "video": [],
-            "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
-            "example_sentence_definition_audio": [],
-            "optional": {},
-            "source": "YourData"
-        },
-        {
-            "word": "no",
-            "definition": "no",
-            "entryID": "YourData016",
-            "sorting_form": [
-                13,
-                14
-            ],
-            "theme": "",
-            "secondary_theme": "",
-            "img": "",
-            "audio": [],
-            "video": [],
-            "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
-            "example_sentence_definition_audio": [],
-            "optional": {},
-            "source": "YourData"
-        },
-        {
-            "word": "of",
-            "definition": "of",
-            "entryID": "YourData09",
-            "sorting_form": [
                 14,
-                5
+                20
             ],
-            "theme": "",
+            "theme": "animals",
             "secondary_theme": "",
             "img": "",
-            "audio": [],
-            "video": [],
-            "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
-            "example_sentence_definition_audio": [],
-            "optional": {},
-            "source": "YourData"
-        },
-        {
-            "word": "over-all",
-            "definition": "over-all",
-            "entryID": "YourData040",
-            "sorting_form": [
-                14,
-                21,
-                4,
-                17,
-                10045,
-                0,
-                11,
-                11
+            "audio": [
+                {
+                    "description": "dhd",
+                    "filename": "assets/audio/carcajou.mp3"
+                }
             ],
-            "theme": "",
-            "secondary_theme": "",
-            "img": "",
-            "audio": [],
             "video": [],
             "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
+            "example_sentence": [
+                "Le carcajou a toujours faim"
+            ],
+            "example_sentence_definition": [
+                "The wolverine is always hungry"
+            ],
+            "example_sentence_audio": [
+                [
+                    {
+                        "description": "dhd",
+                        "filename": "assets/audio/carcajou1.mp3"
+                    }
+                ]
+            ],
             "example_sentence_definition_audio": [],
             "optional": {},
-            "source": "YourData"
+            "source": "starter"
         },
         {
-            "word": "place",
-            "definition": "place",
-            "entryID": "YourData023",
+            "word": "courgette",
+            "definition": "zucchini",
+            "entryID": "starter03",
             "sorting_form": [
-                15,
-                11,
-                0,
                 2,
-                4
-            ],
-            "theme": "",
-            "secondary_theme": "",
-            "img": "",
-            "audio": [],
-            "video": [],
-            "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
-            "example_sentence_definition_audio": [],
-            "optional": {},
-            "source": "YourData"
-        },
-        {
-            "word": "praise",
-            "definition": "praise",
-            "entryID": "YourData049",
-            "sorting_form": [
-                15,
-                17,
-                0,
-                8,
-                18,
-                4
-            ],
-            "theme": "",
-            "secondary_theme": "",
-            "img": "",
-            "audio": [],
-            "video": [],
-            "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
-            "example_sentence_definition_audio": [],
-            "optional": {},
-            "source": "YourData"
-        },
-        {
-            "word": "presentments",
-            "definition": "presentments",
-            "entryID": "YourData031",
-            "sorting_form": [
-                15,
-                17,
-                4,
-                18,
-                4,
-                13,
-                19,
-                12,
-                4,
-                13,
-                19,
-                18
-            ],
-            "theme": "",
-            "secondary_theme": "",
-            "img": "",
-            "audio": [],
-            "video": [],
-            "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
-            "example_sentence_definition_audio": [],
-            "optional": {},
-            "source": "YourData"
-        },
-        {
-            "word": "primary",
-            "definition": "primary",
-            "entryID": "YourData012",
-            "sorting_form": [
-                15,
-                17,
-                8,
-                12,
-                0,
-                17,
-                24
-            ],
-            "theme": "",
-            "secondary_theme": "",
-            "img": "",
-            "audio": [],
-            "video": [],
-            "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
-            "example_sentence_definition_audio": [],
-            "optional": {},
-            "source": "YourData"
-        },
-        {
-            "word": "produced",
-            "definition": "produced",
-            "entryID": "YourData014",
-            "sorting_form": [
-                15,
-                17,
-                14,
-                3,
-                20,
-                2,
-                4,
-                3
-            ],
-            "theme": "",
-            "secondary_theme": "",
-            "img": "",
-            "audio": [],
-            "video": [],
-            "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
-            "example_sentence_definition_audio": [],
-            "optional": {},
-            "source": "YourData"
-        },
-        {
-            "word": "recent",
-            "definition": "recent",
-            "entryID": "YourData011",
-            "sorting_form": [
-                17,
-                4,
-                2,
-                4,
-                13,
-                19
-            ],
-            "theme": "",
-            "secondary_theme": "",
-            "img": "",
-            "audio": [],
-            "video": [],
-            "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
-            "example_sentence_definition_audio": [],
-            "optional": {},
-            "source": "YourData"
-        },
-        {
-            "word": "said",
-            "definition": "said",
-            "entryID": "YourData05",
-            "sorting_form": [
-                18,
-                0,
-                8,
-                3
-            ],
-            "theme": "",
-            "secondary_theme": "",
-            "img": "",
-            "audio": [],
-            "video": [],
-            "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
-            "example_sentence_definition_audio": [],
-            "optional": {},
-            "source": "YourData"
-        },
-        {
-            "word": "term-end",
-            "definition": "term-end",
-            "entryID": "YourData030",
-            "sorting_form": [
-                19,
-                4,
-                17,
-                12,
-                10045,
-                4,
-                13,
-                3
-            ],
-            "theme": "",
-            "secondary_theme": "",
-            "img": "",
-            "audio": [],
-            "video": [],
-            "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
-            "example_sentence_definition_audio": [],
-            "optional": {},
-            "source": "YourData"
-        },
-        {
-            "word": "that",
-            "definition": "that",
-            "entryID": "YourData019",
-            "sorting_form": [
-                19,
-                7,
-                0,
-                19
-            ],
-            "theme": "",
-            "secondary_theme": "",
-            "img": "",
-            "audio": [],
-            "video": [],
-            "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
-            "example_sentence_definition_audio": [],
-            "optional": {},
-            "source": "YourData"
-        },
-        {
-            "word": "the",
-            "definition": "the",
-            "entryID": "YourData033",
-            "sorting_form": [
-                19,
-                7,
-                4
-            ],
-            "theme": "",
-            "secondary_theme": "",
-            "img": "",
-            "audio": [],
-            "video": [],
-            "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
-            "example_sentence_definition_audio": [],
-            "optional": {},
-            "source": "YourData"
-        },
-        {
-            "word": "took",
-            "definition": "took",
-            "entryID": "YourData022",
-            "sorting_form": [
-                19,
-                14,
-                14,
-                10
-            ],
-            "theme": "",
-            "secondary_theme": "",
-            "img": "",
-            "audio": [],
-            "video": [],
-            "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
-            "example_sentence_definition_audio": [],
-            "optional": {},
-            "source": "YourData"
-        },
-        {
-            "word": "which",
-            "definition": "which",
-            "entryID": "YourData038",
-            "sorting_form": [
-                22,
-                7,
-                8,
-                2,
-                7
-            ],
-            "theme": "",
-            "secondary_theme": "",
-            "img": "",
-            "audio": [],
-            "video": [],
-            "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
-            "example_sentence_definition_audio": [],
-            "optional": {},
-            "source": "YourData"
-        },
-        {
-            "word": "Atlanta's",
-            "definition": "Atlanta's",
-            "entryID": "YourData010",
-            "sorting_form": [
-                26,
-                19,
-                11,
-                0,
-                13,
-                19,
-                0,
-                10039,
-                18
-            ],
-            "theme": "",
-            "secondary_theme": "",
-            "img": "",
-            "audio": [],
-            "video": [],
-            "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
-            "example_sentence_definition_audio": [],
-            "optional": {},
-            "source": "YourData"
-        },
-        {
-            "word": "City",
-            "definition": "City",
-            "entryID": "YourData034",
-            "sorting_form": [
-                28,
-                8,
-                19,
-                24
-            ],
-            "theme": "",
-            "secondary_theme": "",
-            "img": "",
-            "audio": [],
-            "video": [],
-            "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
-            "example_sentence_definition_audio": [],
-            "optional": {},
-            "source": "YourData"
-        },
-        {
-            "word": "Committee",
-            "definition": "Committee",
-            "entryID": "YourData036",
-            "sorting_form": [
-                28,
-                14,
-                12,
-                12,
-                8,
-                19,
-                19,
-                4,
-                4
-            ],
-            "theme": "",
-            "secondary_theme": "",
-            "img": "",
-            "audio": [],
-            "video": [],
-            "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
-            "example_sentence_definition_audio": [],
-            "optional": {},
-            "source": "YourData"
-        },
-        {
-            "word": "County",
-            "definition": "County",
-            "entryID": "YourData02",
-            "sorting_form": [
-                28,
                 14,
                 20,
-                13,
-                19,
-                24
-            ],
-            "theme": "",
-            "secondary_theme": "",
-            "img": "",
-            "audio": [],
-            "video": [],
-            "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
-            "example_sentence_definition_audio": [],
-            "optional": {},
-            "source": "YourData"
-        },
-        {
-            "word": "Executive",
-            "definition": "Executive",
-            "entryID": "YourData035",
-            "sorting_form": [
-                30,
-                23,
+                17,
+                6,
                 4,
-                2,
-                20,
                 19,
-                8,
-                21,
+                19,
                 4
             ],
-            "theme": "",
+            "theme": "vegetables",
             "secondary_theme": "",
             "img": "",
-            "audio": [],
-            "video": [],
-            "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
-            "example_sentence_definition_audio": [],
-            "optional": {},
-            "source": "YourData"
-        },
-        {
-            "word": "Friday",
-            "definition": "Friday",
-            "entryID": "YourData06",
-            "sorting_form": [
-                31,
-                17,
-                8,
-                3,
-                0,
-                24
+            "audio": [
+                {
+                    "description": "dhd",
+                    "filename": "assets/audio/courgette.mp3"
+                }
             ],
-            "theme": "",
-            "secondary_theme": "",
-            "img": "",
-            "audio": [],
             "video": [],
             "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
-            "example_sentence_definition_audio": [],
-            "optional": {},
-            "source": "YourData"
-        },
-        {
-            "word": "Fulton",
-            "definition": "Fulton",
-            "entryID": "YourData01",
-            "sorting_form": [
-                31,
-                20,
-                11,
-                19,
-                14,
-                13
+            "example_sentence": [
+                "J'ai cueilli une courgette"
             ],
-            "theme": "",
-            "secondary_theme": "",
-            "img": "",
-            "audio": [],
-            "video": [],
-            "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
+            "example_sentence_definition": [
+                "I picked a zucchini"
+            ],
+            "example_sentence_audio": [
+                [
+                    {
+                        "description": "dhd",
+                        "filename": "assets/audio/courgette1.mp3"
+                    }
+                ]
+            ],
             "example_sentence_definition_audio": [],
             "optional": {},
-            "source": "YourData"
+            "source": "starter"
         },
         {
-            "word": "Grand",
-            "definition": "Grand",
-            "entryID": "YourData03",
+            "word": "granite",
+            "definition": "granite",
+            "entryID": "starter04",
             "sorting_form": [
-                32,
+                6,
                 17,
                 0,
                 13,
-                3
-            ],
-            "theme": "",
-            "secondary_theme": "",
-            "img": "",
-            "audio": [],
-            "video": [],
-            "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
-            "example_sentence_definition_audio": [],
-            "optional": {},
-            "source": "YourData"
-        },
-        {
-            "word": "Jury",
-            "definition": "Jury",
-            "entryID": "YourData04",
-            "sorting_form": [
-                35,
-                20,
-                17,
-                24
-            ],
-            "theme": "",
-            "secondary_theme": "",
-            "img": "",
-            "audio": [],
-            "video": [],
-            "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
-            "example_sentence_definition_audio": [],
-            "optional": {},
-            "source": "YourData"
-        },
-        {
-            "word": "The",
-            "definition": "The",
-            "entryID": "YourData00",
-            "sorting_form": [
-                45,
-                7,
+                8,
+                19,
                 4
             ],
-            "theme": "",
+            "theme": "minerals",
             "secondary_theme": "",
             "img": "",
-            "audio": [],
-            "video": [],
-            "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
-            "example_sentence_definition_audio": [],
-            "optional": {},
-            "source": "YourData"
-        },
-        {
-            "word": "''",
-            "definition": "''",
-            "entryID": "YourData018",
-            "sorting_form": [
-                10039,
-                10039
+            "audio": [
+                {
+                    "description": "dhd",
+                    "filename": "assets/audio/granite.mp3"
+                }
             ],
-            "theme": "",
-            "secondary_theme": "",
-            "img": "",
-            "audio": [],
             "video": [],
             "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
-            "example_sentence_definition_audio": [],
-            "optional": {},
-            "source": "YourData"
-        },
-        {
-            "word": ",",
-            "definition": ",",
-            "entryID": "YourData037",
-            "sorting_form": [
-                10044
+            "example_sentence": [
+                "Le granite vient de St-Tite"
             ],
-            "theme": "",
-            "secondary_theme": "",
-            "img": "",
-            "audio": [],
-            "video": [],
-            "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
-            "example_sentence_definition_audio": [],
-            "optional": {},
-            "source": "YourData"
-        },
-        {
-            "word": ".",
-            "definition": ".",
-            "entryID": "YourData024",
-            "sorting_form": [
-                10046
+            "example_sentence_definition": [
+                "The granite comes from St-Tite"
             ],
-            "theme": "",
-            "secondary_theme": "",
-            "img": "",
-            "audio": [],
-            "video": [],
-            "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
-            "example_sentence_definition_audio": [],
-            "optional": {},
-            "source": "YourData"
-        },
-        {
-            "word": "``",
-            "definition": "``",
-            "entryID": "YourData015",
-            "sorting_form": [
-                10096,
-                10096
+            "example_sentence_audio": [
+                [
+                    {
+                        "description": "dhd",
+                        "filename": "assets/audio/granite1.mp3"
+                    }
+                ]
             ],
-            "theme": "",
-            "secondary_theme": "",
-            "img": "",
-            "audio": [],
-            "video": [],
-            "definition_audio": [],
-            "example_sentence": [],
-            "example_sentence_definition": [],
-            "example_sentence_audio": [],
             "example_sentence_definition_audio": [],
             "optional": {},
-            "source": "YourData"
+            "source": "starter"
         }
     ],
     "l1_index": {
-        "the": {
-            "YourData00": {
+        "alouette": {
+            "starter00": {
                 "location": [
                     [
                         "word",
@@ -1112,25 +314,13 @@
                     ]
                 ],
                 "score": {
-                    "word": 2.6319682417839707,
-                    "total": 2.6319682417839707
-                }
-            },
-            "YourData033": {
-                "location": [
-                    [
-                        "word",
-                        0
-                    ]
-                ],
-                "score": {
-                    "word": 2.6319682417839707,
-                    "total": 2.6319682417839707
+                    "word": 1.0986122886681098,
+                    "total": 1.0986122886681098
                 }
             }
         },
-        "fulton": {
-            "YourData01": {
+        "belette": {
+            "starter01": {
                 "location": [
                     [
                         "word",
@@ -1138,13 +328,13 @@
                     ]
                 ],
                 "score": {
-                    "word": 3.1429372175814474,
-                    "total": 3.1429372175814474
+                    "word": 1.0986122886681098,
+                    "total": 1.0986122886681098
                 }
             }
         },
-        "atlantas": {
-            "YourData010": {
+        "carcajou": {
+            "starter02": {
                 "location": [
                     [
                         "word",
@@ -1152,13 +342,13 @@
                     ]
                 ],
                 "score": {
-                    "word": 3.1429372175814474,
-                    "total": 3.1429372175814474
+                    "word": 1.0986122886681098,
+                    "total": 1.0986122886681098
                 }
             }
         },
-        "recent": {
-            "YourData011": {
+        "courgette": {
+            "starter03": {
                 "location": [
                     [
                         "word",
@@ -1166,13 +356,13 @@
                     ]
                 ],
                 "score": {
-                    "word": 3.1429372175814474,
-                    "total": 3.1429372175814474
+                    "word": 1.0986122886681098,
+                    "total": 1.0986122886681098
                 }
             }
         },
-        "primary": {
-            "YourData012": {
+        "granite": {
+            "starter04": {
                 "location": [
                     [
                         "word",
@@ -1180,447 +370,15 @@
                     ]
                 ],
                 "score": {
-                    "word": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "election": {
-            "YourData013": {
-                "location": [
-                    [
-                        "word",
-                        0
-                    ]
-                ],
-                "score": {
-                    "word": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "produced": {
-            "YourData014": {
-                "location": [
-                    [
-                        "word",
-                        0
-                    ]
-                ],
-                "score": {
-                    "word": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "no": {
-            "YourData016": {
-                "location": [
-                    [
-                        "word",
-                        0
-                    ]
-                ],
-                "score": {
-                    "word": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "evidence": {
-            "YourData017": {
-                "location": [
-                    [
-                        "word",
-                        0
-                    ]
-                ],
-                "score": {
-                    "word": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "that": {
-            "YourData019": {
-                "location": [
-                    [
-                        "word",
-                        0
-                    ]
-                ],
-                "score": {
-                    "word": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "county": {
-            "YourData02": {
-                "location": [
-                    [
-                        "word",
-                        0
-                    ]
-                ],
-                "score": {
-                    "word": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "any": {
-            "YourData020": {
-                "location": [
-                    [
-                        "word",
-                        0
-                    ]
-                ],
-                "score": {
-                    "word": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "irregularities": {
-            "YourData021": {
-                "location": [
-                    [
-                        "word",
-                        0
-                    ]
-                ],
-                "score": {
-                    "word": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "took": {
-            "YourData022": {
-                "location": [
-                    [
-                        "word",
-                        0
-                    ]
-                ],
-                "score": {
-                    "word": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "place": {
-            "YourData023": {
-                "location": [
-                    [
-                        "word",
-                        0
-                    ]
-                ],
-                "score": {
-                    "word": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "jury": {
-            "YourData026": {
-                "location": [
-                    [
-                        "word",
-                        0
-                    ]
-                ],
-                "score": {
-                    "word": 2.6319682417839707,
-                    "total": 2.6319682417839707
-                }
-            },
-            "YourData04": {
-                "location": [
-                    [
-                        "word",
-                        0
-                    ]
-                ],
-                "score": {
-                    "word": 2.6319682417839707,
-                    "total": 2.6319682417839707
-                }
-            }
-        },
-        "further": {
-            "YourData027": {
-                "location": [
-                    [
-                        "word",
-                        0
-                    ]
-                ],
-                "score": {
-                    "word": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "in": {
-            "YourData029": {
-                "location": [
-                    [
-                        "word",
-                        0
-                    ]
-                ],
-                "score": {
-                    "word": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "grand": {
-            "YourData03": {
-                "location": [
-                    [
-                        "word",
-                        0
-                    ]
-                ],
-                "score": {
-                    "word": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "termend": {
-            "YourData030": {
-                "location": [
-                    [
-                        "word",
-                        0
-                    ]
-                ],
-                "score": {
-                    "word": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "presentments": {
-            "YourData031": {
-                "location": [
-                    [
-                        "word",
-                        0
-                    ]
-                ],
-                "score": {
-                    "word": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "city": {
-            "YourData034": {
-                "location": [
-                    [
-                        "word",
-                        0
-                    ]
-                ],
-                "score": {
-                    "word": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "executive": {
-            "YourData035": {
-                "location": [
-                    [
-                        "word",
-                        0
-                    ]
-                ],
-                "score": {
-                    "word": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "committee": {
-            "YourData036": {
-                "location": [
-                    [
-                        "word",
-                        0
-                    ]
-                ],
-                "score": {
-                    "word": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "which": {
-            "YourData038": {
-                "location": [
-                    [
-                        "word",
-                        0
-                    ]
-                ],
-                "score": {
-                    "word": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "had": {
-            "YourData039": {
-                "location": [
-                    [
-                        "word",
-                        0
-                    ]
-                ],
-                "score": {
-                    "word": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "overall": {
-            "YourData040": {
-                "location": [
-                    [
-                        "word",
-                        0
-                    ]
-                ],
-                "score": {
-                    "word": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "charge": {
-            "YourData041": {
-                "location": [
-                    [
-                        "word",
-                        0
-                    ]
-                ],
-                "score": {
-                    "word": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "deserves": {
-            "YourData047": {
-                "location": [
-                    [
-                        "word",
-                        0
-                    ]
-                ],
-                "score": {
-                    "word": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "praise": {
-            "YourData049": {
-                "location": [
-                    [
-                        "word",
-                        0
-                    ]
-                ],
-                "score": {
-                    "word": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "said": {
-            "YourData05": {
-                "location": [
-                    [
-                        "word",
-                        0
-                    ]
-                ],
-                "score": {
-                    "word": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "friday": {
-            "YourData06": {
-                "location": [
-                    [
-                        "word",
-                        0
-                    ]
-                ],
-                "score": {
-                    "word": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "an": {
-            "YourData07": {
-                "location": [
-                    [
-                        "word",
-                        0
-                    ]
-                ],
-                "score": {
-                    "word": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "investigation": {
-            "YourData08": {
-                "location": [
-                    [
-                        "word",
-                        0
-                    ]
-                ],
-                "score": {
-                    "word": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "of": {
-            "YourData09": {
-                "location": [
-                    [
-                        "word",
-                        0
-                    ]
-                ],
-                "score": {
-                    "word": 3.1429372175814474,
-                    "total": 3.1429372175814474
+                    "word": 1.0986122886681098,
+                    "total": 1.0986122886681098
                 }
             }
         }
     },
     "l2_index": {
-        "the": {
-            "YourData00": {
+        "lark": {
+            "starter00": {
                 "location": [
                     [
                         "definition",
@@ -1628,25 +386,13 @@
                     ]
                 ],
                 "score": {
-                    "definition": 2.6319682417839707,
-                    "total": 2.6319682417839707
-                }
-            },
-            "YourData033": {
-                "location": [
-                    [
-                        "definition",
-                        0
-                    ]
-                ],
-                "score": {
-                    "definition": 2.6319682417839707,
-                    "total": 2.6319682417839707
+                    "definition": 1.0986122886681098,
+                    "total": 1.0986122886681098
                 }
             }
         },
-        "fulton": {
-            "YourData01": {
+        "weasel": {
+            "starter01": {
                 "location": [
                     [
                         "definition",
@@ -1654,13 +400,13 @@
                     ]
                 ],
                 "score": {
-                    "definition": 3.1429372175814474,
-                    "total": 3.1429372175814474
+                    "definition": 1.0986122886681098,
+                    "total": 1.0986122886681098
                 }
             }
         },
-        "atlanta": {
-            "YourData010": {
+        "wolverin": {
+            "starter02": {
                 "location": [
                     [
                         "definition",
@@ -1668,13 +414,13 @@
                     ]
                 ],
                 "score": {
-                    "definition": 3.1429372175814474,
-                    "total": 3.1429372175814474
+                    "definition": 1.0986122886681098,
+                    "total": 1.0986122886681098
                 }
             }
         },
-        "recent": {
-            "YourData011": {
+        "zucchini": {
+            "starter03": {
                 "location": [
                     [
                         "definition",
@@ -1682,13 +428,13 @@
                     ]
                 ],
                 "score": {
-                    "definition": 3.1429372175814474,
-                    "total": 3.1429372175814474
+                    "definition": 1.0986122886681098,
+                    "total": 1.0986122886681098
                 }
             }
         },
-        "primari": {
-            "YourData012": {
+        "granit": {
+            "starter04": {
                 "location": [
                     [
                         "definition",
@@ -1696,440 +442,8 @@
                     ]
                 ],
                 "score": {
-                    "definition": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "elect": {
-            "YourData013": {
-                "location": [
-                    [
-                        "definition",
-                        0
-                    ]
-                ],
-                "score": {
-                    "definition": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "produc": {
-            "YourData014": {
-                "location": [
-                    [
-                        "definition",
-                        0
-                    ]
-                ],
-                "score": {
-                    "definition": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "no": {
-            "YourData016": {
-                "location": [
-                    [
-                        "definition",
-                        0
-                    ]
-                ],
-                "score": {
-                    "definition": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "evid": {
-            "YourData017": {
-                "location": [
-                    [
-                        "definition",
-                        0
-                    ]
-                ],
-                "score": {
-                    "definition": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "that": {
-            "YourData019": {
-                "location": [
-                    [
-                        "definition",
-                        0
-                    ]
-                ],
-                "score": {
-                    "definition": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "counti": {
-            "YourData02": {
-                "location": [
-                    [
-                        "definition",
-                        0
-                    ]
-                ],
-                "score": {
-                    "definition": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "ani": {
-            "YourData020": {
-                "location": [
-                    [
-                        "definition",
-                        0
-                    ]
-                ],
-                "score": {
-                    "definition": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "irregular": {
-            "YourData021": {
-                "location": [
-                    [
-                        "definition",
-                        0
-                    ]
-                ],
-                "score": {
-                    "definition": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "took": {
-            "YourData022": {
-                "location": [
-                    [
-                        "definition",
-                        0
-                    ]
-                ],
-                "score": {
-                    "definition": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "place": {
-            "YourData023": {
-                "location": [
-                    [
-                        "definition",
-                        0
-                    ]
-                ],
-                "score": {
-                    "definition": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "juri": {
-            "YourData026": {
-                "location": [
-                    [
-                        "definition",
-                        0
-                    ]
-                ],
-                "score": {
-                    "definition": 2.6319682417839707,
-                    "total": 2.6319682417839707
-                }
-            },
-            "YourData04": {
-                "location": [
-                    [
-                        "definition",
-                        0
-                    ]
-                ],
-                "score": {
-                    "definition": 2.6319682417839707,
-                    "total": 2.6319682417839707
-                }
-            }
-        },
-        "further": {
-            "YourData027": {
-                "location": [
-                    [
-                        "definition",
-                        0
-                    ]
-                ],
-                "score": {
-                    "definition": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "in": {
-            "YourData029": {
-                "location": [
-                    [
-                        "definition",
-                        0
-                    ]
-                ],
-                "score": {
-                    "definition": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "grand": {
-            "YourData03": {
-                "location": [
-                    [
-                        "definition",
-                        0
-                    ]
-                ],
-                "score": {
-                    "definition": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "termend": {
-            "YourData030": {
-                "location": [
-                    [
-                        "definition",
-                        0
-                    ]
-                ],
-                "score": {
-                    "definition": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "present": {
-            "YourData031": {
-                "location": [
-                    [
-                        "definition",
-                        0
-                    ]
-                ],
-                "score": {
-                    "definition": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "citi": {
-            "YourData034": {
-                "location": [
-                    [
-                        "definition",
-                        0
-                    ]
-                ],
-                "score": {
-                    "definition": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "execut": {
-            "YourData035": {
-                "location": [
-                    [
-                        "definition",
-                        0
-                    ]
-                ],
-                "score": {
-                    "definition": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "committe": {
-            "YourData036": {
-                "location": [
-                    [
-                        "definition",
-                        0
-                    ]
-                ],
-                "score": {
-                    "definition": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "which": {
-            "YourData038": {
-                "location": [
-                    [
-                        "definition",
-                        0
-                    ]
-                ],
-                "score": {
-                    "definition": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "had": {
-            "YourData039": {
-                "location": [
-                    [
-                        "definition",
-                        0
-                    ]
-                ],
-                "score": {
-                    "definition": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "overal": {
-            "YourData040": {
-                "location": [
-                    [
-                        "definition",
-                        0
-                    ]
-                ],
-                "score": {
-                    "definition": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "charg": {
-            "YourData041": {
-                "location": [
-                    [
-                        "definition",
-                        0
-                    ]
-                ],
-                "score": {
-                    "definition": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "deserv": {
-            "YourData047": {
-                "location": [
-                    [
-                        "definition",
-                        0
-                    ]
-                ],
-                "score": {
-                    "definition": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "prais": {
-            "YourData049": {
-                "location": [
-                    [
-                        "definition",
-                        0
-                    ]
-                ],
-                "score": {
-                    "definition": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "said": {
-            "YourData05": {
-                "location": [
-                    [
-                        "definition",
-                        0
-                    ]
-                ],
-                "score": {
-                    "definition": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "friday": {
-            "YourData06": {
-                "location": [
-                    [
-                        "definition",
-                        0
-                    ]
-                ],
-                "score": {
-                    "definition": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "an": {
-            "YourData07": {
-                "location": [
-                    [
-                        "definition",
-                        0
-                    ]
-                ],
-                "score": {
-                    "definition": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "investig": {
-            "YourData08": {
-                "location": [
-                    [
-                        "definition",
-                        0
-                    ]
-                ],
-                "score": {
-                    "definition": 3.1429372175814474,
-                    "total": 3.1429372175814474
-                }
-            }
-        },
-        "of": {
-            "YourData09": {
-                "location": [
-                    [
-                        "definition",
-                        0
-                    ]
-                ],
-                "score": {
-                    "definition": 3.1429372175814474,
-                    "total": 3.1429372175814474
+                    "definition": 1.0986122886681098,
+                    "total": 1.0986122886681098
                 }
             }
         }
