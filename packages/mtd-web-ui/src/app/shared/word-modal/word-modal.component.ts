@@ -66,19 +66,26 @@ export class WordModalComponent implements OnInit, OnDestroy {
         let definition: Array<ExampleText> = [];
         if (this.entry.example_sentence_definition)
           definition = this.entry.example_sentence_definition[idx]
-            .split(/[\s.,:;()]+/)
+            ?.split(/[\s.,:;()]+/)
             .filter((w: string) => w.length)
             .map((w: string) => {
               return { text: w, active: false };
             });
         let audio: Array<ExampleAudio> = [];
-        if (this.entry.example_sentence_definition_audio)
-          audio = this.entry.example_sentence_definition_audio[idx].map(
+        if (this.entry.example_sentence_audio)
+          audio = this.entry.example_sentence_audio[idx]?.map(
             (a) => ({
               filename: a.filename,
               speaker: a.description ?? "unknown",
-              // FIXME: add starts to model
-              starts: [],
+              starts: a.starts as Array<number> ?? [],
+            })
+          );
+        else if (this.entry.example_sentence_definition_audio)
+          audio = this.entry.example_sentence_definition_audio[idx]?.map(
+            (a) => ({
+              filename: a.filename,
+              speaker: a.description ?? "unknown",
+              starts: a.starts as Array<number> ?? [],
             })
           );
         this.examples.push({
@@ -133,9 +140,9 @@ export class WordModalComponent implements OnInit, OnDestroy {
   }
 
   playAudio(example: Example | null, audio: ExampleAudio) {
-    const path = this.dataService.$config.value?.audio_path + audio.filename;
+    const path = (this.dataService.$config.value?.audio_path ?? "") + audio.filename;
     const audiotag = new Audio(path);
-    const starts = audio.starts.map((x) => x * 0.01);
+    const starts = audio.starts?.map((x) => x * 0.01) || [];
 
     audiotag.onerror = () => this.fileNotFound(path);
     // Only highlight if we have an alignment
