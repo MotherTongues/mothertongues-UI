@@ -98,7 +98,8 @@
     "word-modal": {
       "audio": "Audio",
       "audio-instructions": "Click on the audio below to listen to '{{value}}'",
-      "exit": "exit"
+      "examples": "Examples",
+      "exit": "Close"
     }
   }
 }
