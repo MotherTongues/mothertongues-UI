@@ -1,5 +1,8 @@
 import { create_normalization_function, englishStemmer, sortResults, Result, MTDSearch, Index, MTDParams } from './search';
 import { DistanceCalculator } from './weighted.levenstein';
+import index1 from '../../testdata/search_L1EngIndex_numbers.json';
+import index2 from '../../testdata/search_L2EspIndex_numbers.json';
+import { L1Index, L2Index } from './mtd';
 
 describe('stemmer', () => {
   it('should do basic stemming', () => {
@@ -201,24 +204,16 @@ describe('MTDSearch class', () => {
     data: {'one': {}, 'two': {}}
   }
 
-  const moreInterstingIndexParams = {
-    data: {
-    'one': {}, 
-    'two': {}, 
-    'seven': {}, 
-    'thirteen': {}, 
-    'seventeen': {}, 
-    'thirty three': {},
-    'thirty seven': {}
-    }
-  }
-
   const mtdParams: MTDParams = {
     transducer: {},
     index: new Index(basicIndexParams),
     searchType: 'weighted_levenstein',
     tokens: undefined
   }
+
+  beforeEach(() => {
+    mtdSearch = new MTDSearch(mtdParams);
+  })
 
   it('should construct with undefined tokens', () => {
     // arrange
@@ -239,89 +234,92 @@ describe('MTDSearch class', () => {
     expect(mtdSearch.tokenizer).not.toEqual(undefined);
   });
 
+  describe('combine_results method', () => {
+    it('should return no results if search term does not have defined Index data', () => {
+
+      const result = mtdSearch.combine_results([['one', 0]]);
+      expect(result).toEqual([]);
+
+    });
+  });
+
   describe('search method', () => {
-    it('should return correct search results with weighed distance calculator', () => {
-      const query = 'one'; // replace with your test query
+
+    const l1_index_english_numbers: L1Index = index1;
+    const l2_index_spanish_numbers = index2;
+
+    it('should return correct search results for single word query', () => {
+      const query = 'one'; 
       const maximum_edit_distance = 2;
       const sort = false;
   
       mtdParams.transducer = new DistanceCalculator({});
+
+      mtdParams.index.data = l1_index_english_numbers;
       mtdSearch = new MTDSearch(mtdParams);
 
       const result = mtdSearch.search(query, maximum_edit_distance, sort);
   
-      // replace the expected result with your expected output
-      const expectedResult: Result[] = [];
+      const expectedResult: Result = [
+        1, 
+        'docid', 
+        [], 
+        1
+      ]
+      const expectedResults: Result[] = [expectedResult];
   
-      expect(result).toEqual(expectedResult);
+      expect(result).toEqual(expectedResults);
     });
   });
 
-  it('should return correct results for single word query', () => {
+
+
+  // it('should return correct results for multi-word query', () => {
+  //   const query = 'one hundred';
+  //   const maximum_edit_distance = 2;
+  //   const sort = false;
+  
+  //   const result = mtdSearch.search(query, maximum_edit_distance, sort);
+  //   const expectedResult = [ /* expected result for 'one' and 'hundred' */ ];
+  
+  //   expect(result).toEqual(expectedResult);
+  // });
+  
+  // it('should return correct results for single non-existent word query', () => {
+  //   const query = 'nonExistentWord';
+  //   const maximum_edit_distance = 2;
+  //   const sort = false;
+  
+  //   const result = mtdSearch.search(query, maximum_edit_distance, sort);
+  //   const expectedResult = [ /* expected result for 'nonexistant word' */ ];
+  
+  //   expect(result).toEqual(expectedResult);
+  // });
+
+  // it('should return correct results for multi-word query containing non-existent word', () => {
+  //   const query = 'one nonExistentWord';
+  //   const maximum_edit_distance = 2;
+  //   const sort = false;
+  
+  //   const result = mtdSearch.search(query, maximum_edit_distance, sort);
+  //   const expectedResult = [ /* expected result for 'one, 'nonexistant word' */ ];
+  
+  //   expect(result).toEqual(expectedResult);
+  // });
+  
+
+
+  it('should return correct results for query with maximum edit distance', () => {
     const query = 'one';
-    const maximum_edit_distance = 2;
+    const maximum_edit_distance = 0;
     const sort = false;
   
-    mtdParams.transducer = new DistanceCalculator({});
-    mtdSearch = new MTDSearch(mtdParams);
-
     const result = mtdSearch.search(query, maximum_edit_distance, sort);
-    const expectedResult: Result[] = [ /* expected result for 'one' */ ];
+    const expectedResult = [ /* expected result for 'one' */ ];
   
     expect(result).toEqual(expectedResult);
   });
   
-  test('search method should return correct results', () => {
-    const query = 'your test query'; // replace with your test query
-    const maximum_edit_distance = 2;
-    const sort = false;
-
-    const result = mtdSearch.search(query, maximum_edit_distance, sort);
-
-    // replace the expected result with your expected output
-    const expectedResult = [ /* expected result */ ];
-
-    expect(result).toEqual(expectedResult);
-  });
-
-  test('search method should return correct results', () => {
-    const query = 'your test query'; // replace with your test query
-    const maximum_edit_distance = 2;
-    const sort = false;
-
-    const result = mtdSearch.search(query, maximum_edit_distance, sort);
-
-    // replace the expected result with your expected output
-    const expectedResult = [ /* expected result */ ];
-
-    expect(result).toEqual(expectedResult);
-  });
-
-  it('should return correct results', () => {
-    const query = 'your test query'; // replace with your test query
-    const maximum_edit_distance = 2;
-    const sort = false;
-
-    const result = mtdSearch.search(query, maximum_edit_distance, sort);
-
-    // replace the expected result with your expected output
-    const expectedResult = [ /* expected result */ ];
-
-    expect(result).toEqual(expectedResult);
-  });
-
-  it('should return correct results', () => {
-    const query = 'your test query'; // replace with your test query
-    const maximum_edit_distance = 2;
-    const sort = false;
-
-    const result = mtdSearch.search(query, maximum_edit_distance, sort);
-
-    // replace the expected result with your expected output
-    const expectedResult = [ /* expected result */ ];
-
-    expect(result).toEqual(expectedResult);
-  });
 
   it('should return correct results for query with sort option', () => {
     const query = 'one two';

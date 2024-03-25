@@ -1,0 +1,226 @@
+{
+    "uno": {
+        "DataNamedThis00": {
+            "location": [
+                [
+                    "definition",
+                    0
+                ]
+            ],
+            "score": {
+                "definition": 0.9354787642452883,
+                "total": 0.9354787642452883
+            }
+        },
+        "DataNamedThis05": {
+            "location": [
+                [
+                    "definition",
+                    2
+                ]
+            ],
+            "score": {
+                "definition": 0.5670188571027239,
+                "total": 0.5670188571027239
+            }
+        },
+        "DataNamedThis09": {
+            "location": [
+                [
+                    "definition",
+                    1
+                ]
+            ],
+            "score": {
+                "definition": 0.7060698029862258,
+                "total": 0.7060698029862258
+            }
+        }
+    },
+    "dos": {
+        "DataNamedThis01": {
+            "location": [
+                [
+                    "definition",
+                    0
+                ]
+            ],
+            "score": {
+                "definition": 2.265635648987121,
+                "total": 2.265635648987121
+            }
+        }
+    },
+    "siet": {
+        "DataNamedThis02": {
+            "location": [
+                [
+                    "definition",
+                    0
+                ]
+            ],
+            "score": {
+                "definition": 1.5021070279838244,
+                "total": 1.5021070279838244
+            }
+        },
+        "DataNamedThis07": {
+            "location": [
+                [
+                    "definition",
+                    2
+                ]
+            ],
+            "score": {
+                "definition": 0.9104674983621867,
+                "total": 0.9104674983621867
+            }
+        }
+    },
+    "trece": {
+        "DataNamedThis03": {
+            "location": [
+                [
+                    "definition",
+                    0
+                ]
+            ],
+            "score": {
+                "definition": 2.265635648987121,
+                "total": 2.265635648987121
+            }
+        }
+    },
+    "diecisiet": {
+        "DataNamedThis04": {
+            "location": [
+                [
+                    "definition",
+                    0
+                ]
+            ],
+            "score": {
+                "definition": 2.265635648987121,
+                "total": 2.265635648987121
+            }
+        }
+    },
+    "treinta": {
+        "DataNamedThis05": {
+            "location": [
+                [
+                    "definition",
+                    0
+                ]
+            ],
+            "score": {
+                "definition": 0.5670188571027239,
+                "total": 0.5670188571027239
+            }
+        },
+        "DataNamedThis06": {
+            "location": [
+                [
+                    "definition",
+                    0
+                ]
+            ],
+            "score": {
+                "definition": 0.5670188571027239,
+                "total": 0.5670188571027239
+            }
+        },
+        "DataNamedThis07": {
+            "location": [
+                [
+                    "definition",
+                    0
+                ]
+            ],
+            "score": {
+                "definition": 0.5670188571027239,
+                "total": 0.5670188571027239
+            }
+        }
+    },
+    "y": {
+        "DataNamedThis05": {
+            "location": [
+                [
+                    "definition",
+                    1
+                ]
+            ],
+            "score": {
+                "definition": 0.5670188571027239,
+                "total": 0.5670188571027239
+            }
+        },
+        "DataNamedThis06": {
+            "location": [
+                [
+                    "definition",
+                    1
+                ]
+            ],
+            "score": {
+                "definition": 0.5670188571027239,
+                "total": 0.5670188571027239
+            }
+        },
+        "DataNamedThis07": {
+            "location": [
+                [
+                    "definition",
+                    1
+                ]
+            ],
+            "score": {
+                "definition": 0.5670188571027239,
+                "total": 0.5670188571027239
+            }
+        }
+    },
+    "tres": {
+        "DataNamedThis06": {
+            "location": [
+                [
+                    "definition",
+                    2
+                ]
+            ],
+            "score": {
+                "definition": 1.3732627456661544,
+                "total": 1.3732627456661544
+            }
+        }
+    },
+    "cien": {
+        "DataNamedThis08": {
+            "location": [
+                [
+                    "definition",
+                    0
+                ]
+            ],
+            "score": {
+                "definition": 2.265635648987121,
+                "total": 2.265635648987121
+            }
+        }
+    },
+    "ciento": {
+        "DataNamedThis09": {
+            "location": [
+                [
+                    "definition",
+                    0
+                ]
+            ],
+            "score": {
+                "definition": 1.7100301764834676,
+                "total": 1.7100301764834676
+            }
+        }
+    }
+}
