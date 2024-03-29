@@ -1,8 +1,7 @@
 import { create_normalization_function, englishStemmer, sortResults, Result, MTDSearch, Index, MTDParams } from './search';
 import { DistanceCalculator } from './weighted.levenstein';
 import index1 from '../../testdata/search_L1EngIndex_numbers.json';
-import index2 from '../../testdata/search_L2EspIndex_numbers.json';
-import { L1Index, L2Index } from './mtd';
+import { L1Index } from './mtd';
 
 describe('stemmer', () => {
   it('should do basic stemming', () => {
@@ -246,7 +245,6 @@ describe('MTDSearch class', () => {
   describe('search method', () => {
 
     const l1_index_english_numbers: L1Index = index1;
-    const l2_index_spanish_numbers = index2;
 
     it('should return correct search results for single word query', () => {
       const query = 'one'; 
