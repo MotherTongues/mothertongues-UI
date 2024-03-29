@@ -260,24 +260,35 @@ describe('MTDSearch class', () => {
       mtdSearch = new MTDSearch(mtdParams);
 
       const result = mtdSearch.search(query, maximum_edit_distance, sort);
+      const expectedResult = [
+        [0,"DataNamedThis00",[["word",0,],],0.4423756753387274,],
+        [0,"DataNamedThis05",[["word",1,],],0.3305391282025323,],
+        [0,"DataNamedThis08",[["word",0,],],0.3305391282025323,],
+        [0,"DataNamedThis09",[["word",0,],["word",2,],],0.4100067234846742,]
+      ];
   
       // of the 10 given terms, only 4 should be returned
       expect(result.length).toEqual(4);
+      expect(result).toEqual(expectedResult);
     });
   });
 
-
-
-  // it('should return correct results for multi-word query', () => {
-  //   const query = 'one hundred';
-  //   const maximum_edit_distance = 2;
-  //   const sort = false;
+  it('should return correct results for multi-word query', () => {
+    const query = 'two hundred';
+    const maximum_edit_distance = 2;
+    const sort = false;
   
-  //   const result = mtdSearch.search(query, maximum_edit_distance, sort);
-  //   const expectedResult = [ /* expected result for 'one' and 'hundred' */ ];
+    const result = mtdSearch.search(query, maximum_edit_distance, sort);
+    const expectedResult = [
+      [1.5,"DataNamedThis01",[["word",0,],],2.220543387065661,],
+      [1.5,"DataNamedThis08",[["word",1,],],1.1000228598850477,],
+      [1.5,"DataNamedThis09",[["word",1,],],0.8780451527333565,]
+    ];
   
-  //   expect(result).toEqual(expectedResult);
-  // });
+    // of the 10 given terms, only 3 should be returned
+    expect(result.length).toEqual(3);
+    expect(result).toEqual(expectedResult);
+  });
   
   // it('should return correct results for single non-existent word query', () => {
   //   const query = 'nonExistentWord';
