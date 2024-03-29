@@ -290,53 +290,32 @@ describe('MTDSearch class', () => {
     expect(result).toEqual(expectedResult);
   });
   
-  // it('should return correct results for single non-existent word query', () => {
-  //   const query = 'nonExistentWord';
-  //   const maximum_edit_distance = 2;
-  //   const sort = false;
+  it('should return correct results for single non-existent word query', () => {
+    const query = 'nonExistentWord';
+    const maximum_edit_distance = 2;
+    const sort = false;
   
-  //   const result = mtdSearch.search(query, maximum_edit_distance, sort);
-  //   const expectedResult = [ /* expected result for 'nonexistant word' */ ];
+    const result = mtdSearch.search(query, maximum_edit_distance, sort);
   
-  //   expect(result).toEqual(expectedResult);
-  // });
+    expect(result.length).toEqual(0);
+  });
 
-  // it('should return correct results for multi-word query containing non-existent word', () => {
-  //   const query = 'one nonExistentWord';
-  //   const maximum_edit_distance = 2;
-  //   const sort = false;
+  it('should return correct results for multi-word query containing non-existent word', () => {
+    const query = 'one nonExistentWord';
+    const maximum_edit_distance = 2;
+    const sort = false;
   
-  //   const result = mtdSearch.search(query, maximum_edit_distance, sort);
-  //   const expectedResult = [ /* expected result for 'one, 'nonexistant word' */ ];
-  
-  //   expect(result).toEqual(expectedResult);
-  // });
-  
+    const result = mtdSearch.search(query, maximum_edit_distance, sort);
+    const expectedResult = [
+      [1.5,"DataNamedThis00",[["word",0,],],0.4423756753387274,],
+      [1.5,"DataNamedThis05",[["word",1,],],0.3305391282025323,],
+      [1.5,"DataNamedThis08",[["word",0,],],0.3305391282025323,],
+      [1.5,"DataNamedThis09",[["word",0,],["word",2,],],0.4100067234846742,]
+    ];
 
-
-  // it('should return correct results for query with maximum edit distance', () => {
-  //   const query = 'one';
-  //   const maximum_edit_distance = 0;
-  //   const sort = false;
+    expect(result.length).toEqual(4);
+    expect(result).toEqual(expectedResult);
+  });
   
-  //   const result = mtdSearch.search(query, maximum_edit_distance, sort);
-  //   const expectedResult = [ /* expected result for 'one' */ ];
-  
-  //   expect(result).toEqual(expectedResult);
-  // });
-  
-
-  // it('should return correct results for query with sort option', () => {
-  //   const query = 'one two';
-  //   const maximum_edit_distance = 2;
-  //   const sort = true;
-  
-  //   const result = mtdSearch.search(query, maximum_edit_distance, sort);
-  //   const expectedResult = [ /* expected sorted result for 'one' and 'two' */ ];
-  
-  //   expect(result).toEqual(expectedResult);
-  // });
-  
-
 });
 
