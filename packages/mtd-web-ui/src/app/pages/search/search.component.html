@@ -1,10 +1,10 @@
 <div class="page__content container">
   <div class="search__bar__container" [ngClass]="routeAnimationsElements">
-    <mat-form-field class="search__bar" style="min-height: 40px;">
+    <mat-form-field class="search__bar" style="min-height: 40px">
       <mat-icon [inline]="true" matPrefix class="search__icon">search</mat-icon>
       <mat-spinner
         *ngIf="loading$ | async"
-        style="position: absolute; right: 20px;"
+        style="position: absolute; right: 20px"
         [diameter]="20"
       >
       </mat-spinner>
@@ -35,7 +35,7 @@
       >
         <h5 *ngIf="searchQuery">
           {{
-            'mtd.pages.search.no-results' | translate: { value: searchQuery }
+            'mtd.pages.search.no-results' | translate : { value: searchQuery }
           }}
         </h5>
       </div>

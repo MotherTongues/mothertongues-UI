@@ -12,7 +12,7 @@ $angular-breakpoints: (
   tablet: 600px,
   tablet2: 905px,
   laptop: 1240px,
-  desktop: 1440px
+  desktop: 1440px,
 );
 
 $fa-font-path: '~@fortawesome/fontawesome-free-webfonts/webfonts';
@@ -34,14 +34,14 @@ $grid-breakpoints: (
   sm: map-get($angular-breakpoints, 'tablet'),
   md: map-get($angular-breakpoints, 'tablet2'),
   lg: map-get($angular-breakpoints, 'laptop'),
-  xl: map-get($angular-breakpoints, 'desktop')
+  xl: map-get($angular-breakpoints, 'desktop'),
 );
 
 $container-max-widths: (
   sm: 560px,
   md: 840px,
   lg: 1140px,
-  xl: 1320px
+  xl: 1320px,
 );
 
 $success-colors: mat.define-palette(mat.$green-palette, 400);

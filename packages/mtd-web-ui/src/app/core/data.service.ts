@@ -90,14 +90,12 @@ export class DataService {
   }
 
   search_l1(query: string): Result[] {
-    if (!this.l1_search)
-      return [];
+    if (!this.l1_search) return [];
     return this.l1_search.search(query);
   }
 
   search_l2(query: string): Result[] {
-    if (!this.l2_search)
-      return [];
+    if (!this.l2_search) return [];
     return this.l2_search.search(query, 0);
   }
 }

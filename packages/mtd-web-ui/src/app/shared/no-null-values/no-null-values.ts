@@ -6,28 +6,28 @@ import { Pipe, PipeTransform } from '@angular/core';
  * See https://angular.io/api/core/Pipe for more info on Angular Pipes.
  */
 @Pipe({
-  name: 'noNullValues'
+  name: 'noNullValues',
 })
 export class NoNullValuesPipe implements PipeTransform {
   /**
    * Removes empty strings from array
    */
   transform(value: Array<string>) {
-    return value.filter(x => x !== null && x !== '');
+    return value.filter((x) => x !== null && x !== '');
   }
 }
 
 @Pipe({
-  name: 'noNullObjectValues'
+  name: 'noNullObjectValues',
 })
 export class NoNullObjectValuesPipe implements PipeTransform {
   /**
    * Removes empty objects from array
    */
   transform(value: Array<any>) {
-    return value.filter(x => {
+    return value.filter((x) => {
       let notEmpty = true;
-      Object.keys(x).forEach(k => {
+      Object.keys(x).forEach((k) => {
         if (!x[k]) {
           notEmpty = false;
           return notEmpty;

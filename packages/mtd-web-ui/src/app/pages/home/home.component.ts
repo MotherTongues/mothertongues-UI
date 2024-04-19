@@ -6,9 +6,9 @@ import { ROUTE_ANIMATIONS_ELEMENTS } from '../../core/route.animations';
   templateUrl: './home.component.html',
   styleUrls: [
     '../../shared/layout/single/single.component.scss',
-    './home.component.scss'
+    './home.component.scss',
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent {
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;

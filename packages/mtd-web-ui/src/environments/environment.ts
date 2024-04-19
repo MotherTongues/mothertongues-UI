@@ -22,6 +22,6 @@ export const environment = {
     fontAwesome: packageJson.dependencies['@fortawesome/fontawesome-svg-core'],
     angularCli: packageJson.devDependencies['@angular/cli'],
     typescript: packageJson.devDependencies['typescript'],
-    cypress: packageJson.devDependencies['cypress']
-  }
+    cypress: packageJson.devDependencies['cypress'],
+  },
 };

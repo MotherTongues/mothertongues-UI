@@ -7,6 +7,6 @@ import { SettingsContainerComponent } from './settings-container.component';
 
 @NgModule({
   declarations: [SettingsContainerComponent],
-  imports: [CommonModule, SharedModule]
+  imports: [CommonModule, SharedModule],
 })
 export class SettingsModule {}

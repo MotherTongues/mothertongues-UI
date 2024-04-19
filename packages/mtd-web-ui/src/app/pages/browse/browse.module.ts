@@ -5,7 +5,7 @@ import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   declarations: [BrowseComponent],
-  imports: [CommonModule, SharedModule]
+  imports: [CommonModule, SharedModule],
 })
 export class BrowseModule {
   displayNav = true;

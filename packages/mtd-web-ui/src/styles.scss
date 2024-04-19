@@ -48,7 +48,7 @@
 .default-theme {
   @include custom-components-theme($mtd-theme);
   .branding img {
-      filter: invert(1);
+    filter: invert(1);
   }
 }
 
@@ -61,7 +61,7 @@
   @include mat.all-component-colors($mtd-black-theme);
   @include custom-components-theme($mtd-black-theme);
   .branding img {
-      filter: invert(1);
+    filter: invert(1);
   }
 }
 
@@ -69,7 +69,7 @@
   @include mat.all-component-colors($mtd-nature-theme);
   @include custom-components-theme($mtd-nature-theme);
   .branding img {
-      filter: invert(1);
+    filter: invert(1);
   }
 }
 

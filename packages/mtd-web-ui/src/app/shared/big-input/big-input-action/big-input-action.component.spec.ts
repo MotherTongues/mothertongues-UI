@@ -7,7 +7,7 @@ import { SharedModule } from '../../shared.module';
 
 @Component({
   selector: 'mtd-host-for-test',
-  template: ''
+  template: '',
 })
 class HostComponent {
   actionHandler = () => {};
@@ -33,7 +33,7 @@ describe('BigInputActionComponent', () => {
   beforeEach(() =>
     TestBed.configureTestingModule({
       declarations: [HostComponent],
-      imports: [SharedModule, NoopAnimationsModule]
+      imports: [SharedModule, NoopAnimationsModule],
     })
   );
 

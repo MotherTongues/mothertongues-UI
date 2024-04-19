@@ -51,9 +51,8 @@ export class BrowseComponent implements OnDestroy {
         Math.min(start, this.dataService.$entriesLength.value - 1)
       );
       if (start !== clamped) {
-        this.router.navigate(["..", clamped], {relativeTo: this.route});
-      }
-      else this.startIndex$.next(clamped);
+        this.router.navigate(['..', clamped], { relativeTo: this.route });
+      } else this.startIndex$.next(clamped);
     });
     this.route.queryParams.subscribe((params) => {
       if ('default_shown' in params)
@@ -75,36 +74,28 @@ export class BrowseComponent implements OnDestroy {
             this.startIndex$.value,
             entries,
             this.numShown$.value
-          )
+          );
         })
       )
-      .subscribe(entries => this.updateEntries(entries));
+      .subscribe((entries) => this.updateEntries(entries));
 
     // Update display when indices change
     this.startIndex$
       .pipe(
         takeUntil(this.unsubscribe$),
         map((i) =>
-          this.getXFrom(
-            i,
-            this.currentEntries$.value,
-            this.numShown$.value
-          )
-        ),
+          this.getXFrom(i, this.currentEntries$.value, this.numShown$.value)
+        )
       )
-      .subscribe(entries => this.updateEntries(entries));
+      .subscribe((entries) => this.updateEntries(entries));
     this.numShown$
       .pipe(
         takeUntil(this.unsubscribe$),
         map((x) =>
-          this.getXFrom(
-            this.startIndex$.value,
-            this.currentEntries$.value,
-            x
-          )
-        ),
+          this.getXFrom(this.startIndex$.value, this.currentEntries$.value, x)
+        )
       )
-      .subscribe(entries => this.updateEntries(entries));
+      .subscribe((entries) => this.updateEntries(entries));
   }
 
   updateEntries(entries: DictionaryEntryExportFormat[]) {
@@ -188,9 +179,9 @@ export class BrowseComponent implements OnDestroy {
     const numShown = this.numShown$.value;
     const prevStart = current_val - numShown;
     if (prevStart > 0) {
-      this.router.navigate(["..", prevStart], {relativeTo: this.route});
+      this.router.navigate(['..', prevStart], { relativeTo: this.route });
     } else {
-      this.router.navigate(["..", "0"], {relativeTo: this.route});
+      this.router.navigate(['..', '0'], { relativeTo: this.route });
     }
   }
 
@@ -200,10 +191,13 @@ export class BrowseComponent implements OnDestroy {
     const numShown = this.numShown$.value;
     const nextStart = current_val + numShown;
     if (nextStart < this.currentEntries$.value.length) {
-      this.router.navigate(["..", nextStart], {relativeTo: this.route});
+      this.router.navigate(['..', nextStart], { relativeTo: this.route });
     } else {
-      const maxStart = Math.max(this.currentEntries$.value.length - numShown, 0);
-      this.router.navigate(["..", maxStart], {relativeTo: this.route});
+      const maxStart = Math.max(
+        this.currentEntries$.value.length - numShown,
+        0
+      );
+      this.router.navigate(['..', maxStart], { relativeTo: this.route });
     }
   }
 
@@ -212,16 +206,21 @@ export class BrowseComponent implements OnDestroy {
     const letterIndex = this.letters.indexOf(letter);
     for (const entry of this.currentEntries$.value) {
       if (entry.sorting_form[0] === letterIndex) {
-        this.router.navigate(["..", this.currentEntries$.value.indexOf(entry)], {
-          relativeTo: this.route,
-        });
+        this.router.navigate(
+          ['..', this.currentEntries$.value.indexOf(entry)],
+          {
+            relativeTo: this.route,
+          }
+        );
         break;
       }
     }
   }
 
   selectCategory(category: string) {
-    this.currentEntries$.next(this.dataService.$categorizedEntries.value[category])
+    this.currentEntries$.next(
+      this.dataService.$categorizedEntries.value[category]
+    );
     this.selectedCategory = category;
     this.startIndex$.next(0);
   }
@@ -231,7 +230,7 @@ export class BrowseComponent implements OnDestroy {
     return {
       startIndex: current_val + 1,
       endIndex: current_val + this.currentX.length,
-      length: this.currentEntries$.value.length
+      length: this.currentEntries$.value.length,
     };
   }
 }

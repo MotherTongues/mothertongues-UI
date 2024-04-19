@@ -1,4 +1,8 @@
-<mat-card appearance="outlined" class="big-input" [ngClass]="{ 'has-focus': hasFocus }">
+<mat-card
+  appearance="outlined"
+  class="big-input"
+  [ngClass]="{ 'has-focus': hasFocus }"
+>
   <input
     (focus)="hasFocus = true"
     (blur)="hasFocus = false"

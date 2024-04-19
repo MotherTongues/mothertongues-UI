@@ -1,16 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import {
-  HttpClientModule,
-  HttpClient,
-} from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import {
   FaIconLibrary,
-  FontAwesomeModule
+  FontAwesomeModule,
 } from '@fortawesome/angular-fontawesome';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -29,14 +26,14 @@ import {
   faRocket,
   faPowerOff,
   faUserCircle,
-  faPlayCircle
+  faPlayCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faGithub,
   faMediumM,
   faTwitter,
   faInstagram,
-  faYoutube
+  faYoutube,
 } from '@fortawesome/free-brands-svg-icons';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -72,29 +69,26 @@ export function HttpLoaderFactory(http: HttpClient) {
     // 3rd party
     FontAwesomeModule,
     TranslateModule.forRoot({
-      defaultLanguage: "en", // FIXME: from config
+      defaultLanguage: 'en', // FIXME: from config
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
+        deps: [HttpClient],
+      },
     }),
 
     // app
     AppRoutingModule,
     // ngsw
     ServiceWorkerModule.register('ngsw-worker.js', {
-        enabled: environment.production
-    })
+      enabled: environment.production,
+    }),
   ],
   declarations: [AppComponent],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-
 export class AppModule {
-  constructor(
-    faIconLibrary: FaIconLibrary
-  ) {
+  constructor(faIconLibrary: FaIconLibrary) {
     faIconLibrary.addIcons(
       faCog,
       faBars,

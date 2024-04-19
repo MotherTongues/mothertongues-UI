@@ -3,20 +3,20 @@ import {
   Input,
   Output,
   EventEmitter,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
 } from '@angular/core';
 
 @Component({
   selector: 'mtd-big-input-action',
   templateUrl: './big-input-action.component.html',
   styleUrls: ['./big-input-action.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BigInputActionComponent {
   @Input()
   disabled = false;
   @Input()
-  fontSet?: any;  // FIXME: These have types... what are they?
+  fontSet?: any; // FIXME: These have types... what are they?
   @Input()
   fontIcon?: any;
   @Input()

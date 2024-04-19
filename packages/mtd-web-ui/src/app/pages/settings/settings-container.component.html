@@ -41,9 +41,11 @@
             ><fa-icon icon="paint-brush" color="accent"></fa-icon
           ></mat-icon>
           <mat-form-field>
-            <mat-select [(ngModel)]="settings.theme"
-                        [placeholder]="'mtd.settings.themes.placeholder' | translate"
-                        name="themes">
+            <mat-select
+              [(ngModel)]="settings.theme"
+              [placeholder]="'mtd.settings.themes.placeholder' | translate"
+              name="themes"
+            >
               <mat-option *ngFor="let t of themes" [value]="t.value">
                 {{ 'mtd.settings.themes.' + t.label | translate }}
               </mat-option>
