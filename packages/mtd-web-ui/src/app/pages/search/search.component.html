@@ -12,7 +12,7 @@
         *ngIf="entries$ | async as entries"
         autocomplete="off"
         type="text"
-        placeholder="Type here to search {{ entries.length }} words."
+        placeholder="{{ placeholder }}"
         aria-label="Number"
         matInput
         (keyup)="onSearchKeyUp$.next($event)"

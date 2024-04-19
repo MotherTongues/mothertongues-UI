@@ -5,10 +5,10 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil, tap, debounceTime } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
-
+import { TranslateService } from '@ngx-translate/core';
 import { DataService, EntryDict } from '../../core/data.service';
 import { ROUTE_ANIMATIONS_ELEMENTS } from '../../core/route.animations';
 import { DictionaryTitle } from '../../shared/entry-list/entry-list.component';
@@ -42,8 +42,18 @@ export class SearchComponent implements OnDestroy {
   constructor(
     private dataService: DataService,
     private route: ActivatedRoute,
-    private ref: ChangeDetectorRef
+    private ref: ChangeDetectorRef,
+    private translateService: TranslateService
   ) {
+    // Update the placeholder when the number of entries changes
+    this.dataService.$entriesLength
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((entriesLength) => {
+      this.placeholder = this.translateService
+      .instant('mtd.pages.search.placeholder', {
+        value: entriesLength,
+      })});
+    
     this.entries$ = this.dataService.$entriesHash;
     this.searchControl = new FormControl();
     this.route.queryParams
@@ -54,8 +64,8 @@ export class SearchComponent implements OnDestroy {
       });
     this.onSearchKeyUp$
       .pipe(
-        tap(() => this.loading$.next(true)),
-        debounceTime(200)
+        debounceTime(200),
+        tap(() => this.loading$.next(true))
       )
       .subscribe((event) => {
         const query = (event.target as HTMLInputElement).value;

@@ -26,7 +26,9 @@ export class RandomComponent {
   unsubscribe$ = new Subject<void>();
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
   show?: string;
-  nRandom = this.guessNumEntries();
+  // Use nRandom = this.guessNumEntries() to guess the number of entries that can fit on the screen
+  nRandom = 10;
+
   constructor(
     private dataService: DataService,
     private route: ActivatedRoute,
@@ -37,6 +39,14 @@ export class RandomComponent {
       .subscribe((params) => {
         this.show = params.show;
         this.ref.markForCheck();
+      });
+    //
+    this.dataService.$entriesLength
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((entriesLength) => {
+        if (entriesLength > 0) {
+          this.nRandom = entriesLength;
+        }
       });
   }
 
@@ -93,6 +103,6 @@ export class RandomComponent {
         const idx = Math.floor(Math.random() * entries.length);
         return entries[idx];
       });
-    this.entries$.next(r);
+    this.entries$.next([...new Set(r)]); // Don't allow duplicates in the random set
   }
 }

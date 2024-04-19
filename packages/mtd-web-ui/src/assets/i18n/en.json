@@ -56,13 +56,14 @@
         "sub-slogan": "To get started, click on the search button above, and start learning!"
       },
       "random": {
-        "button": "Click here to see {{ nRandom }} random entries"
+        "button": "Click here to see some random entries"
       },
       "search": {
         "matches": "Matches",
         "maybe-matches": "Maybe you meant this?",
         "no-results": "Sorry, we couldn't find any words that match '{{ value }}'. Please try something else.",
-        "partial-matches": "Partial Matches"
+        "partial-matches": "Partial Matches",
+        "placeholder": "Type here to search {{ value }} words."
       }
     },
     "settings": {

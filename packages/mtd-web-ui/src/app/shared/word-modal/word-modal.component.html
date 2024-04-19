@@ -65,7 +65,7 @@
 <ng-template #optional>
   <div class="container__row" *ngIf="entry && entry.optional">
     <div class="container__col centered">
-      <span *ngFor="let key in entry.optional"
+      <span *ngFor="let key of Object.keys(entry.optional)"
         >{{ key }}: {{ entry.optional[key] }}</span
       >
     </div>

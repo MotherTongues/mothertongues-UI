@@ -43,6 +43,7 @@ interface Example {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WordModalComponent implements OnInit, OnDestroy {
+  Object = Object;
   examples: Array<Example>;
   optional = false;
   tabs = false;
@@ -73,19 +74,17 @@ export class WordModalComponent implements OnInit, OnDestroy {
             });
         let audio: Array<ExampleAudio> = [];
         if (this.entry.example_sentence_audio)
-          audio = this.entry.example_sentence_audio[idx]?.map(
-            (a) => ({
-              filename: a.filename,
-              speaker: a.description ?? "unknown",
-              starts: a.starts as Array<number> ?? [],
-            })
-          );
+          audio = this.entry.example_sentence_audio[idx]?.map((a) => ({
+            filename: a.filename,
+            speaker: a.description ?? 'unknown',
+            starts: (a.starts as Array<number>) ?? [],
+          }));
         else if (this.entry.example_sentence_definition_audio)
           audio = this.entry.example_sentence_definition_audio[idx]?.map(
             (a) => ({
               filename: a.filename,
-              speaker: a.description ?? "unknown",
-              starts: a.starts as Array<number> ?? [],
+              speaker: a.description ?? 'unknown',
+              starts: (a.starts as Array<number>) ?? [],
             })
           );
         this.examples.push({
@@ -140,7 +139,8 @@ export class WordModalComponent implements OnInit, OnDestroy {
   }
 
   playAudio(example: Example | null, audio: ExampleAudio) {
-    const path = (this.dataService.$config.value?.audio_path ?? "") + audio.filename;
+    const path =
+      (this.dataService.$config.value?.audio_path ?? '') + audio.filename;
     const audiotag = new Audio(path);
     const starts = audio.starts?.map((x) => x * 0.01) || [];
 
