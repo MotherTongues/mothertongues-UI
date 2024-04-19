@@ -2,7 +2,7 @@ import {
   Component,
   OnDestroy,
   ChangeDetectorRef,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BookmarksService } from '../../core/bookmarks.service';
@@ -14,7 +14,7 @@ import { DictionaryEntryExportFormat } from '@mothertongues/search';
   selector: 'mtd-bookmarks',
   templateUrl: './bookmarks.component.html',
   styleUrls: ['../../shared/layout/single/single.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BookmarksComponent implements OnDestroy {
   displayNav = true;
@@ -31,7 +31,7 @@ export class BookmarksComponent implements OnDestroy {
     this.$bookmarks = bookmarkService.$bookmarks;
     this.route.queryParams
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(params => {
+      .subscribe((params) => {
         this.show = params.show;
         this.ref.markForCheck();
       });

@@ -8,19 +8,17 @@ describe('EntryListComponent', () => {
   let component: EntryListComponent;
   let fixture: ComponentFixture<EntryListComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        imports: [
-          HttpClientTestingModule,
-          TranslateModule.forRoot(),
-          RouterTestingModule,
-          SharedModule
-        ],
-        declarations: [EntryListComponent]
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        HttpClientTestingModule,
+        TranslateModule.forRoot(),
+        RouterTestingModule,
+        SharedModule,
+      ],
+      declarations: [EntryListComponent],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(EntryListComponent);

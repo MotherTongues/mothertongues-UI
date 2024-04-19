@@ -32,7 +32,7 @@ export const META: Meta = {
   languages: [{ label: 'en', value: 'en' }],
   copyright: {
     name: 'Mother Tongues',
-    url: 'https://mothertongues.org'
+    url: 'https://mothertongues.org',
   },
   links: {
     github: {

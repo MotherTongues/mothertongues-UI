@@ -9,19 +9,17 @@ describe('RandomComponent', () => {
   let component: RandomComponent;
   let fixture: ComponentFixture<RandomComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        imports: [
-          HttpClientTestingModule,
-          RouterTestingModule,
-          SharedModule,
-          TranslateModule.forRoot()
-        ],
-        declarations: [RandomComponent]
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule,
+        SharedModule,
+        TranslateModule.forRoot(),
+      ],
+      declarations: [RandomComponent],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(RandomComponent);

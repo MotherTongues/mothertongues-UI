@@ -5,7 +5,7 @@ import { ROUTE_ANIMATIONS_ELEMENTS } from '../../../core/route.animations';
   selector: 'mtd-single',
   styleUrls: ['./single.component.scss'],
   templateUrl: './single.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SingleComponent {
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;

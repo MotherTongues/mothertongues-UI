@@ -13,7 +13,10 @@ import { DataService, EntryDict } from '../../core/data.service';
 import { ROUTE_ANIMATIONS_ELEMENTS } from '../../core/route.animations';
 import { DictionaryTitle } from '../../shared/entry-list/entry-list.component';
 
-import { DictionaryEntryExportFormat, sortResults } from '@mothertongues/search';
+import {
+  DictionaryEntryExportFormat,
+  sortResults,
+} from '@mothertongues/search';
 
 @Component({
   selector: 'mtd-search',
@@ -49,11 +52,14 @@ export class SearchComponent implements OnDestroy {
     this.dataService.$entriesLength
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((entriesLength) => {
-      this.placeholder = this.translateService
-      .instant('mtd.pages.search.placeholder', {
-        value: entriesLength,
-      })});
-    
+        this.placeholder = this.translateService.instant(
+          'mtd.pages.search.placeholder',
+          {
+            value: entriesLength,
+          }
+        );
+      });
+
     this.entries$ = this.dataService.$entriesHash;
     this.searchControl = new FormControl();
     this.route.queryParams
@@ -86,17 +92,18 @@ export class SearchComponent implements OnDestroy {
     const results = l1_results.concat(l2_results);
     const matches = sortResults(
       results.filter((result) => result[0] < this.partialThreshold)
-    ).map(m => this.entries$.value[m[1]]);
+    ).map((m) => this.entries$.value[m[1]]);
     const partMatches = sortResults(
       results.filter(
         (result) =>
           result[0] >= this.partialThreshold && result[0] < this.maybeThreshold
       )
-    ).map(m => this.entries$.value[m[1]]);
+    ).map((m) => this.entries$.value[m[1]]);
     const maybeMatches = sortResults(
       results.filter((result) => result[0] >= this.maybeThreshold)
-    ).map(m => this.entries$.value[m[1]]);
-    const displayMatches: Array<DictionaryEntryExportFormat | DictionaryTitle> = [];
+    ).map((m) => this.entries$.value[m[1]]);
+    const displayMatches: Array<DictionaryEntryExportFormat | DictionaryTitle> =
+      [];
     if (matches.length) {
       displayMatches.push({ title: 'mtd.pages.search.matches' });
       displayMatches.push(...matches);

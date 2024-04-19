@@ -3,12 +3,14 @@ $mtd-black-primary: mat.define-palette(mat.$grey-palette, 700, 300, 900);
 $mtd-black-accent: mat.define-palette(mat.$blue-grey-palette, 400);
 $mtd-black-warn: mat.define-palette(mat.$red-palette, 500);
 
-$mtd-black-theme: mat.define-dark-theme((
+$mtd-black-theme: mat.define-dark-theme(
+  (
     color: (
       primary: $mtd-black-primary,
       accent: $mtd-black-accent,
       warn: $mtd-black-warn,
-  ),
-  typography: mat.define-typography-config(),
-  density: 0,
-));
+    ),
+    typography: mat.define-typography-config(),
+    density: 0,
+  )
+);

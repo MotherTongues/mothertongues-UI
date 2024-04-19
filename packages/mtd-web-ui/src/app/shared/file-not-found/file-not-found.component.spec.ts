@@ -4,25 +4,23 @@ import { FileNotFoundDialogComponent } from './file-not-found.component';
 import {
   MatDialog,
   MatDialogRef,
-  MAT_DIALOG_DATA
+  MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 
 describe('FileNotFoundDialogComponent', () => {
   let component: FileNotFoundDialogComponent;
   let fixture: ComponentFixture<FileNotFoundDialogComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        imports: [TranslateModule.forRoot()],
-        declarations: [FileNotFoundDialogComponent],
-        providers: [
-          { provide: MatDialogRef, useValue: {} },
-          { provide: MAT_DIALOG_DATA, useValue: {} }
-        ]
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [TranslateModule.forRoot()],
+      declarations: [FileNotFoundDialogComponent],
+      providers: [
+        { provide: MatDialogRef, useValue: {} },
+        { provide: MAT_DIALOG_DATA, useValue: {} },
+      ],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(FileNotFoundDialogComponent);

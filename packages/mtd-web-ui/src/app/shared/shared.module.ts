@@ -28,7 +28,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 
 import {
   FontAwesomeModule,
-  FaIconLibrary
+  FaIconLibrary,
 } from '@fortawesome/angular-fontawesome';
 import {
   faPlus,
@@ -47,7 +47,7 @@ import {
   faLightbulb,
   faWindowMaximize,
   faStream,
-  faBook
+  faBook,
 } from '@fortawesome/free-solid-svg-icons';
 import { faMediumM, faGithub } from '@fortawesome/free-brands-svg-icons';
 
@@ -58,7 +58,7 @@ import { WordModalComponent } from './word-modal/word-modal.component';
 import { SingleComponent } from './layout/single/single.component';
 import {
   NoNullValuesPipe,
-  NoNullObjectValuesPipe
+  NoNullObjectValuesPipe,
 } from './no-null-values/no-null-values';
 import { SingleSpeakerPipe } from './single-speaker/single-speaker.pipe';
 import { EntryListComponent } from './entry-list/entry-list.component';
@@ -88,7 +88,7 @@ import { EntryListComponent } from './entry-list/entry-list.component';
     MatDividerModule,
     ScrollingModule,
 
-    FontAwesomeModule
+    FontAwesomeModule,
   ],
   declarations: [
     BigInputComponent,
@@ -99,7 +99,7 @@ import { EntryListComponent } from './entry-list/entry-list.component';
     SingleComponent,
     NoNullObjectValuesPipe,
     NoNullValuesPipe,
-    SingleSpeakerPipe
+    SingleSpeakerPipe,
   ],
   exports: [
     CommonModule,
@@ -135,7 +135,7 @@ import { EntryListComponent } from './entry-list/entry-list.component';
     SingleComponent,
     BigInputComponent,
     BigInputActionComponent,
-  ]
+  ],
 })
 export class SharedModule {
   constructor(faIconLibrary: FaIconLibrary) {

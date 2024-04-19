@@ -15,10 +15,10 @@ import { SharedModule } from '../../shared.module';
       (keyup.escape)="onKeyEvent($event)"
     >
     </mtd-big-input>
-  `
+  `,
 })
 class HostComponent {
-  newValue: string = "";
+  newValue: string = '';
   onKeyEvent() {}
 }
 
@@ -31,7 +31,7 @@ describe('BigInputComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [HostComponent],
-      imports: [SharedModule, NoopAnimationsModule]
+      imports: [SharedModule, NoopAnimationsModule],
     });
     fixture = TestBed.createComponent(HostComponent);
     component = fixture.componentInstance;

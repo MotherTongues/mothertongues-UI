@@ -22,37 +22,37 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    data: { title: 'mtd.menu.home' }
+    data: { title: 'mtd.menu.home' },
   },
   {
     path: 'browse',
     redirectTo: 'browse/0',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'browse/:start',
     component: BrowseComponent,
-    data: { title: 'mtd.menu.browse' }
+    data: { title: 'mtd.menu.browse' },
   },
   {
     path: 'bookmarks',
     component: BookmarksComponent,
-    data: { title: 'mtd.menu.bookmarks' }
+    data: { title: 'mtd.menu.bookmarks' },
   },
   {
     path: 'random',
     component: RandomComponent,
-    data: { title: 'mtd.menu.random' }
+    data: { title: 'mtd.menu.random' },
   },
   {
     path: 'search',
     component: SearchComponent,
-    data: { title: 'mtd.menu.search' }
+    data: { title: 'mtd.menu.search' },
   },
   {
     path: 'settings',
     component: SettingsContainerComponent,
-    data: { title: 'mtd.menu.settings' }
+    data: { title: 'mtd.menu.settings' },
   },
   {
     path: '**',

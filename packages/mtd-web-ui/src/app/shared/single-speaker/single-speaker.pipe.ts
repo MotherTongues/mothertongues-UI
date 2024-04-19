@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'singleSpeaker'
+  name: 'singleSpeaker',
 })
 export class SingleSpeakerPipe implements PipeTransform {
   /**
@@ -10,7 +10,7 @@ export class SingleSpeakerPipe implements PipeTransform {
 
   transform(value: Array<any>, ...args: any[]): Array<any> {
     const speakers = new Set();
-    return value.filter(audio => {
+    return value.filter((audio) => {
       if (speakers.has(audio.speaker)) return false;
       speakers.add(audio.speaker);
       return true;

@@ -29,6 +29,5 @@ export class SettingsContainerComponent {
     };
   });
 
-  constructor(public settings: SettingsService) {
-  }
+  constructor(public settings: SettingsService) {}
 }

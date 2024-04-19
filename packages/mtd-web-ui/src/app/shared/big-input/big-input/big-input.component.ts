@@ -4,11 +4,11 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
   selector: 'mtd-big-input',
   templateUrl: './big-input.component.html',
   styleUrls: ['./big-input.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BigInputComponent {
   @Input()
-  placeholder: string = "";
+  placeholder: string = '';
   @Input()
   value = '';
   @Input()

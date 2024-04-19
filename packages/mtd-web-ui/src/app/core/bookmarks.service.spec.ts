@@ -8,7 +8,7 @@ describe('BookmarksService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [BookmarksService]
+      providers: [BookmarksService],
     });
     service = TestBed.inject(BookmarksService);
   });
