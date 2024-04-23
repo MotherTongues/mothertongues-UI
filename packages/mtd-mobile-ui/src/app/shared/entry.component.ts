@@ -43,6 +43,16 @@ export class EntryComponent implements OnInit, OnDestroy {
     }
   }
 
+  optionalInfo(optional: Optional | undefined) {
+    if (optional) {
+      return new Map(
+        Object.entries(optional).filter(([_, v]) => v.toString().length),
+      );
+    } else {
+      return {};
+    }
+  }
+
   stopAllAudio() {
     this.audio_playing.forEach((element) => {
       element.pause();

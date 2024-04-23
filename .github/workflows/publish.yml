@@ -25,6 +25,7 @@ jobs:
         run: |
           npx nx build search
           npx nx build mtd-mobile-ui --base-href=/mtd/ --configuration=production
+          cp dist/packages/mtd-mobile-ui/index.html dist/packages/mtd-mobile-ui/404.html
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:

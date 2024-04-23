@@ -1,0 +1,162 @@
+<div [class]="'theme-wrapper ' + settings.theme">
+  <mat-sidenav-container>
+    <!-- sidebar for small displays (always present but cannot
+         be activated unless the icon is actually visible!) -->
+    <mat-sidenav #sidenav mode="push">
+      <div class="branding">
+        <img [src]="logo" [alt]="logo" />
+        <span>{{ 'mtd.title.short' | translate }}</span>
+      </div>
+      <mat-nav-list>
+        <ng-template #sidenavlink let-item="item">
+          <a
+            mat-list-item
+            (click)="sidenav.close()"
+            [routerLink]="[item.link]"
+            routerLinkActive="active"
+          >
+            {{ item.label | translate }}
+          </a>
+        </ng-template>
+        <ng-template #sidenavmenu let-item="item">
+          <!-- styling for this is irritating because Material, that's why -->
+          <mat-expansion-panel class="mat-elevation-z0">
+            <mat-expansion-panel-header>
+              {{ item.label | translate }}
+            </mat-expansion-panel-header>
+            <mat-nav-list>
+              <ng-container *ngFor="let item of item.children">
+                <ng-container
+                  *ngTemplateOutlet="sidenavlink; context: { item: item }"
+                >
+                </ng-container>
+              </ng-container>
+            </mat-nav-list>
+          </mat-expansion-panel>
+        </ng-template>
+        <ng-container *ngFor="let item of navigationSideMenu">
+          <ng-container
+            [ngTemplateOutlet]="item.children ? sidenavmenu : sidenavlink"
+            [ngTemplateOutletContext]="{ item: item }"
+          >
+          </ng-container>
+        </ng-container>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <!-- Wrapper that covers *the entire viewport* -->
+    <div class="wrapper">
+      <nav class="toolbar">
+        <!--
+            Complicated display logic here... may or may not match
+            the Material design guidelines, which even Angular team
+            members don't seem to fully understand.
+
+            Since (for some reason) we use Bootstrap grids here,
+            these are the Bootstrap identifiers, which (of course)
+            don't correspond to the Material ones.  Briefly:
+
+            xs: extra-small (phone)
+            sm: small (tablet)
+            md: small (tablet, presumably in landscape mode)
+            lg: medium (laptop)
+            xl: large (desktop)
+
+            following https://m2.material.io/design/layout/responsive-layout-grid.html#breakpoints
+          -->
+        <mat-toolbar color="primary">
+          <!-- sidebar button on small (phone and vertical tablet) displays -->
+          <button mat-icon-button class="d-md-none" (click)="sidenav.open()">
+            <fa-icon icon="bars"></fa-icon>
+          </button>
+
+          <!-- centered logo on phone displays -->
+          <span routerLink="" class="branding spacer center d-inline d-sm-none">
+            <img [src]="logo" [alt]="logo"
+          /></span>
+          <!-- short title on phone and vertical tablet displays -->
+          <span
+            routerLink=""
+            class="branding spacer center d-none d-sm-inline d-md-none"
+            ><img [src]="logo" [alt]="logo" />
+            {{ 'mtd.title.short' | translate }}</span
+          >
+          <!-- long title on horizontal tablet and up displays -->
+          <span routerLink="" class="branding spacer d-none d-md-inline"
+            ><img [src]="logo" [alt]="logo" />
+            {{ 'mtd.title.long' | translate }}</span
+          >
+          <!-- navigation links on horizontal tablet and up -->
+          <span class="d-none d-md-inline">
+            <ng-template #navlink let-item="item">
+              <button
+                mat-button
+                class="nav-button"
+                [routerLink]="[item.link]"
+                routerLinkActive="active"
+              >
+                {{ item.label | translate }}
+              </button>
+            </ng-template>
+            <ng-template #navmenu let-item="item">
+              <button mat-button class="nav-button" [matMenuTriggerFor]="menu">
+                {{ item.label | translate }}
+              </button>
+              <mat-menu #menu="matMenu">
+                <button
+                  *ngFor="let item of item.children"
+                  mat-menu-item
+                  class="nav-button"
+                  [routerLink]="[item.link]"
+                  routerLinkActive="active"
+                >
+                  {{ item.label | translate }}
+                </button>
+              </mat-menu>
+            </ng-template>
+            <ng-container *ngFor="let item of navigation">
+              <!-- this syntax is very confusing -->
+              <ng-container
+                [ngTemplateOutlet]="item.children ? navmenu : navlink"
+                [ngTemplateOutletContext]="{ item: item }"
+              >
+              </ng-container>
+            </ng-container>
+          </span>
+          <!-- settings button on tablet and up -->
+          <button
+            mat-icon-button
+            routerLink="/settings"
+            class="d-none d-sm-inline"
+            aria-label="Settings"
+          >
+            <fa-icon icon="cog"></fa-icon>
+          </button>
+          <!-- i18n languages -->
+          <ng-container *ngIf="languages.length > 1">
+            <span *ngIf="settings.language">
+              <mat-select [(ngModel)]="settings.language">
+                <mat-option *ngFor="let l of languages" [value]="l.label">
+                  {{ l.label.toUpperCase() }}
+                </mat-option>
+              </mat-select>
+            </span>
+          </ng-container>
+        </mat-toolbar>
+      </nav>
+
+      <!-- Content that covers the area under the toolbar -->
+      <div class="content" [@routeAnimations]="getRouteAnimations()">
+        <!-- Wrapper for page components, restoring relative
+	     position and adding top spacing. -->
+        <main class="content-wrapper">
+          <router-outlet #o="outlet"></router-outlet>
+        </main>
+        <!-- content-wrapper -->
+      </div>
+      <!-- content -->
+    </div>
+    <!-- wrapper -->
+  </mat-sidenav-container>
+</div>
+<!-- theme-wrapper -->

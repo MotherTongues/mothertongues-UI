@@ -1,0 +1,120 @@
+/* Common stylesheet for the app as a whole. */
+
+@use '@angular/material' as mat;
+@import 'material-icons/iconfont/filled';
+@import 'styles-variables';
+
+@import 'bootstrap/scss/bootstrap-reboot';
+@import 'bootstrap/scss/bootstrap-grid';
+/* Undo bootstrap things */
+@import 'styles-reset';
+
+@include mat.core();
+
+@import './themes/default-theme';
+@import './themes/light-theme';
+@import './themes/black-theme';
+@import './themes/nature-theme';
+
+/* Undo bootstrap things some more */
+@import 'styles-reset.scss-theme';
+
+/* These are all mostly the same thing, unfortunately */
+@import './app/app/app.component.scss-theme';
+@import './app/shared/big-input/big-input/big-input.component.scss-theme';
+@import './app/pages/bookmarks/bookmarks.component.scss-theme.scss';
+@import './app/pages/browse/browse.component.scss-theme.scss';
+@import './app/pages/random/random.component.scss-theme.scss';
+@import './app/pages/search/search.component.scss-theme.scss';
+@import './app/shared/layout/single/single.component.scss-theme.scss';
+@import './app/shared/entry-list/entry-list.component.scss-theme.scss';
+@import './app/shared/word-modal/word-modal.component.scss-theme.scss';
+
+@mixin custom-components-theme($theme) {
+  @include mtd-styles-reset-theme($theme);
+  @include mtd-app-component-theme($theme);
+  @include mtd-big-input-component-theme($theme);
+  @include mtd-bookmarks-component-theme($theme);
+  @include mtd-browse-component-theme($theme);
+  @include mtd-random-component-theme($theme);
+  @include mtd-search-component-theme($theme);
+  @include mtd-entry-list-component-theme($theme);
+  @include mtd-word-modal-component-theme($theme);
+  @include mtd-single-component-theme($theme);
+}
+
+@include mat.all-component-themes($mtd-theme);
+
+.default-theme {
+  @include custom-components-theme($mtd-theme);
+  .branding img {
+    filter: invert(1);
+  }
+}
+
+.light-theme {
+  @include mat.all-component-colors($mtd-light-theme);
+  @include custom-components-theme($mtd-light-theme);
+}
+
+.black-theme {
+  @include mat.all-component-colors($mtd-black-theme);
+  @include custom-components-theme($mtd-black-theme);
+  .branding img {
+    filter: invert(1);
+  }
+}
+
+.nature-theme {
+  @include mat.all-component-colors($mtd-nature-theme);
+  @include custom-components-theme($mtd-nature-theme);
+  .branding img {
+    filter: invert(1);
+  }
+}
+
+/* Things used in a bunch of components (they go here to avoid being
+   scoped by Angular) */
+.desktop-only {
+  @media (max-width: map-get($angular-breakpoints, laptop) - 1) {
+    display: none;
+  }
+}
+
+.mobile-only {
+  @media (min-width: map-get($angular-breakpoints, laptop)) {
+    display: none;
+  }
+}
+
+/* Hack for small screens like iPhone SE (FIXME: should not be
+   necessary if we could use flexbox properly instead of hardcoding
+   content height but I haven't figured that out yet) */
+.not-for-tiny-phone {
+  @media (max-width: 480px) {
+    display: none;
+  }
+}
+
+.centered {
+  text-align: center;
+  margin: 0 auto;
+}
+
+/* This has to be global, for Reasons (Angular always has Reasons) */
+@media (max-width: $phone-max-width) {
+  /* Fix wacky Material margins that are totally inappropriate for small phones */
+  .mtd-word-dialog {
+    .mat-mdc-dialog-container {
+      padding: 8px;
+    }
+    .mat-mdc-dialog-content {
+      margin: 0;
+      padding: 0;
+    }
+    .mat-mdc-dialog-actions {
+      margin: 0;
+      padding: 0 8px;
+    }
+  }
+}

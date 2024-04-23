@@ -1,0 +1,50 @@
+@import '../../../styles-variables';
+
+.match {
+  cursor: default;
+
+  &__term {
+    text-align: left;
+    display: table-cell;
+    vertical-align: middle;
+    padding: 8px 0;
+
+    &--target {
+      margin: 2.5em 0 0.75em 0;
+    }
+
+    &--translation {
+      margin: 2.5em 0 0.75em 0;
+    }
+  }
+}
+
+.entry-list {
+  &__title {
+    padding: 20px;
+    text-align: center;
+  }
+  &__info {
+    @media (max-width: $phone-max-width) {
+      display: none !important;
+    }
+  }
+}
+
+.guide {
+  &__floating {
+    z-index: 9;
+    position: absolute;
+    right: 30px;
+    background: white;
+    padding: 2px;
+  }
+  line-height: 1em;
+  text-align: right;
+}
+
+.guide-button {
+  font-size: x-small;
+  line-height: inherit;
+  padding: 0 1em;
+}

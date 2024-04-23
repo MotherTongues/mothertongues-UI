@@ -38,5 +38,9 @@ testem.log
 .DS_Store
 Thumbs.db
 
+# JavaScript nonsense
 .angular
-.nx
+.nx/cache
+
+# Emacs
+*~

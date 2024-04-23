@@ -1,0 +1,41 @@
+@use '@angular/material' as mat;
+
+@mixin mtd-browse-component-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+
+  mtd-browse {
+    .chosen {
+      background-color: mat.get-color-from-palette($accent);
+      color: mat.get-color-from-palette($accent, default-contrast);
+    }
+
+    .browse {
+      &__categories {
+        background-color: mat.get-color-from-palette($background, background);
+      }
+      &__alphabet {
+        &__grid {
+          background-color: mat.get-color-from-palette($background, background);
+        }
+        &__letter {
+          color: mat.get-color-from-palette($foreground, foreground);
+        }
+      }
+      &__entry {
+        &__list {
+          &__container {
+            border: 0.125em solid mat.get-color-from-palette($accent);
+            background-color: mat.get-color-from-palette(
+              $background,
+              background
+            );
+          }
+        }
+      }
+    }
+  }
+}
