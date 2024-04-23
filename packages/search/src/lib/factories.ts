@@ -78,13 +78,25 @@ export function constructSearchers(
     l1_index,
     mtdExportFormat.config.l1_search_config ?? undefined
   );
+  const l1SubstitutionCosts =
+    mtdExportFormat.config.l1_search_config?.substitutionCosts;
+  const l2SubstitutionCosts =
+    mtdExportFormat.config.l2_search_config?.substitutionCosts;
+  let l1_tokens = mtdExportFormat.config.alphabet;
+  if (l1SubstitutionCosts) {
+    l1_tokens = [...l1_tokens, ...Object.keys(l1SubstitutionCosts)];
+  }
+  let l2_tokens = mtdExportFormat.config.alphabet; // TODO: This isn't really right, not sure how we should tokenize though
+  if (l2SubstitutionCosts) {
+    l2_tokens = [...l2_tokens, ...Object.keys(l2SubstitutionCosts)];
+  }
   // Create L1 Search Object
   const l1_search = new MTDSearch({
     transducer: l1_transducer,
     index: l1_index,
     searchType:
       mtdExportFormat.config.l1_search_strategy ?? 'liblevenstein_automata',
-    tokens: mtdExportFormat.config.alphabet,
+    tokens: l1_tokens,
   });
   // Load L2 Index
   const l2_index = new Index({
@@ -104,7 +116,7 @@ export function constructSearchers(
     index: l2_index,
     searchType:
       mtdExportFormat.config.l2_search_strategy ?? 'liblevenstein_automata',
-    tokens: mtdExportFormat.config.alphabet, // TODO: This isn't really right, not sure how we should tokenize though
+    tokens: l2_tokens,
   });
   return [l1_search, l2_search];
 }
