@@ -20,7 +20,7 @@ import { FileNotFoundDialogComponent } from '../file-not-found/file-not-found.co
 import { DictionaryEntryExportFormat } from '@mothertongues/search';
 
 interface ExampleAudio {
-  speaker: string;
+  description: string;
   filename: string;
   starts: Array<number>;
 }
@@ -76,14 +76,14 @@ export class WordModalComponent implements OnInit, OnDestroy {
         if (this.entry.example_sentence_audio)
           audio = this.entry.example_sentence_audio[idx]?.map((a) => ({
             filename: a.filename,
-            speaker: a.description ?? 'unknown',
+            description: a.description ?? 'unknown',
             starts: (a.starts as Array<number>) ?? [],
           }));
         else if (this.entry.example_sentence_definition_audio)
           audio = this.entry.example_sentence_definition_audio[idx]?.map(
             (a) => ({
               filename: a.filename,
-              speaker: a.description ?? 'unknown',
+              description: a.description ?? 'unknown',
               starts: (a.starts as Array<number>) ?? [],
             })
           );

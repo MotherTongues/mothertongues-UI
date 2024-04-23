@@ -11,7 +11,9 @@ export class SingleSpeakerPipe implements PipeTransform {
   transform(value: Array<any>, ...args: any[]): Array<any> {
     const speakers = new Set();
     return value.filter((audio) => {
-      if (speakers.has(audio.speaker)) return false;
+      if (speakers.has(audio.description)) {
+        return false;
+      }
       speakers.add(audio.speaker);
       return true;
     });
