@@ -45,7 +45,9 @@ export class EntryComponent implements OnInit, OnDestroy {
 
   optionalInfo(optional: Optional | undefined) {
     if (optional) {
-      return new Map(Object.entries(optional).filter(([k,v]) => v));
+      return new Map(
+        Object.entries(optional).filter(([_, v]) => v.toString().length),
+      );
     } else {
       return {};
     }
