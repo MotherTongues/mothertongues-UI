@@ -30,4 +30,21 @@ describe('AboutPage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it ('should have correct title', () => {
+    const app = fixture.nativeElement;
+
+    const header = app.querySelectorAll('ion-header');
+    expect(header.length).toEqual(2);
+
+    // first title
+    const title = header[0].querySelectorAll('ion-title');
+    expect(title.length).toEqual(1);
+    expect(title[0].textContent).toEqual('About');
+
+    // second title
+    const title2 = header[1].querySelectorAll('ion-title');
+    expect(title2.length).toEqual(1);
+    expect(title2[0].textContent).toEqual('about');
+  });
 });

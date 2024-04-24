@@ -1,0 +1,202 @@
+{
+    "one": {
+        "DataNamedThis00": {
+            "location": [
+                [
+                    "word",
+                    0
+                ]
+            ],
+            "score": {
+                "word": 0.4423756753387274,
+                "total": 0.4423756753387274
+            }
+        },
+        "DataNamedThis05": {
+            "location": [
+                [
+                    "word",
+                    1
+                ]
+            ],
+            "score": {
+                "word": 0.3305391282025323,
+                "total": 0.3305391282025323
+            }
+        },
+        "DataNamedThis08": {
+            "location": [
+                [
+                    "word",
+                    0
+                ]
+            ],
+            "score": {
+                "word": 0.3305391282025323,
+                "total": 0.3305391282025323
+            }
+        },
+        "DataNamedThis09": {
+            "location": [
+                [
+                    "word",
+                    0
+                ],
+                [
+                    "word",
+                    2
+                ]
+            ],
+            "score": {
+                "word": 0.4100067234846742,
+                "total": 0.4100067234846742
+            }
+        }
+    },
+    "two": {
+        "DataNamedThis01": {
+            "location": [
+                [
+                    "word",
+                    0
+                ]
+            ],
+            "score": {
+                "word": 2.220543387065661,
+                "total": 2.220543387065661
+            }
+        }
+    },
+    "seven": {
+        "DataNamedThis02": {
+            "location": [
+                [
+                    "word",
+                    0
+                ]
+            ],
+            "score": {
+                "word": 1.4722110455604398,
+                "total": 1.4722110455604398
+            }
+        },
+        "DataNamedThis07": {
+            "location": [
+                [
+                    "word",
+                    1
+                ]
+            ],
+            "score": {
+                "word": 1.1000228598850477,
+                "total": 1.1000228598850477
+            }
+        }
+    },
+    "thirteen": {
+        "DataNamedThis03": {
+            "location": [
+                [
+                    "word",
+                    0
+                ]
+            ],
+            "score": {
+                "word": 2.220543387065661,
+                "total": 2.220543387065661
+            }
+        }
+    },
+    "seventeen": {
+        "DataNamedThis04": {
+            "location": [
+                [
+                    "word",
+                    0
+                ]
+            ],
+            "score": {
+                "word": 2.220543387065661,
+                "total": 2.220543387065661
+            }
+        }
+    },
+    "thirty": {
+        "DataNamedThis05": {
+            "location": [
+                [
+                    "word",
+                    0
+                ]
+            ],
+            "score": {
+                "word": 0.6850697097050756,
+                "total": 0.6850697097050756
+            }
+        },
+        "DataNamedThis06": {
+            "location": [
+                [
+                    "word",
+                    0
+                ]
+            ],
+            "score": {
+                "word": 0.6850697097050756,
+                "total": 0.6850697097050756
+            }
+        },
+        "DataNamedThis07": {
+            "location": [
+                [
+                    "word",
+                    0
+                ]
+            ],
+            "score": {
+                "word": 0.6850697097050756,
+                "total": 0.6850697097050756
+            }
+        }
+    },
+    "three": {
+        "DataNamedThis06": {
+            "location": [
+                [
+                    "word",
+                    1
+                ]
+            ],
+            "score": {
+                "word": 1.659170058874904,
+                "total": 1.659170058874904
+            }
+        }
+    },
+    "hundred": {
+        "DataNamedThis08": {
+            "location": [
+                [
+                    "word",
+                    1
+                ]
+            ],
+            "score": {
+                "word": 1.1000228598850477,
+                "total": 1.1000228598850477
+            }
+        },
+        "DataNamedThis09": {
+            "location": [
+                [
+                    "word",
+                    1
+                ]
+            ],
+            "score": {
+                "word": 0.8780451527333565,
+                "total": 0.8780451527333565
+            }
+        }
+    }
+}
