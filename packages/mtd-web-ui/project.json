@@ -56,6 +56,21 @@
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true
+        },
+        "pydev": {
+          "fileReplacements": [
+            {
+              "replace": "packages/mtd-web-ui/src/environments/environment.ts",
+              "with": "packages/mtd-web-ui/src/environments/environment.py.ts"
+            }
+          ],
+          "outputPath": "../mothertongues/ui",
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
         }
       },
       "defaultConfiguration": "production"
