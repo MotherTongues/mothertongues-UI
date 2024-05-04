@@ -11,6 +11,8 @@ import {
   Audio1,
   Optional,
 } from '@mothertongues/search';
+import { BehaviorSubject } from 'rxjs';
+import { SettingsService } from './settings.service';
 
 @Component({
   selector: 'mtd-entry',
@@ -20,10 +22,9 @@ import {
 })
 export class EntryComponent implements OnInit, OnDestroy {
   @Input() entry!: DictionaryEntryExportFormat;
-  optional = false;
   audio_playing: HTMLAudioElement[] = [];
   playing = false;
-  constructor(public dataService: DataService) {
+  constructor(public dataService: DataService, public settingsService: SettingsService) {
     // this.entry.
   }
 
@@ -33,6 +34,10 @@ export class EntryComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.stopAllAudio();
+  }
+
+  changeOptional() {
+    this.settingsService.showOptionalInfo$.next(!this.settingsService.showOptionalInfo$.value)
   }
 
   checkOptional(optional: Optional | undefined) {

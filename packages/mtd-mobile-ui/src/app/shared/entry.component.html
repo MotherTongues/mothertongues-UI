@@ -36,7 +36,7 @@
       </ion-item>
     </ion-list>
     <!-- Optional Information -->
-    <ion-list *ngIf="optional && checkOptional(entry.optional)">
+    <ion-list *ngIf="(settingsService.showOptionalInfo$ | async) && checkOptional(entry.optional)">
       <ion-list-header>
         <ion-label>Optional</ion-label>
       </ion-list-header>
@@ -79,8 +79,8 @@
   <ion-toolbar class="optional">
     <ion-item>
       <ion-toggle
-        checked="false"
-        (ionChange)="optional = !optional"
+        [checked]="(settingsService.showOptionalInfo$ | async)"
+        (ionChange)="changeOptional()"
         labelPlacement="start"
         >Show optional information</ion-toggle
       >
