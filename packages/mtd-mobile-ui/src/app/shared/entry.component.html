@@ -47,7 +47,7 @@
     </ion-list>
     <!-- Example Sentences -->
     <ion-list
-      *ngIf="entry.example_sentence && entry.example_sentence.length > 0"
+      *ngIf="entry.example_sentence && checkListIsNotEmpty(entry.example_sentence)"
     >
       <ion-list-header>
         <ion-label>Example Sentences</ion-label>
@@ -55,7 +55,7 @@
       <ion-item *ngFor="let sentence of entry.example_sentence; let i = index">
         <ion-thumbnail slot="start">
           <ion-button
-            *ngIf="entry.example_sentence_audio"
+            *ngIf="entry.example_sentence_audio && checkListIsNotEmpty(entry.example_sentence_audio)"
             (click)="playAudio(entry.example_sentence_audio[i][0])"
           >
             <ion-icon slot="start" name="musical-notes-outline"></ion-icon>
@@ -66,8 +66,8 @@
         </ion-thumbnail>
         <ion-label
           >{{ sentence
-          }}<span *ngIf="entry.example_sentence_definition"
-            >- {{ entry.example_sentence_definition[i][0] }}</span
+          }}<span *ngIf="entry.example_sentence_definition && checkListIsNotEmpty(entry.example_sentence_definition)"
+            > - {{ entry.example_sentence_definition[i] }}</span
           ></ion-label
         >
       </ion-item>

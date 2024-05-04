@@ -52,6 +52,10 @@ export class EntryComponent implements OnInit, OnDestroy {
     return 0;
   }
 
+  checkListIsNotEmpty(anyList: any[]) {
+    return anyList.filter(e=>e).length > 0
+  }
+
   optionalInfo(optional: Optional | undefined) {
     if (optional) {
       return new Map(
