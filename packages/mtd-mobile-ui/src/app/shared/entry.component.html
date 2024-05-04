@@ -40,7 +40,7 @@
       <ion-list-header>
         <ion-label>Optional</ion-label>
       </ion-list-header>
-      <ion-item *ngFor="let item of optionalInfo(entry.optional) | keyvalue">
+      <ion-item *ngFor="let item of optionalInfo(entry.optional) | keyvalue: originalOrder">
         <ion-label>{{ item.key }}</ion-label>
         <ion-note slot="end" *ngIf="item.value">{{ item.value }}</ion-note>
       </ion-item>

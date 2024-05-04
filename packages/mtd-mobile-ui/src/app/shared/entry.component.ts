@@ -48,6 +48,10 @@ export class EntryComponent implements OnInit, OnDestroy {
     }
   }
 
+  originalOrder = (): number => {
+    return 0;
+  }
+
   optionalInfo(optional: Optional | undefined) {
     if (optional) {
       return new Map(
