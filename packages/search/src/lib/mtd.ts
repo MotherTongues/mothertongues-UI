@@ -27,6 +27,8 @@ export type OptionalFieldName = string;
 export type Credits = Contributor[] | null;
 export type Role = string;
 export type Name = string;
+export type Aboutpageimg = string | null;
+export type Aboutpagedescription = string | null;
 export type Build = string;
 export type Word = string;
 export type Definition = string;
@@ -38,6 +40,9 @@ export type Img = string | null;
 export type Audio = Audio1[] | null;
 export type Description = string | null;
 export type Filename = string;
+export type Video = Video1[] | null;
+export type Description1 = string | null;
+export type Filename1 = string;
 export type DefinitionAudio = Audio1[] | null;
 export type ExampleSentence = string[] | null;
 export type ExampleSentenceDefinition = string[] | null;
@@ -77,6 +82,8 @@ export interface LanguageConfigurationExportFormat {
   alphabet: Alphabet;
   optional_field_name: OptionalFieldName;
   credits?: Credits;
+  aboutPageImg?: Aboutpageimg;
+  aboutPageDescription?: Aboutpagedescription;
   build: Build;
   [k: string]: unknown;
 }
@@ -121,6 +128,7 @@ export interface DictionaryEntryExportFormat {
   secondary_theme?: SecondaryTheme;
   img?: Img;
   audio?: Audio;
+  video?: Video;
   definition_audio?: DefinitionAudio;
   example_sentence?: ExampleSentence;
   example_sentence_definition?: ExampleSentenceDefinition;
@@ -133,6 +141,11 @@ export interface DictionaryEntryExportFormat {
 export interface Audio1 {
   description?: Description;
   filename: Filename;
+  [k: string]: unknown;
+}
+export interface Video1 {
+  description?: Description1;
+  filename: Filename1;
   [k: string]: unknown;
 }
 export interface L1Index {

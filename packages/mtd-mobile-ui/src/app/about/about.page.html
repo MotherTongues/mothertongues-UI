@@ -17,7 +17,16 @@
     <ion-row class="ion-align-items-center ion-justify-content-center">
       <h1>{{ config.L1 }} / {{ config.L2 }} Dictionary</h1>
     </ion-row>
-    <ion-row *ngIf="config.credits">
+    <ion-row
+      *ngIf="config.aboutPageDescription"
+      class="ion-align-items-center ion-justify-content-center"
+    >
+      <div [innerHTML]="config.aboutPageDescription"></div>
+    </ion-row>
+    <ion-row
+      *ngIf="config.credits"
+      class="ion-align-items-center ion-justify-content-center"
+    >
       <h2>Contributors</h2>
       <ion-list>
         <ion-item *ngFor="let contributor of config.credits">
@@ -26,7 +35,8 @@
       </ion-list>
     </ion-row>
     <ion-img
-      src="https://placehold.co/600x400"
+      *ngIf="config.aboutPageImg"
+      src="{{ config.aboutPageImg }}"
       alt="The image for the {{ config.L1 }} / {{ config.L2 }} dictionary"
     ></ion-img>
     <ion-row>
