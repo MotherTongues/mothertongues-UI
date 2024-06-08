@@ -4,6 +4,10 @@
   width: 100%;
   min-width: 100%;
   left: 0;
+
+  &__note {
+    max-width: 70%;
+  }
 }
 
 ion-note {

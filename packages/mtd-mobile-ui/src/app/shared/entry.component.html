@@ -36,18 +36,31 @@
       </ion-item>
     </ion-list>
     <!-- Optional Information -->
-    <ion-list *ngIf="(settingsService.showOptionalInfo$ | async) && checkOptional(entry.optional)">
+    <ion-list
+      *ngIf="
+        (settingsService.showOptionalInfo$ | async) &&
+        checkOptional(entry.optional)
+      "
+    >
       <ion-list-header>
         <ion-label>Optional</ion-label>
       </ion-list-header>
-      <ion-item *ngFor="let item of optionalInfo(entry.optional) | keyvalue: originalOrder">
+      <ion-item
+        *ngFor="
+          let item of optionalInfo(entry.optional) | keyvalue : originalOrder
+        "
+      >
         <ion-label>{{ item.key }}</ion-label>
-        <ion-note slot="end" *ngIf="item.value">{{ item.value }}</ion-note>
+        <ion-note class="optional__note" slot="end" *ngIf="item.value">{{
+          item.value
+        }}</ion-note>
       </ion-item>
     </ion-list>
     <!-- Example Sentences -->
     <ion-list
-      *ngIf="entry.example_sentence && checkListIsNotEmpty(entry.example_sentence)"
+      *ngIf="
+        entry.example_sentence && checkListIsNotEmpty(entry.example_sentence)
+      "
     >
       <ion-list-header>
         <ion-label>Example Sentences</ion-label>
@@ -55,7 +68,10 @@
       <ion-item *ngFor="let sentence of entry.example_sentence; let i = index">
         <ion-thumbnail slot="start">
           <ion-button
-            *ngIf="entry.example_sentence_audio && checkListIsNotEmpty(entry.example_sentence_audio)"
+            *ngIf="
+              entry.example_sentence_audio &&
+              checkListIsNotEmpty(entry.example_sentence_audio)
+            "
             (click)="playAudio(entry.example_sentence_audio[i][0])"
           >
             <ion-icon slot="start" name="musical-notes-outline"></ion-icon>
@@ -66,8 +82,13 @@
         </ion-thumbnail>
         <ion-label
           >{{ sentence
-          }}<span *ngIf="entry.example_sentence_definition && checkListIsNotEmpty(entry.example_sentence_definition)"
-            > - {{ entry.example_sentence_definition[i] }}</span
+          }}<span
+            *ngIf="
+              entry.example_sentence_definition &&
+              checkListIsNotEmpty(entry.example_sentence_definition)
+            "
+          >
+            - {{ entry.example_sentence_definition[i] }}</span
           ></ion-label
         >
       </ion-item>
@@ -79,7 +100,7 @@
   <ion-toolbar class="optional">
     <ion-item>
       <ion-toggle
-        [checked]="(settingsService.showOptionalInfo$ | async)"
+        [checked]="settingsService.showOptionalInfo$ | async"
         (ionChange)="changeOptional()"
         labelPlacement="start"
         >Show optional information</ion-toggle
