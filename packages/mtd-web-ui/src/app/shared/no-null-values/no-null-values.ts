@@ -6,7 +6,8 @@ import { Pipe, PipeTransform } from '@angular/core';
  * See https://angular.io/api/core/Pipe for more info on Angular Pipes.
  */
 @Pipe({
-  name: 'noNullValues',
+    name: 'noNullValues',
+    standalone: false
 })
 export class NoNullValuesPipe implements PipeTransform {
   /**
@@ -18,7 +19,8 @@ export class NoNullValuesPipe implements PipeTransform {
 }
 
 @Pipe({
-  name: 'noNullObjectValues',
+    name: 'noNullObjectValues',
+    standalone: false
 })
 export class NoNullObjectValuesPipe implements PipeTransform {
   /**

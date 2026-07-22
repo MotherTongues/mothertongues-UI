@@ -5,9 +5,10 @@ import { BehaviorSubject } from 'rxjs';
 import { SearchService } from './search.service';
 
 @Component({
-  selector: 'mtd-search',
-  templateUrl: './search.page.html',
-  styleUrls: ['./search.page.scss'],
+    selector: 'mtd-search',
+    templateUrl: './search.page.html',
+    styleUrls: ['./search.page.scss'],
+    standalone: false
 })
 export class SearchPage implements OnInit {
   partialThreshold = 1;

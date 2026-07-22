@@ -6,6 +6,7 @@ import { SharedModule } from '../../shared.module';
 
 @Component({
   selector: 'mtd-host-for-test',
+  imports: [SharedModule],
   template: `
     <mtd-big-input
       placeholder="I am going to do..."
@@ -30,8 +31,7 @@ describe('BigInputComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [HostComponent],
-      imports: [SharedModule, NoopAnimationsModule],
+      imports: [HostComponent, NoopAnimationsModule],
     });
     fixture = TestBed.createComponent(HostComponent);
     component = fixture.componentInstance;

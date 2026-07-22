@@ -45,3 +45,6 @@ Thumbs.db
 
 # Emacs
 *~
+
+vite.config.*.timestamp*
+vitest.config.*.timestamp*

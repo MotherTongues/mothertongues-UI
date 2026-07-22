@@ -4,9 +4,10 @@ import { LanguageConfigurationExportFormat } from '@mothertongues/search';
 import { Subject } from 'rxjs';
 
 @Component({
-  selector: 'mtd-about',
-  templateUrl: './about.page.html',
-  styleUrls: ['./about.page.css'],
+    selector: 'mtd-about',
+    templateUrl: './about.page.html',
+    styleUrls: ['./about.page.css'],
+    standalone: false
 })
 export class AboutPage implements OnInit {
   $config: Subject<LanguageConfigurationExportFormat | null>;

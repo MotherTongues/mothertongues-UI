@@ -9,10 +9,11 @@ import { DataService } from '../data.service';
 import { DictionaryEntryExportFormat, Result } from '@mothertongues/search';
 
 @Component({
-  selector: 'mtd-search-entry-list',
-  styleUrls: ['entry-list.component.scss'],
-  templateUrl: 'search-entry-list.component.html',
-  encapsulation: ViewEncapsulation.None,
+    selector: 'mtd-search-entry-list',
+    styleUrls: ['entry-list.component.scss'],
+    templateUrl: 'search-entry-list.component.html',
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class SearchEntryListComponent implements OnChanges, OnInit {
   edit = false;

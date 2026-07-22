@@ -37,10 +37,11 @@ interface Example {
 }
 
 @Component({
-  selector: 'mtd-word-modal',
-  templateUrl: './word-modal.component.html',
-  styleUrls: ['./word-modal.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'mtd-word-modal',
+    templateUrl: './word-modal.component.html',
+    styleUrls: ['./word-modal.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class WordModalComponent implements OnInit, OnDestroy {
   Object = Object;

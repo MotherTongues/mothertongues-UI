@@ -15,10 +15,11 @@ import { BehaviorSubject } from 'rxjs';
 import { SettingsService } from './settings.service';
 
 @Component({
-  selector: 'mtd-entry',
-  styleUrls: ['entry.component.scss'],
-  templateUrl: 'entry.component.html',
-  encapsulation: ViewEncapsulation.None,
+    selector: 'mtd-entry',
+    styleUrls: ['entry.component.scss'],
+    templateUrl: 'entry.component.html',
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class EntryComponent implements OnInit, OnDestroy {
   @Input() entry!: DictionaryEntryExportFormat;

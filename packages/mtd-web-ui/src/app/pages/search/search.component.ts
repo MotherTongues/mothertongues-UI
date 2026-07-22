@@ -19,10 +19,11 @@ import {
 } from '@mothertongues/search';
 
 @Component({
-  selector: 'mtd-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'mtd-search',
+    templateUrl: './search.component.html',
+    styleUrls: ['./search.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class SearchComponent implements OnDestroy {
   displayNav = true;

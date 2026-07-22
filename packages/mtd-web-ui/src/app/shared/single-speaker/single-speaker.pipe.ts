@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'singleSpeaker',
+    name: 'singleSpeaker',
+    standalone: false
 })
 export class SingleSpeakerPipe implements PipeTransform {
   /**

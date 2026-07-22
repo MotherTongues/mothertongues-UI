@@ -10,10 +10,11 @@ import { DictionaryEntryExportFormat } from '@mothertongues/search';
 import { Subject } from 'rxjs';
 
 @Component({
-  selector: 'mtd-entry-list',
-  styleUrls: ['entry-list.component.scss'],
-  templateUrl: 'entry-list.component.html',
-  encapsulation: ViewEncapsulation.None,
+    selector: 'mtd-entry-list',
+    styleUrls: ['entry-list.component.scss'],
+    templateUrl: 'entry-list.component.html',
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class EntryListComponent implements OnChanges, OnInit {
   edit = false;

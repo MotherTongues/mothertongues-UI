@@ -4,9 +4,10 @@ import { BehaviorSubject } from 'rxjs';
 import { DictionaryEntryExportFormat } from '@mothertongues/search';
 
 @Component({
-  selector: 'mtd-bookmarks',
-  templateUrl: './bookmarks.page.html',
-  styleUrls: ['./bookmarks.page.css'],
+    selector: 'mtd-bookmarks',
+    templateUrl: './bookmarks.page.html',
+    styleUrls: ['./bookmarks.page.css'],
+    standalone: false
 })
 export class BookmarksPage implements OnInit {
   $bookmarks: BehaviorSubject<DictionaryEntryExportFormat[]>;

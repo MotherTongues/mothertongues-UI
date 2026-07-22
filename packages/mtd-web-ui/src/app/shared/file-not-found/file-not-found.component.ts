@@ -2,8 +2,9 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
-  selector: 'mtd-file-not-found-dialog',
-  templateUrl: 'file-not-found.component.html',
+    selector: 'mtd-file-not-found-dialog',
+    templateUrl: 'file-not-found.component.html',
+    standalone: false
 })
 export class FileNotFoundDialogComponent {
   constructor(

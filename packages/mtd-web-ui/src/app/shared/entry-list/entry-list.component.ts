@@ -16,9 +16,10 @@ export interface DictionaryTitle {
 }
 
 @Component({
-  selector: 'mtd-entry-list',
-  templateUrl: 'entry-list.component.html',
-  styleUrls: ['entry-list.component.scss'],
+    selector: 'mtd-entry-list',
+    templateUrl: 'entry-list.component.html',
+    styleUrls: ['entry-list.component.scss'],
+    standalone: false
 })
 export class EntryListComponent implements OnDestroy {
   unsubscribe$ = new Subject<void>();

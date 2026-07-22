@@ -12,10 +12,11 @@ import { BookmarksService } from '../../core/bookmarks.service';
 import { ROUTE_ANIMATIONS_ELEMENTS } from '../../core/route.animations';
 import { DictionaryEntryExportFormat } from '@mothertongues/search';
 @Component({
-  selector: 'mtd-browse',
-  templateUrl: './browse.component.html',
-  styleUrls: ['./browse.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'mtd-browse',
+    templateUrl: './browse.component.html',
+    styleUrls: ['./browse.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class BrowseComponent implements OnDestroy {
   // Full list of entries (could be a single category)

@@ -6,13 +6,14 @@ import { ROUTE_ANIMATIONS_ELEMENTS } from '../../core/route.animations';
 import { SettingsService } from '../../core/settings.service';
 
 @Component({
-  selector: 'mtd-settings',
-  templateUrl: './settings-container.component.html',
-  styleUrls: [
-    './settings-container.component.scss',
-    '../../shared/layout/single/single.component.scss',
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'mtd-settings',
+    templateUrl: './settings-container.component.html',
+    styleUrls: [
+        './settings-container.component.scss',
+        '../../shared/layout/single/single.component.scss',
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class SettingsContainerComponent {
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;

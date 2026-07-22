@@ -16,10 +16,11 @@ interface MenuItem {
 }
 
 @Component({
-  selector: 'mothertongues-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  animations: [routeAnimations],
+    selector: 'mothertongues-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    animations: [routeAnimations],
+    standalone: false
 })
 export class AppComponent {
   displayNav = false;

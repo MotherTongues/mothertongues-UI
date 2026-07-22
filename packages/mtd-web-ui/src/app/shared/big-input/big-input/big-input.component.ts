@@ -1,10 +1,11 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'mtd-big-input',
-  templateUrl: './big-input.component.html',
-  styleUrls: ['./big-input.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'mtd-big-input',
+    templateUrl: './big-input.component.html',
+    styleUrls: ['./big-input.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class BigInputComponent {
   @Input()

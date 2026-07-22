@@ -12,13 +12,14 @@ import { ROUTE_ANIMATIONS_ELEMENTS } from '../../core/route.animations';
 import { DictionaryEntryExportFormat } from '@mothertongues/search';
 
 @Component({
-  selector: 'mtd-random',
-  templateUrl: './random.component.html',
-  styleUrls: [
-    './random.component.scss',
-    '../../shared/layout/single/single.component.scss',
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'mtd-random',
+    templateUrl: './random.component.html',
+    styleUrls: [
+        './random.component.scss',
+        '../../shared/layout/single/single.component.scss',
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class RandomComponent {
   displayNav = true;

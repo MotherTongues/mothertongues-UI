@@ -8,9 +8,10 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { BrowseService } from './browse.service';
 
 @Component({
-  selector: 'mtd-browse',
-  templateUrl: './browse.page.html',
-  styleUrls: ['./browse.page.css'],
+    selector: 'mtd-browse',
+    templateUrl: './browse.page.html',
+    styleUrls: ['./browse.page.css'],
+    standalone: false
 })
 export class BrowsePage implements OnInit {
   $config: BehaviorSubject<LanguageConfigurationExportFormat | null> =

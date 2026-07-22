@@ -11,10 +11,11 @@ import { takeUntil } from 'rxjs/operators';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { DictionaryEntryExportFormat } from '@mothertongues/search';
 @Component({
-  selector: 'mtd-bookmarks',
-  templateUrl: './bookmarks.component.html',
-  styleUrls: ['../../shared/layout/single/single.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'mtd-bookmarks',
+    templateUrl: './bookmarks.component.html',
+    styleUrls: ['../../shared/layout/single/single.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class BookmarksComponent implements OnDestroy {
   displayNav = true;
