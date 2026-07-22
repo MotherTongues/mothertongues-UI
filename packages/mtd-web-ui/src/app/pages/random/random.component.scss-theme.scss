@@ -8,22 +8,22 @@
 
   mtd-random {
     .background {
-      color: mat.get-color-from-palette($foreground, text);
-      background-color: mat.get-color-from-palette($background, background);
+      color: mat.m2-get-color-from-palette($foreground, text);
+      background-color: mat.m2-get-color-from-palette($background, background);
 
       .gradient {
         &::before {
           background: linear-gradient(
             to bottom,
-            mat.get-color-from-palette($background, background, 0) 0%,
-            mat.get-color-from-palette($background, background, 1) 100%
+            mat.m2-get-color-from-palette($background, background, 0) 0%,
+            mat.m2-get-color-from-palette($background, background, 1) 100%
           );
         }
       }
     }
     .results {
-      border: 0.125em solid mat.get-color-from-palette($accent);
-      background-color: mat.get-color-from-palette($background, background);
+      border: 0.125em solid mat.m2-get-color-from-palette($accent);
+      background-color: mat.m2-get-color-from-palette($background, background);
     }
   }
 }

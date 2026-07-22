@@ -6,19 +6,19 @@
   $foreground: map-get($theme, foreground);
 
   a {
-    color: mat.get-color-from-palette($foreground, text);
+    color: mat.m2-get-color-from-palette($foreground, text);
 
     &:hover {
-      color: mat.get-color-from-palette($accent);
+      color: mat.m2-get-color-from-palette($accent);
     }
   }
 
   p {
     a {
-      color: mat.get-color-from-palette($accent);
+      color: mat.m2-get-color-from-palette($accent);
 
       &:hover {
-        color: mat.get-color-from-palette($accent, darker);
+        color: mat.m2-get-color-from-palette($accent, darker);
       }
     }
   }

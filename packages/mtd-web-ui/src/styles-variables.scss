@@ -44,8 +44,8 @@ $container-max-widths: (
   xl: 1320px,
 );
 
-$success-colors: mat.define-palette(mat.$green-palette, 400);
-$warning-colors: mat.define-palette(mat.$amber-palette, 400);
+$success-colors: mat.m2-define-palette(mat.$m2-green-palette, 400);
+$warning-colors: mat.m2-define-palette(mat.$m2-amber-palette, 400);
 
 /* Used for the definitions below */
 $phone-max-width: map-get($angular-breakpoints, 'tablet') - 1;

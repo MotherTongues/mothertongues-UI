@@ -41,6 +41,7 @@ Thumbs.db
 # JavaScript nonsense
 .angular
 .nx/cache
+.nx/workspace-data
 
 # Emacs
 *~

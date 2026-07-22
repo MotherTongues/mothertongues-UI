@@ -8,3 +8,4 @@ dictionary_data.json
 en-fr.json
 
 /.nx/cache
+/.nx/workspace-data

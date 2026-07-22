@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -45,48 +45,40 @@ export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
-@NgModule({
-  imports: [
-    // angular
-    CommonModule,
-    HttpClientModule,
-    FormsModule,
-    BrowserAnimationsModule,
-    BrowserModule,
-
-    // material
-    MatSidenavModule,
-    MatToolbarModule,
-    MatListModule,
-    MatMenuModule,
-    MatIconModule,
-    MatSelectModule,
-    MatTooltipModule,
-    MatSnackBarModule,
-    MatButtonModule,
-    MatExpansionModule,
-
-    // 3rd party
-    FontAwesomeModule,
-    TranslateModule.forRoot({
-      defaultLanguage: 'en', // FIXME: from config
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient],
-      },
-    }),
-
-    // app
-    AppRoutingModule,
-    // ngsw
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production,
-    }),
-  ],
-  declarations: [AppComponent],
-  bootstrap: [AppComponent],
-})
+@NgModule({ declarations: [AppComponent],
+    bootstrap: [AppComponent], imports: [
+        // angular
+        CommonModule,
+        FormsModule,
+        BrowserAnimationsModule,
+        BrowserModule,
+        // material
+        MatSidenavModule,
+        MatToolbarModule,
+        MatListModule,
+        MatMenuModule,
+        MatIconModule,
+        MatSelectModule,
+        MatTooltipModule,
+        MatSnackBarModule,
+        MatButtonModule,
+        MatExpansionModule,
+        // 3rd party
+        FontAwesomeModule,
+        TranslateModule.forRoot({
+            defaultLanguage: 'en', // FIXME: from config
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient],
+            },
+        }),
+        // app
+        AppRoutingModule,
+        // ngsw
+        ServiceWorkerModule.register('ngsw-worker.js', {
+            enabled: environment.production,
+        })], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule {
   constructor(faIconLibrary: FaIconLibrary) {
     faIconLibrary.addIcons(

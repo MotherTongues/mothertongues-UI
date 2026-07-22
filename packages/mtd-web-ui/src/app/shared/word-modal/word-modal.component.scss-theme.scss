@@ -7,8 +7,8 @@
   .word {
     // FIXME: Should be shared with entry-list .langMatched
     &__active {
-      background: mat.get-color-from-palette($accent);
-      color: mat.get-color-from-palette($accent, default-contrast);
+      background: mat.m2-get-color-from-palette($accent);
+      color: mat.m2-get-color-from-palette($accent, default-contrast);
       border-radius: 2px;
     }
   }

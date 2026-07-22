@@ -8,19 +8,19 @@
 
   mtd-bookmarks {
     .content__container {
-      background: mat.get-color-from-palette($background, background);
+      background: mat.m2-get-color-from-palette($background, background);
     }
 
     .background {
-      color: mat.get-color-from-palette($foreground, text);
-      background-color: mat.get-color-from-palette($background, background);
+      color: mat.m2-get-color-from-palette($foreground, text);
+      background-color: mat.m2-get-color-from-palette($background, background);
 
       .gradient {
         &::before {
           background: linear-gradient(
             to bottom,
-            mat.get-color-from-palette($background, background, 0) 0%,
-            mat.get-color-from-palette($background, background, 1) 100%
+            mat.m2-get-color-from-palette($background, background, 0) 0%,
+            mat.m2-get-color-from-palette($background, background, 1) 100%
           );
         }
       }
