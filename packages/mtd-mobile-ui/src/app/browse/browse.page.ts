@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '../data.service';
 import {
   DictionaryEntryExportFormat,
@@ -11,6 +11,7 @@ import { BrowseService } from './browse.service';
     selector: 'mtd-browse',
     templateUrl: './browse.page.html',
     styleUrls: ['./browse.page.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class BrowsePage implements OnInit {

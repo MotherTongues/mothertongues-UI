@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -78,7 +78,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         // ngsw
         ServiceWorkerModule.register('ngsw-worker.js', {
             enabled: environment.production,
-        })], providers: [provideHttpClient(withInterceptorsFromDi())] })
+        })], providers: [provideHttpClient(withXhr(), withInterceptorsFromDi())] })
 export class AppModule {
   constructor(faIconLibrary: FaIconLibrary) {
     faIconLibrary.addIcons(

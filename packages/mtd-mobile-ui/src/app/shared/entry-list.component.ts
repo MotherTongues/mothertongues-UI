@@ -4,6 +4,7 @@ import {
   OnChanges,
   OnInit,
   ViewEncapsulation,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { DataService } from '../data.service';
 import { DictionaryEntryExportFormat } from '@mothertongues/search';
@@ -14,6 +15,7 @@ import { Subject } from 'rxjs';
     styleUrls: ['entry-list.component.scss'],
     templateUrl: 'entry-list.component.html',
     encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class EntryListComponent implements OnChanges, OnInit {

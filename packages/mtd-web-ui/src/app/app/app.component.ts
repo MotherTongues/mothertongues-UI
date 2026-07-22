@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ChildrenOutletContexts, RouterOutlet } from '@angular/router';
 
 import { marker } from '@biesbjerg/ngx-translate-extract-marker';
@@ -20,6 +20,7 @@ interface MenuItem {
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
     animations: [routeAnimations],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class AppComponent {

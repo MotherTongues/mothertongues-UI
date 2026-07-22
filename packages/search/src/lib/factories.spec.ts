@@ -20,9 +20,9 @@ describe('transducer', () => {
   });
 
   it('should be able to search with edit distance based on tokens from substitution costs', () => {
-    // @ts-ignore
+    // @ts-expect-error: deliberately testing with a mismatched index type
     const l1_index_english_numbers: L1Index = index1;
-    // @ts-ignore
+    // @ts-expect-error: deliberately testing with a mismatched index type
     const l2_index_english_numbers: L2Index = index2;
     const exportedData: MTDExportFormat = {
       config: {

@@ -4,6 +4,7 @@ import {
   OnDestroy,
   OnInit,
   ViewEncapsulation,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { DataService } from '../data.service';
 import {
@@ -19,6 +20,7 @@ import { SettingsService } from './settings.service';
     styleUrls: ['entry.component.scss'],
     templateUrl: 'entry.component.html',
     encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class EntryComponent implements OnInit, OnDestroy {

@@ -98,7 +98,7 @@ describe('normalize', () => {
     const defaultNormalization = create_normalization_function({
       replace_rules: {
         r: 'z',
-        // @ts-ignore: deliberately testing a duplicate key.
+        // @ts-expect-error: deliberately testing a duplicate key.
         r: 'l',
       },
     });
@@ -248,7 +248,7 @@ describe('MTDSearch class', () => {
   // });
 
   describe('search method', () => {
-    // @ts-ignore: I don't understand why this doesn't work
+    // @ts-expect-error: I don't understand why this doesn't work
     const l1_index_english_numbers: L1Index = index1;
 
     it('should return correct search results for single word query', () => {

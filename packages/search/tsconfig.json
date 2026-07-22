@@ -11,7 +11,8 @@
     "noFallthroughCasesInSwitch": true,
     "types": ["vitest"],
     "resolveJsonModule": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "ignoreDeprecations": "6.0"
   },
   "files": [],
   "include": [],

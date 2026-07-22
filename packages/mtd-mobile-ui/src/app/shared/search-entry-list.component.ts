@@ -4,6 +4,7 @@ import {
   OnChanges,
   OnInit,
   ViewEncapsulation,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { DataService } from '../data.service';
 import { DictionaryEntryExportFormat, Result } from '@mothertongues/search';
@@ -13,6 +14,7 @@ import { DictionaryEntryExportFormat, Result } from '@mothertongues/search';
     styleUrls: ['entry-list.component.scss'],
     templateUrl: 'search-entry-list.component.html',
     encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class SearchEntryListComponent implements OnChanges, OnInit {

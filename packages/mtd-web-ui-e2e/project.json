@@ -3,6 +3,8 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/mtd-web-ui-e2e/src",
   "projectType": "application",
+  "tags": [],
+  "implicitDependencies": ["mtd-web-ui"],
   "targets": {
     "e2e": {
       "executor": "@nx/cypress:cypress",
@@ -27,7 +29,5 @@
         "lintFilePatterns": ["packages/mtd-web-ui-e2e/**/*.{js,ts}"]
       }
     }
-  },
-  "tags": [],
-  "implicitDependencies": ["mtd-web-ui"]
+  }
 }

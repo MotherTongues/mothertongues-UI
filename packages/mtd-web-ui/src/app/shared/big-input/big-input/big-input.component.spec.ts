@@ -1,4 +1,4 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -7,6 +7,7 @@ import { SharedModule } from '../../shared.module';
 @Component({
   selector: 'mtd-host-for-test',
   imports: [SharedModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <mtd-big-input
       placeholder="I am going to do..."

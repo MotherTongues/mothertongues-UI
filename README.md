@@ -25,7 +25,7 @@ This is a basic [Ionic](https://ionicframework.com/) app for displaying Mother T
 
 ## Installation
 
-You must have Node 16+ installed to run this app.
+You must have Node 22+ installed to run this app.
 
 1. Install dependencies `npm install`
 2. Serve app: `npx nx serve mtd-mobile-ui` (note you have to have some dictionary data generated from [MTD](https://github.com/MotherTongues/mothertongues) for this to work)

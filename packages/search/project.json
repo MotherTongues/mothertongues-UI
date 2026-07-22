@@ -3,6 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/search/src",
   "projectType": "library",
+  "tags": [],
   "targets": {
     "pre-build": {
       "executor": "nx:run-script",
@@ -29,13 +30,12 @@
       }
     },
     "test": {
-      "executor": "@nx/vite:test",
+      "executor": "@nx/vitest:test",
       "outputs": ["{workspaceRoot}/coverage/packages/search"],
       "options": {
         "passWithNoTests": true,
         "reportsDirectory": "../../coverage/packages/search"
       }
     }
-  },
-  "tags": []
+  }
 }

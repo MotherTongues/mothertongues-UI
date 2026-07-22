@@ -32,8 +32,8 @@ export class BrowseComponent implements OnDestroy {
     this.guessNumEntries()
   );
 
-  letterSelectOptions: Object = { header: 'Select a Letter' };
-  categorySelectOptions: Object = { header: 'Select a Category' };
+  letterSelectOptions: object = { header: 'Select a Letter' };
+  categorySelectOptions: object = { header: 'Select a Category' };
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
   unsubscribe$ = new Subject<void>();
   constructor(
@@ -176,7 +176,7 @@ export class BrowseComponent implements OnDestroy {
   }
   // Scroll to previous X entries
   prevX() {
-    let current_val = this.startIndex$.value;
+    const current_val = this.startIndex$.value;
     const numShown = this.numShown$.value;
     const prevStart = current_val - numShown;
     if (prevStart > 0) {
@@ -188,7 +188,7 @@ export class BrowseComponent implements OnDestroy {
 
   // Scroll to next X entries
   nextX() {
-    let current_val = this.startIndex$.value;
+    const current_val = this.startIndex$.value;
     const numShown = this.numShown$.value;
     const nextStart = current_val + numShown;
     if (nextStart < this.currentEntries$.value.length) {

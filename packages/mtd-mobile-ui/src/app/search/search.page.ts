@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '../data.service';
 import { sortResults } from '@mothertongues/search';
 import { BehaviorSubject } from 'rxjs';
@@ -8,6 +8,7 @@ import { SearchService } from './search.service';
     selector: 'mtd-search',
     templateUrl: './search.page.html',
     styleUrls: ['./search.page.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class SearchPage implements OnInit {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '../data.service';
 import { BehaviorSubject } from 'rxjs';
 import { DictionaryEntryExportFormat } from '@mothertongues/search';
@@ -7,6 +7,7 @@ import { DictionaryEntryExportFormat } from '@mothertongues/search';
     selector: 'mtd-bookmarks',
     templateUrl: './bookmarks.page.html',
     styleUrls: ['./bookmarks.page.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class BookmarksPage implements OnInit {
