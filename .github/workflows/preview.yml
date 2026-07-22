@@ -28,6 +28,7 @@ jobs:
         run: |
           npx nx build search
           npx nx build mtd-mobile-ui --base-href=/mothertongues-UI/pr-preview/pr-${{github.event.number}}/ --configuration=production
+          cp dist/packages/mtd-mobile-ui/index.html dist/packages/mtd-mobile-ui/404.html
       - name: Publish Deploy Preview 🛫
         uses: rossjrw/pr-preview-action@8ff09e486b4c23709012eedd3b42e9f0b95dd0c5 # v1.6.3
         with:
