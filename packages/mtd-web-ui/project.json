@@ -70,7 +70,8 @@
           "browserTarget": "mtd-web-ui:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "continuous": true
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
@@ -93,7 +94,8 @@
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "packages/mtd-web-ui/jest.config.ts",
-        "passWithNoTests": true
+        "passWithNoTests": true,
+        "tsConfig": "packages/mtd-web-ui/tsconfig.spec.json"
       },
       "configurations": {
         "ci": {

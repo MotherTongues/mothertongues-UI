@@ -20,8 +20,8 @@ describe('BookmarksPage', () => {
       imports: [IonicModule.forRoot(), HttpClientTestingModule, SharedModule],
     }).compileComponents();
 
-    httpClient = TestBed.get(HttpClient);
-    httpTestingController = TestBed.get(HttpTestingController);
+    httpClient = TestBed.inject(HttpClient);
+    httpTestingController = TestBed.inject(HttpTestingController);
     fixture = TestBed.createComponent(BookmarksPage);
     component = fixture.componentInstance;
     fixture.detectChanges();

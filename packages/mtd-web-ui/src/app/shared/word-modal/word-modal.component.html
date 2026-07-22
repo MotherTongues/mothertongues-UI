@@ -1,105 +1,127 @@
 <ng-template #audioPane>
-  <div class="container audio__container" *ngIf="entry.audio">
-    <div *ngIf="!tabs" class="container__row audio__header">
-      <h3 class="container__col audio__header">
-        {{ 'mtd.word-modal.audio' | translate }}
-      </h3>
-    </div>
-    <div class="container__row audio__desc">
-      <p class="container__col audio__desc">
-        {{
+  @if (entry.audio) {
+    <div class="container audio__container">
+      @if (!tabs) {
+        <div class="container__row audio__header">
+          <h3 class="container__col audio__header">
+            {{ 'mtd.word-modal.audio' | translate }}
+          </h3>
+        </div>
+      }
+      <div class="container__row audio__desc">
+        <p class="container__col audio__desc">
+          {{
           'mtd.word-modal.audio-instructions'
-            | translate : { value: entry.definition }
-        }}
-      </p>
+          | translate : { value: entry.definition }
+          }}
+        </p>
+      </div>
+      @if (entry.audio) {
+        <div class="container__row audio__buttons centered">
+          @for (audio of entry.audio | noNullObjectValues | singleSpeaker; track audio) {
+            <button
+              class="audio__button"
+              mat-raised-button
+              (click)="playAudio(null, audio)"
+              >
+              {{ audio.description }}
+              <mat-icon class="audio__icon">audiotrack</mat-icon>
+            </button>
+          }
+        </div>
+      }
     </div>
-    <div *ngIf="entry.audio" class="container__row audio__buttons centered">
-      <button
-        *ngFor="let audio of entry.audio | noNullObjectValues | singleSpeaker"
-        class="audio__button"
-        mat-raised-button
-        (click)="playAudio(null, audio)"
-      >
-        {{ audio.description }}
-        <mat-icon class="audio__icon">audiotrack</mat-icon>
-      </button>
-    </div>
-  </div>
+  }
 </ng-template>
 <ng-template #examplePane>
-  <div class="container audio__container" *ngIf="examples.length">
-    <div *ngIf="!tabs" class="container__row example__header">
-      <h3 class="container__col example__header">
-        {{ 'mtd.word-modal.examples' | translate }}
-      </h3>
+  @if (examples.length) {
+    <div class="container audio__container">
+      @if (!tabs) {
+        <div class="container__row example__header">
+          <h3 class="container__col example__header">
+            {{ 'mtd.word-modal.examples' | translate }}
+          </h3>
+        </div>
+      }
+      @for (example of examples; track example) {
+        <div class="container example__desc">
+          <p class="container__row example__desc">
+            {{ example.text }}
+          </p>
+          <p class="container__row example__desc">
+            @for (word of example.definition; track word) {
+              <span class="word" [class.word__active]="word.active">{{
+                word.text
+              }}</span>
+              <!-- This is very important, otherwise Angular will not put spaces here -->
+              {{ ' ' }}
+            }
+          </p>
+          @if (example.audio) {
+            <div class="container__row audio__buttons centered">
+              @for (
+                audio of example.audio | noNullObjectValues | singleSpeaker
+                ; track
+                audio) {
+                <button
+                  class="audio__button"
+                  mat-raised-button
+                  (click)="playAudio(example, audio)"
+                  >
+                  {{ audio.description }}
+                  <mat-icon class="audio__icon">audiotrack</mat-icon>
+                </button>
+              }
+            </div>
+          }
+        </div>
+      }
     </div>
-    <div class="container example__desc" *ngFor="let example of examples">
-      <p class="container__row example__desc">
-        {{ example.text }}
-      </p>
-      <p class="container__row example__desc">
-        <ng-template ngFor let-word [ngForOf]="example.definition">
-          <span class="word" [class.word__active]="word.active">{{
-            word.text
-          }}</span>
-          <!-- This is very important, otherwise Angular will not put spaces here -->
-          {{ ' ' }}
-        </ng-template>
-      </p>
-      <div *ngIf="example.audio" class="container__row audio__buttons centered">
-        <button
-          *ngFor="
-            let audio of example.audio | noNullObjectValues | singleSpeaker
-          "
-          class="audio__button"
-          mat-raised-button
-          (click)="playAudio(example, audio)"
-        >
-          {{ audio.description }}
-          <mat-icon class="audio__icon">audiotrack</mat-icon>
-        </button>
-      </div>
-    </div>
-  </div>
+  }
 </ng-template>
 <ng-template #optional>
-  <div class="container__row" *ngIf="entry && entry.optional">
-    <div class="container__col centered">
-      <span *ngFor="let key of Object.keys(entry.optional)"
-        >{{ key }}: {{ entry.optional[key] }}</span
-      >
-    </div>
-  </div>
-</ng-template>
-<div class="container">
-  <div class="container__row">
-    <div class="container__col centered" *ngIf="entry">
-      <h2>
-        <span>{{ entry.word }}</span> -
-        <span>{{ entry.definition }}</span>
-      </h2>
-    </div>
-  </div>
-  <ng-container *ngTemplateOutlet="optional"></ng-container>
-</div>
-<div mat-dialog-content>
-  <ng-container *ngIf="tabs; else noTabs">
-    <mat-tab-group mat-align-tabs="center">
-      <mat-tab label="{{ 'mtd.word-modal.audio' | translate }}">
-        <ng-container *ngTemplateOutlet="audioPane"></ng-container>
-      </mat-tab>
-      <mat-tab label="{{ 'mtd.word-modal.examples' | translate }}">
-        <ng-container *ngTemplateOutlet="examplePane"></ng-container>
-      </mat-tab>
-    </mat-tab-group>
-  </ng-container>
-  <ng-template #noTabs>
-    <ng-container *ngTemplateOutlet="audioPane"></ng-container>
-    <ng-container *ngTemplateOutlet="examplePane"></ng-container>
+  @if (entry && entry.optional) {
+    <div class="container__row">
+      <div class="container__col centered">
+        @for (key of Object.keys(entry.optional); track key) {
+          <span
+            >{{ key }}: {{ entry.optional[key] }}</span
+            >
+          }
+        </div>
+      </div>
+    }
   </ng-template>
-</div>
-<div mat-dialog-actions align="end">
-  <button cdkFocusInitial mat-raised-button mat-dialog-close>
-    {{ 'mtd.word-modal.exit' | translate }}
-  </button>
-</div>
+  <div class="container">
+    <div class="container__row">
+      @if (entry) {
+        <div class="container__col centered">
+          <h2>
+            <span>{{ entry.word }}</span> -
+            <span>{{ entry.definition }}</span>
+          </h2>
+        </div>
+      }
+    </div>
+    <ng-container *ngTemplateOutlet="optional"></ng-container>
+  </div>
+  <div mat-dialog-content>
+    @if (tabs) {
+      <mat-tab-group mat-align-tabs="center">
+        <mat-tab label="{{ 'mtd.word-modal.audio' | translate }}">
+          <ng-container *ngTemplateOutlet="audioPane"></ng-container>
+        </mat-tab>
+        <mat-tab label="{{ 'mtd.word-modal.examples' | translate }}">
+          <ng-container *ngTemplateOutlet="examplePane"></ng-container>
+        </mat-tab>
+      </mat-tab-group>
+    } @else {
+      <ng-container *ngTemplateOutlet="audioPane"></ng-container>
+      <ng-container *ngTemplateOutlet="examplePane"></ng-container>
+    }
+  </div>
+  <div mat-dialog-actions align="end">
+    <button cdkFocusInitial mat-raised-button mat-dialog-close>
+      {{ 'mtd.word-modal.exit' | translate }}
+    </button>
+  </div>

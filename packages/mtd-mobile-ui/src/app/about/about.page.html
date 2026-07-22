@@ -13,46 +13,55 @@
       <ion-title size="large">about</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-grid *ngIf="$config | async as config">
-    <ion-row class="ion-align-items-center ion-justify-content-center">
-      <h1>{{ config.L1 }} / {{ config.L2 }} Dictionary</h1>
-    </ion-row>
-    <ion-row
-      *ngIf="config.aboutPageDescription"
-      class="ion-align-items-center ion-justify-content-center"
-    >
-      <div [innerHTML]="config.aboutPageDescription"></div>
-    </ion-row>
-    <ion-row
-      *ngIf="config.credits"
-      class="ion-align-items-center ion-justify-content-center"
-    >
-      <h2>Contributors</h2>
-      <ion-list>
-        <ion-item *ngFor="let contributor of config.credits">
-          <ion-label>{{ contributor.name }} - {{ contributor.role }}</ion-label>
-        </ion-item>
-      </ion-list>
-    </ion-row>
-    <ion-img
-      *ngIf="config.aboutPageImg"
-      src="{{ config.aboutPageImg }}"
-      alt="The image for the {{ config.L1 }} / {{ config.L2 }} dictionary"
-    ></ion-img>
-    <ion-row>
-      <ion-col>
-        <p class="build">
-          Built with
-          <a href="https://docs.mothertongues.org/"
-            >Mother Tongues Dictionaries</a
+  @if ($config | async; as config) {
+    <ion-grid>
+      <ion-row class="ion-align-items-center ion-justify-content-center">
+        <h1>{{ config.L1 }} / {{ config.L2 }} Dictionary</h1>
+      </ion-row>
+      @if (config.aboutPageDescription) {
+        <ion-row
+          class="ion-align-items-center ion-justify-content-center"
           >
-        </p>
-      </ion-col>
-    </ion-row>
-    <ion-row *ngIf="config.build">
-      <ion-col>
-        <p class="build">Build Number: {{ config.build }}</p>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-</ion-content>
+          <div [innerHTML]="config.aboutPageDescription"></div>
+        </ion-row>
+      }
+      @if (config.credits) {
+        <ion-row
+          class="ion-align-items-center ion-justify-content-center"
+          >
+          <h2>Contributors</h2>
+          <ion-list>
+            @for (contributor of config.credits; track contributor) {
+              <ion-item>
+                <ion-label>{{ contributor.name }} - {{ contributor.role }}</ion-label>
+              </ion-item>
+            }
+          </ion-list>
+        </ion-row>
+      }
+      @if (config.aboutPageImg) {
+        <ion-img
+          src="{{ config.aboutPageImg }}"
+          alt="The image for the {{ config.L1 }} / {{ config.L2 }} dictionary"
+        ></ion-img>
+      }
+      <ion-row>
+        <ion-col>
+          <p class="build">
+            Built with
+            <a href="https://docs.mothertongues.org/"
+              >Mother Tongues Dictionaries</a
+              >
+            </p>
+          </ion-col>
+        </ion-row>
+        @if (config.build) {
+          <ion-row>
+            <ion-col>
+              <p class="build">Build Number: {{ config.build }}</p>
+            </ion-col>
+          </ion-row>
+        }
+      </ion-grid>
+    }
+  </ion-content>

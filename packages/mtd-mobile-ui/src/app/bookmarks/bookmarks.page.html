@@ -4,16 +4,23 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>Bookmarks</ion-title>
-    <ion-buttons slot="end" *ngIf="$bookmarks | async as bookmarks">
-      <ion-button
-        *ngIf="bookmarks.length > 0"
-        ion-button
-        (click)="edit = !edit"
-      >
-        <ion-icon name="trash" *ngIf="!edit"></ion-icon>
-        <span *ngIf="edit">cancel</span>
-      </ion-button>
-    </ion-buttons>
+    @if ($bookmarks | async; as bookmarks) {
+      <ion-buttons slot="end">
+        @if (bookmarks.length > 0) {
+          <ion-button
+            ion-button
+            (click)="edit = !edit"
+            >
+            @if (!edit) {
+              <ion-icon name="trash"></ion-icon>
+            }
+            @if (edit) {
+              <span>cancel</span>
+            }
+          </ion-button>
+        }
+      </ion-buttons>
+    }
   </ion-toolbar>
 </ion-header>
 
@@ -23,16 +30,19 @@
       <ion-title size="large">bookmarks</ion-title>
     </ion-toolbar>
   </ion-header>
-  <div *ngIf="$bookmarks | async as bookmarks">
-    <mtd-entry-list [entries]="bookmarks" [parentEdit]="edit"></mtd-entry-list>
-    <div class="center">
-      <ion-button
-        color="danger"
-        class="remove"
-        *ngIf="edit"
-        (click)="removeEntries()"
-        >Remove selected bookmarks</ion-button
-      >
-    </div>
-  </div>
-</ion-content>
+  @if ($bookmarks | async; as bookmarks) {
+    <div>
+      <mtd-entry-list [entries]="bookmarks" [parentEdit]="edit"></mtd-entry-list>
+      <div class="center">
+        @if (edit) {
+          <ion-button
+            color="danger"
+            class="remove"
+            (click)="removeEntries()"
+            >Remove selected bookmarks</ion-button
+            >
+          }
+        </div>
+      </div>
+    }
+  </ion-content>

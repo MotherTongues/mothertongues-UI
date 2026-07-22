@@ -19,67 +19,77 @@
         label="Select a Category"
         (ionChange)="handleCategoryChange($event)"
         placeholder="All"
-      >
-        <ion-select-option *ngFor="let category of categories"
-          >{{ category }}</ion-select-option
         >
-      </ion-select>
-    </ion-item>
-    <ion-item *ngIf="displayLetters">
-      <ion-select
-        label="Current Letter"
-        (ionChange)="handleLetterChange($event)"
-        [value]="this.browseService.currentLetter$ | async"
-      >
-        <ion-select-option *ngFor="let letter of displayLetters"
-          >{{ letter }}</ion-select-option
-        >
-      </ion-select>
-      <ion-toast
-        [isOpen]="letterNotFound"
-        message="Sorry, it doesn't look like there are any words that start with that letter"
-        [duration]="5000"
-        (didDismiss)="letterNotFound = false"
-      ></ion-toast>
-    </ion-item>
-  </ion-list>
-  <div
-    class="entry-container"
-    *ngIf="browseService.currentTen$ | async as currentTen"
-  >
-    <mtd-entry-list [entries]="currentTen"></mtd-entry-list>
-  </div>
-</ion-content>
+        @for (category of categories; track category) {
+          <ion-select-option
+            >{{ category }}</ion-select-option
+            >
+          }
+        </ion-select>
+      </ion-item>
+      @if (displayLetters) {
+        <ion-item>
+          <ion-select
+            label="Current Letter"
+            (ionChange)="handleLetterChange($event)"
+            [value]="this.browseService.currentLetter$ | async"
+            >
+            @for (letter of displayLetters; track letter) {
+              <ion-select-option
+                >{{ letter }}</ion-select-option
+                >
+              }
+            </ion-select>
+            <ion-toast
+              [isOpen]="letterNotFound"
+              message="Sorry, it doesn't look like there are any words that start with that letter"
+              [duration]="5000"
+              (didDismiss)="letterNotFound = false"
+            ></ion-toast>
+          </ion-item>
+        }
+      </ion-list>
+      @if (browseService.currentTen$ | async; as currentTen) {
+        <div
+          class="entry-container"
+          >
+          <mtd-entry-list [entries]="currentTen"></mtd-entry-list>
+        </div>
+      }
+    </ion-content>
 
-<ion-footer>
-  <ion-toolbar>
-    <ion-buttons slot="start" class="bar-buttons bar-buttons-ios">
-      <ion-button (click)="goBack()">
-        <ion-icon
-          slot="icon-only"
-          name="chevron-back-outline"
-          class="scroll"
-        ></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <div
-      class="browse-info"
-      *ngIf="{ start: browseService.$currentIndexStart | async } as currentStart"
-    >
-      <ion-title *ngIf="currentStart.start !== null"
-        >Viewing {{ currentStart.start + 1 }} to {{ currentStart.start + 10 }}
-        of {{ (browseService.$currentEntries | async)?.length }} Dictionary
-        Entries</ion-title
-      >
-    </div>
-    <ion-buttons slot="end" class="bar-buttons bar-buttons-ios">
-      <ion-button (click)="goForward()">
-        <ion-icon
-          slot="icon-only"
-          name="chevron-forward-outline"
-          class="scroll"
-        ></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-footer>
+    <ion-footer>
+      <ion-toolbar>
+        <ion-buttons slot="start" class="bar-buttons bar-buttons-ios">
+          <ion-button (click)="goBack()">
+            <ion-icon
+              slot="icon-only"
+              name="chevron-back-outline"
+              class="scroll"
+            ></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        @if ({ start: browseService.$currentIndexStart | async }; as currentStart) {
+          <div
+            class="browse-info"
+            >
+            @if (currentStart.start !== null) {
+              <ion-title
+                >Viewing {{ currentStart.start + 1 }} to {{ currentStart.start + 10 }}
+                of {{ (browseService.$currentEntries | async)?.length }} Dictionary
+                Entries</ion-title
+                >
+              }
+            </div>
+          }
+          <ion-buttons slot="end" class="bar-buttons bar-buttons-ios">
+            <ion-button (click)="goForward()">
+              <ion-icon
+                slot="icon-only"
+                name="chevron-forward-outline"
+                class="scroll"
+              ></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-footer>

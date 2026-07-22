@@ -1,110 +1,137 @@
 <ion-card>
   <!-- Image -->
-  <img *ngIf="entry.img" alt="entry image" src="{{ entry.img }}" />
+  @if (entry.img) {
+    <img alt="entry image" src="{{ entry.img }}" />
+  }
   <!-- Main Information -->
   <ion-card-header>
     <ion-card-title>{{ entry.word }}</ion-card-title>
     <ion-card-subtitle>{{ entry.definition }}</ion-card-subtitle>
     <!-- <ion-button>
-            <ion-icon slot="start" name="musical-notes-outline"></ion-icon>
-        </ion-button> -->
-  </ion-card-header>
+    <ion-icon slot="start" name="musical-notes-outline"></ion-icon>
+  </ion-button> -->
+</ion-card-header>
 
-  <ion-card-content>
-    <!-- Audio -->
-    <ion-list *ngIf="entry.audio && entry.audio.length > 0">
+<ion-card-content>
+  <!-- Audio -->
+  @if (entry.audio && entry.audio.length > 0) {
+    <ion-list>
       <ion-list-header>
         <ion-label>Audio</ion-label>
       </ion-list-header>
-      <ion-item *ngFor="let audio of entry.audio">
-        <ion-button
-          *ngIf="!playing && audio.filename"
-          (click)="playAudio(audio)"
-        >
-          <ion-icon slot="start" name="musical-notes-outline"></ion-icon>
-          <span *ngIf="audio.description && audio.description !== 'null'">{{
-            audio.description
-          }}</span>
-          <span *ngIf="!audio.description || audio.description === 'null'"
-            >Play</span
-          >
-        </ion-button>
-        <ion-button color="danger" *ngIf="playing" (click)="stopAllAudio()">
-          <ion-icon slot="start" name="musical-notes-outline"></ion-icon>
-          <span>Stop</span>
-        </ion-button>
-      </ion-item>
-    </ion-list>
+      @for (audio of entry.audio; track audio) {
+        <ion-item>
+          @if (!playing && audio.filename) {
+            <ion-button
+              (click)="playAudio(audio)"
+              >
+              <ion-icon slot="start" name="musical-notes-outline"></ion-icon>
+              @if (audio.description && audio.description !== 'null') {
+                <span>{{
+                  audio.description
+                }}</span>
+              }
+              @if (!audio.description || audio.description === 'null') {
+                <span
+                  >Play</span
+                  >
+                }
+              </ion-button>
+            }
+            @if (playing) {
+              <ion-button color="danger" (click)="stopAllAudio()">
+                <ion-icon slot="start" name="musical-notes-outline"></ion-icon>
+                <span>Stop</span>
+              </ion-button>
+            }
+          </ion-item>
+        }
+      </ion-list>
+    }
     <!-- Optional Information -->
-    <ion-list
-      *ngIf="
-        (settingsService.showOptionalInfo$ | async) &&
-        checkOptional(entry.optional)
-      "
-    >
-      <ion-list-header>
-        <ion-label>Optional</ion-label>
-      </ion-list-header>
-      <ion-item
-        *ngFor="
-          let item of optionalInfo(entry.optional) | keyvalue : originalOrder
-        "
-      >
-        <ion-label>{{ item.key }}</ion-label>
-        <ion-note class="optional__note" slot="end" *ngIf="item.value">{{
-          item.value
-        }}</ion-note>
-      </ion-item>
-    </ion-list>
+    @if (
+      (settingsService.showOptionalInfo$ | async) &&
+      checkOptional(entry.optional)
+      ) {
+      <ion-list
+        >
+        <ion-list-header>
+          <ion-label>Optional</ion-label>
+        </ion-list-header>
+        @for (
+          item of optionalInfo(entry.optional) | keyvalue : originalOrder
+          ; track
+          item) {
+          <ion-item
+            >
+            <ion-label>{{ item.key }}</ion-label>
+            @if (item.value) {
+              <ion-note class="optional__note" slot="end">{{
+                item.value
+              }}</ion-note>
+            }
+          </ion-item>
+        }
+      </ion-list>
+    }
     <!-- Example Sentences -->
-    <ion-list
-      *ngIf="
-        entry.example_sentence && checkListIsNotEmpty(entry.example_sentence)
-      "
-    >
-      <ion-list-header>
-        <ion-label>Example Sentences</ion-label>
-      </ion-list-header>
-      <ion-item *ngFor="let sentence of entry.example_sentence; let i = index">
-        <ion-thumbnail slot="start">
-          <ion-button
-            *ngIf="
-              entry.example_sentence_audio &&
-              checkListIsNotEmpty(entry.example_sentence_audio)
-            "
-            (click)="playAudio(entry.example_sentence_audio[i][0])"
-          >
-            <ion-icon slot="start" name="musical-notes-outline"></ion-icon>
-            <span *ngIf="entry.example_sentence_audio[i][0].description">{{
-              entry.example_sentence_audio[i][0].description
-            }}</span>
-          </ion-button>
-        </ion-thumbnail>
-        <ion-label
-          >{{ sentence
-          }}<span
-            *ngIf="
+    @if (
+      entry.example_sentence && checkListIsNotEmpty(entry.example_sentence)
+      ) {
+      <ion-list
+        >
+        <ion-list-header>
+          <ion-label>Example Sentences</ion-label>
+        </ion-list-header>
+        @for (sentence of entry.example_sentence; track sentence; let i = $index) {
+          <ion-item>
+            <ion-thumbnail slot="start">
+              @if (
+                entry.example_sentence_audio &&
+                checkListIsNotEmpty(entry.example_sentence_audio)
+                ) {
+                <ion-button
+                  (click)="playAudio(entry.example_sentence_audio[i][0])"
+                  >
+                  <ion-icon slot="start" name="musical-notes-outline"></ion-icon>
+                  @if (entry.example_sentence_audio[i][0].description) {
+                    <span>{{
+                      entry.example_sentence_audio[i][0].description
+                    }}</span>
+                  }
+                </ion-button>
+              }
+            </ion-thumbnail>
+            <ion-label
+              >{{ sentence
+              }}@if (
               entry.example_sentence_definition &&
               checkListIsNotEmpty(entry.example_sentence_definition)
-            "
-          >
-            - {{ entry.example_sentence_definition[i] }}</span
-          ></ion-label
-        >
-      </ion-item>
-    </ion-list>
-  </ion-card-content>
-</ion-card>
+              ) {
+              <span
+                >
+                - {{ entry.example_sentence_definition[i] }}</span
+                >
+                }</ion-label
+                >
+              </ion-item>
+            }
+          </ion-list>
+        }
+      </ion-card-content>
+    </ion-card>
 
-<ion-footer *ngIf="entry.optional && checkOptional(entry.optional)">
-  <ion-toolbar class="optional">
-    <ion-item>
-      <ion-toggle
-        [checked]="settingsService.showOptionalInfo$ | async"
-        (ionChange)="changeOptional()"
-        labelPlacement="start"
-        >Show optional information</ion-toggle
-      >
-    </ion-item>
-  </ion-toolbar>
-</ion-footer>
+    @if (entry.optional && checkOptional(entry.optional)) {
+      <ion-footer>
+        <ion-toolbar class="optional">
+          <ion-item>
+            <ion-toggle
+              [checked]="settingsService.showOptionalInfo$ | async"
+              (ionChange)="changeOptional()"
+              labelPlacement="start"
+              >Show optional information</ion-toggle
+              >
+            </ion-item>
+          </ion-toolbar>
+        </ion-footer>
+      }

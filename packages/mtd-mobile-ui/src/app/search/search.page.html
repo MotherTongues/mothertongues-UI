@@ -16,42 +16,53 @@
     animated="true"
     placeholder="Type your word here"
     (ionInput)="search($event)"
-  >
-    <ion-spinner *ngIf="($loaded | async) === false"></ion-spinner>
-  </ion-searchbar>
-  <div *ngIf="searchService.searchQuery.length > 1">
-    <div class="result-container" *ngIf="searchService.matches.length > 0">
-      <h4>Matches</h4>
-      <mtd-search-entry-list
-        [entries]="searchService.matches"
-        [searchterm]="searchService.searchQuery"
-        [threshold]="0"
-      ></mtd-search-entry-list>
-    </div>
-    <div class="result-container" *ngIf="searchService.partMatches.length > 0">
-      <h4>Partial Matches</h4>
-      <mtd-search-entry-list
-        [entries]="searchService.partMatches"
-        [searchterm]="searchService.searchQuery"
-        [threshold]="partialThreshold"
-      ></mtd-search-entry-list>
-    </div>
-    <div class="result-container" *ngIf="searchService.maybeMatches.length > 0">
-      <h4>Maybe you meant this?</h4>
-      <mtd-search-entry-list
-        [entries]="searchService.maybeMatches"
-        [searchterm]="searchService.searchQuery"
-        [threshold]="maybeThreshold"
-      ></mtd-search-entry-list>
-    </div>
-    <div
-      class="result-container"
-      *ngIf="searchService.matches.length === 0 && searchService.partMatches.length === 0 && searchService.maybeMatches.length === 0"
     >
-      <h6>
-        Sorry, we couldn't find any words matching '{{ searchService.searchQuery
-        }}'. Please try something else.
-      </h6>
+    @if (($loaded | async) === false) {
+      <ion-spinner></ion-spinner>
+    }
+  </ion-searchbar>
+  @if (searchService.searchQuery.length > 1) {
+    <div>
+      @if (searchService.matches.length > 0) {
+        <div class="result-container">
+          <h4>Matches</h4>
+          <mtd-search-entry-list
+            [entries]="searchService.matches"
+            [searchterm]="searchService.searchQuery"
+            [threshold]="0"
+          ></mtd-search-entry-list>
+        </div>
+      }
+      @if (searchService.partMatches.length > 0) {
+        <div class="result-container">
+          <h4>Partial Matches</h4>
+          <mtd-search-entry-list
+            [entries]="searchService.partMatches"
+            [searchterm]="searchService.searchQuery"
+            [threshold]="partialThreshold"
+          ></mtd-search-entry-list>
+        </div>
+      }
+      @if (searchService.maybeMatches.length > 0) {
+        <div class="result-container">
+          <h4>Maybe you meant this?</h4>
+          <mtd-search-entry-list
+            [entries]="searchService.maybeMatches"
+            [searchterm]="searchService.searchQuery"
+            [threshold]="maybeThreshold"
+          ></mtd-search-entry-list>
+        </div>
+      }
+      @if (searchService.matches.length === 0 && searchService.partMatches.length === 0 && searchService.maybeMatches.length === 0) {
+        <div
+          class="result-container"
+          >
+          <h6>
+            Sorry, we couldn't find any words matching '{{ searchService.searchQuery
+            }}'. Please try something else.
+          </h6>
+        </div>
+      }
     </div>
-  </div>
+  }
 </ion-content>

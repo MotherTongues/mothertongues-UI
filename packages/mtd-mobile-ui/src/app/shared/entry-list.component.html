@@ -1,32 +1,38 @@
 <div class="browseElements">
-  <ion-list *ngIf="entries.length > 0">
-    <div *ngIf="$entriesHash | async as entriesHash">
-      <ion-item
-        class="matchContainer"
-        (click)="showModal(entriesHash[entry])"
-        *ngFor="let entry of entryIDS"
-        text-wrap
-      >
-        <ion-checkbox
-          color="danger"
-          [checked]="entriesHash[entry]['checked']"
-          *ngIf="edit"
-        ></ion-checkbox>
-        <ion-label>
-          <div class="langMatched matchLeftContainer">
-            <span class="langMatched response browseL1">{{
-              entriesHash[entry].word
-            }}</span>
-          </div>
-          <div class="matchRightContainer">
-            <span class="response matchRightDiv">{{
-              entriesHash[entry].definition
-            }}</span>
-          </div>
-        </ion-label>
-      </ion-item>
-    </div>
-  </ion-list>
+  @if (entries.length > 0) {
+    <ion-list>
+      @if ($entriesHash | async; as entriesHash) {
+        <div>
+          @for (entry of entryIDS; track entry) {
+            <ion-item
+              class="matchContainer"
+              (click)="showModal(entriesHash[entry])"
+              text-wrap
+              >
+              @if (edit) {
+                <ion-checkbox
+                  color="danger"
+                  [checked]="entriesHash[entry]['checked']"
+                ></ion-checkbox>
+              }
+              <ion-label>
+                <div class="langMatched matchLeftContainer">
+                  <span class="langMatched response browseL1">{{
+                    entriesHash[entry].word
+                  }}</span>
+                </div>
+                <div class="matchRightContainer">
+                  <span class="response matchRightDiv">{{
+                    entriesHash[entry].definition
+                  }}</span>
+                </div>
+              </ion-label>
+            </ion-item>
+          }
+        </div>
+      }
+    </ion-list>
+  }
   <ion-modal [isOpen]="isModalOpen" (didDismiss)="didDismiss()">
     <ng-template>
       <ion-header>
