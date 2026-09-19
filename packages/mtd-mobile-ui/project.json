@@ -92,17 +92,17 @@
       "continuous": true,
       "configurations": {
         "production": {
-          "browserTarget": "mtd-mobile-ui:build:production"
+          "buildTarget": "mtd-mobile-ui:build:production"
         },
         "development": {
-          "browserTarget": "mtd-mobile-ui:build:development"
+          "buildTarget": "mtd-mobile-ui:build:development"
         }
       }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "mtd-mobile-ui:build"
+        "buildTarget": "mtd-mobile-ui:build"
       }
     },
     "lint": {
