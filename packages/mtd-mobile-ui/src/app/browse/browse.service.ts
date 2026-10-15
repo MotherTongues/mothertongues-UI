@@ -19,6 +19,15 @@ export class BrowseService {
     this.$currentEntries,
     this.$manualTrigger,
   ]).pipe(map(([start, entries, _]) => entries.slice(start, start + 10)));
+  // The 1-based first/last entry numbers currently shown, capped at the total
+  currentRange$: Observable<{ first: number; last: number; total: number }> =
+    combineLatest([this.$currentIndexStart, this.$currentEntries]).pipe(
+      map(([start, entries]) => ({
+        first: entries.length ? start + 1 : 0,
+        last: Math.min(start + 10, entries.length),
+        total: entries.length,
+      }))
+    );
   // Emit a combination of the start index and current entries any time either of them changes
   currentLetter$: Observable<string> = this.currentTen$.pipe(
     map((entries) => {

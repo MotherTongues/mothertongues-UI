@@ -82,9 +82,12 @@ export class BrowsePage implements OnInit {
 
   goForward() {
     this.browseService.$currentIndexStart.next(
-      Math.min(
-        this.browseService.$currentEntries.value.length - 10,
-        this.browseService.$currentIndexStart.value + 10
+      Math.max(
+        0,
+        Math.min(
+          this.browseService.$currentEntries.value.length - 10,
+          this.browseService.$currentIndexStart.value + 10
+        )
       )
     );
   }

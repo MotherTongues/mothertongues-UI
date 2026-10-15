@@ -69,17 +69,15 @@
             ></ion-icon>
           </ion-button>
         </ion-buttons>
-        @if ({ start: browseService.$currentIndexStart | async }; as currentStart) {
+        @if (browseService.currentRange$ | async; as range) {
           <div
             class="browse-info"
             >
-            @if (currentStart.start !== null) {
-              <ion-title
-                >Viewing {{ currentStart.start + 1 }} to {{ currentStart.start + 10 }}
-                of {{ (browseService.$currentEntries | async)?.length }} Dictionary
-                Entries</ion-title
-                >
-              }
+            <ion-title
+              >Viewing {{ range.first }} to {{ range.last }}
+              of {{ range.total }} Dictionary
+              Entries</ion-title
+              >
             </div>
           }
           <ion-buttons slot="end" class="bar-buttons bar-buttons-ios">
