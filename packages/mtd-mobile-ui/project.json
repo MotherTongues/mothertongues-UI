@@ -83,6 +83,22 @@
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true
+        },
+        "pydev-serve": {
+          "assets": [
+            {
+              "glob": "**/*",
+              "input": "packages/mtd-mobile-ui/src/assets",
+              "output": "assets",
+              "ignore": ["dictionary_data.json"]
+            },
+            {
+              "glob": "**/*.svg",
+              "input": "node_modules/ionicons/dist/ionicons/svg",
+              "output": "./svg"
+            }
+          ],
+          "scripts": ["packages/mtd-mobile-ui/dev/mtd-reload.js"]
         }
       }
     },
@@ -96,6 +112,10 @@
         },
         "development": {
           "buildTarget": "mtd-mobile-ui:build:development"
+        },
+        "pydev": {
+          "buildTarget": "mtd-mobile-ui:build:pydev,pydev-serve",
+          "proxyConfig": "packages/mtd-mobile-ui/proxy.pydev.conf.js"
         }
       }
     },
