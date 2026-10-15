@@ -14,6 +14,7 @@ import {
 } from '@mothertongues/search';
 import { BehaviorSubject } from 'rxjs';
 import { SettingsService } from './settings.service';
+import { BookmarksService } from './bookmarks.service';
 
 @Component({
     selector: 'mtd-entry',
@@ -27,16 +28,24 @@ export class EntryComponent implements OnInit, OnDestroy {
   @Input() entry!: DictionaryEntryExportFormat;
   audio_playing: HTMLAudioElement[] = [];
   playing = false;
-  constructor(public dataService: DataService, public settingsService: SettingsService) {
-    // this.entry.
-  }
+  constructor(
+    public dataService: DataService,
+    public settingsService: SettingsService,
+    public bookmarksService: BookmarksService
+  ) {}
 
-  ngOnInit(): void {
-    console.log(this.entry);
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.stopAllAudio();
+  }
+
+  isBookmarked() {
+    return this.bookmarksService.isBookmarked(this.entry);
+  }
+
+  toggleBookmark() {
+    this.bookmarksService.toggleBookmark(this.entry);
   }
 
   changeOptional() {

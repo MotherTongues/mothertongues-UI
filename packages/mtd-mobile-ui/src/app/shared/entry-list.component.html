@@ -6,13 +6,16 @@
           @for (entry of entryIDS; track entry) {
             <ion-item
               class="matchContainer"
-              (click)="showModal(entriesHash[entry])"
+              (click)="onItemClick(entriesHash[entry])"
               text-wrap
               >
               @if (edit) {
                 <ion-checkbox
+                  slot="start"
                   color="danger"
-                  [checked]="entriesHash[entry]['checked']"
+                  [checked]="selected.has(entry)"
+                  [attr.aria-label]="'Select ' + entriesHash[entry].word"
+                  (ionChange)="setSelected(entry, $event.detail.checked)"
                 ></ion-checkbox>
               }
               <ion-label>

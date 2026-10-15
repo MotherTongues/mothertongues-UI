@@ -1,0 +1,135 @@
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.empty {
+  text-align: center;
+  color: var(--ion-color-medium);
+  margin-top: 15vh;
+}
+
+.empty__icon {
+  font-size: 64px;
+}
+
+.setup {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.setup + .ion-padding {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.study {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.progress {
+  margin: 0 0 12px;
+  color: var(--ion-color-medium);
+  font-variant-numeric: tabular-nums;
+}
+
+.flashcard {
+  width: 100%;
+  height: min(55vh, 420px);
+  perspective: 1200px;
+  cursor: pointer;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  border-radius: 16px;
+}
+
+.flashcard:focus-visible {
+  outline: 3px solid var(--ion-color-primary);
+  outline-offset: 4px;
+}
+
+.flashcard__inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.4s ease;
+  transform-style: preserve-3d;
+}
+
+.flashcard--flipped .flashcard__inner {
+  transform: rotateY(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flashcard__inner {
+    transition: none;
+  }
+}
+
+.flashcard__face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px;
+  text-align: center;
+  overflow: hidden;
+  border-radius: 16px;
+  background: var(--ion-card-background, var(--ion-item-background, #fff));
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.flashcard__face--back {
+  transform: rotateY(180deg);
+}
+
+.flashcard__lang {
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ion-color-medium);
+}
+
+.flashcard__text {
+  font-size: 2rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.flashcard__hint,
+.flashcard__prompt {
+  color: var(--ion-color-medium);
+}
+
+.flashcard__img {
+  max-height: 40%;
+  max-width: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.audio {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  min-height: 52px;
+  margin-top: 12px;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}

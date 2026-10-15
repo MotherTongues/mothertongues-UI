@@ -10,9 +10,9 @@ import { DataService } from './data.service';
 export class AppComponent implements OnInit {
   public appPages = [
     { title: 'Search', url: '/search', icon: 'search' },
-    { title: 'Browse', url: '/browse', icon: '' },
+    { title: 'Browse', url: '/browse', icon: 'list' },
     { title: 'Bookmarks', url: '/bookmarks', icon: 'bookmark' },
-    { title: 'Flashcards', url: '/flashcards', icon: '' },
+    { title: 'Flashcards', url: '/flashcards', icon: 'albums' },
     { title: 'About', url: '/about', icon: 'information-circle' },
   ];
   title = 'Mother Tongues Dictionary';

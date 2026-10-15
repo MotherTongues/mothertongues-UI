@@ -1,7 +1,10 @@
 import {
   Component,
+  EventEmitter,
   Input,
   OnChanges,
+  Output,
+  SimpleChanges,
   OnInit,
   ViewEncapsulation,
   ChangeDetectionStrategy
@@ -25,6 +28,10 @@ export class EntryListComponent implements OnChanges, OnInit {
   parentEdit?: boolean;
   @Input()
   entries!: DictionaryEntryExportFormat[];
+  // Emits the IDs of the entries checked while in edit mode
+  @Output()
+  selectionChange = new EventEmitter<Set<string>>();
+  selected = new Set<string>();
   entryIDS: string[] = [];
   isModalOpen = false;
   modalEntry: DictionaryEntryExportFormat;
@@ -46,6 +53,24 @@ export class EntryListComponent implements OnChanges, OnInit {
     this.entryIDS = entryIDS;
   }
 
+  onItemClick(entry: DictionaryEntryExportFormat) {
+    // In edit mode the checkbox handles the click instead
+    if (!this.edit) {
+      this.showModal(entry);
+    }
+  }
+
+  setSelected(entryID: string, checked: boolean) {
+    const selected = new Set(this.selected);
+    if (checked) {
+      selected.add(entryID);
+    } else {
+      selected.delete(entryID);
+    }
+    this.selected = selected;
+    this.selectionChange.emit(selected);
+  }
+
   showModal(entry: DictionaryEntryExportFormat) {
     this.modalEntry = entry;
     this.isModalOpen = true;
@@ -59,16 +84,15 @@ export class EntryListComponent implements OnChanges, OnInit {
     this.isModalOpen = false;
   }
 
-  ngOnChanges() {
+  ngOnChanges(changes: SimpleChanges) {
     this.getEntryIDS();
     if (this.parentEdit !== undefined) {
       this.edit = this.parentEdit;
     }
-  }
-
-  trackByFn(index: number, item: DictionaryEntryExportFormat) {
-    console.log(item);
-    console.log(index);
-    return item.entryID;
+    // Start each edit session with nothing selected
+    if (changes['parentEdit'] && this.selected.size > 0) {
+      this.selected = new Set();
+      this.selectionChange.emit(this.selected);
+    }
   }
 }

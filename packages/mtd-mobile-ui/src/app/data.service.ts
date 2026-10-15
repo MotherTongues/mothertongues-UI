@@ -32,7 +32,6 @@ export class DataService {
     [id: string]: DictionaryEntryExportFormat[];
   }>({});
   public $categories = new BehaviorSubject<string[]>([]);
-  public $bookmarks = new BehaviorSubject<DictionaryEntryExportFormat[]>([]);
   constructor(private http: HttpClient) {
     this.http
       .get(environment.dataPath)
@@ -78,7 +77,9 @@ export class DataService {
         });
         sources.sort();
         themes.sort();
-        this.$categories.next(['All'].concat(sources).concat(themes));
+        // A single source would contain the same entries as 'All'
+        const sourceCategories = sources.length > 1 ? sources : [];
+        this.$categories.next(['All'].concat(sourceCategories).concat(themes));
         this.$categorizedEntries.next(categorizedEntries);
         // Load Searchers
         [this.l1_search, this.l2_search] = constructSearchers(mtdData);

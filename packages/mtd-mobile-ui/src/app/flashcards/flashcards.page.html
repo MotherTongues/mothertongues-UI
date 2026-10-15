@@ -4,6 +4,11 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>Flashcards</ion-title>
+    @if (flashcards.studying) {
+      <ion-buttons slot="end">
+        <ion-button (click)="changeDeck()">Change deck</ion-button>
+      </ion-buttons>
+    }
   </ion-toolbar>
 </ion-header>
 
@@ -13,4 +18,168 @@
       <ion-title size="large">Flashcards</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  @if ((dataService.$loaded | async) === false) {
+    <div class="center ion-padding">
+      <ion-spinner></ion-spinner>
+    </div>
+  } @else if (!hasDecks) {
+    <div class="empty ion-padding">
+      <ion-icon name="albums-outline" class="empty__icon"></ion-icon>
+      <p>There are no flashcards yet.</p>
+      <p>Bookmark some words to make your own deck.</p>
+    </div>
+  } @else if (!flashcards.studying) {
+    <!-- Setup -->
+    <ion-list class="setup" lines="full">
+      <ion-item>
+        <ion-select
+          label="Deck"
+          labelPlacement="stacked"
+          [value]="flashcards.deckID"
+          (ionChange)="onDeckChange($event)"
+          >
+          <ion-select-option
+            [value]="BOOKMARKS_DECK"
+            [disabled]="bookmarks.length === 0"
+            >Bookmarks ({{ bookmarks.length }})</ion-select-option
+            >
+          @for (deck of categoryDecks; track deck.id) {
+            <ion-select-option [value]="deck.id">{{
+              deckLabel(deck)
+            }}</ion-select-option>
+          }
+        </ion-select>
+      </ion-item>
+      <ion-radio-group
+        [value]="flashcards.direction"
+        (ionChange)="onDirectionChange($event)"
+        >
+        <ion-list-header>
+          <ion-label>Direction</ion-label>
+        </ion-list-header>
+        <ion-item>
+          <ion-radio value="L1-L2">{{ L1 }} → {{ L2 }}</ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-radio value="L2-L1">{{ L2 }} → {{ L1 }}</ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-radio value="mixed">Mixed</ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-list>
+    <div class="ion-padding">
+      <ion-button
+        expand="block"
+        [disabled]="selectedDeckSize === 0"
+        (click)="start()"
+        >Start ({{ selectedDeckSize }}
+        {{ selectedDeckSize === 1 ? 'card' : 'cards' }})</ion-button
+        >
+    </div>
+  } @else if (flashcards.current; as card) {
+    <!-- Study -->
+    <div class="study ion-padding">
+      <p class="progress" aria-live="polite">
+        {{ flashcards.index + 1 }} / {{ flashcards.cards.length }}
+      </p>
+      <div
+        #card
+        class="flashcard"
+        [class.flashcard--flipped]="flashcards.flipped"
+        role="button"
+        tabindex="0"
+        [attr.aria-label]="
+          flashcards.flipped ? 'Show the front of the card' : 'Show the answer'
+        "
+        (click)="flip()"
+        (keydown.enter)="flip()"
+        (keydown.space)="$event.preventDefault(); flip()"
+        >
+        <div class="flashcard__inner">
+          <div
+            class="flashcard__face flashcard__face--front"
+            [attr.aria-hidden]="flashcards.flipped"
+            >
+            <span class="flashcard__lang">{{
+              card.front === 'L1' ? L1 : L2
+            }}</span>
+            <span class="flashcard__text">{{ sideText(card, card.front) }}</span>
+            <span class="flashcard__hint">Tap to flip</span>
+          </div>
+          <div
+            class="flashcard__face flashcard__face--back"
+            [attr.aria-hidden]="!flashcards.flipped"
+            >
+            @if (card.entry.img) {
+              <img
+                class="flashcard__img"
+                alt="Image for {{ card.entry.word }}"
+                src="{{ card.entry.img }}"
+              />
+            }
+            <span class="flashcard__lang">{{
+              backSide(card) === 'L1' ? L1 : L2
+            }}</span>
+            <span class="flashcard__text">{{
+              sideText(card, backSide(card))
+            }}</span>
+            <span class="flashcard__prompt">{{ sideText(card, card.front) }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="audio">
+        @if (flashcards.flipped) {
+          @if (playing) {
+            <ion-button color="danger" (click)="stopAudio()">
+              <ion-icon slot="start" name="musical-notes-outline"></ion-icon>
+              Stop
+            </ion-button>
+          } @else {
+            @for (audio of playableAudio(card.entry); track $index) {
+              <ion-button fill="outline" (click)="playAudio(audio)">
+                <ion-icon slot="start" name="musical-notes-outline"></ion-icon>
+                @if (audio.description && audio.description !== 'null') {
+                  {{ audio.description }}
+                } @else {
+                  Play
+                }
+              </ion-button>
+            }
+          }
+        }
+      </div>
+
+      <div class="nav">
+        <ion-button
+          fill="clear"
+          class="nav__previous"
+          aria-label="Previous card"
+          [disabled]="flashcards.index === 0"
+          (click)="previous()"
+          >
+          <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" (click)="shuffle()">
+          <ion-icon slot="start" name="shuffle-outline"></ion-icon>
+          Shuffle
+        </ion-button>
+        <ion-button fill="clear" (click)="restart()">
+          <ion-icon slot="start" name="refresh-outline"></ion-icon>
+          Restart
+        </ion-button>
+        <ion-button
+          fill="clear"
+          class="nav__next"
+          aria-label="Next card"
+          [disabled]="flashcards.index === flashcards.cards.length - 1"
+          (click)="next()"
+          >
+          <ion-icon slot="icon-only" name="chevron-forward-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+  }
 </ion-content>

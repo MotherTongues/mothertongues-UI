@@ -13,3 +13,19 @@
 ion-note {
   font-size: inherit;
 }
+
+.entry__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.entry__title {
+  min-width: 0;
+}
+
+.entry__bookmark {
+  flex-shrink: 0;
+  margin: -8px -8px 0 0;
+}

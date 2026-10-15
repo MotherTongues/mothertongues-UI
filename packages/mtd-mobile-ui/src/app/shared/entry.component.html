@@ -5,12 +5,36 @@
   }
   <!-- Main Information -->
   <ion-card-header>
-    <ion-card-title>{{ entry.word }}</ion-card-title>
-    <ion-card-subtitle>{{ entry.definition }}</ion-card-subtitle>
-    <!-- <ion-button>
-    <ion-icon slot="start" name="musical-notes-outline"></ion-icon>
-  </ion-button> -->
-</ion-card-header>
+    <div class="entry__header">
+      <div class="entry__title">
+        <ion-card-title>{{ entry.word }}</ion-card-title>
+        <ion-card-subtitle>{{ entry.definition }}</ion-card-subtitle>
+      </div>
+      <!-- Separate buttons with static aria attributes: binding aria-* on
+      ion-button can throw before Ionic has loaded the component -->
+      @if (isBookmarked()) {
+        <ion-button
+          fill="clear"
+          class="entry__bookmark"
+          aria-label="Remove bookmark"
+          aria-pressed="true"
+          (click)="toggleBookmark()"
+          >
+          <ion-icon slot="icon-only" name="bookmark" color="primary"></ion-icon>
+        </ion-button>
+      } @else {
+        <ion-button
+          fill="clear"
+          class="entry__bookmark"
+          aria-label="Add bookmark"
+          aria-pressed="false"
+          (click)="toggleBookmark()"
+          >
+          <ion-icon slot="icon-only" name="bookmark-outline" color="medium"></ion-icon>
+        </ion-button>
+      }
+    </div>
+  </ion-card-header>
 
 <ion-card-content>
   <!-- Audio -->

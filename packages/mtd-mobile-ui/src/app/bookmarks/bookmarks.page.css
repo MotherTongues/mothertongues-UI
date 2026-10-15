@@ -3,3 +3,22 @@
   position: fixed;
   width: 100%;
 }
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.empty {
+  text-align: center;
+  color: var(--ion-color-medium);
+  margin-top: 15vh;
+}
+
+.empty__icon {
+  font-size: 64px;
+}
+
+.empty p ion-icon {
+  vertical-align: middle;
+}

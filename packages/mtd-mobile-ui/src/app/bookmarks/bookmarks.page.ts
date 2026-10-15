@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { DataService } from '../data.service';
 import { BehaviorSubject } from 'rxjs';
 import { DictionaryEntryExportFormat } from '@mothertongues/search';
+import { BookmarksService } from '../shared/bookmarks.service';
 
 @Component({
     selector: 'mtd-bookmarks',
@@ -13,11 +13,25 @@ import { DictionaryEntryExportFormat } from '@mothertongues/search';
 export class BookmarksPage implements OnInit {
   $bookmarks: BehaviorSubject<DictionaryEntryExportFormat[]>;
   edit = false;
-  constructor(public dataService: DataService) {}
+  selected = new Set<string>();
+  constructor(public bookmarksService: BookmarksService) {}
 
   ngOnInit() {
-    this.$bookmarks = this.dataService.$bookmarks;
+    this.$bookmarks = this.bookmarksService.$bookmarks;
   }
 
-  removeEntries() {}
+  toggleEdit() {
+    this.edit = !this.edit;
+    this.selected = new Set();
+  }
+
+  onSelectionChange(selected: Set<string>) {
+    this.selected = selected;
+  }
+
+  removeEntries() {
+    this.bookmarksService.removeBookmarks(this.selected);
+    this.selected = new Set();
+    this.edit = false;
+  }
 }

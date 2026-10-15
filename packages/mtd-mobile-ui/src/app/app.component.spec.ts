@@ -7,6 +7,8 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
 import { RouterTestingModule } from '@angular/router/testing';
+import { RouterLink } from '@angular/router';
+import { By } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 
@@ -43,14 +45,16 @@ describe('AppComponent', () => {
   it('should have urls', async () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
-    const app = fixture.nativeElement;
-    const menuItems = app.querySelectorAll('ion-item');
-    expect(menuItems.length).toEqual(5);
-    expect(menuItems[0].getAttribute('ng-reflect-router-link')).toEqual(
-      '/search'
-    );
-    expect(menuItems[1].getAttribute('ng-reflect-router-link')).toEqual(
-      '/browse'
-    );
+    // ng-reflect-* attributes are no longer rendered, so read the RouterLinks
+    const urls = fixture.debugElement
+      .queryAll(By.directive(RouterLink))
+      .map((el) => el.injector.get(RouterLink).urlTree?.toString());
+    expect(urls).toEqual([
+      '/search',
+      '/browse',
+      '/bookmarks',
+      '/flashcards',
+      '/about',
+    ]);
   });
 });
